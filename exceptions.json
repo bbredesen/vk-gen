@@ -1,0 +1,186 @@
+{
+    "comment": "This file contains a static list of values and definitions from vk.xml. Khronos got a little 'cute' with the XML API file, using C-syntax bit operations and defines to specify values. Some definitions are also inconsistent (see VK_TRUE and VK_FALSE, for example).",
+    "platform": {
+        "comment": "Platform maps a Vulkan platform name to a Go build tag and set of imports.",
+        "vk_platform": {},
+        "win32": {
+            "go:build": "windows",
+            "go:imports": ["golang.org/x/sys/windows"]
+        },
+        "xlib": {
+            "go:build": "linux",
+            "go:imports": []
+        },
+        "xlib_xrandr": {
+            "go:build": "linux",
+            "go:imports": []
+        },
+        "xcb": {
+            "go:build": "linux",
+            "go:imports": []
+        },
+        "wayland": {
+            "go:build": "linux",
+            "go:imports": []
+        },
+        "directfb": {
+            "go:build": "linux",
+            "go:imports": []
+        },
+        "android": {
+            "go:build": "android",
+            "go:imports": []
+        },
+        "vi": {
+            "comment" : "Nintendo Vi...not clear if Go can be compiled for Nintendo platforms",
+            "go:build": "!ignore",
+            "go:imports": []
+        },
+        "ios": {
+            "go:build": "ios",
+            "go:imports": []
+        },
+        "macos": {
+            "go:build": "darwin",
+            "go:imports": []
+        },
+        "metal": {
+            "go:build": "darwin",
+            "go:imports": []
+        },
+        "fuchsia": {
+            "comment": "Guessing at this build tag. Go can be built for Fuchsia, but a quick search did not turn up a specific build tag for the OS",
+            "go:build": "fuchsia",
+            "go:imports": []
+        },
+        "ggp": {
+            "comment": "Guessing at this build tag, or it might be useful to just have a custom build tag for Stadia.",
+            "go:build": "stadia",
+            "go:imports": []
+        },
+        "provisional": {
+            "comment": "Custom build tag for provisional/beta Vulkan extensions.",
+            "go:build": "vk_provisional",
+            "go:imports": []
+        },
+        "screen": {
+            "comment" : "Go is not supported on QNX, nor is there any indication that it ever will be.",
+            "go:build": "!ignore",
+            "go:imports": []
+        }
+    },
+
+    "include": {
+        "comment": "include types have an optional build tag and define a set of types that are rolled into the build. Includes must be listed here with a platform to be included in the build.",
+        "windows.h": {
+            "platform": "win32",
+            "go:imports": ["golang.org/x/sys/windows"],
+            "types": {
+                "HANDLE": { "goType": "windows.Handle" },
+                "HINSTANCE": { "goType": "windows.Handle" },
+                "HWND": { "goType": "windows.HWND" },
+                "HMONITOR": { "goType": "windows.Handle" },
+                "DWORD": { "goType": "uint32" },
+                "SECURITY_ATTRIBUTES": { "goType": "windows.SecurityAttributes" },
+                "LPCWSTR": { "goType": "unsafe.Pointer" }
+            }
+        },
+        "vk_platform": {
+            "types": {
+                "int8_t":  { "goType": "int8", "byteWidth": 1, "primitive": true },
+                "uint8_t": { "goType": "uint8", "byteWidth": 1, "primitive": true },
+                "int16_t":  { "goType": "int16", "byteWidth": 2, "primitive": true },
+                "uint16_t":  { "goType": "uint16", "byteWidth": 2, "primitive": true },
+                "int32_t":  { "goType": "int32", "byteWidth": 4, "primitive": true },
+                "uint32_t": { 
+                    "goType": "uint32", "byteWidth": 4, "primitive": true,
+                    "constants": {
+                        "VK_REMAINING_MIP_LEVELS": "^uint32(0)",
+                        "VK_REMAINING_ARRAY_LAYERS": "^uint32(0)",
+                        "VK_ATTACHMENT_UNUSED": "^uint32(0)",
+                        "VK_QUEUE_FAMILY_IGNORED": "^uint32(0)",
+                        "VK_QUEUE_FAMILY_EXTERNAL":  "^uint32(1)",
+                        "VK_QUEUE_FAMILY_FOREIGN_EXT": "^uint32(2)",
+                        "VK_SUBPASS_EXTERNAL": "^uint32(0)",
+                        "VK_SHADER_UNUSED_KHR": "^uint32(0)"
+                    }
+                },
+                "int64_t":  { "goType": "int64", "byteWidth": 8, "primitive": true },
+                "uint64_t": {
+                    "goType": "uint64", "byteWidth": 8, "primitive": true,
+                    "constants": {
+                        "VK_WHOLE_SIZE": "^uint64(0)"
+                    }
+                },
+                "size_t":  { "goType": "uintptr", "byteWidth": 8, "primitive": true },
+                "char":  { "goType": "byte", "byteWidth": 1, "primitive": true },
+                "float" : {
+                    "goType": "float32", "byteWidth": 4, "primitive": true,
+                    "constants": {
+                        "VK_LOD_CLAMP_NONE" : "1000.0"
+                    }
+                },
+                "double" : { "goType": "float64", "byteWidth": 8, "primitive": true},
+                "int":  { "goType": "int32", "byteWidth": 4, "primitive": true },
+                
+                "void":  { "goType": "!none" , "primitive": true },
+                "uintptr_t" : { "goType": "uintptr", "byteWidth": 8, "primitive": true },
+                "!empty_struct": { "goType": "struct{}", "byteWidth": 0, "primitive": true },
+                "!pointer": { "goType": "unsafe.Pointer", "byteWidth": 8, "primitive": true }
+
+            }
+        }
+    },
+
+    "basetype": {
+        "VkBool32": {
+            "comment": "must be re-defined as an exception, becuase vk.xml specifies the type of VK_TRUE/FALSE as uint32_t, not VkBool32",
+            "underlyingTypeName": "uint32_t",
+            "constants" : {
+                "VK_TRUE": "1",
+                "VK_FALSE": "0"
+            }
+        },
+        "comment": "TODO: Vulkan pointers to functions should be parsed from the XML file to automatically handle future pointer types. (<type category=funcpointer>) Note that actually providing a custom callback function to the API might not be simple or realistic.",
+        "PFN_vkAllocationFunction": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkFreeFunction": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkInternalAllocationNotification": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkInternalFreeNotification": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkReallocationFunction": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkVoidFunction": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkDebugReportCallbackEXT": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkDebugUtilsMessengerCallbackEXT": {
+            "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkDeviceMemoryReportCallbackEXT": {
+            "underlyingTypeName": "!pointer"
+        }
+    },
+
+    "handle": {
+        "VK_DEFINE_HANDLE": { "publicName": "handle", "underlyingType": "uintptr_t",
+            "constants": {
+                "VK_NULL_HANDLE" : "0"
+            }
+        },
+        "VK_DEFINE_NON_DISPATCHABLE_HANDLE": { 
+            "publicName": "nonDispatchableHandle", 
+            "underlyingType": "uint64_t",
+            "comment": "The Vulkan spec specifically defines a handle as a platform pointer type (i.e., could be 32 bits) and a non-dispatchable handle as a 64 bit type."
+         }
+    }
+}
