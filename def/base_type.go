@@ -3,6 +3,7 @@ package def
 import (
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/antchfx/xmlquery"
 	"github.com/sirupsen/logrus"
@@ -10,11 +11,76 @@ import (
 )
 
 type baseType struct {
-	definedType
+	simpleType
+
+	publicTypeNameOverride string
+
+	translateToPublicOverride, translateToInternalOverride string
+}
+
+func (t *baseType) Category() TypeCategory { return CatBasetype }
+
+func (t *baseType) PublicName() string {
+	if t.publicTypeNameOverride != "" {
+		return t.publicTypeNameOverride
+	}
+	return t.simpleType.PublicName()
+}
+
+func (t *baseType) IsIdenticalPublicAndInternal() bool {
+	return t.publicTypeNameOverride == ""
+}
+
+func (t *baseType) PrintPublicDeclaration(w io.Writer) {
+	t.PrintDocLink(w)
+	if t.publicTypeNameOverride != "" {
+		return
+		// fmt.Fprintf(w, "type %s %s\n", t.PublicName(), t.publicTypeNameOverride)
+	} else {
+		fmt.Fprintf(w, "type %s %s\n", t.PublicName(), t.resolvedUnderlyingType.InternalName())
+	}
+}
+
+func (t *baseType) PrintInternalDeclaration(w io.Writer) {
+	if t.publicTypeNameOverride != "" {
+		fmt.Fprintf(w, "type %s %s\n", t.InternalName(), t.resolvedUnderlyingType.InternalName())
+	}
+}
+
+func (t *baseType) TranslateToPublic(inputVar string) string {
+	if t.translateToPublicOverride != "" {
+		return fmt.Sprintf("%s(%s)", t.translateToPublicOverride, inputVar)
+	} else {
+		return t.simpleType.TranslateToPublic(inputVar)
+	}
+}
+
+func (t *baseType) TranslateToInternal(inputVar string) string {
+	if t.translateToInternalOverride != "" {
+		return fmt.Sprintf("%s(%s)", t.translateToInternalOverride, inputVar)
+	} else {
+		return t.simpleType.TranslateToInternal(inputVar)
+	}
+}
+
+func (t *baseType) PrintPublicToInternalTranslation(w io.Writer, inputVar, outputVar, _ string) {
+	if t.translateToPublicOverride != "" {
+		fmt.Fprintf(w, "%s := %s(%s)\n", outputVar, t.translateToInternalOverride, inputVar)
+	} else {
+		t.simpleType.PrintPublicToInternalTranslation(w, inputVar, outputVar, "")
+	}
+}
+
+func (t *baseType) PrintTranslateToInternal(w io.Writer, inputVar, outputVar string) {
+	if t.translateToInternalOverride != "" {
+		fmt.Fprintf(w, "%s = %s(%s)", outputVar, t.translateToPublicOverride, inputVar)
+	} else {
+		t.simpleType.PrintTranslateToInternal(w, inputVar, outputVar)
+	}
 }
 
 func ReadBaseTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//type[@category='basetype']") {
+	for _, node := range xmlquery.Find(doc, "//types/type[@category='basetype']") {
 		newType := NewBaseTypeFromXML(node)
 		if tr[newType.RegistryName()] != nil {
 			logrus.WithField("registry name", newType.RegistryName()).Warn("Overwriting base type in registry")
@@ -26,7 +92,6 @@ func ReadBaseTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) 
 func NewBaseTypeFromXML(node *xmlquery.Node) TypeDefiner {
 	rval := baseType{}
 	rval.registryName = xmlquery.FindOne(node, "name").InnerText()
-	rval.publicName = renameIdentifier(rval.registryName)
 
 	typeNode := xmlquery.FindOne(node, "type")
 	if typeNode == nil {
@@ -35,57 +100,54 @@ func NewBaseTypeFromXML(node *xmlquery.Node) TypeDefiner {
 		rval.underlyingTypeName = typeNode.InnerText()
 	}
 
+	// TODO: Count pointers here and handle appropriately
+	rval.pointerDepth = strings.Count(node.InnerText(), "*")
+	rval.underlyingTypeName = rval.underlyingTypeName + strings.Repeat("*", rval.pointerDepth)
+
 	return &rval
 }
 
 func ReadBaseTypeExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr ValueRegistry) {
 	exceptions.Get("basetype").ForEach(func(key, exVal gjson.Result) bool {
-		if key.String() == "comment" {
+		if key.String() == "!comment" {
 			return true
 		} // Ignore comments
 
-		entry := NewBaseTypeFromJSON(key, exVal)
+		entry := NewOrUpdateBaseTypeFromJSON(key.String(), exVal, tr, vr)
 		tr[key.String()] = entry
 
-		exVal.Get("constants").ForEach(func(ck, cv gjson.Result) bool {
-			newVal := NewConstantValue(ck.String(), cv.String(), key.String())
+		// exVal.Get("constants").ForEach(func(ck, cv gjson.Result) bool {
+		// 	newVal := NewConstantValue(ck.String(), cv.String(), key.String())
 
-			vr[newVal.RegistryName()] = newVal
-			return true
-		})
+		// 	vr[newVal.RegistryName()] = newVal
+		// 	return true
+		// })
 
 		return true
 	})
 
 }
-func NewBaseTypeFromJSON(key, json gjson.Result) TypeDefiner {
-	rval := baseType{}
+func NewOrUpdateBaseTypeFromJSON(key string, exception gjson.Result, tr TypeRegistry, vr ValueRegistry) TypeDefiner {
+	existing := tr[key]
+	var updatedEntry *baseType
 
-	rval.registryName = key.String()
-	rval.publicName = renameIdentifier(rval.registryName)
-	rval.underlyingTypeName = json.Get("underlyingTypeName").String()
-	rval.aliasRegistryName = json.Get("aliasName").String()
-
-	return &rval
-
-}
-
-func (t *baseType) PrintTranslateToInternal(w io.Writer, inputVar, outputVar string) {
-	if t.registryName == "VkBool32" {
-		// special case
-		fmt.Fprintf(w, "if %s {\n  %s = TRUE\n} else {\n  %s = FALSE\n}\n", inputVar, outputVar, outputVar)
+	if existing == nil {
+		logrus.WithField("registry type", key).Info("no existing registry entry for external type")
+		updatedEntry = &baseType{}
+		updatedEntry.registryName = key
 	} else {
-		t.definedType.PrintTranslateToInternal(w, inputVar, outputVar)
+		updatedEntry = existing.(*baseType)
 	}
-}
 
-func (t *baseType) PrintTranslateToPublic(w io.Writer, inputVar, outputVar string) {
-	if t.registryName == "VkBool32" {
-		// special case
-		fmt.Fprintf(w, "%s = (%s == TRUE)\n", outputVar, inputVar)
-	} else {
-		t.definedType.PrintTranslateToInternal(w, inputVar, outputVar)
+	if utn := exception.Get("underlyingTypeName").String(); utn != "" {
+		updatedEntry.underlyingTypeName = utn
 	}
-}
 
-func (t *baseType) Category() TypeCategory { return CatBasetype }
+	updatedEntry.publicTypeNameOverride = exception.Get("go:type").String()
+	updatedEntry.translateToPublicOverride = exception.Get("go:translatePublic").String()
+	updatedEntry.translateToInternalOverride = exception.Get("go:translateInternal").String()
+
+	updatedEntry.comment = exception.Get("comment").String()
+
+	return updatedEntry
+}

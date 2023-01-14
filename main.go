@@ -15,7 +15,7 @@ import (
 
 	"github.com/antchfx/xmlquery"
 	"github.com/bbredesen/vk-gen/def"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 )
 
@@ -25,31 +25,42 @@ var (
 
 func init() {
 	flag.StringVar(&inFileName, "inFile", "vk.xml", "Vulkan XML registry file to read")
-	flag.StringVar(&outDirName, "outDir", "output", "Directory to write go-vk output to")
+	flag.StringVar(&outDirName, "outDir", "vk", "Directory to write go-vk output to")
 
 	flag.Parse()
+
+	logrus.SetFormatter(&logrus.TextFormatter{ForceColors: true})
 }
 
 func main() {
+
 	_, err := os.Stat(outDirName)
 	if err != nil {
 		if os.IsNotExist(err) {
-			log.Debugf("Creating output directory %s", outDirName)
-			os.Mkdir(outDirName, 0777|fs.ModeDir)
-		} else {
-			log.WithError(err).Fatalf("Could not create output directory %s", outDirName)
+
+			if err := os.Mkdir(outDirName, 0777|fs.ModeDir); err != nil {
+				logrus.WithField("error", err).
+					Fatal("Could not create output directory")
+			} else {
+				logrus.WithField("directory", outDirName).
+					Info("Output directory created")
+			}
 		}
 	}
 
 	f, err := os.Open(inFileName)
 	if err != nil {
-		log.WithError(err).Fatalf("Could not open input file %s", inFileName)
+		logrus.WithField("error", err).
+			WithField("filename", inFileName).
+			Fatal("Could not open Vulkan registry file", inFileName, err)
 	}
 	defer f.Close()
 
 	xmlDoc, err := xmlquery.Parse(f)
 	if err != nil {
-		log.WithError(err).Fatalf("Could not parse XML from %s", inFileName)
+		logrus.WithField("filename", inFileName).
+			WithField("error", err).
+			Fatal("Could not parse XML from the provided file")
 	}
 
 	// feats := def.BuildVulkanFeatureSetFromXML(doc, "vulkan", "1.0")
@@ -59,10 +70,12 @@ func main() {
 
 	exceptionsBytes, err := os.ReadFile("exceptions.json")
 	if err != nil {
-		log.WithError(err).Fatalf("Could not parse json from exceptions.json")
+		logrus.WithField("error", err).
+			Fatal("Could not parse json from exceptions.json")
 	}
-	jsonDoc := gjson.ParseBytes(exceptionsBytes)
 
+	jsonDoc := gjson.ParseBytes(exceptionsBytes)
+	_ = jsonDoc
 	globalTypes := make(def.TypeRegistry)
 	globalValues := make(def.ValueRegistry)
 
@@ -79,110 +92,33 @@ func main() {
 		}
 	}
 
-	feat := def.ReadFeatureSetFromXML(xmlquery.FindOne(xmlDoc, "//feature[@api='TEMPORARY']"))
-	feat.Resolve(globalTypes, globalValues)
+	// externalTypes := globalTypes.SelectCategory(def.CatExternal)
 
-	// for _, rt := range feat.ResolvedTypes() {
-	// 	rt.PrintPublicDeclaration(os.Stdout)
-	// }
+	set := def.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_0']"))
+	// set.MergeWith(externalTypes)
 
-	// resolvedByCat := feat.ResolvedTypes().FilterByCategory()
-	for tc, reg := range feat.FilterTypesByCategory() { //ResolvedTypes().FilterByCategory() {
-		fname := reg.Filename()
+	// resolve against a feature set
+	// set := def.TestingIncludes(globalTypes)
+	set.Resolve(globalTypes, globalValues)
+
+	for tc, reg := range set.FilterTypesByCategory() { //ResolvedTypes().FilterByCategory() {
+		fname := reg.FilenameFragment()
 		plat := reg.Platform()
 
 		_, _ = fname, plat
 		printCategory(tc, reg)
 	}
 
-	// def.ReadPlatformTypesFromXML(doc, globalRegistry)
-	// def.ReadPlatformExceptionsFromJSON(exceptionsResult, globalRegistry)
-
-	// def.ReadIncludeTypesFromXML(doc, globalRegistry)
-	// def.ReadIncludeExceptionsFromJSON(exceptionsResult, globalRegistry)
-
-	// def.ReadPrimitiveTypesFromXML(doc, globalRegistry, globalValues)
-	// def.ReadPrimitiveExceptionsFromJSON(exceptionsResult, globalRegistry, globalValues)
-
-	// def.ReadBasetypesFromXML(doc, globalRegistry)
-
-	// def.ReadHandleTypesFromXML(doc, globalRegistry)
-	// def.ReadHandleTypeExceptionsFromJSON(exceptionsResult, globalRegistry, globalValues)
-
-	// def.ReadEnumTypesFromXML(doc, globalRegistry, globalValues)
-	// // Exceptions?
-
-	// def.ReadBitmaskTypesFromXML(doc, globalRegistry, globalValues)
-	// // Exceptions?
-
-	// def.ReadStructTypesFromXML(doc, globalRegistry, globalValues)
-
-	// def.ReadCommandTypesFromXML(doc, globalRegistry, globalValues)
-
-	// globalRegistry.ResolveAll()
-	// globalValues.ResolveAll(globalRegistry)
-
-	// for pname, platformReg := range globalRegistry.FilterByPlatform() {
-	// 	// platformReg.ResolveAll()
-	// 	// globalValues.ResolveAll(platformReg)
-
-	// 	var pt *def.PlatformType
-	// 	if tmp := platformReg[pname]; tmp != nil {
-	// 		pt = tmp.(*def.PlatformType)
-	// 	} else {
-	// 		pt = &def.PlatformType{}
-	// 	}
-
-	// 	// pt.Resolve(platformReg, globalValues)
-	// 	printPlatform(pt, platformReg)
-	// }
-
-	// tmpXml := xmlquery.FindOne(doc, "//feature[@api='vulkan' and @number='1.0']")
-
-	// tmpFeature := def.NewFeatureBlockFromXML(tmpXml)
-	// tmpFeature.Resolve(globalRegistry, globalValues)
-
-	// featureTypes := globalRegistry.FilterByFeature(tmpFeature)
-	// for _, t := range featureTypes {
-	// 	t.Resolve(globalRegistry, globalValues)
-	// }
-	// printFeature(tmpFeature, featureTypes)
-
-	// // ext := def.NewExtensionBlockFromXML(xmlquery.FindOne(doc, "//extension[@name='VK_KHR_display_swapchain']"))
-
-	// // ext.Resolve(globalRegistry)
-
-	// // printByCat(def.Include, tcs)
-	// // feats.PrintCategory(def.Include, tcs, os.Stdout)
 	copyStaticFiles()
-
-	log.Info("Running 'go generate' on output directory")
-	cmd := exec.Command("go", "generate", "./"+outDirName)
-	cmd.Stderr = os.Stderr
-	goGenErr := cmd.Run()
-	if goGenErr != nil {
-		fmt.Fprintf(os.Stderr, "Failed to generate: %s\n", goGenErr.Error())
-	}
-
 }
 
 const fileHeader string = "// Code generated by go-vk from %s at %s. DO NOT EDIT.\npackage vk\n\n"
 
-// func printPlatform(pt *def.Pla, tr def.TypeRegistry) {
-// 	if pt.BuildTag() == "!ignore" || len(tr) <= 1 {
-// 		return
-// 	}
-// 	// for range cats {}
-// 	printCategory(pt, def.Include, tr)
-// }
-
-// func printFeature(ft def.FeatureCollection, tr def.TypeRegistry) {
-// 	for cat := def.CatNone; cat < def.CatMaximum; cat++ {
-// 		printCategory(&def.PlatformType{}, cat, tr)
-// 	}
-// }
-
 func printCategory(tc def.TypeCategory, fc def.FeatureCollection) { //} pt *def.PlatformType, cat def.TypeCategory, tr def.TypeRegistry) {
+	if tc == def.CatInclude {
+		return
+	}
+
 	reg := fc.ResolvedTypes()
 	// vals := reg.Val
 
@@ -190,7 +126,7 @@ func printCategory(tc def.TypeCategory, fc def.FeatureCollection) { //} pt *def.
 		return
 	}
 
-	filename := fc.Filename()
+	filename := fc.FilenameFragment() + ".go"
 	f, _ := os.Create(outDirName + "/" + filename)
 	// explict f.Close() below; not defered because the file must be written before goimports is run
 
@@ -217,17 +153,37 @@ func printCategory(tc def.TypeCategory, fc def.FeatureCollection) { //} pt *def.
 	def.WriteStringerCommands(f, types, tc)
 	// }
 
+	importMap := make(def.ImportMap)
+	for _, t := range types {
+		t.RegisterImports(importMap)
+	}
+	if len(importMap) > 0 {
+		keys := importMap.SortedKeys()
+		fmt.Fprint(f, "import (\n")
+		for _, k := range keys {
+			fmt.Fprintf(f, "  \"%s\"\n", k)
+		}
+		fmt.Fprintln(f, ")")
+		fmt.Fprintln(f)
+	}
+
 	printTypes(f, types)
 
 	f.Close()
 
-	log.Info("Running goimports on ", filename)
+	logrus.WithField("file", filename).Info("Running goimports")
 
 	cmd := exec.Command("goimports", "-w", outDirName+"/"+filename)
-	cmd.Stderr = os.Stderr
+	e := &strings.Builder{}
+	cmd.Stderr = e
+
 	goimpErr := cmd.Run()
 	if goimpErr != nil {
-		fmt.Fprintf(os.Stderr, "Failed to format %s: %s\n", filename, goimpErr.Error())
+		logrus.
+			WithField("file", filename).
+			WithField("error", goimpErr.Error()).
+			WithField("goimports output", e.String()).
+			Error("Failed to format source file")
 	}
 
 }
@@ -246,7 +202,7 @@ func printTypes(w io.Writer, types []def.TypeDefiner) {
 		v.PrintFileInitContent(initBuf)
 
 		v.PrintPublicDeclaration(contentBuf)
-		// v.PrintInternalDeclaration(contentBuf)
+		v.PrintInternalDeclaration(contentBuf)
 	}
 
 	if globalBuf.Len() > 0 {
@@ -266,7 +222,7 @@ func printTypes(w io.Writer, types []def.TypeDefiner) {
 }
 
 func copyStaticFiles() {
-	log.Info("Copying static files")
+	logrus.Info("Copying static files")
 	source := "static_include"
 
 	// Naieve solution from https://stackoverflow.com/questions/51779243/copy-a-folder-in-go

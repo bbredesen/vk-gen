@@ -50,7 +50,7 @@ var lazyCommands map[vkCommandKey]vkCommand
 
 var dlHandle unsafe.Pointer
 
-func execTrampoline(commandKey vkCommandKey, args ...uintptr) Result {
+func execTrampoline(commandKey vkCommandKey, args ...uintptr) uintptr {
 	if dlHandle == nil {
 		var libName string
 		switch runtime.GOOS {
@@ -59,8 +59,11 @@ func execTrampoline(commandKey vkCommandKey, args ...uintptr) Result {
 			// Need to either wrap dlopen, use a third party library, or generate different defs by platform.
 			libName = "vulkan-1.dll"
 		case "darwin":
+			// TODO: Running on Mac/Darwin is tested only to the point of creating and
+			// destroying a Vulkan instance.
 			libName = "libMoltenVK.dylib"
 		case "linux":
+			// TODO: Opening/running on linux is completely untested.
 			libName = "libvulkan.1.dylib"
 		default:
 			panic("Unsupported GOOS at OpenLibrary: " + runtime.GOOS)
@@ -107,7 +110,7 @@ func execTrampoline(commandKey vkCommandKey, args ...uintptr) Result {
 
 	// Trampoline is always returning a file does not exist error in the second return value, so that error reporting is disabled
 
-	return Result(result) //, err
+	return uintptr(result) //, err
 }
 
 func stringToNullTermBytes(s string) *byte {

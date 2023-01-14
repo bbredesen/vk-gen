@@ -19,8 +19,13 @@ func trimVk(s string) string {
 	return r[1] + r[3]
 }
 
-func renameIdentifier(s string) string {
+// RenameIdentifier trims the leading Vk (or variants) and then renames any
+// keywords or typenames reserved in Go. Every type and value definer needs to
+// call this on every registry name.
+func RenameIdentifier(s string) string {
 	s = trimVk(s)
+	s = strings.TrimRight(s, "*")
+
 	switch s {
 	case "type":
 		return "typ"

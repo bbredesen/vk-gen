@@ -5,20 +5,6 @@ import (
 	"io"
 )
 
-type ValueDefiner interface {
-	RegistryName() string
-	PublicName() string
-
-	ValueString() string
-	ResolvedType() TypeDefiner
-
-	Resolve(TypeRegistry, ValueRegistry)
-
-	PrintPublicDeclaration(w io.Writer, withExplicitType bool)
-
-	IsAlias() bool
-}
-
 type genericValue struct {
 	registryName string
 	valueString  string
@@ -30,10 +16,11 @@ type genericValue struct {
 	resolvedAliasValue ValueDefiner
 
 	isResolved bool
+	isCore     bool
 }
 
 func (v *genericValue) RegistryName() string { return v.registryName }
-func (v *genericValue) PublicName() string   { return renameIdentifier(v.registryName) }
+func (v *genericValue) PublicName() string   { return RenameIdentifier(v.registryName) }
 func (v *genericValue) ValueString() string {
 	if v.IsAlias() {
 		return v.resolvedAliasValue.PublicName()
@@ -45,6 +32,7 @@ func (v *genericValue) ValueString() string {
 func (v *genericValue) ResolvedType() TypeDefiner { return v.resolvedType }
 
 func (v *genericValue) IsAlias() bool { return v.aliasValueName != "" }
+func (v *genericValue) IsCore() bool  { return v.isCore }
 
 func (v *genericValue) Resolve(tr TypeRegistry, vr ValueRegistry) {
 	if v.isResolved {
@@ -54,7 +42,7 @@ func (v *genericValue) Resolve(tr TypeRegistry, vr ValueRegistry) {
 	if v.IsAlias() {
 		v.resolvedAliasValue = vr[v.aliasValueName]
 		v.resolvedAliasValue.Resolve(tr, vr)
-		v.valueString = renameIdentifier(v.ValueString())
+		v.valueString = RenameIdentifier(v.ValueString())
 
 		v.resolvedType = v.resolvedAliasValue.ResolvedType()
 		v.resolvedType.Resolve(tr, vr)

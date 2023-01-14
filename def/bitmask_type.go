@@ -10,57 +10,51 @@ import (
 )
 
 type bitmaskType struct {
-	definedType
+	internalType
+
 	requiresTypeName     string
 	resolvedRequiresType TypeDefiner
+
+	bitwidth string
 }
 
-func (t *bitmaskType) Category() TypeCategory { return CatBitmask }
+func (t *bitmaskType) Category() TypeCategory             { return CatBitmask }
+func (t *bitmaskType) IsIdenticalPublicAndInternal() bool { return true }
 
 func (t *bitmaskType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
 		return nil
 	}
 
-	rval := t.definedType.Resolve(tr, vr)
+	rval := t.internalType.Resolve(tr, vr)
 
 	if t.requiresTypeName != "" {
+		// requiresType is the enum type; enum type needs to be defined as
+		// equivalent to this type in the output
 		t.resolvedRequiresType = tr[t.requiresTypeName]
-		t.resolvedRequiresType.SetAliasType(t)
+		rval.MergeWith(t.resolvedRequiresType.Resolve(tr, vr))
 
-		rval.includeTypeNames = append(rval.includeTypeNames, t.requiresTypeName)
-		rval.mergeWith(t.resolvedRequiresType.Resolve(tr, vr))
+		// Force set the enum's underlying type to be this bitmaskType
+		(t.resolvedRequiresType).(*enumType).underlyingTypeName = t.RegistryName()
+		(t.resolvedRequiresType).(*enumType).underlyingType = t
+
+		// rval.includeTypeNames = append(rval.includeTypeNames, t.requiresTypeName)
+		// rval.MergeWith(t.resolvedRequiresType.Resolve(tr, vr))
 	}
 
+	t.isResolved = true
 	return rval
 }
 
 func (t *bitmaskType) PrintPublicDeclaration(w io.Writer) {
-	// if t.ValuesAreIncludedElsewhere() {
-	// 	return
-	// }
-
-	// fmt.Fprintf(w, "// %s: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/%s.html\n",
-	// 	t.PublicName(), t.RegistryName(),
-	// )
-	t.PrintDocLink(w)
-
-	if t.comment != "" {
-		fmt.Fprintln(w, "// ", t.comment)
-	}
-
-	if t.IsAlias() {
-		fmt.Fprintf(w, "type %s = %s\n", t.PublicName(), t.resolvedAliasType.PublicName())
-	} else {
-		fmt.Fprintf(w, "type %s %s\n", t.PublicName(), t.resolvedUnderlyingType.PublicName())
-	}
+	t.internalType.PrintPublicDeclaration(w)
 
 	sort.Sort(byValue(t.values))
 
 	if len(t.values) > 0 {
 		fmt.Fprint(w, "const (\n")
-		for _, v := range t.values {
-			v.PrintPublicDeclaration(w, !v.IsAlias())
+		for i, v := range t.values {
+			v.PrintPublicDeclaration(w, i == 0) // || !v.IsAlias())
 		}
 		fmt.Fprint(w, ")\n\n")
 	}
@@ -73,8 +67,6 @@ func ReadBitmaskTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegist
 			logrus.WithField("registry name", newType.RegistryName()).Warn("Overwriting bitmask type in registry")
 		}
 		tr[newType.RegistryName()] = newType
-
-		// ReadBitmaskValuesFromXML(doc, newType, tr, vr)
 	}
 }
 
@@ -82,15 +74,13 @@ func NewBitmaskTypeFromXML(node *xmlquery.Node) TypeDefiner {
 	rval := bitmaskType{}
 
 	if alias := node.SelectAttr("alias"); alias != "" {
-		rval.aliasRegistryName = alias
+		rval.aliasTypeName = alias
 		rval.registryName = node.SelectAttr("name")
 	} else {
 		rval.registryName = xmlquery.FindOne(node, "name").InnerText()
 		rval.underlyingTypeName = xmlquery.FindOne(node, "type").InnerText()
 		rval.requiresTypeName = node.SelectAttr("requires")
 	}
-
-	rval.publicName = renameIdentifier(rval.registryName)
 
 	return &rval
 }

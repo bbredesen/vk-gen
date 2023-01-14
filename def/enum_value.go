@@ -26,8 +26,6 @@ type enumValue struct {
 func (v *enumValue) ValueString() string {
 	if v.IsAlias() {
 		return v.resolvedAliasValue.PublicName()
-	} else if v.bitposString != "" {
-		return fmt.Sprintf("1 << %s", v.bitposString)
 	} else {
 		return v.valueString
 	}
@@ -41,7 +39,7 @@ func (v *enumValue) Resolve(tr TypeRegistry, vr ValueRegistry) {
 	if v.IsAlias() {
 		v.resolvedAliasValue = vr[v.aliasValueName]
 		v.resolvedAliasValue.Resolve(tr, vr)
-		v.valueString = renameIdentifier(v.ValueString())
+		v.valueString = RenameIdentifier(v.ValueString())
 
 		v.resolvedType = v.resolvedAliasValue.ResolvedType()
 		v.resolvedType.Resolve(tr, vr)
@@ -67,21 +65,55 @@ func (v *enumValue) PrintPublicDeclaration(w io.Writer, withExplicitType bool) {
 	}
 }
 
-func ReadEnumValuesFromXML(doc *xmlquery.Node, td TypeDefiner, tr TypeRegistry, vr ValueRegistry) {
-	for _, enumNode := range xmlquery.Find(doc, fmt.Sprintf("//enums[@name='%s']/enum", td.RegistryName())) {
-		valDef := NewEnumValueFromXML(td.RegistryName(), enumNode)
+func ReadApiConstantsFromXML(doc *xmlquery.Node, externalType TypeDefiner, tr TypeRegistry, vr ValueRegistry) {
+	for _, node := range xmlquery.Find(doc, fmt.Sprintf("//enums[@name='API Constants']/enum[@type='%s']", externalType.RegistryName())) {
+		valDef := NewEnumValueFromXML(externalType, node)
 		vr[valDef.RegistryName()] = valDef
+		externalType.PushValue(valDef)
 	}
 }
 
-func NewEnumValueFromXML(enumName string, elt *xmlquery.Node) ValueDefiner {
+func ReadEnumValuesFromXML(doc *xmlquery.Node, td TypeDefiner, tr TypeRegistry, vr ValueRegistry) {
+	groupSearchNodes := xmlquery.Find(doc, fmt.Sprintf("//enums[@name='%s']", td.RegistryName()))
+
+	for _, groupNode := range groupSearchNodes {
+		coreVals := append(xmlquery.Find(groupNode, "/enum"))
+		extVals := xmlquery.Find(doc, fmt.Sprintf("//require/enum[@extends='%s']", td.RegistryName()))
+
+		switch groupNode.SelectAttr("type") {
+		case "bitmask":
+			for _, enumNode := range coreVals {
+				valDef := NewBitmaskValueFromXML(td, enumNode)
+				valDef.isCore = true
+				vr[valDef.RegistryName()] = valDef
+			}
+			for _, enumNode := range extVals {
+				valDef := NewBitmaskValueFromXML(td, enumNode)
+				valDef.isCore = false
+				vr[valDef.RegistryName()] = valDef
+			}
+		case "enum":
+			for _, enumNode := range coreVals {
+				valDef := NewEnumValueFromXML(td, enumNode)
+				valDef.isCore = true
+				vr[valDef.RegistryName()] = valDef
+			}
+			for _, enumNode := range extVals {
+				valDef := NewEnumValueFromXML(td, enumNode)
+				valDef.isCore = false
+				vr[valDef.RegistryName()] = valDef
+			}
+		}
+	}
+}
+
+func NewEnumValueFromXML(td TypeDefiner, elt *xmlquery.Node) *enumValue {
 	rval := enumValue{}
 
 	alias := elt.SelectAttr("alias")
 	if alias == "" {
 		rval.registryName = elt.SelectAttr("name")
 		rval.valueString = elt.SelectAttr("value")
-		rval.bitposString = elt.SelectAttr("bitpos")
 	} else {
 		rval.registryName = elt.SelectAttr("name")
 		rval.aliasValueName = alias
@@ -118,7 +150,7 @@ func NewEnumValueFromXML(enumName string, elt *xmlquery.Node) ValueDefiner {
 			}
 		}
 	} else {
-		rval.underlyingTypeName = enumName
+		rval.underlyingTypeName = td.RegistryName()
 	}
 
 	return &rval

@@ -1,5 +1,7 @@
-output/
+vk/
+
 vk-gen
 vk.xml
+
 .vscode/
 .DS_Store

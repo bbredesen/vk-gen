@@ -7,7 +7,7 @@ import (
 )
 
 type handleType struct {
-	definedType
+	internalType
 }
 
 func ReadHandleTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) {
@@ -24,14 +24,14 @@ func NewHandleTypeFromXML(node *xmlquery.Node) TypeDefiner {
 	rval := handleType{}
 
 	if alias := node.SelectAttr("alias"); alias != "" {
-		rval.aliasRegistryName = alias
+		rval.aliasTypeName = alias
 		rval.registryName = node.SelectAttr("name")
 	} else {
 		rval.registryName = xmlquery.FindOne(node, "name").InnerText()
 		rval.underlyingTypeName = xmlquery.FindOne(node, "type").InnerText()
 	}
 
-	rval.publicName = renameIdentifier(rval.registryName)
+	rval.publicName = RenameIdentifier(rval.registryName)
 
 	return &rval
 }
@@ -46,9 +46,14 @@ func ReadHandleExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr V
 		tr[key.String()] = entry
 
 		exVal.Get("constants").ForEach(func(ck, cv gjson.Result) bool {
-			newVal := NewConstantValue(ck.String(), cv.String(), key.String())
+			newVal := enumValue{}
+			newVal.registryName = ck.String()
+			newVal.valueString = cv.String()
+			newVal.underlyingTypeName = key.String()
 
-			vr[newVal.RegistryName()] = newVal
+			// newVal := NewEnumValue(ck.String(), cv.String(), key.String())
+
+			vr[newVal.RegistryName()] = &newVal
 			return true
 		})
 
