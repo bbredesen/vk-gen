@@ -28,7 +28,7 @@ type genericType struct {
 func (t *genericType) Category() TypeCategory { return CatNone }
 func (t *genericType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	if t.publicName == "" {
