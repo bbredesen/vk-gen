@@ -46,7 +46,7 @@ type vkCommand struct {
 	fnHandle  unsafe.Pointer
 }
 
-var lazyCommands map[vkCommandKey]vkCommand
+var lazyCommands map[vkCommandKey]vkCommand = make(map[vkCommandKey]vkCommand)
 
 var dlHandle unsafe.Pointer
 
