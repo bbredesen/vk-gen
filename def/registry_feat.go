@@ -20,7 +20,9 @@ type FeatureCollection interface {
 	FilenameFragment() string
 	WriteBuildTags(io.Writer)
 
-	MergeWith(*includeSet)
+	MergeWith(FeatureCollection)
+
+	getIncludeSet() *includeSet
 }
 
 func TestingIncludes(tr TypeRegistry) *includeSet {
@@ -38,13 +40,18 @@ type includeSet struct {
 	resolvedTypes                       TypeRegistry
 }
 
+func (is *includeSet) getIncludeSet() *includeSet {
+	return is
+}
+
 func (is *includeSet) pushTypes(typeName []string) {
 	is.includeTypeNames = append(is.includeTypeNames, typeName...)
 }
 
-func (is *includeSet) MergeWith(other *includeSet) {
+func (is *includeSet) MergeWith(other FeatureCollection) {
 	if other != nil {
-		is.pushTypes(other.includeTypeNames)
+		otherIs := other.getIncludeSet()
+		is.pushTypes(otherIs.includeTypeNames)
 	}
 }
 
@@ -112,6 +119,10 @@ type featureSet struct {
 	includeSet
 }
 
+func (fs *featureSet) getIncludeSet() *includeSet {
+	return &fs.includeSet
+}
+
 func ReadFeatureFromXML(featureNode *xmlquery.Node) *featureSet {
 	rval := featureSet{}
 
@@ -132,13 +143,6 @@ func ReadFeatureFromXML(featureNode *xmlquery.Node) *featureSet {
 	}
 
 	return &rval
-}
-
-type extensionSet struct {
-	extName, extType string
-	extNumber        int
-
-	includeSet
 }
 
 type categorySet struct {

@@ -15,6 +15,10 @@ type genericValue struct {
 	aliasValueName     string
 	resolvedAliasValue ValueDefiner
 
+	extNumber int
+	offset    int
+	direction int
+
 	isResolved bool
 	isCore     bool
 }
@@ -28,6 +32,8 @@ func (v *genericValue) ValueString() string {
 		return v.valueString
 	}
 }
+
+func (v *genericValue) SetExtensionNumber(extNum int) { v.extNumber = extNum }
 
 func (v *genericValue) ResolvedType() TypeDefiner { return v.resolvedType }
 

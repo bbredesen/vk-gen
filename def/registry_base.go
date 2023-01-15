@@ -162,6 +162,7 @@ type ValueDefiner interface {
 	Resolve(TypeRegistry, ValueRegistry)
 
 	PrintPublicDeclaration(w io.Writer, withExplicitType bool)
+	SetExtensionNumber(int)
 
 	IsAlias() bool
 	IsCore() bool

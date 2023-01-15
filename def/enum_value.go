@@ -12,10 +12,6 @@ import (
 type enumValue struct {
 	genericValue
 
-	extNumber int
-	offset    int
-	direction int
-
 	bitposString string
 
 	comment string
@@ -27,6 +23,10 @@ func (v *enumValue) ValueString() string {
 	if v.IsAlias() {
 		return v.resolvedAliasValue.PublicName()
 	} else {
+		if valAsInt, err := strconv.Atoi(v.valueString); v.extNumber != 0 && err != nil {
+			tmp := 1000000 + (v.extNumber-1)*1000 + valAsInt
+			return strconv.Itoa(tmp)
+		}
 		return v.valueString
 	}
 }
