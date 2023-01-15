@@ -28,16 +28,32 @@ void* SymbolFromName(void *lib_handle, const void *name) {
 
 
 #endif
-// typedef uint64_t (*vkCreateInstance_func)(const void*, const void*, uint64_t*);
+
+
+#ifdef _WIN32
+
+#include <windows.h>
+
+void* OpenLibrary(const char *name) {
+	return LoadLibrary(name);
+}
+
+void* SymbolFromName(void *lib_handle, const void *name) {
+	return GetProcAddress(lib_handle, name);
+}
+
+void CloseLibrary(void *lib_handle) {
+	FreeLibrary(lib_handle);
+}
+
+
+#endif
+
+
 typedef uint32_t (*vkEnumerateInstanceVersion_func)(uint32_t*);
 typedef size_t (*vkGeneric_func3)(uintptr_t, uintptr_t, uintptr_t);
 typedef size_t (*vkGeneric_func6)(uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t);
 typedef size_t (*vkGeneric_func9)(uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t);
-
-
-void* OpenLibrary(const char *name) { return 0; }
-void CloseLibrary(void *lib_handle) {}
-void* SymbolFromName(void *lib_handle, const void *name) { return 0; }
 
 size_t Trampoline3(void *symbol, size_t p0, size_t p1, size_t p2) {
 	return ((vkGeneric_func3) symbol)(p0, p1, p2);
