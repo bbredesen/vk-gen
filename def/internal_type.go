@@ -16,7 +16,7 @@ func (t *internalType) IsIdenticalPublicAndInternal() bool { return true }
 
 func (t *internalType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	rval := t.genericType.Resolve(tr, vr)

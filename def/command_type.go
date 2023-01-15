@@ -26,6 +26,7 @@ type commandType struct {
 	returnParams  []*commandParam
 	// identicalInternalExternal bool
 	// isReturnedOnly            bool
+	bindingParamCount int
 }
 
 // Two exceptions to camelCase rules used for function return params
@@ -50,7 +51,7 @@ func (t *commandType) IsIdenticalPublicAndInternal() bool { return true }
 
 func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	iset := &includeSet{}
@@ -102,7 +103,7 @@ func (t *commandType) PrintGlobalDeclarations(w io.Writer, idx int) {
 
 func (t *commandType) PrintFileInitContent(w io.Writer) {
 	fmt.Fprintf(w, "lazyCommands[%s] = vkCommand{\"%s\", %d, %v, nil}\n",
-		t.keyName(), t.RegistryName(), len(t.parameters), t.resolvedReturnType != nil)
+		t.keyName(), t.RegistryName(), t.bindingParamCount, t.resolvedReturnType != nil)
 
 }
 
@@ -350,6 +351,8 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		return strings.TrimPrefix(sb.String(), ", ")
 	}
 
+	t.bindingParamCount = len(funcTrampolineParams)
+
 	inputSpecString, returnSpecString := specStringFromParams(funcInputParams), specStringFromParams(funcReturnParams)
 
 	t.PrintDocLink(w)
@@ -562,7 +565,7 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 }
 
 func ReadCommandTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) {
-	for _, commandNode := range xmlquery.Find(doc, "//commands/command") {
+	for _, commandNode := range append(xmlquery.Find(doc, "//commands/command"), xmlquery.Find(doc, "//extension/command")...) {
 		val := NewCommandFromXML(commandNode)
 		tr[val.RegistryName()] = val
 	}

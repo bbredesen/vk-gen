@@ -23,7 +23,7 @@ func (t *bitmaskType) IsIdenticalPublicAndInternal() bool { return true }
 
 func (t *bitmaskType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	rval := t.internalType.Resolve(tr, vr)

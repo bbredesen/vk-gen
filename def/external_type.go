@@ -120,7 +120,7 @@ func NewOrUpdateExternalValueFromJSON(key, value string, td TypeDefiner, tr Type
 
 func (t *externalType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 	is := t.genericType.Resolve(tr, vr)
 

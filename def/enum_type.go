@@ -22,7 +22,7 @@ func (t *enumType) IsIdenticalPublicAndInternal() bool { return true }
 
 func (t *enumType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	rval := t.internalType.Resolve(tr, vr)
@@ -67,6 +67,7 @@ func ReadEnumTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry)
 
 		ReadEnumValuesFromXML(doc, newType, tr, vr)
 	}
+	// Need to search the extends enums here too
 }
 
 func NewEnumTypeFromXML(node *xmlquery.Node) TypeDefiner {

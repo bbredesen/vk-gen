@@ -16,7 +16,7 @@ func (t *simpleType) Category() TypeCategory { return CatNone }
 
 func (t *simpleType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	is := t.genericType.Resolve(tr, vr)

@@ -40,7 +40,7 @@ func (t *structType) Category() TypeCategory { return CatStruct }
 
 func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	t.publicName = RenameIdentifier(t.registryName)

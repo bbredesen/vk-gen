@@ -21,7 +21,7 @@ func (t *defineType) Category() TypeCategory { return CatDefine }
 
 func (t *defineType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.isResolved {
-		return nil
+		return &includeSet{}
 	}
 
 	rval := t.internalType.Resolve(tr, vr)
