@@ -85,17 +85,26 @@ func (t *pointerType) PrintVulkanizeContent(forMember *structMember, preamble io
 			// Special case for strings, just give back the result of TranslateInternal
 			structMemberAssignment = t.TranslateToInternal("s." + forMember.PublicName())
 		} else if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
-			// if this is an array to types that are "IsIdentical..." then just
-			// assign the zero address and move on
-			structMemberAssignment = t.TranslateToInternal(fmt.Sprintf("(&s.%s[0])", forMember.PublicName()))
+			// if this is an array to types that are "IsIdentical..." then we don't have to iterate and translate, but
+			// still need to check for empty slice and pass nil instead.
+			pre := fmt.Sprintf(sliceDirectTemplate,
+				forMember.InternalName(), forMember.resolvedType.InternalName(),
+				forMember.PublicName(),
+				forMember.InternalName(), forMember.PublicName(),
+			)
+			fmt.Fprint(preamble, pre)
+			structMemberAssignment = "psl_" + forMember.InternalName()
 		} else {
 			pre := fmt.Sprintf(sliceTranslationTemplate,
+				forMember.InternalName(), forMember.resolvedType.InternalName(),
+				forMember.PublicName(),
 				forMember.InternalName(), t.resolvedPointsAtType.InternalName(), forMember.PublicName(),
 				forMember.PublicName(),
 				forMember.InternalName(), t.resolvedPointsAtType.TranslateToInternal("v"),
+				forMember.InternalName(), forMember.InternalName(),
 			)
 			fmt.Fprint(preamble, pre)
-			structMemberAssignment = "&(sl_" + forMember.InternalName() + "[0])"
+			structMemberAssignment = "psl_" + forMember.InternalName()
 		}
 	} else {
 		if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
@@ -110,10 +119,21 @@ func (t *pointerType) PrintVulkanizeContent(forMember *structMember, preamble io
 	return
 }
 
+const sliceDirectTemplate string = `
+var psl_%s %s
+if len(s.%s) > 0 {
+	psl_%s = &s.%s[0]
+}
+`
+
 const sliceTranslationTemplate string = `
-  sl_%s := make([]%s, len(s.%s))
-  for i, v := range s.%s {
-	sl_%s[i] = %s
+  var psl_%s %s
+  if len(s.%s) > 0 {
+	sl_%s := make([]%s, len(s.%s))
+	for i, v := range s.%s {
+		sl_%s[i] = %s
+	}
+	psl_%s = &sl_%s[0]
   }
 `
 

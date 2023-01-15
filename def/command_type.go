@@ -177,11 +177,14 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 					if p.requiresTranslation {
 						fmt.Fprintf(preamble, "  // %s is an input slice that requires translation to an internal type\n", p.publicName)
-						fmt.Fprintf(preamble, "  sl_%s := make([]%s, %s)\n", p.publicName, paramTypeAsPointer.resolvedPointsAtType.InternalName(), p.lenMemberParam.publicName)
-						fmt.Fprintf(preamble, "  for i, v := range %s {\n", p.publicName)
-						fmt.Fprintf(preamble, "    sl_%s[i] = %s\n", p.publicName, paramTypeAsPointer.resolvedPointsAtType.TranslateToInternal("v"))
+						fmt.Fprintf(preamble, "  var %s unsafe.Pointer\n", p.internalName)
+						fmt.Fprintf(preamble, "  if len(%s) > 0 {\n", p.publicName)
+						fmt.Fprintf(preamble, "    sl_%s := make([]%s, %s)\n", p.publicName, paramTypeAsPointer.resolvedPointsAtType.InternalName(), p.lenMemberParam.publicName)
+						fmt.Fprintf(preamble, "    for i, v := range %s {\n", p.publicName)
+						fmt.Fprintf(preamble, "      sl_%s[i] = %s\n", p.publicName, paramTypeAsPointer.resolvedPointsAtType.TranslateToInternal("v"))
+						fmt.Fprintf(preamble, "    }\n")
+						fmt.Fprintf(preamble, "    %s = unsafe.Pointer(&sl_%s[0])\n", p.internalName, p.publicName)
 						fmt.Fprintf(preamble, "  }\n")
-						fmt.Fprintf(preamble, "  %s := unsafe.Pointer(&sl_%s[0])\n", p.internalName, p.publicName)
 						fmt.Fprintln(preamble)
 
 						funcTrampolineParams = append(funcTrampolineParams, p)
@@ -190,7 +193,10 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 						// Parameter can be directly used (once we get a pointer
 						// to the first element)
 						fmt.Fprintf(preamble, "  // %s is an input slice of values that do not need translation used\n", p.publicName)
-						fmt.Fprintf(preamble, "  %s := unsafe.Pointer(&%s[0])\n", p.internalName, p.publicName)
+						fmt.Fprintf(preamble, "  var %s unsafe.Pointer\n", p.internalName)
+						fmt.Fprintf(preamble, "  if %s != nil {\n", p.publicName)
+						fmt.Fprintf(preamble, "    %s = unsafe.Pointer(&%s[0])\n", p.internalName, p.publicName)
+						fmt.Fprintf(preamble, "  }\n")
 						fmt.Fprintln(preamble)
 						funcTrampolineParams = append(funcTrampolineParams, p)
 					}
@@ -199,13 +205,26 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					// Parameter is a singular input
 					if p.resolvedType.IsIdenticalPublicAndInternal() {
 						fmt.Fprintf(preamble, "// Parameter is a singular input, pass direct - %s\n", p.publicName)
-						fmt.Fprintf(preamble, "  %s := unsafe.Pointer(%s)\n", p.internalName, p.publicName)
+						fmt.Fprintf(preamble, "  var %s unsafe.Pointer\n", p.internalName)
+						fmt.Fprintf(preamble, "  if %s != nil {\n", p.publicName)
+						fmt.Fprintf(preamble, "    %s = unsafe.Pointer(%s)\n", p.internalName, p.publicName)
+						fmt.Fprintf(preamble, "  }\n")
 						fmt.Fprintln(preamble)
 						funcTrampolineParams = append(funcTrampolineParams, p)
 
 					} else {
 						fmt.Fprintf(preamble, "// Parameter is a singular input, requires translation - %s\n", p.publicName)
-						fmt.Fprintf(preamble, "  %s := unsafe.Pointer(%s)\n", p.internalName, p.resolvedType.TranslateToInternal(p.publicName))
+						// Special handling for strings, which come in as "" instead of nil
+						nullValue := "nil"
+						if p.resolvedType.PublicName() == "string" {
+							// Vulkan accepts NULL or an empty string as the same value
+							nullValue = `""`
+						}
+
+						fmt.Fprintf(preamble, "  var %s unsafe.Pointer\n", p.internalName)
+						fmt.Fprintf(preamble, "  if %s != %s {\n", p.publicName, nullValue)
+						fmt.Fprintf(preamble, "    %s = unsafe.Pointer(%s)\n", p.internalName, p.resolvedType.TranslateToInternal(p.publicName))
+						fmt.Fprintf(preamble, "  }\n")
 						fmt.Fprintln(preamble)
 						funcTrampolineParams = append(funcTrampolineParams, p)
 
@@ -265,7 +284,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							funcReturnParams = append(funcReturnParams, p)
 
 						} else {
-							fmt.Fprintf(preamble, "// Parameter is a user-allocated array input that will be written to (?) - %s\n", p.publicName)
+							fmt.Fprintf(preamble, "// %s is a user-allocated array input that will be written to\n", p.publicName)
 							// e.g., vkGetQueryPoolResults matches this rule
 							// I just want to accept a []byte, extract the
 							// length and push len+pointer to trampoline
