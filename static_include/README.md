@@ -280,4 +280,9 @@ the first parameter of the command, aligning more with the C API.
 
 * VkAccelerationStructureMatrixMotionInstanceNV - embedded bit fields in uint32_t are not handled at all...this
   structure will not behave as intended and will likely cause a crash if used.
-
+* H.264 and H.265 commands and types are almost certainly broken. There is no specification file (that I've found) for
+  the video functions and required types. Instead, the types are directly included through vk.xml as C headers. As a placeholder, all of
+  these types are defined as int32 through exceptions.json. These types may end up hard-coded.
+* vkGetPipelinePropertiesEXT - as of 1.3.240, this is the single command that uses VkBaseOutStructure as a parameter type.
+  BaseOutStructure (and BaseInStrucutre) are set to be ignored in the binding because they are self-referential and
+  cause infinite recursion in Resolve()
