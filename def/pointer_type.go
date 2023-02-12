@@ -18,7 +18,7 @@ type pointerType struct {
 
 func (t *pointerType) Category() TypeCategory { return CatPointer }
 
-func (t *pointerType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *pointerType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 
 	return t.resolvedPointsAtType.Resolve(tr, vr)
 	// is := includeSet{
@@ -34,7 +34,7 @@ func (t *pointerType) IsIdenticalPublicAndInternal() bool {
 }
 
 func (t *pointerType) isArrayPointer() bool {
-	return t.lenSpec != ""
+	return t.lenSpec != "" && t.lenSpec != "1" // Special case for VkAccelerationStructureBuildGeometryInfoKHR
 }
 
 // PrintPublicDeclaration for a pointer type needs to determine if this pointer represents
@@ -50,7 +50,7 @@ func (t *pointerType) PublicName() string {
 
 		return "string"
 
-	} else if t.lenSpec != "" {
+	} else if t.isArrayPointer() {
 		// If there is a length specifier, then this is an array, with char* -> string being a special case
 		return "[]" + resolvedName
 	} else {
@@ -61,8 +61,18 @@ func (t *pointerType) PublicName() string {
 func (t *pointerType) InternalName() string {
 	if t.resolvedPointsAtType.InternalName() == "!none" || t.resolvedPointsAtType.InternalName() == "" {
 		return "unsafe.Pointer"
+		// } else if t.resolvedPointsAtType.Category() == CatUnion {
+		// 	// Vulkan unions are just unsafe.Pointers on the internal side, don't need the asterisk
+		// 	return t.resolvedPointsAtType.InternalName()
 	}
 	return "*" + t.resolvedPointsAtType.InternalName()
+}
+
+func (t *pointerType) TranslateToPublic(inputVar string) string {
+	if t.resolvedPointsAtType.Category() == CatStruct || t.resolvedPointsAtType.Category() == CatUnion {
+		return fmt.Sprintf("%s.Goify()", inputVar)
+	}
+	return "&" + t.resolvedPointsAtType.TranslateToPublic(inputVar)
 }
 
 func (t *pointerType) TranslateToInternal(inputVar string) string {
@@ -71,7 +81,7 @@ func (t *pointerType) TranslateToInternal(inputVar string) string {
 	} else if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
 		return inputVar
 	} else if t.resolvedPointsAtType.Category() == CatStruct || t.resolvedPointsAtType.Category() == CatUnion {
-		return fmt.Sprintf("unsafe.Pointer(%s.Vulkanize())", inputVar)
+		return fmt.Sprintf("%s.Vulkanize()", inputVar)
 	} else {
 		return fmt.Sprintf("(%s)(%s)", t.InternalName(), t.resolvedPointsAtType.TranslateToInternal(inputVar))
 	}
@@ -95,7 +105,19 @@ func (t *pointerType) PrintVulkanizeContent(forMember *structMember, preamble io
 			fmt.Fprint(preamble, pre)
 			structMemberAssignment = "psl_" + forMember.InternalName()
 		} else {
-			pre := fmt.Sprintf(sliceTranslationTemplate,
+			var pre string
+			// if forMember.resolvedType.Category() == CatPointer && forMember.resolvedType.(*pointerType).resolvedPointsAtType.Category() == CatUnion {
+			// 	pre = fmt.Sprintf(sliceTranslationTemplate,
+			// 		forMember.InternalName(), "*"+forMember.resolvedType.InternalName(),
+			// 		forMember.PublicName(),
+			// 		forMember.InternalName(), t.resolvedPointsAtType.InternalName(), forMember.PublicName(),
+			// 		forMember.PublicName(),
+			// 		forMember.InternalName(), t.resolvedPointsAtType.TranslateToInternal("v"),
+			// 		forMember.InternalName(), forMember.InternalName(),
+			// 	)
+
+			// } else {
+			pre = fmt.Sprintf(sliceTranslationTemplate,
 				forMember.InternalName(), forMember.resolvedType.InternalName(),
 				forMember.PublicName(),
 				forMember.InternalName(), t.resolvedPointsAtType.InternalName(), forMember.PublicName(),
@@ -103,6 +125,9 @@ func (t *pointerType) PrintVulkanizeContent(forMember *structMember, preamble io
 				forMember.InternalName(), t.resolvedPointsAtType.TranslateToInternal("v"),
 				forMember.InternalName(), forMember.InternalName(),
 			)
+
+			// }
+
 			fmt.Fprint(preamble, pre)
 			structMemberAssignment = "psl_" + forMember.InternalName()
 		}

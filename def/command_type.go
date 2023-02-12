@@ -31,8 +31,12 @@ type commandType struct {
 
 // Two exceptions to camelCase rules used for function return params
 func init() {
+	// rename return params to avoid typenames
 	strcase.ConfigureAcronym("Result", "r")
 	strcase.ConfigureAcronym("PFN_vkVoidFunction", "fn")
+	strcase.ConfigureAcronym("uint32", "r")
+	strcase.ConfigureAcronym("uint64", "r")
+	strcase.ConfigureAcronym("bool", "r")
 }
 
 func (t *commandType) findParam(regName string) *commandParam {
@@ -49,17 +53,15 @@ func (t *commandType) Category() TypeCategory { return CatCommand }
 
 func (t *commandType) IsIdenticalPublicAndInternal() bool { return true }
 
-func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if t.isResolved {
-		return &includeSet{}
+		return NewIncludeSet()
 	}
 
-	iset := &includeSet{}
+	iset := t.genericType.Resolve(tr, vr)
 
-	if t.aliasTypeName != "" {
-		t.resolvedAliasType = tr[t.aliasTypeName]
-		t.resolvedAliasType.Resolve(tr, vr)
-	} else if t.returnTypeName != "" {
+	if !t.IsAlias() && t.returnTypeName != "" {
+
 		t.resolvedReturnType = tr[t.returnTypeName]
 		if t.resolvedReturnType == nil {
 			log.WithField("registry name", t.registryName).
@@ -71,9 +73,9 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 		}
 	}
 
-	if t.publicName == "" { // publicName may already be set by an entry from exceptions.json
-		t.publicName = RenameIdentifier(t.registryName)
-	}
+	// if t.publicName == "" { // publicName may already be set by an entry from exceptions.json
+	// 	t.publicName = RenameIdentifier(t.registryName)
+	// }
 
 	for _, p := range t.parameters {
 		p.parentCommand = t
@@ -83,25 +85,35 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 
 	// t.identicalInternalExternal = t.determineIdentical()
 
+	iset.ResolvedTypes[t.registryName] = t
+
 	t.isResolved = true
 	return iset
 }
 
-func (t *commandType) PrintGlobalDeclarations(w io.Writer, idx int) {
-	if t.staticCodeRef != "" {
+func (t *commandType) PrintGlobalDeclarations(w io.Writer, idx int, isStart bool) {
+	if t.staticCodeRef != "" || t.IsAlias() {
 		// Ignored, static refs from exceptions.json aren't processed through
-		// Cgo/lazyCommands
+		// Cgo/lazyCommands and no need to write key entries for alias commands
 		return
 	}
 
-	if idx == 0 {
-		fmt.Fprintf(w, "%s vkCommandKey = iota\n", t.keyName())
+	if isStart {
+		if idx == 0 {
+			fmt.Fprintf(w, "%s vkCommandKey = iota\n", t.keyName())
+		} else {
+			fmt.Fprintf(w, "%s vkCommandKey = iota + %d\n", t.keyName(), idx)
+		}
 	} else {
 		fmt.Fprintln(w, t.keyName())
 	}
 }
 
 func (t *commandType) PrintFileInitContent(w io.Writer) {
+	if t.IsAlias() {
+		// No need to write key entries for alias commands
+		return
+	}
 	fmt.Fprintf(w, "lazyCommands[%s] = vkCommand{\"%s\", %d, %v, nil}\n",
 		t.keyName(), t.RegistryName(), t.bindingParamCount, t.resolvedReturnType != nil)
 
@@ -112,10 +124,13 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		fmt.Fprintf(w, "// %s is static code, not generated from vk.xml; aliased to %s\n", t.PublicName(), t.staticCodeRef)
 		fmt.Fprintf(w, "var %s = %s\n\n", t.PublicName(), t.staticCodeRef)
 		return
+	} else if t.IsAlias() {
+		fmt.Fprintf(w, "var %s = %s\n\n", t.PublicName(), t.resolvedAliasType.PublicName())
+		return
 	}
 	// funcReturnNames, funcReturnTypes := &strings.Builder{}, &strings.Builder{}
 
-	preamble, epilogue := &strings.Builder{}, &strings.Builder{}
+	preamble, epilogue, outputTranslation := &strings.Builder{}, &strings.Builder{}, &strings.Builder{}
 
 	// var doubleCallArrayParam *commandParam
 	// var doubleCallArrayTypeName string
@@ -201,6 +216,20 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 						funcTrampolineParams = append(funcTrampolineParams, p)
 					}
 
+				} else if strings.Contains(p.lenSpec, "->") {
+					// This is an edge case where the length of the return array (slice) is embedded in a struct, which
+					// is another parameter. See vkGetAccelerationStructureBuildSizesKHR for an example (perhaps the
+					// only example).
+					lenparts := strings.Split(p.lenSpec, "->")
+					otherParamInternalName := lenparts[0]
+					// otherParamMemberName := lenparts[1]
+
+					fmt.Fprintf(preamble, "  // %s is an input slice that requires translation to an internal type; length is embedded in %s\n", p.publicName, otherParamInternalName)
+					fmt.Fprintf(preamble, "  %s := unsafe.Pointer(nil)\n", p.internalName) //, otherParamInternalName, otherParamMemberName)
+					fmt.Fprintf(preamble, "  // WARNING TODO - passing nil pointer to get to a version that will compile. THIS VULKAN CALL WILL FAIL!")
+
+					funcTrampolineParams = append(funcTrampolineParams, p)
+
 				} else {
 					// Parameter is a singular input
 					if p.resolvedType.IsIdenticalPublicAndInternal() {
@@ -221,9 +250,9 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							nullValue = `""`
 						}
 
-						fmt.Fprintf(preamble, "  var %s unsafe.Pointer\n", p.internalName)
+						fmt.Fprintf(preamble, "  var %s %s\n", p.internalName, p.resolvedType.InternalName())
 						fmt.Fprintf(preamble, "  if %s != %s {\n", p.publicName, nullValue)
-						fmt.Fprintf(preamble, "    %s = unsafe.Pointer(%s)\n", p.internalName, p.resolvedType.TranslateToInternal(p.publicName))
+						fmt.Fprintf(preamble, "    %s = %s\n", p.internalName, p.resolvedType.TranslateToInternal(p.publicName))
 						fmt.Fprintf(preamble, "  }\n")
 						fmt.Fprintln(preamble)
 						funcTrampolineParams = append(funcTrampolineParams, p)
@@ -234,27 +263,56 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 				if p.lenMemberParam != nil { // lenSpec != "": spec might be a reference into another input, e.g. vkAllocateCommandBuffers, pAllocateInfo->commandBufferCount
 					// Parameter is an output
 					if p.lenMemberParam.resolvedType.Category() == CatPointer {
-						// Parameter is a double-call array output
-						fmt.Fprintf(preamble, "// %s is a double-call array output\n", p.publicName)
-						// Allocate the length param and stub the slice
-						fmt.Fprintf(preamble, "  var %s %s\n", p.lenMemberParam.publicName, p.lenMemberParam.resolvedType.(*pointerType).resolvedPointsAtType.PublicName())
-						fmt.Fprintf(preamble, "  %s := unsafe.Pointer(&%s)\n", p.lenMemberParam.internalName, p.lenMemberParam.publicName)
+						if p.lenMemberParam.isLenMemberFor[0] == p {
 
-						fmt.Fprintf(preamble, "  var %s unsafe.Pointer\n", p.internalName)
+							// Parameter is a double-call array output
+							fmt.Fprintf(preamble, "// %s is a double-call array output\n", p.publicName)
+							// Allocate the length param and stub the slice
+							fmt.Fprintf(preamble, "  var %s %s\n", p.lenMemberParam.publicName, p.lenMemberParam.resolvedType.(*pointerType).resolvedPointsAtType.PublicName())
+							fmt.Fprintf(preamble, "  %s := &%s\n", p.lenMemberParam.internalName, p.lenMemberParam.publicName)
 
-						// Get the length of the array that has to be allocated
+							fmt.Fprintf(preamble, "// first trampoline happens here; also, still need to check returned Result value\n")
+							funcTrampolineParams = append(funcTrampolineParams, p.lenMemberParam)
 
-						fmt.Fprintf(preamble, "// first trampoline happens here; also, check returned Result value\n")
+						}
 
-						funcTrampolineParams = append(funcTrampolineParams, p.lenMemberParam)
+						// Need distinction between identical interal/external types and those that need to be
+						// translated
+						if p.resolvedType.IsIdenticalPublicAndInternal() {
+							fmt.Fprintf(preamble, "// Identical internal and external")
+							// fmt.Fprintf(preamble, "  var %s %s\n", p.publicName, p.resolvedType.PublicName())
+							fmt.Fprintf(epilogue, "  %s = make([]%s, %s)\n", p.publicName, p.resolvedType.PublicName(), p.lenMemberParam.publicName)
+							fmt.Fprintf(epilogue, "  %s := &%s[0]\n", p.internalName, p.publicName)
+							fmt.Fprintln(epilogue)
+
+						} else {
+							fmt.Fprintf(preamble, "// NOT identical internal and external, result needs translation\n")
+							fmt.Fprintf(preamble, "  var %s %s\n", p.internalName, p.resolvedType.InternalName())
+							fmt.Fprintf(epilogue, "  sl_%s := make([]%s, %s)\n", p.internalName, p.resolvedType.(*pointerType).resolvedPointsAtType.InternalName(), p.lenMemberParam.publicName)
+							fmt.Fprintf(epilogue, "  %s = make(%s, %s)\n", p.publicName, p.resolvedType.PublicName(), p.lenMemberParam.publicName)
+							fmt.Fprintf(epilogue, "  %s = &sl_%s[0]\n", p.internalName, p.internalName)
+							fmt.Fprintln(epilogue)
+
+							fmt.Fprintf(outputTranslation,
+								`for i := range sl_%s {
+	%s[i] = *%s
+}
+`, p.internalName, p.publicName, p.resolvedType.TranslateToPublic("sl_"+p.internalName+"[i]"))
+						}
+
 						funcTrampolineParams = append(funcTrampolineParams, p)
 						funcReturnParams = append(funcReturnParams, p)
 
-						fmt.Fprintf(epilogue, "  %s = make(%s, %s)\n", p.publicName, p.resolvedType.PublicName(), p.lenMemberParam.publicName)
-						fmt.Fprintf(epilogue, "  %s = unsafe.Pointer(&%s[0])\n", p.internalName, p.publicName)
-						fmt.Fprintln(epilogue)
-						t.printTrampolineCall(epilogue, funcTrampolineParams, trampolineReturns)
-						fmt.Fprintln(epilogue)
+						if p.lenMemberParam.isLenMemberFor[len(p.lenMemberParam.isLenMemberFor)-1] == p {
+							// If there is more than one array to allocate, make sure we only call trampoline on the last one
+							fmt.Fprintf(epilogue, "// Trampoline call after last array allocation\n")
+							t.printTrampolineCall(epilogue, funcTrampolineParams, trampolineReturns)
+							fmt.Fprintln(epilogue)
+
+							// If the output requires tranlation, iterate the slice and translate here
+							fmt.Fprintf(epilogue, outputTranslation.String())
+
+						}
 
 					} else if p.lenMemberParam != nil {
 						// If the length parameter references a const param in addition to
@@ -305,14 +363,56 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					if p.lenSpec != "" {
 						if p.lenMemberParam == nil {
 							fmt.Fprintf(preamble, "// Parameter is binding-allocated array populated by Vulkan; length is possibly embedded in a struct (%s) - %s\n", p.lenSpec, p.publicName)
+							stringParts := strings.Split(p.lenSpec, "->")
+							translatedLenMember := stringParts[0] + "." + stringParts[1]
+
+							// fmt.Fprintf(preamble, "  sl_%s := make([]%s, %s)\n", p.internalName, p.resolvedType.InternalName(), translatedLenMember)
+							// fmt.Fprintf(preamble, "  %s := &sl_%s[0]\n", p.internalName, p.internalName)
+							fmt.Fprintf(preamble, "  %s = make(%s, %s)\n", p.publicName, p.resolvedType.PublicName(), translatedLenMember)
+							fmt.Fprintf(preamble, "  %s := &%s[0]\n", p.internalName, p.publicName)
+
+							// At a practical level, this is only used to return an array of handles, we can avoid tranlation altogether; see
+							// AllocateCommandBuffers for an example. It is possible that a future API release will need
+							// updates here.
+
 						} else {
 							fmt.Fprintf(preamble, "// Parameter is binding-allocated array populated by Vulkan; length is provided by what? (%s) - %s\n", p.publicName, p.lenSpec)
 							panic("Parameter is binding-allocated array populated by Vulkan, length not provided?? " + p.lenSpec)
 						}
+
+						// rewrite the return param as a slice
+						derefedReturnParam := *p
+						// derefedReturnParam.resolvedType = paramTypeAsPointer.resolvedPointsAtType
+
+						funcTrampolineParams = append(funcTrampolineParams, p)
+						funcReturnParams = append(funcReturnParams, &derefedReturnParam)
 					} else {
-						fmt.Fprintf(preamble, "// %s is a binding-allocated single return value and will be populated by Vulkan\n", p.publicName)
-						fmt.Fprintf(preamble, "  %s := unsafe.Pointer(&%s)\n", p.internalName, p.publicName)
-						fmt.Fprintln(preamble)
+						if p.resolvedType.IsIdenticalPublicAndInternal() {
+							fmt.Fprintf(preamble, "// %s is a binding-allocated single return value and will be populated by Vulkan\n", p.publicName)
+
+							p.internalName = "ptr_" + p.internalName // This should really be done in resolve, not here
+
+							fmt.Fprintf(preamble, "  %s := &%s\n", p.internalName, p.publicName)
+							fmt.Fprintln(preamble)
+						} else {
+							fmt.Fprintf(preamble, "// %s is a binding-allocated single return value and will be populated by Vulkan, but requiring translation\n", p.publicName)
+							if p.resolvedType.Category() == CatPointer {
+								fmt.Fprintf(preamble, "var %s %s\n", p.internalName, p.resolvedType.(*pointerType).resolvedPointsAtType.InternalName())
+								fmt.Fprintf(preamble, "ptr_%s := &%s\n", p.internalName, p.internalName)
+
+								fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, p.resolvedType.(*pointerType).resolvedPointsAtType.TranslateToPublic(p.internalName))
+							} else {
+								fmt.Fprintf(preamble, "var %s %s\n", p.internalName, p.resolvedType.InternalName())
+								fmt.Fprintf(preamble, "ptr_%s := &%s\n", p.internalName, p.internalName)
+
+								fmt.Fprintf(epilogue, "  %s = *%s\n", p.publicName, p.resolvedType.TranslateToPublic(p.internalName))
+							}
+
+							p.internalName = "ptr_" + p.internalName // Done after the fact so the internal pointer will be used in the tramp params
+
+							fmt.Fprintln(preamble)
+
+						}
 
 						// rewrite the return param as not a pointer
 						derefedReturnParam := *p
@@ -320,9 +420,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 						funcTrampolineParams = append(funcTrampolineParams, p)
 						funcReturnParams = append(funcReturnParams, &derefedReturnParam)
-
 					}
-
 				}
 			}
 		} else {
@@ -397,7 +495,11 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 func trampStringFromParams(sl []*commandParam) string {
 	sb := &strings.Builder{}
 	for _, param := range sl {
-		fmt.Fprintf(sb, ", uintptr(%s)", param.internalName)
+		if param.resolvedType.Category() == CatPointer {
+			fmt.Fprintf(sb, ", uintptr(unsafe.Pointer(%s))", param.internalName)
+		} else {
+			fmt.Fprintf(sb, ", uintptr(%s)", param.internalName)
+		}
 	}
 	// Note that the leading ", " is not trimmed
 	return sb.String()
@@ -407,7 +509,12 @@ func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandPar
 	trampParamsString := trampStringFromParams(trampParams)
 
 	if returnParam != nil {
-		fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.keyName(), trampParamsString)
+		if returnParam.resolvedType.IsIdenticalPublicAndInternal() {
+			fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.keyName(), trampParamsString)
+		} else {
+			fmt.Fprintf(w, "  rval := %s(execTrampoline(%s%s))\n", returnParam.resolvedType.InternalName(), t.keyName(), trampParamsString)
+			fmt.Fprintf(w, "  %s = %s\n", returnParam.publicName, returnParam.resolvedType.TranslateToPublic("rval"))
+		}
 	} else {
 		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.keyName(), trampParamsString)
 	}
@@ -481,14 +588,13 @@ type commandParam struct {
 	requiresTranslation                        bool
 }
 
-func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if p.isResolved {
-		return nil
+		return NewIncludeSet()
 	}
 
-	iset := &includeSet{
-		includeTypeNames: []string{p.typeName},
-	}
+	iset := NewIncludeSet()
+	iset.IncludeTypes[p.typeName] = true
 
 	p.resolvedType = tr[p.typeName]
 	iset.MergeWith(p.resolvedType.Resolve(tr, vr))
@@ -566,6 +672,8 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	}
 
 	if p.publicName != "" {
+		// Why this call? Shouldn't be any invalid UTF8 in the spec? Is this just to lower-case the string? Can we not
+		// just call strcase.ToLowerCamel()?
 		r, n := utf8.DecodeRuneInString(p.publicName)
 		p.publicName = string(unicode.ToLower(r)) + p.publicName[n:]
 	}

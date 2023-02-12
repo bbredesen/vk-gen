@@ -1,6 +1,10 @@
 package def
 
 import (
+	"fmt"
+	"io"
+	"sort"
+
 	"github.com/antchfx/xmlquery"
 	"github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
@@ -8,6 +12,35 @@ import (
 
 type handleType struct {
 	internalType
+}
+
+func (t *handleType) Category() TypeCategory { return CatHandle }
+
+func (t *handleType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
+	if t.isResolved {
+		return NewIncludeSet()
+	}
+
+	rval := t.internalType.Resolve(tr, vr)
+
+	rval.ResolvedTypes[t.registryName] = t
+
+	t.isResolved = true
+	return rval
+}
+
+func (t *handleType) PrintPublicDeclaration(w io.Writer) {
+	t.internalType.PrintPublicDeclaration(w)
+
+	sort.Sort(byValue(t.values))
+
+	if len(t.values) > 0 {
+		fmt.Fprint(w, "const (\n")
+		for _, v := range t.values {
+			v.PrintPublicDeclaration(w)
+		}
+		fmt.Fprint(w, ")\n\n")
+	}
 }
 
 func ReadHandleTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) {
@@ -70,5 +103,3 @@ func NewHandleTypeFromJSON(key, json gjson.Result) TypeDefiner {
 
 	return &rval
 }
-
-func (t *handleType) Category() TypeCategory { return CatHandle }

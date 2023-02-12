@@ -16,7 +16,7 @@ type arrayType struct {
 
 func (t *arrayType) Category() TypeCategory { return CatArray }
 
-func (t *arrayType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *arrayType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 
 	return t.resolvedPointsAtType.Resolve(tr, vr)
 	// is := includeSet{
@@ -34,10 +34,14 @@ func (t *arrayType) IsIdenticalPublicAndInternal() bool {
 // PrintPublicDeclaration for an array still needs to handle strings. Will be a
 // string on the public side and a fixed length char array on the internal side.
 func (t *arrayType) PublicName() string {
+	if t.resolvedPointsAtType.PublicName() == "byte" {
+		return "string"
+	}
 	return fmt.Sprintf("[%s]%s", trimVk(t.lenSpec), t.resolvedPointsAtType.PublicName())
 }
 
 func (t *arrayType) InternalName() string {
+
 	return fmt.Sprintf("[%s]%s", trimVk(t.lenSpec), t.resolvedPointsAtType.InternalName())
 }
 
@@ -85,6 +89,14 @@ func (t *arrayType) PrintGoifyContent(forMember *structMember, preamble, epilogu
 	// if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
 	// if this is an array to types that are "IsIdentical..." then just
 	// copy the array as a block and move on
+	// fmt.Fprintf(epilogue, t.TranslateToPublic("s."+forMember.InternalName()))
+
+	if t.resolvedPointsAtType.InternalName() == "byte" {
+		// fmt.Fprintf(epilogue, "rval.%s = nullTermBytesToString(s.%s[:])\n", forMember.PublicName(), forMember.InternalName())
+		structMemberAssignment = fmt.Sprintf("nullTermBytesToString(s.%s[:])", forMember.InternalName())
+		return
+	}
+
 	fmt.Fprintf(epilogue, "copy(rval.%s[:], s.%s[:])\n", forMember.PublicName(), forMember.InternalName())
 
 	structMemberAssignment = ""

@@ -35,15 +35,19 @@ func (v *genericValue) ValueString() string {
 
 func (v *genericValue) SetExtensionNumber(extNum int) { v.extNumber = extNum }
 
+func (v *genericValue) UnderlyingTypeName() string { return v.underlyingTypeName }
+
 func (v *genericValue) ResolvedType() TypeDefiner { return v.resolvedType }
 
 func (v *genericValue) IsAlias() bool { return v.aliasValueName != "" }
 func (v *genericValue) IsCore() bool  { return v.isCore }
 
-func (v *genericValue) Resolve(tr TypeRegistry, vr ValueRegistry) {
+func (v *genericValue) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if v.isResolved {
-		return
+		return NewIncludeSet()
 	}
+
+	var rval *IncludeSet
 
 	if v.IsAlias() {
 		v.resolvedAliasValue = vr[v.aliasValueName]
@@ -51,21 +55,17 @@ func (v *genericValue) Resolve(tr TypeRegistry, vr ValueRegistry) {
 		v.valueString = RenameIdentifier(v.ValueString())
 
 		v.resolvedType = v.resolvedAliasValue.ResolvedType()
-		v.resolvedType.Resolve(tr, vr)
+		rval = v.resolvedType.Resolve(tr, vr)
 	} else {
 		v.resolvedType = tr[v.underlyingTypeName]
-		v.resolvedType.Resolve(tr, vr)
+		rval = v.resolvedType.Resolve(tr, vr)
 	}
 
-	v.resolvedType.PushValue(v)
-
+	rval.ResolvedValues[v.registryName] = v
 	v.isResolved = true
+	return rval
 }
 
-func (v *genericValue) PrintPublicDeclaration(w io.Writer, withExplicitType bool) {
-	if withExplicitType {
-		fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
-	} else {
-		fmt.Fprintf(w, "%s = %s\n", v.PublicName(), v.ValueString())
-	}
+func (v *genericValue) PrintPublicDeclaration(w io.Writer) {
+	fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
 }

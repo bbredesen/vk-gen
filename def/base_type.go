@@ -20,6 +20,19 @@ type baseType struct {
 
 func (t *baseType) Category() TypeCategory { return CatBasetype }
 
+func (t *baseType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
+	if t.isResolved {
+		return NewIncludeSet()
+	}
+
+	rval := t.simpleType.Resolve(tr, vr)
+
+	rval.ResolvedTypes[t.registryName] = t
+
+	t.isResolved = true
+	return rval
+}
+
 func (t *baseType) PublicName() string {
 	if t.publicTypeNameOverride != "" {
 		return t.publicTypeNameOverride

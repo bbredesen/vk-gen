@@ -25,18 +25,57 @@ type FeatureCollection interface {
 	getIncludeSet() *includeSet
 }
 
-func TestingIncludes(tr TypeRegistry) *includeSet {
-	rval := includeSet{}
-	for k := range tr {
-		rval.includeTypeNames = append(rval.includeTypeNames, k)
+// func TestingIncludes(tr TypeRegistry) *IncludeSet {
+// 	rval := includeSet{}
+// 	for k := range tr {
+// 		rval.includeTypeNames = append(rval.includeTypeNames, k)
+// 	}
+// 	return &rval
+// }
+
+// func NewIncludeSet() *IncludeSet {
+// 	is := includeSet{}
+// 	is.includeTypeNames = make(map[string]bool)
+// 	is.includeValueNames = make(map[string]bool)
+// 	return &is
+// }
+
+func NewIncludeSet() *IncludeSet {
+	return &IncludeSet{
+		IncludeTypes:   make(map[string]bool),
+		IncludeValues:  make(map[string]bool),
+		ResolvedTypes:  make(TypeRegistry),
+		ResolvedValues: make(ValueRegistry),
 	}
-	return &rval
+}
+
+type IncludeSet struct {
+	IncludeTypes, IncludeValues map[string]bool
+	ResolvedTypes               TypeRegistry
+	ResolvedValues              ValueRegistry
+	// resolvedTypes                       TypeRegistry
+}
+
+func (is *IncludeSet) MergeWith(js *IncludeSet) {
+	for k := range js.IncludeTypes {
+		is.IncludeTypes[k] = true
+	}
+	for k := range js.IncludeValues {
+		is.IncludeValues[k] = true
+	}
+
+	for k, v := range js.ResolvedTypes {
+		is.ResolvedTypes[k] = v
+	}
+	for k, v := range js.ResolvedValues {
+		is.ResolvedValues[k] = v
+	}
 }
 
 // includeSet is the basic implementation of a FeatureCollection. Several other
 // variants of FeatureCollection embed includeSet and are defined below.
 type includeSet struct {
-	includeTypeNames, includeValueNames []string
+	includeTypeNames, includeValueNames map[string]bool
 	resolvedTypes                       TypeRegistry
 }
 
@@ -44,8 +83,10 @@ func (is *includeSet) getIncludeSet() *includeSet {
 	return is
 }
 
-func (is *includeSet) pushTypes(typeName []string) {
-	is.includeTypeNames = append(is.includeTypeNames, typeName...)
+func (is *includeSet) pushTypes(typeMap map[string]bool) {
+	for n := range typeMap {
+		is.includeTypeNames[n] = true
+	}
 }
 
 func (is *includeSet) MergeWith(other FeatureCollection) {
@@ -58,12 +99,12 @@ func (is *includeSet) MergeWith(other FeatureCollection) {
 func (is *includeSet) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	is.resolvedTypes = make(TypeRegistry)
 
-	for i := 0; i < len(is.includeTypeNames); i++ {
-		t := tr[is.includeTypeNames[i]]
-		newSet := t.Resolve(tr, vr)
+	for tn := range is.includeTypeNames {
+		t := tr[tn]
+		// newSet := t.Resolve(tr, vr)
 		is.resolvedTypes[t.RegistryName()] = t
 
-		is.MergeWith(newSet)
+		// is.MergeWith(newSet)
 		// reqsTypes, reqsVals := rb.requiresTypeNames, rb.requiresEnumNames
 		// _ = reqsVals
 		// is.pushTypes(reqsTypes)
@@ -75,7 +116,7 @@ func (is *includeSet) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 		}
 	}
 
-	for _, vn := range is.includeValueNames {
+	for vn := range is.includeValueNames {
 		v := vr[vn]
 		// vd := vr[vn]
 		v.Resolve(tr, vr)
@@ -93,13 +134,11 @@ func (is *includeSet) FilterTypesByCategory() map[TypeCategory]FeatureCollection
 	for _, t := range is.resolvedTypes {
 		cc := rval[t.Category()]
 		if cc == nil {
-			cc = &categorySet{
-				cat: t.Category(),
-				includeSet: includeSet{
-					resolvedTypes: make(TypeRegistry),
-				},
-			}
-			rval[t.Category()] = cc
+			// cc = &categorySet{
+			// 	cat:        t.Category(),
+			// 	IncludeSet: NewIncludeSet(),
+			// }
+			// rval[t.Category()] = cc
 		}
 
 		cc.ResolvedTypes()[t.RegistryName()] = t
@@ -123,22 +162,36 @@ func (fs *featureSet) getIncludeSet() *includeSet {
 	return &fs.includeSet
 }
 
-func ReadFeatureFromXML(featureNode *xmlquery.Node) *featureSet {
+func ReadFeatureFromXML(featureNode *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) *featureSet {
 	rval := featureSet{}
+	// rval.includeSet = *NewIncludeSet()
 
-	rval.includeTypeNames = append(rval.includeTypeNames, "uintptr_t")
+	// Manual include, type not in vk.xml
+	rval.includeTypeNames["uintptr_t"] = true
 
 	for _, reqNode := range xmlquery.Find(featureNode, "/require") {
 		for _, typeNode := range xmlquery.Find(reqNode, "/type") { //} or /command") {
-			rval.includeTypeNames = append(rval.includeTypeNames, typeNode.SelectAttr("name"))
+			rval.includeTypeNames[typeNode.SelectAttr("name")] = true
 		}
 
 		for _, cmdNode := range xmlquery.Find(reqNode, "/command") {
-			rval.includeTypeNames = append(rval.includeTypeNames, cmdNode.SelectAttr("name"))
+			rval.includeTypeNames[cmdNode.SelectAttr("name")] = true
 		}
 
 		for _, enumNode := range xmlquery.Find(reqNode, "/enum") {
-			rval.includeValueNames = append(rval.includeValueNames, enumNode.SelectAttr("name"))
+			regTypeName := enumNode.SelectAttr("extends")
+			if regTypeName == "" {
+				// Not handling the embedded extension number and name (for now, at least)
+				continue
+			}
+
+			td := tr[regTypeName]
+
+			vd := NewEnumValueFromXML(td, enumNode)
+
+			// TODO MERGE VALUES
+			vr[vd.RegistryName()] = vd
+			rval.includeValueNames[vd.RegistryName()] = true
 		}
 	}
 
@@ -147,7 +200,7 @@ func ReadFeatureFromXML(featureNode *xmlquery.Node) *featureSet {
 
 type categorySet struct {
 	cat TypeCategory
-	includeSet
+	*IncludeSet
 }
 
 func (cc *categorySet) FilenameFragment() string {

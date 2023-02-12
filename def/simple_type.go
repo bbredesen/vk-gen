@@ -14,15 +14,16 @@ type simpleType struct {
 // Instead, it should be embedded in other simple types, like basetype or enum
 func (t *simpleType) Category() TypeCategory { return CatNone }
 
-func (t *simpleType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *simpleType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if t.isResolved {
-		return &includeSet{}
+		return NewIncludeSet()
 	}
 
 	is := t.genericType.Resolve(tr, vr)
 	t.resolvedUnderlyingType = tr[t.underlyingTypeName]
 	is.MergeWith(t.resolvedUnderlyingType.Resolve(tr, vr))
 
+	is.ResolvedTypes[t.registryName] = t
 	t.isResolved = true
 	return is
 }

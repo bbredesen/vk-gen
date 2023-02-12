@@ -14,33 +14,31 @@ type enumType struct {
 
 	requiresTypeName     string
 	resolvedRequiresType TypeDefiner
+	isBitmaskType        bool
 }
 
 func (t *enumType) Category() TypeCategory { return CatEnum }
 
 func (t *enumType) IsIdenticalPublicAndInternal() bool { return true }
 
-func (t *enumType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *enumType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if t.isResolved {
-		return &includeSet{}
+		return NewIncludeSet()
 	}
 
 	rval := t.internalType.Resolve(tr, vr)
+	rval.ResolvedTypes[t.registryName] = t
 
-	// if t.requiresTypeName != "" {
-	// 	t.resolvedRequiresType = tr[t.requiresTypeName]
-	// 	t.resolvedRequiresType.SetAliasType(t)
-	// 	rval.MergeWith(t.resolvedRequiresType.Resolve(tr, vr))
-
-	// 	rval.includeTypeNames = append(rval.includeTypeNames, t.requiresTypeName)
-	// }
+	if t.requiresTypeName != "" {
+		rval.MergeWith(tr[t.requiresTypeName].Resolve(tr, vr))
+	}
 
 	t.isResolved = true
 	return rval
 }
 
 func (t *enumType) PrintPublicDeclaration(w io.Writer) {
-	if t.underlyingType != nil && t.underlyingType.Category() == CatBitmask {
+	if t.isBitmaskType {
 		fmt.Fprintf(w, "type %s = %s\n", t.PublicName(), t.underlyingType.PublicName())
 	} else {
 		t.internalType.PrintPublicDeclaration(w)
@@ -50,8 +48,8 @@ func (t *enumType) PrintPublicDeclaration(w io.Writer) {
 
 	if len(t.values) > 0 {
 		fmt.Fprint(w, "const (\n")
-		for i, v := range t.values {
-			v.PrintPublicDeclaration(w, i == 0) // || !v.IsAlias())
+		for _, v := range t.values {
+			v.PrintPublicDeclaration(w) // || !v.IsAlias())
 		}
 		fmt.Fprint(w, ")\n\n")
 	}
@@ -67,7 +65,6 @@ func ReadEnumTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry)
 
 		ReadEnumValuesFromXML(doc, newType, tr, vr)
 	}
-	// Need to search the extends enums here too
 }
 
 func NewEnumTypeFromXML(node *xmlquery.Node) TypeDefiner {

@@ -5,7 +5,6 @@ import (
 	"io"
 	"sort"
 	"strconv"
-	"strings"
 
 	"github.com/antchfx/xmlquery"
 	"github.com/tidwall/gjson"
@@ -18,14 +17,16 @@ type TypeCategory int
 const (
 	CatNone TypeCategory = iota
 
+	CatExten // meta-category for printing extension names/version constants
+
 	CatDefine
 	CatInclude
 	CatExternal
 
 	CatHandle
 	CatBasetype
-	CatBitmask
 	CatEnum
+	CatBitmask
 
 	CatStruct
 	CatUnion
@@ -64,7 +65,7 @@ func (c TypeCategory) ReadFns() (fnReadFromXML, fnReadFromJSON) {
 	case CatStruct:
 		return ReadStructTypesFromXML, ReadStructExceptionsFromJSON
 	case CatUnion:
-		return ReadUnionTypesFromXML, nil
+		return ReadUnionTypesFromXML, ReadUnionExceptionsFromJSON
 
 	case CatPointer:
 		return nil, nil
@@ -82,14 +83,14 @@ func (c TypeCategory) ReadFns() (fnReadFromXML, fnReadFromJSON) {
 type TypeRegistry map[string]TypeDefiner
 type ValueRegistry map[string]ValueDefiner
 
-func (tr TypeRegistry) SelectCategory(cat TypeCategory) *includeSet {
-	rval := includeSet{}
+func (tr TypeRegistry) SelectCategory(cat TypeCategory) *IncludeSet {
+	rval := NewIncludeSet()
 	for k, v := range tr {
 		if v.Category() == cat {
-			rval.includeTypeNames = append(rval.includeTypeNames, k)
+			rval.IncludeTypes[k] = true
 		}
 	}
-	return &rval
+	return rval
 }
 
 type Namer interface {
@@ -107,7 +108,7 @@ type Aliaser interface {
 }
 
 type Resolver interface {
-	Resolve(TypeRegistry, ValueRegistry) *includeSet
+	Resolve(TypeRegistry, ValueRegistry) *IncludeSet
 	IsIdenticalPublicAndInternal() bool
 }
 
@@ -119,11 +120,12 @@ type TypeDefiner interface {
 
 	AllValues() []ValueDefiner
 	PushValue(ValueDefiner)
+	AppendValues(vals ValueRegistry)
 }
 
 type Printer interface {
 	RegisterImports(reg map[string]bool)
-	PrintGlobalDeclarations(io.Writer, int)
+	PrintGlobalDeclarations(io.Writer, int, bool)
 	PrintFileInitContent(io.Writer)
 	PrintPublicDeclaration(io.Writer)
 	PrintInternalDeclaration(io.Writer)
@@ -157,11 +159,12 @@ type ValueDefiner interface {
 	PublicName() string
 
 	ValueString() string
+	UnderlyingTypeName() string
 	ResolvedType() TypeDefiner
 
-	Resolve(TypeRegistry, ValueRegistry)
+	Resolve(TypeRegistry, ValueRegistry) *IncludeSet
 
-	PrintPublicDeclaration(w io.Writer, withExplicitType bool)
+	PrintPublicDeclaration(w io.Writer)
 	SetExtensionNumber(int)
 
 	IsAlias() bool
@@ -182,7 +185,7 @@ func (a byValue) Less(i, j int) bool {
 	return a[i].ValueString() < a[j].ValueString()
 }
 
-func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory) {
+func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory, filenameBase string) {
 	typesPerCallLimit := 32
 
 	types := ""
@@ -190,7 +193,7 @@ func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory) {
 	fileCount := 0
 
 	// catString := strings.ToLower(cat.String())
-	catString := strings.ToLower(strings.TrimPrefix(cat.String(), "Cat"))
+	// catString := strings.ToLower(strings.TrimPrefix(cat.String(), "Cat"))
 
 	for j, v := range defs {
 
@@ -202,7 +205,7 @@ func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory) {
 		}
 
 		if i == typesPerCallLimit-1 || j == len(defs)-1 { // Limit the number of types per call to stringer
-			outFile := fmt.Sprintf("%s_string_%d.go", catString, fileCount)
+			outFile := fmt.Sprintf("%s_string_%d.go", filenameBase, fileCount)
 			types = types[:len(types)-1]
 			fmt.Fprintf(w, "//go:generate stringer -output=%s -type=%s\n", outFile, types)
 

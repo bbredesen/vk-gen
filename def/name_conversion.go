@@ -36,7 +36,9 @@ func RenameIdentifier(s string) string {
 	case "int32":
 		fallthrough
 	case "uint32":
-		return "as" + strings.Title(s)
+		return "type" + strings.Title(s)
+	case "bool":
+		return "b"
 	default:
 		return s
 	}

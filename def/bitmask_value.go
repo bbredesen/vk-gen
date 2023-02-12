@@ -13,8 +13,6 @@ type bitmaskValue struct {
 	bitposString string
 
 	comment string
-
-	belongsToTypeName string
 }
 
 func (v *bitmaskValue) ValueString() string {
@@ -27,34 +25,34 @@ func (v *bitmaskValue) ValueString() string {
 	}
 }
 
-func (v *bitmaskValue) PrintPublicDeclaration(w io.Writer, withExplicitType bool) {
-	if withExplicitType {
-		fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
-	} else {
-		fmt.Fprintf(w, "%s = %s\n", v.PublicName(), v.ValueString())
-	}
+func (v *bitmaskValue) PrintPublicDeclaration(w io.Writer) {
+	fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
 }
 
-func (v *bitmaskValue) Resolve(tr TypeRegistry, vr ValueRegistry) {
+func (v *bitmaskValue) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if v.isResolved {
-		return
+		return NewIncludeSet()
 	}
+
+	var rval *IncludeSet
 
 	if v.IsAlias() {
 		v.resolvedAliasValue = vr[v.aliasValueName]
-		v.resolvedAliasValue.Resolve(tr, vr)
+		rval = v.resolvedAliasValue.Resolve(tr, vr)
 		v.valueString = RenameIdentifier(v.ValueString())
 
 		v.resolvedType = v.resolvedAliasValue.ResolvedType()
-		v.resolvedType.Resolve(tr, vr)
+		rval.MergeWith(v.resolvedType.Resolve(tr, vr))
 	} else {
 		v.resolvedType = tr[v.underlyingTypeName]
-		v.resolvedType.Resolve(tr, vr)
+		rval = v.resolvedType.Resolve(tr, vr)
 	}
 
-	v.resolvedType.PushValue(v)
+	rval.IncludeValues[v.registryName] = true
+	rval.ResolvedValues[v.registryName] = v
 
 	v.isResolved = true
+	return rval
 }
 
 func NewBitmaskValueFromXML(forBitmask TypeDefiner, elt *xmlquery.Node) *bitmaskValue {

@@ -19,9 +19,9 @@ type defineType struct {
 
 func (t *defineType) Category() TypeCategory { return CatDefine }
 
-func (t *defineType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *defineType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if t.isResolved {
-		return &includeSet{}
+		return NewIncludeSet()
 	}
 
 	rval := t.internalType.Resolve(tr, vr)
@@ -29,6 +29,8 @@ func (t *defineType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	t.functionName = RenameIdentifier(t.functionName)
 	t.valueString = RenameIdentifier(t.valueString)
 	t.paramString = rxParamSearch.ReplaceAllStringFunc(t.paramString, RenameIdentifier)
+
+	rval.ResolvedTypes[t.registryName] = t
 
 	t.isResolved = true
 	return rval

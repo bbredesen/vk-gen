@@ -26,10 +26,12 @@ type genericType struct {
 }
 
 func (t *genericType) Category() TypeCategory { return CatNone }
-func (t *genericType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *genericType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if t.isResolved {
-		return &includeSet{}
+		return NewIncludeSet()
 	}
+
+	rval := NewIncludeSet()
 
 	if t.publicName == "" {
 		t.publicName = RenameIdentifier(t.registryName)
@@ -38,13 +40,14 @@ func (t *genericType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 
 	if t.aliasTypeName != "" {
 		t.resolvedAliasType = tr[t.aliasTypeName]
-		t.resolvedAliasType.Resolve(tr, vr)
+		rval.MergeWith(t.resolvedAliasType.Resolve(tr, vr))
 	}
 
-	return &includeSet{}
+	rval.ResolvedTypes[t.registryName] = t
+	return rval
 }
 
-// func (t *genericType) IsIdenticalPublicAndInternal() bool { return true }
+func (t *genericType) IsIdenticalPublicAndInternal() bool { return true }
 
 func (t *genericType) SetAliasType(td TypeDefiner) {
 	t.aliasTypeName = td.RegistryName()
@@ -66,9 +69,15 @@ func (t *genericType) PushValue(vd ValueDefiner) {
 	t.values = append(t.values, vd)
 }
 
-func (t *genericType) PrintGlobalDeclarations(io.Writer, int) {}
-func (t *genericType) PrintFileInitContent(io.Writer)         {}
-func (t *genericType) RegisterImports(reg map[string]bool)    {}
+func (t *genericType) AppendValues(vals ValueRegistry) {
+	for _, v := range vals {
+		t.values = append(t.values, v)
+	}
+}
+
+func (t *genericType) PrintGlobalDeclarations(io.Writer, int, bool) {}
+func (t *genericType) PrintFileInitContent(io.Writer)               {}
+func (t *genericType) RegisterImports(reg map[string]bool)          {}
 
 func (t *genericType) PrintPublicDeclaration(w io.Writer) {
 	fmt.Fprintln(w, "PrintPublicDeclaration not defined for genericType")

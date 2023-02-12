@@ -11,17 +11,33 @@ type extensionSet struct {
 	extName, extType string
 	extNumber        int
 
-	includeSet
+	platformName string
+
+	*IncludeSet
 }
 
-func ReadAllExtensionsFromXML(doc *xmlquery.Node) []*extensionSet {
+func SegmentExtensionsByPlatform(allExts []*extensionSet) map[string][]*extensionSet {
+	rval := make(map[string][]*extensionSet)
+	for _, ext := range allExts {
+		rval[ext.platformName] = append(rval[ext.platformName], ext)
+	}
+	return rval
+}
+
+func ReadAllExtensionsFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) []*extensionSet {
 	rval := make([]*extensionSet, 0)
 
-	for _, extNode := range xmlquery.Find(doc, "//extensions/extension[@name='VK_KHR_surface']") {
-		ext := extensionSet{
-			extName: extNode.SelectAttr("name"),
-			extType: extNode.SelectAttr("type"),
+	for _, extNode := range xmlquery.Find(doc, "//extensions/extension") {
+		if extNode.SelectAttr("supported") == "disabled" {
+			continue
 		}
+
+		ext := extensionSet{
+			extName:      extNode.SelectAttr("name"),
+			extType:      extNode.SelectAttr("type"),
+			platformName: extNode.SelectAttr("platform"),
+		}
+		ext.IncludeSet = NewIncludeSet()
 
 		if num, err := strconv.Atoi(extNode.SelectAttr("number")); err != nil {
 			logrus.WithError(err).WithField("extension name", ext.extName).Error("Could not convert number attribute on extension")
@@ -31,16 +47,36 @@ func ReadAllExtensionsFromXML(doc *xmlquery.Node) []*extensionSet {
 		}
 
 		for _, reqNode := range xmlquery.Find(extNode, "/require") {
+			// Commands and types are referenced in the extension but defined elsewhere, and can be resolved
+			// independently. Just add the name to the include list
 			for _, typeNode := range xmlquery.Find(reqNode, "/type") { //} or /command") {
-				ext.includeTypeNames = append(ext.includeTypeNames, typeNode.SelectAttr("name"))
+				ext.IncludeTypes[typeNode.SelectAttr("name")] = true
 			}
 
 			for _, cmdNode := range xmlquery.Find(reqNode, "/command") {
-				ext.includeTypeNames = append(ext.includeTypeNames, cmdNode.SelectAttr("name"))
+				ext.IncludeTypes[cmdNode.SelectAttr("name")] = true
 			}
 
+			// Enum values are actually defined in the extension, though they may be re-defined or partially defined
+			// elsehwere if the extension was promoted to core. Add the value name, plus create the ValueDefiner and put
+			// it in the registry.
 			for _, enumNode := range xmlquery.Find(reqNode, "/enum") {
-				ext.includeValueNames = append(ext.includeValueNames, enumNode.SelectAttr("name"))
+				// Also, bitmasks and values with offsets are defined in the same place, so first figure out which type
+				// of value this is and call the appropriate New... function. (TODO)
+				regTypeName := enumNode.SelectAttr("extends")
+				if regTypeName == "" {
+					// Not handling the embedded extension number and name (for now, at least)
+					continue
+				}
+
+				td := tr[regTypeName]
+
+				vd := NewEnumValueFromXML(td, enumNode)
+				vd.SetExtensionNumber(ext.extNumber)
+
+				// TODO MERGE VALUES
+				vr[vd.RegistryName()] = vd
+				ext.IncludeValues[vd.RegistryName()] = true
 			}
 		}
 
@@ -50,25 +86,26 @@ func ReadAllExtensionsFromXML(doc *xmlquery.Node) []*extensionSet {
 	return rval
 }
 
-func (es *extensionSet) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
-	es.resolvedTypes = make(TypeRegistry)
+func (es *extensionSet) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
+	// es.resolvedTypes = make(TypeRegistry)
 
-	for i := 0; i < len(es.includeTypeNames); i++ {
-		t := tr[es.includeTypeNames[i]]
-		newSet := t.Resolve(tr, vr)
-		es.resolvedTypes[t.RegistryName()] = t
+	// for tn := range es.includeTypeNames {
+	// 	t := tr[tn]
+	// 	newSet := t.Resolve(tr, vr)
+	// 	es.resolvedTypes[t.RegistryName()] = t
 
-		es.MergeWith(newSet)
-	}
+	// 	es.MergeWith(newSet)
+	// }
 
-	for _, vn := range es.includeValueNames {
-		if v, found := vr[vn]; found {
-			v.SetExtensionNumber(es.extNumber)
-			v.Resolve(tr, vr)
-		}
-	}
+	// for vn := range es.includeValueNames {
+	// 	if v, found := vr[vn]; found {
+	// 		v.SetExtensionNumber(es.extNumber)
+	// 		v.Resolve(tr, vr)
+	// 	}
+	// }
 
-	return &es.includeSet
+	// return &es.includeSet
+	return nil
 }
 
 func (es *extensionSet) FilenameFragment() string { return "" }

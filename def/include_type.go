@@ -17,16 +17,18 @@ type includeType struct {
 func (t *includeType) Category() TypeCategory             { return CatInclude }
 func (t *includeType) IsIdenticalPublicAndInternal() bool { return true }
 
-func (t *includeType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *includeType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	t.resolvedIncludedTypes = make(TypeRegistry)
-	rval := &includeSet{}
+	rval := NewIncludeSet()
 
 	for key := range t.includedTypeNames {
 		td := tr[key]
 		t.resolvedIncludedTypes[key] = td
 		rval.MergeWith(td.Resolve(tr, vr))
-		rval.includeTypeNames = append(rval.includeTypeNames, key)
+		rval.IncludeTypes[key] = true
 	}
+
+	rval.ResolvedTypes[t.registryName] = t
 
 	t.isResolved = true
 	return rval

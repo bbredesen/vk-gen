@@ -50,6 +50,8 @@ func ReadExternalTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegis
 		// Read external enums
 		ReadApiConstantsFromXML(doc, typ, tr, vr)
 	}
+	// Read aliased (untyped) external enums
+	ReadApiConstantsFromXML(doc, nil, tr, vr)
 }
 
 func NewExternalTypeFromXML(node *xmlquery.Node) *externalType {
@@ -115,12 +117,15 @@ func NewOrUpdateExternalValueFromJSON(key, value string, td TypeDefiner, tr Type
 	}
 
 	updatedEntry.valueString = value
-	td.PushValue(updatedEntry)
+	updatedEntry.isCore = true
+
+	vr[key] = updatedEntry
+	// td.PushValue(updatedEntry)
 }
 
-func (t *externalType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
+func (t *externalType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if t.isResolved {
-		return &includeSet{}
+		return NewIncludeSet()
 	}
 	is := t.genericType.Resolve(tr, vr)
 
@@ -131,6 +136,8 @@ func (t *externalType) Resolve(tr TypeRegistry, vr ValueRegistry) *includeSet {
 	if t.requiresTypeName != "" {
 		is.MergeWith(t.requiresType.Resolve(tr, vr))
 	}
+
+	is.ResolvedTypes[t.registryName] = t
 
 	t.isResolved = true
 	return is
@@ -143,8 +150,8 @@ func (t *externalType) PrintPublicDeclaration(w io.Writer) {
 
 	if len(t.values) > 0 {
 		fmt.Fprint(w, "const (\n")
-		for i, v := range t.values {
-			v.PrintPublicDeclaration(w, i == 0) // || !v.IsAlias())
+		for _, v := range t.values {
+			v.PrintPublicDeclaration(w)
 		}
 		fmt.Fprint(w, ")\n\n")
 	}

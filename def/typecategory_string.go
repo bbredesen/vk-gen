@@ -9,24 +9,25 @@ func _() {
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
 	_ = x[CatNone-0]
-	_ = x[CatDefine-1]
-	_ = x[CatInclude-2]
-	_ = x[CatExternal-3]
-	_ = x[CatHandle-4]
-	_ = x[CatBasetype-5]
-	_ = x[CatBitmask-6]
+	_ = x[CatExten-1]
+	_ = x[CatDefine-2]
+	_ = x[CatInclude-3]
+	_ = x[CatExternal-4]
+	_ = x[CatHandle-5]
+	_ = x[CatBasetype-6]
 	_ = x[CatEnum-7]
-	_ = x[CatStruct-8]
-	_ = x[CatUnion-9]
-	_ = x[CatPointer-10]
-	_ = x[CatArray-11]
-	_ = x[CatCommand-12]
-	_ = x[CatMaximum-13]
+	_ = x[CatBitmask-8]
+	_ = x[CatStruct-9]
+	_ = x[CatUnion-10]
+	_ = x[CatPointer-11]
+	_ = x[CatArray-12]
+	_ = x[CatCommand-13]
+	_ = x[CatMaximum-14]
 }
 
-const _TypeCategory_name = "CatNoneCatDefineCatIncludeCatExternalCatHandleCatBasetypeCatBitmaskCatEnumCatStructCatUnionCatPointerCatArrayCatCommandCatMaximum"
+const _TypeCategory_name = "CatNoneCatExtenCatDefineCatIncludeCatExternalCatHandleCatBasetypeCatEnumCatBitmaskCatStructCatUnionCatPointerCatArrayCatCommandCatMaximum"
 
-var _TypeCategory_index = [...]uint8{0, 7, 16, 26, 37, 46, 57, 67, 74, 83, 91, 101, 109, 119, 129}
+var _TypeCategory_index = [...]uint8{0, 7, 15, 24, 34, 45, 54, 65, 72, 82, 91, 99, 109, 117, 127, 137}
 
 func (i TypeCategory) String() string {
 	if i < 0 || i >= TypeCategory(len(_TypeCategory_index)-1) {
