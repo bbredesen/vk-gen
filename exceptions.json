@@ -261,6 +261,9 @@
         },
         "PFN_vkDeviceMemoryReportCallbackEXT": {
             "underlyingTypeName": "!pointer"
+        },
+        "PFN_vkGetInstanceProcAddrLUNARG": {
+            "underlyingTypeName": "!pointer"
         }
     },
 
