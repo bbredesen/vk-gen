@@ -15,17 +15,22 @@ import (
 
 	"github.com/antchfx/xmlquery"
 	"github.com/bbredesen/vk-gen/def"
+	"github.com/bbredesen/vk-gen/feat"
 	"github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 )
 
 var (
 	inFileName, outDirName string
+	platformTargets        string
+	separatedPlatforms     []string
+	useTemplates           bool
 )
 
 func init() {
 	flag.StringVar(&inFileName, "inFile", "vk.xml", "Vulkan XML registry file to read")
 	flag.StringVar(&outDirName, "outDir", "vk", "Directory to write go-vk output to")
+	flag.StringVar(&platformTargets, "platform", "win32", "Comma-separated list of platforms to generate for")
 
 	flag.Parse()
 
@@ -56,6 +61,12 @@ func main() {
 	}
 	defer f.Close()
 
+	separatedPlatforms = strings.Split(platformTargets, ",")
+	if len(separatedPlatforms) == 0 {
+		logrus.Info("Generating core Vulkan only; no platform specific extensions will be available!")
+	} else {
+		logrus.WithField("platforms", separatedPlatforms).Infof("Found %d platforms to generate for", len(separatedPlatforms))
+	}
 	xmlDoc, err := xmlquery.Parse(f)
 	if err != nil {
 		logrus.WithField("filename", inFileName).
@@ -92,86 +103,197 @@ func main() {
 		}
 	}
 
-	// externalTypes := globalTypes.SelectCategory(def.CatExternal)
-
-	set := def.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_0']"))
-	set.MergeWith(def.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_1']")))
-	ext := def.ReadAllExtensionsFromXML(xmlDoc)
-
-	for _, e := range ext {
-		set.MergeWith(e)
+	platforms := make(feat.PlatformRegistry)
+	// static platform
+	platforms[""] = feat.NewGeneralPlatform()
+	for _, n := range xmlquery.Find(xmlDoc, "//platforms/platform") {
+		plat := feat.NewPlatformFromXML(n)
+		platforms[plat.Name()] = plat
 	}
+	jsonDoc.Get("platform").ForEach(func(key, value gjson.Result) bool {
+		r := feat.NewOrUpdatePlatformFromJSON(key.String(), value, platforms[key.String()])
+		platforms[r.Name()] = r
+		return true
+	})
+
+	vk1_0 := feat.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_0']"), globalTypes, globalValues)
+	vk1_1 := feat.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_1']"), globalTypes, globalValues)
+	vk1_2 := feat.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_2']"), globalTypes, globalValues)
+	vk1_0.MergeWith(vk1_1)
+	vk1_0.MergeWith(vk1_2)
+
+	// Manually include external types
+	vk1_0.MergeIncludeSet(globalTypes.SelectCategory(def.CatExternal))
+
+	for _, platName := range separatedPlatforms {
+		xpath := fmt.Sprintf("//extension[@platform='%s']", platName)
+		for _, extNode := range xmlquery.Find(xmlDoc, xpath) {
+			ext := feat.ReadExtensionFromXML(extNode, globalTypes, globalValues)
+			platforms[ext.PlatformName()].IncludeExtension(ext)
+		}
+	}
+
+	// "Core" extensions
+	for _, extNode := range xmlquery.Find(xmlDoc, "//extension[not(@platform) and @supported='vulkan']") {
+		ext := feat.ReadExtensionFromXML(extNode, globalTypes, globalValues)
+		platforms[""].IncludeExtension(ext)
+	}
+
+	vk1_0.MergeWith(platforms[""].GeneratePlatformFeatures())
+
+	vk1_0.Resolve(globalTypes, globalValues)
+
+	commandCount := 0
+
+	for tc, reg := range vk1_0.FilterByCategory() { //ResolvedTypes().FilterByCategory() {
+		if tc == def.CatHandle {
+			// Special case...VK_NULL_HANDLE is included by vk.xml as a type, not an enum. vk-gen treats it as a
+			// ValueDefiner, so it must be manually added to the feature registry.
+			globalValues["VK_NULL_HANDLE"].Resolve(globalTypes, globalValues)
+			reg.ResolvedTypes["VK_DEFINE_HANDLE"].PushValue(globalValues["VK_NULL_HANDLE"])
+		}
+
+		printCategory(tc, reg, nil, 0)
+		if tc == def.CatCommand {
+			commandCount += len(reg.ResolvedTypes)
+		}
+
+	}
+
+	for pName, plat := range platforms {
+		if pName == "" {
+			continue
+		}
+
+		// for _, ext := range plat.Extensions() {
+		// 	ext.Resolve(globalTypes, globalValues)
+		// }
+
+		pf := plat.GeneratePlatformFeatures()
+		pf.Resolve(globalTypes, globalValues)
+
+		for tc, reg := range pf.FilterByCategory() { //ResolvedTypes().FilterByCategory() {
+			printCategory(tc, reg, plat, commandCount)
+			if tc == def.CatCommand {
+				commandCount += len(reg.ResolvedTypes)
+			}
+		}
+	}
+
+	// set.MergeWith(def.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_1']"), globalTypes, globalValues))
+	// ext := def.ReadAllExtensionsFromXML(xmlDoc, globalTypes, globalValues)
+	// extMap := def.SegmentExtensionsByPlatform(ext)
+
+	// for k, v := range extMap {
+	// 	if feat, found := pm[k]; found {
+	// 		for _, ext := range v {
+	// 			feat.MergeWith(ext)
+	// 		}
+	// 	} else {
+	// 		logrus.Infof("No platform entry for %s", k)
+	// 		for _, ext := range v {
+	// 			set.MergeWith(ext)
+	// 		}
+	// 	}
+	// }
 
 	// set.MergeWith(externalTypes)
 
 	// resolve against a feature set
 	// set := def.TestingIncludes(globalTypes)
-	set.Resolve(globalTypes, globalValues)
 
-	for tc, reg := range set.FilterTypesByCategory() { //ResolvedTypes().FilterByCategory() {
-		fname := reg.FilenameFragment()
-		plat := reg.Platform()
+	// set.Resolve(globalTypes, globalValues)
 
-		_, _ = fname, plat
-		printCategory(tc, reg)
-	}
+	// for tc, reg := range set.FilterTypesByCategory() { //ResolvedTypes().FilterByCategory() {
+	// 	fname := reg.FilenameFragment()
+	// 	plat := reg.Platform()
+
+	// 	_, _ = fname, plat
+	// 	printCategory(tc, reg, "")
+	// }
+
+	// for platformKey, platformFeats := range pm {
+	// 	platformFeats.Resolve(globalTypes, globalValues)
+	// 	logrus.Infof("Writing platform %s...", platformKey)
+
+	// 	for tc, reg := range platformFeats.FilterTypesByCategory() {
+	// 		printCategory(tc, reg, platformKey)
+	// 	}
+
+	// }
 
 	copyStaticFiles()
 
-	logrus.Info("Running go generate on output")
-	cmd := exec.Command("go", "generate")
-	e := &strings.Builder{}
-	cmd.Stderr = e
-	cmd.Dir = outDirName
+	// logrus.Info("Running go generate on output")
+	// cmd := exec.Command("go", "generate")
+	// e := &strings.Builder{}
+	// cmd.Stderr = e
+	// cmd.Dir = outDirName
 
-	gogenErr := cmd.Run()
-	if gogenErr != nil {
-		logrus.
-			WithField("error", gogenErr.Error()).
-			WithField("stderr output", e.String()).
-			Error("go generate failed")
-	}
+	// gogenErr := cmd.Run()
+	// if gogenErr != nil {
+	// 	logrus.
+	// 		WithField("error", gogenErr.Error()).
+	// 		WithField("stderr output", e.String()).
+	// 		Error("go generate failed")
+	// }
 }
 
 const fileHeader string = "// Code generated by go-vk from %s at %s. DO NOT EDIT.\npackage vk\n\n"
 
-func printCategory(tc def.TypeCategory, fc def.FeatureCollection) { //} pt *def.PlatformType, cat def.TypeCategory, tr def.TypeRegistry) {
+func printCategory(tc def.TypeCategory, fc *feat.Feature, platform *feat.Platform, startingCount int) { //} pt *def.PlatformType, cat def.TypeCategory, tr def.TypeRegistry) {
 	if tc == def.CatInclude {
 		return
 	}
 
-	reg := fc.ResolvedTypes()
+	reg := fc.ResolvedTypes
 	// vals := reg.Val
 
-	if len(reg) == 0 {
+	if len(reg) == 0 && len(fc.ResolvedValues) == 0 {
 		return
 	}
 
-	filename := fc.FilenameFragment() + ".go"
-	f, _ := os.Create(outDirName + "/" + filename)
-	// explict f.Close() below; not defered because the file must be written before goimports is run
-
-	// if pt.BuildTag() != "" {
-	// 	fmt.Fprintf(f, "//go:build %s\n", pt.BuildTag())
+	// filename := fc.FilenameFragment()
+	// if platform != "" {
+	// 	filename = filename + "_" + platform
 	// }
+
+	filename := strings.ToLower(strings.TrimPrefix(tc.String(), "Cat"))
+	if platform != nil {
+		filename = filename + "_" + platform.Name()
+	}
+	// filename = filename + ".go"
+
+	outpath := fmt.Sprintf("%s/%s", outDirName, filename+".go")
+
+	f, _ := os.Create(outpath)
+	// explict f.Close() below; not defered because the file must be written to disk before goimports is run
+
+	if platform != nil && platform.GoBuildTag != "" {
+		fmt.Fprintf(f, "//go:build %s\n", platform.GoBuildTag)
+	}
 
 	fmt.Fprintf(f, fileHeader, inFileName, time.Now())
 
-	// if len(pt.Imports()) > 0 {
-	// 	fmt.Fprintf(f, "import (\n")
-	// 	for _, i := range pt.Imports() {
-	// 		fmt.Fprintf(f, "\"%s\"", i)
-	// 	}
-	// 	fmt.Fprintf(f, ")\n")
-	// }
+	if platform != nil && len(platform.GoImports) > 0 {
+		fmt.Fprintf(f, "import (\n")
+		for _, i := range platform.GoImports {
+			fmt.Fprintf(f, "\"%s\"", i)
+		}
+		fmt.Fprintf(f, ")\n")
+	}
+
 	types := make([]def.TypeDefiner, 0, len(reg))
-	for _, v := range reg {
+	for k, v := range reg {
+		_ = k
 		types = append(types, v)
+		v.AppendValues(fc.ResolvedValues[v.RegistryName()])
+		delete(fc.ResolvedValues, v.RegistryName())
 	}
 
 	sort.Sort(def.ByName(types))
 	// if cat == def.Enum {
-	def.WriteStringerCommands(f, types, tc)
+	def.WriteStringerCommands(f, types, tc, filename)
 	// }
 
 	importMap := make(def.ImportMap)
@@ -188,20 +310,21 @@ func printCategory(tc def.TypeCategory, fc def.FeatureCollection) { //} pt *def.
 		fmt.Fprintln(f)
 	}
 
-	printTypes(f, types)
+	printTypes(f, types, fc.ResolvedValues, startingCount)
+	printLooseValues(f, fc.ResolvedValues)
 
 	f.Close()
 
-	logrus.WithField("file", filename).Info("Running goimports")
+	logrus.WithField("file", filename+".go").Info("Running goimports")
 
-	cmd := exec.Command("goimports", "-w", outDirName+"/"+filename)
+	cmd := exec.Command("goimports", "-w", outpath)
 	e := &strings.Builder{}
 	cmd.Stderr = e
 
 	goimpErr := cmd.Run()
 	if goimpErr != nil {
 		logrus.
-			WithField("file", filename).
+			WithField("path", outpath).
 			WithField("error", goimpErr.Error()).
 			WithField("goimports output", e.String()).
 			Error("Failed to format source file")
@@ -209,7 +332,7 @@ func printCategory(tc def.TypeCategory, fc def.FeatureCollection) { //} pt *def.
 
 }
 
-func printTypes(w io.Writer, types []def.TypeDefiner) {
+func printTypes(w io.Writer, types []def.TypeDefiner, vals map[string]def.ValueRegistry, globalOffset int) {
 	globalBuf := &strings.Builder{}
 	initBuf := &strings.Builder{}
 	contentBuf := &strings.Builder{}
@@ -219,10 +342,12 @@ func printTypes(w io.Writer, types []def.TypeDefiner) {
 			continue
 		}
 
-		v.PrintGlobalDeclarations(globalBuf, i)
+		v.PrintGlobalDeclarations(globalBuf, i+globalOffset, i == 0)
 
 		v.PrintPublicDeclaration(contentBuf)
 		v.PrintInternalDeclaration(contentBuf)
+
+		// TODO PRINT VALUES vals[v.RegistryName]
 
 		v.PrintFileInitContent(initBuf) // Intentionally called after public declaration, which may do some processing needed for file init()
 	}
@@ -240,6 +365,22 @@ func printTypes(w io.Writer, types []def.TypeDefiner) {
 	}
 
 	fmt.Fprint(w, contentBuf.String())
+
+}
+
+func printLooseValues(w io.Writer, valsByTypeName map[string]def.ValueRegistry) {
+
+	for k, vr := range valsByTypeName {
+		fmt.Fprintf(w, "// Platform-specific values for %s\n", k)
+		fmt.Fprintf(w, "const (\n")
+
+		i := 0
+		for _, val := range vr {
+			val.PrintPublicDeclaration(w)
+			i++
+		}
+		fmt.Fprintf(w, ")\n\n")
+	}
 
 }
 
