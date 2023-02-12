@@ -110,7 +110,7 @@
             "go:imports": []
         },
         "ggp": {
-            "!comment": "Guessing at this talog.g.",
+            "!comment": "Guessing at this tag.",
             "go:build": "stadia",
             "go:imports": []
         },
@@ -194,7 +194,27 @@
         "HMONITOR": { "go:type": "windows.Handle" },
         "DWORD": { "go:type": "uint32" },
         "SECURITY_ATTRIBUTES": { "go:type": "windows.SecurityAttributes" },
-        "LPCWSTR": { "go:type": "unsafe.Pointer" }
+        "LPCWSTR": { "go:type": "unsafe.Pointer" },
+
+        "!comment" : "TODO : All of the platform types below need to be dealt with. uint32 is a placeholder only!",
+
+        "Display" : { "go:type": "uint32" },
+        "VisualID" : { "go:type": "uint32" },
+        "Window" : { "go:type": "uint32" },
+        "RROutput" : { "go:type": "uint32" },
+        "wl_display" : { "go:type": "uint32" },
+        "wl_surface" : { "go:type": "uint32" },
+
+        "xcb_connection_t" : { "go:type": "uint32" },
+        "xcb_visualid_t" : { "go:type": "uint32" },
+        "xcb_window_t" : { "go:type": "uint32" },
+        "IDirectFB" : { "go:type": "uint32" },
+        "IDirectFBSurface" : { "go:type": "uint32" },
+        "zx_handle_t" : { "go:type": "uint32" },
+        "GgpStreamDescriptor" : { "go:type": "uint32" },
+        "GgpFrameToken" : { "go:type": "uint32" },
+        "_screen_context" : { "go:type": "uint32" },
+        "_screen_window" : { "go:type": "uint32" }
     },
 
     "include": {
@@ -247,11 +267,40 @@
     "struct": {
         "VkBaseInStructure": {
             "publicName": "!ignore",
-            "comment": "Causes a stack overflow in resolution by recursive self-referencing. Declares pNext, formally part of the API, but never actually used anywhere else."
+            "!comment": "Causes a stack overflow in resolution by recursive self-referencing. Declares pNext, formally part of the API, but never actually used anywhere else."
         },
         "VkBaseOutStructure": {
             "publicName": "!ignore",
-            "comment": "See VkBaseInStructure"
+            "!comment": "See VkBaseInStructure"
+        },
+        "VkDescriptorSetLayoutBinding": {
+            "forceIncludeMember": "descriptorCount",
+            "forceIncludeComment": "descriptorCount references an array field in the XML, but that field might be null and then descriptor count has a different meaning. See the man pages/spec."
+        }
+    },
+
+    "union": {
+        "!comment": "go:internalSize allows us to specify the internal data size in bytes for Vulkan's union types. See README.md for details.",
+        "VkClearValue": {
+            "go:internalSize": "unsafe.Sizeof(_vkClearColorValue{})"
+        },
+        "VkDeviceOrHostAddressConstKHR": {
+            "go:internalSize" : 8
+        },
+        "VkDeviceOrHostAddressKHR": {
+            "go:internalSize" : 8
+        },
+        "VkPerformanceCounterResultKHR": {
+            "go:internalSize" : 8
+        },
+        "VkPerformanceValueDataINTEL": {
+            "go:internalSize" : 8
+        },
+        "VkPipelineExecutableStatisticValueKHR": {
+            "go:internalSize" : 8
+        },
+        "VkAccelerationStructureMotionInstanceDataNV": {
+            "go:internalSize" : "unsafe.Sizeof(_vkAccelerationStructureMatrixMotionInstanceNV{})"
         }
     }
 
