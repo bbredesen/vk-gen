@@ -35,18 +35,18 @@ func (v *enumValue) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if v.isResolved {
 		return NewIncludeSet()
 	}
-	var rval *IncludeSet
+	var rval *IncludeSet = NewIncludeSet()
 
 	if v.IsAlias() {
 		v.resolvedAliasValue = vr[v.aliasValueName]
-		v.resolvedAliasValue.Resolve(tr, vr)
+		rval.MergeWith(v.resolvedAliasValue.Resolve(tr, vr))
 		v.valueString = RenameIdentifier(v.ValueString())
 
 		v.resolvedType = v.resolvedAliasValue.ResolvedType()
-		rval = v.resolvedType.Resolve(tr, vr)
+		rval.MergeWith(v.resolvedType.Resolve(tr, vr))
 	} else {
 		v.resolvedType = tr[v.underlyingTypeName]
-		rval = v.resolvedType.Resolve(tr, vr)
+		rval.MergeWith(v.resolvedType.Resolve(tr, vr))
 	}
 
 	rval.IncludeValues[v.registryName] = true
@@ -189,13 +189,27 @@ type extenValue struct {
 }
 
 func (v *extenValue) Category() TypeCategory { return CatExten }
+
 func (v *extenValue) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
+	// Very similar to enumValue.Resolve(), but we exclude the type resolution (extenValues are untyped, otherwise
+	// they'd be enumValues)
 	if v.isResolved {
 		return NewIncludeSet()
 	}
-	v.isResolved = true
+
 	rval := NewIncludeSet()
+
+	v.isResolved = true
+
+	if v.IsAlias() {
+		v.resolvedAliasValue = vr[v.aliasValueName]
+		rval.MergeWith(v.resolvedAliasValue.Resolve(tr, vr))
+		v.valueString = RenameIdentifier(v.ValueString())
+	}
+
+	rval.IncludeValues[v.registryName] = true
 	rval.ResolvedValues[v.registryName] = v
+
 	return rval
 }
 
@@ -209,7 +223,11 @@ func (v *extenValue) PrintPublicDeclaration(w io.Writer) {
 }
 
 func (v *extenValue) ValueString() string {
-	return v.valueString
+	if v.IsAlias() {
+		return v.resolvedAliasValue.PublicName()
+	} else {
+		return v.valueString
+	}
 }
 
 func NewUntypedEnumValueFromXML(elt *xmlquery.Node) *extenValue {

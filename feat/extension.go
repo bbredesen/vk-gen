@@ -38,7 +38,8 @@ func ReadExtensionFromXML(extNode *xmlquery.Node, tr def.TypeRegistry, vr def.Va
 
 		for _, enumNode := range xmlquery.Find(reqNode, "/enum") {
 			extendsTypeName := enumNode.SelectAttr("extends")
-			if extendsTypeName == "" && enumNode.SelectAttr("value") == "" {
+
+			if extendsTypeName == "" && enumNode.SelectAttr("value") == "" && enumNode.SelectAttr("alias") == "" {
 				// Some extensions are actually requiring an outside constant, like VK_SHADER_UNUSED_KHR; These
 				// should already be in the registry as external types
 				rval.requireValueNames[enumNode.SelectAttr("name")] = true
