@@ -38,7 +38,7 @@ func (t *bitmaskType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 func (t *bitmaskType) PrintPublicDeclaration(w io.Writer) {
 	t.internalType.PrintPublicDeclaration(w)
 
-	sort.Sort(byValue(t.values))
+	sort.Sort(ByValue(t.values))
 
 	if len(t.values) > 0 {
 		fmt.Fprint(w, "const (\n")
