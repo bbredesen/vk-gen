@@ -44,4 +44,6 @@ issue/PR will clean this up, but they don't hurt anything at the moment.
   anything that resolves to a constant in Go, though most typically it will be an integer value (represented as a
   string). The value should be the aligned (?) data size in bytes of the largest member of the union. 
 
-## Development and Design Notes
+## TODO
+
+* VkDescriptorDataEXT - Pointer members are being recognized as slices, compile error on slice copy.
