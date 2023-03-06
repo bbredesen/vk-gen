@@ -274,7 +274,6 @@ func printCategory(tc def.TypeCategory, fc *feat.Feature, platform *feat.Platfor
 	}
 
 	fmt.Fprintf(f, fileHeader, inFileName, time.Now())
-	fmt.Fprintln(f, "")
 
 	if platform != nil && len(platform.GoImports) > 0 {
 		fmt.Fprintf(f, "import (\n")
