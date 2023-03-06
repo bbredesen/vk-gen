@@ -146,7 +146,7 @@ func (t *externalType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 // PrintPublicDeclaration is for external types just needs to print constants
 func (t *externalType) PrintPublicDeclaration(w io.Writer) {
 
-	sort.Sort(byValue(t.values))
+	sort.Sort(ByValue(t.values))
 
 	if len(t.values) > 0 {
 		fmt.Fprint(w, "const (\n")

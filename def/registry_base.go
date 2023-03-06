@@ -171,18 +171,31 @@ type ValueDefiner interface {
 	IsCore() bool
 }
 
-type byValue []ValueDefiner
+type ByValue []ValueDefiner
 
 // TODO: also sort by bitmask values and aliases
-func (a byValue) Len() int      { return len(a) }
-func (a byValue) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-func (a byValue) Less(i, j int) bool {
+func (a ByValue) Len() int      { return len(a) }
+func (a ByValue) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByValue) Less(i, j int) bool {
 	iNum, err1 := strconv.Atoi(a[i].ValueString())
 	jNum, err2 := strconv.Atoi(a[j].ValueString())
 	if err1 == nil && err2 == nil {
 		return iNum < jNum
 	}
 	return a[i].ValueString() < a[j].ValueString()
+}
+
+type ByValuePublicName []ValueDefiner // add for cleanup/issue-3
+
+func (a ByValuePublicName) Len() int      { return len(a) }
+func (a ByValuePublicName) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByValuePublicName) Less(i, j int) bool {
+	iNum, err1 := strconv.Atoi(a[i].PublicName())
+	jNum, err2 := strconv.Atoi(a[j].PublicName())
+	if err1 == nil && err2 == nil {
+		return iNum < jNum
+	}
+	return a[i].PublicName() < a[j].PublicName()
 }
 
 func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory, filenameBase string) {

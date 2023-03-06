@@ -369,19 +369,31 @@ func printTypes(w io.Writer, types []def.TypeDefiner, vals map[string]def.ValueR
 }
 
 func printLooseValues(w io.Writer, valsByTypeName map[string]def.ValueRegistry) {
+	// sort and refactored for cleanup/issue-3
 
 	for k, vr := range valsByTypeName {
-		fmt.Fprintf(w, "// Platform-specific values for %s\n", k)
+		// Values will be sorted by const name for extension names/spec versions, and by value for typed consts
+		allValues := make([]def.ValueDefiner, 0, len(vr))
+		for _, val := range vr {
+			allValues = append(allValues, val)
+		}
+
+		if k == "" {
+			fmt.Fprint(w, "// Extension names and versions\n")
+			// Drop the values into a slice and sort by the const name
+			sort.Sort(def.ByValuePublicName(allValues))
+		} else {
+			fmt.Fprintf(w, "// Platform-specific values for %s\n", k)
+			sort.Sort(def.ByValue(allValues))
+		}
+
 		fmt.Fprintf(w, "const (\n")
 
-		i := 0
-		for _, val := range vr {
+		for _, val := range allValues {
 			val.PrintPublicDeclaration(w)
-			i++
 		}
 		fmt.Fprintf(w, ")\n\n")
 	}
-
 }
 
 func copyStaticFiles() {
