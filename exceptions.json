@@ -128,7 +128,7 @@
 
     "external" : {
         "int8_t":  { "go:type": "int8", "primitive": true, 
-            "comment": "Primitive indicates a direct replacement? Neccessary or not?" },
+            "comment": "Primitive indicates a direct replacement? Necessary or not?" },
         "uint8_t": { "go:type": "uint8", "primitive": true },
         "int16_t":  { "go:type": "int16", "primitive": true },
         "uint16_t":  { "go:type": "uint16", "primitive": true },
@@ -274,7 +274,7 @@
 
     "basetype": {
         "VkBool32": {
-            "!comment": "must be re-defined as an exception, becuase vk.xml specifies the type of VK_TRUE/FALSE as uint32_t, not VkBool32, and because the translation is non-trivial",
+            "!comment": "must be re-defined as an exception, because vk.xml specifies the type of VK_TRUE/FALSE as uint32_t, not VkBool32, and because the translation is non-trivial",
             "comment": "Note that go-vk uses standard Go bools throughout the public API. Bool32 is only used internally and is automatically translated for you.",
             "go:type": "bool",
             "go:translatePublic": "translatePublic_Bool32",
