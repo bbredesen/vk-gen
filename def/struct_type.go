@@ -50,6 +50,8 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		return NewIncludeSet()
 	}
 
+	t.isResolved = true // Moved here from end of function as part of issue #4 fix
+
 	if t.publicName == "!ignore" {
 		t.isResolved = true
 		return NewIncludeSet()
@@ -108,15 +110,20 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 
 	rb.ResolvedTypes[t.registryName] = t
 
-	t.isResolved = true
 	return rb
 }
 
 func (t *structType) IsIdenticalPublicAndInternal() bool {
 	for _, m := range t.members {
+		// part of fix for issue #4
+		if asPointerType, isPointer := m.resolvedType.(*pointerType); isPointer && asPointerType.resolvedPointsAtType == t {
+			continue
+		}
+
 		if !m.IsIdenticalPublicAndInternal() {
 			return false
 		}
+
 	}
 	return true
 }

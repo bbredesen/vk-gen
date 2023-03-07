@@ -316,14 +316,6 @@
     },
 
     "struct": {
-        "VkBaseInStructure": {
-            "publicName": "!ignore",
-            "!comment": "Causes a stack overflow in resolution by recursive self-referencing. Declares pNext, formally part of the API, but never actually used anywhere else."
-        },
-        "VkBaseOutStructure": {
-            "publicName": "!ignore",
-            "!comment": "See VkBaseInStructure"
-        },
         "VkDescriptorSetLayoutBinding": {
             "forceIncludeMember": "descriptorCount",
             "forceIncludeComment": "descriptorCount references an array field in the XML, but that field might be null and then descriptor count has a different meaning. See the man pages/spec."
