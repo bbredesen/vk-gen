@@ -309,7 +309,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							t.printTrampolineCall(epilogue, funcTrampolineParams, trampolineReturns)
 							fmt.Fprintln(epilogue)
 
-							// If the output requires tranlation, iterate the slice and translate here
+							// If the output requires translation, iterate the slice and translate here
 							fmt.Fprintf(epilogue, outputTranslation.String())
 
 						}
@@ -371,7 +371,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							fmt.Fprintf(preamble, "  %s = make(%s, %s)\n", p.publicName, p.resolvedType.PublicName(), translatedLenMember)
 							fmt.Fprintf(preamble, "  %s := &%s[0]\n", p.internalName, p.publicName)
 
-							// At a practical level, this is only used to return an array of handles, we can avoid tranlation altogether; see
+							// At a practical level, this is only used to return an array of handles, we can avoid translation altogether; see
 							// AllocateCommandBuffers for an example. It is possible that a future API release will need
 							// updates here.
 

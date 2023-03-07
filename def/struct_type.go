@@ -315,7 +315,7 @@ func (m *structMember) PrintInternalDeclaration(w io.Writer) {
 // struct and directly assign it to the output struct
 // 3) Embedded structs - we can Vulkanize and dereference the embedded struct in
 // the output struct declaration.
-// 4) Slices of "IsIdential..." types - assign the address of the 0 element.
+// 4) Slices of "IsIdentical..." types - assign the address of the 0 element.
 // 5) Slices of non-"IsIdentical..." types - build a temporary slice of the
 // translated values, and then assign the 0-address as above.
 // 6) Length fields - Array pointers have an associated length member in the
@@ -379,7 +379,7 @@ func (m *structMember) PrintGoifyContent(preamble, structDecl, epilogue io.Write
 
 	case m.isLenForOtherMember != nil: // Edge case 6 happens, but is not identified in vk.xml.
 		// Example: VkPhysicalDeviceMemoryProperties has two fixed length
-		// arrays, each of which has an associated lenght member to indicate how
+		// arrays, each of which has an associated length member to indicate how
 		// many values were returned. The XML file does not link those fields
 		// via "len" on the arrays. You could probably infer the information
 		// because the member names are (e.g.) memoryTypeCount and memoryTypes.
