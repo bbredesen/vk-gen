@@ -58,7 +58,7 @@ func ReadAllExtensionsFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegis
 			}
 
 			// Enum values are actually defined in the extension, though they may be re-defined or partially defined
-			// elsehwere if the extension was promoted to core. Add the value name, plus create the ValueDefiner and put
+			// elsewhere if the extension was promoted to core. Add the value name, plus create the ValueDefiner and put
 			// it in the registry.
 			for _, enumNode := range xmlquery.Find(reqNode, "/enum") {
 				// Also, bitmasks and values with offsets are defined in the same place, so first figure out which type

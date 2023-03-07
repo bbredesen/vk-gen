@@ -70,7 +70,7 @@ func ReadDefineTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry
 
 var s = unsafe.Sizeof(uintptr(0))
 
-// NewDefineTypeFromXML has a few procesing paths. First, the name is typically
+// NewDefineTypeFromXML has a few processing paths. First, the name is typically
 // a child node, but is an XML attribute for a few entries. Next, some defines
 // such as VK_API_VERSION_1_0 are actually macro calls, which is named in a
 // child node for type. Defines may also have a requires attr, which also

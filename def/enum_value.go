@@ -166,7 +166,7 @@ func NewEnumValueFromXML(td TypeDefiner, elt *xmlquery.Node) *enumValue {
 			rval.direction = 1
 		}
 
-		// Only applies when an extension is promoted to core, otherwise the Extensioner needs to add the extention number to the value
+		// Only applies when an extension is promoted to core, otherwise the Extensioner needs to add the extension number to the value
 		extNumStr := elt.SelectAttr("extnumber")
 		if extNumStr != "" {
 			if rval.extNumber, err = strconv.Atoi(extNumStr); err != nil {

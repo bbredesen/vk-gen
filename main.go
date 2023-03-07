@@ -267,7 +267,7 @@ func printCategory(tc def.TypeCategory, fc *feat.Feature, platform *feat.Platfor
 	outpath := fmt.Sprintf("%s/%s", outDirName, filename+".go")
 
 	f, _ := os.Create(outpath)
-	// explict f.Close() below; not defered because the file must be written to disk before goimports is run
+	// explicit f.Close() below; not deferred because the file must be written to disk before goimports is run
 
 	if platform != nil && platform.GoBuildTag != "" {
 		fmt.Fprintf(f, "//go:build %s\n", platform.GoBuildTag)
@@ -400,7 +400,7 @@ func copyStaticFiles() {
 	logrus.Info("Copying static files")
 	source := "static_include"
 
-	// Naieve solution from https://stackoverflow.com/questions/51779243/copy-a-folder-in-go
+	// Naive solution from https://stackoverflow.com/questions/51779243/copy-a-folder-in-go
 	var err error = filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
 		var relPath string = strings.Replace(path, source, "", 1)
 		if relPath == "" {
