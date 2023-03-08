@@ -49,7 +49,7 @@ func (t *unionType) PrintPublicDeclaration(w io.Writer) {
 
 	for i, m := range t.members {
 		if m.pointerDepth > 0 && m.resolvedType.PublicName() != "string" {
-			if m.resolvedType.PublicName() == "unsafe.Pointer" {
+			if m.resolvedType.PublicName() == "unsafe.Pointer" || m.resolvedType.Category() == CatPointer { // bugfix/issue-16
 				fmt.Fprintf(w, "func (u *%s) As%s(ptr %s) {\n",
 					t.PublicName(), m.PublicName(), m.resolvedType.PublicName(),
 				)
@@ -85,7 +85,17 @@ func (t *unionType) PrintInternalDeclaration(w io.Writer) {
 	// _vk type declaration
 	var sizeString = t.internalByteSize
 	if t.internalByteSize == "" {
-		sizeString = fmt.Sprintf("unsafe.Sizeof(%s{})", t.members[0].resolvedType.InternalName())
+		switch t.members[0].resolvedType.Category() { // updated with bugfix/issue-16
+		case CatPointer:
+			sizeString = fmt.Sprintf("unsafe.Sizeof((%s)(nil))", t.members[0].resolvedType.InternalName()) // Internal name will include the pointer and the underlying type
+		case CatArray:
+			fallthrough // Array will use the same syntax as structs
+		case CatStruct:
+			sizeString = fmt.Sprintf("unsafe.Sizeof(%s{})", t.members[0].resolvedType.InternalName())
+		default:
+			sizeString = fmt.Sprintf("unsafe.Sizeof(%s(0))", t.members[0].resolvedType.InternalName()) // fallthrough to assmption that this is a primitve type
+
+		}
 	}
 
 	fmt.Fprintf(w, "type %s [%s]byte\n", t.InternalName(), sizeString)
