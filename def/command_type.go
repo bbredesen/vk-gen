@@ -230,6 +230,20 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 					funcTrampolineParams = append(funcTrampolineParams, p)
 
+				} else if p.altLenSpec != "" {
+					// This is another edge case where the length of the array is embedded in a bitfield. For now, the
+					// user must provide the bitfield and must ensure that their slice is the appropriate length.
+					// See vkCmdSetSampleMaskEXT for an example. Addressed as "no action" relative to other slices in
+					// Resolve(). Fix for issue #17
+					fmt.Fprintf(preamble, "  // %s is an edge case input slice, with an alternative length encoding. Developer must provide the length themselves.\n", p.publicName)
+					fmt.Fprintf(preamble, "  // No handling for internal vs. external types at this time, the only case this appears as of 1.3.240 is a handle type with a bitfield length encoding\n")
+					fmt.Fprintf(preamble, "  var %s *%s\n", p.internalName, p.resolvedType.(*pointerType).resolvedPointsAtType.PublicName())
+					fmt.Fprintf(preamble, "  if %s != nil {\n", p.publicName)
+					fmt.Fprintf(preamble, "    %s = &%s[0]\n", p.internalName, p.publicName)
+					fmt.Fprintf(preamble, "  }\n")
+
+					funcTrampolineParams = append(funcTrampolineParams, p)
+
 				} else {
 					// Parameter is a singular input
 					if p.resolvedType.IsIdenticalPublicAndInternal() {
@@ -573,8 +587,8 @@ type commandParam struct {
 	optionalParamString string
 	isAlwaysOptional    bool
 
-	pointerLevel int
-	lenSpec      string
+	pointerLevel        int
+	lenSpec, altLenSpec string
 
 	parentCommand  *commandType
 	isResolved     bool
@@ -607,7 +621,17 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	}
 
 	// check for length specification
-	if p.lenSpec != "" {
+	if p.altLenSpec != "" {
+		// If altlen is present, then the array is a fixed length per the spec.
+		// as of 1.3.240, only vkCmdSetSampleMaskEXT has an altlen parameter, where the expected array length is
+		// embedded in a sample mask bitfield.
+		//
+		// Fix for issue #17 is to recognize this parameter as a slice, but we won't try to calculate the bitfield.
+		// (i.e., the developer needs to just pass a SampleMaskBits value that matches the slice)
+		//
+		// Net effect is to do noting here in Resolve.
+
+	} else if p.lenSpec != "" {
 		for _, otherP := range p.parentCommand.parameters {
 			if otherP.registryName == p.lenSpec {
 				otherP.isLenMemberFor = append(otherP.isLenMemberFor, p)
@@ -728,6 +752,7 @@ func NewCommandParamFromXML(elt *xmlquery.Node, forCommand *commandType) *comman
 	rval.isConstParam = strings.HasPrefix(elt.InnerText(), "const")
 	rval.pointerLevel = strings.Count(elt.InnerText(), "*")
 	rval.lenSpec = elt.SelectAttr("len")
+	rval.altLenSpec = elt.SelectAttr("altlen")
 
 	rval.parentCommand = forCommand
 
