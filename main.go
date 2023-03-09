@@ -18,6 +18,7 @@ import (
 	"github.com/bbredesen/vk-gen/feat"
 	"github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
+	"golang.org/x/exp/slices"
 )
 
 var (
@@ -132,7 +133,12 @@ func main() {
 	}
 
 	// "Core" extensions
-	for _, extNode := range xmlquery.Find(xmlDoc, "//extension[not(@platform) and @supported='vulkan']") {
+	for _, extNode := range xmlquery.Find(xmlDoc, "//extension[not(@platform)]") {
+		supports := extNode.SelectAttr("supported")
+		supported := strings.Split(supports, ",")
+		if !slices.Contains(supported, "vulkan") {
+			continue
+		}
 		ext := feat.ReadExtensionFromXML(extNode, globalTypes, globalValues)
 		platforms[""].IncludeExtension(ext)
 	}

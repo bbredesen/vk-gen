@@ -7,6 +7,7 @@ require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/tidwall/gjson v1.14.4
+	golang.org/x/exp v0.0.0-20230307190834-24139beb5833
 	golang.org/x/sys v0.5.0
 )
 
