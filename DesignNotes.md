@@ -2,6 +2,10 @@
 
 vk.xml schema documentation: [https://registry.khronos.org/vulkan/specs/1.3/registry.html]
 
+This file documents some of the thought process and tasks during development of vk-gen. This file remains for historical
+reference, but the codebase has grown beyond what is detailed here and you should not assume that this file describes
+precisely how the tool works. 
+
 ## vk.xml and exceptions.json
 There are several significant barriers to generating the Go-binding for Vulkan:
 
