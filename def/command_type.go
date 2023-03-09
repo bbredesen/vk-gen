@@ -764,7 +764,7 @@ func NewCommandParamFromXML(elt *xmlquery.Node, forCommand *commandType) *comman
 
 func ReadCommandExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr ValueRegistry) {
 	exceptions.Get("command").ForEach(func(key, exVal gjson.Result) bool {
-		if key.String() == "comment" {
+		if key.String() == "!comment" {
 			return true
 		} // Ignore comments
 

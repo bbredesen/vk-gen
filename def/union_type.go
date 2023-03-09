@@ -158,7 +158,6 @@ func ReadUnionExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr Va
 		} // Ignore comments
 
 		UpdateUnionTypeFromJSON(key, exVal, tr[key.String()].(*unionType))
-		// tr[key.String()] = entry
 
 		return true
 	})

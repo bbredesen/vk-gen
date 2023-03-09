@@ -111,6 +111,9 @@ func main() {
 		platforms[plat.Name()] = plat
 	}
 	jsonDoc.Get("platform").ForEach(func(key, value gjson.Result) bool {
+		if key.String() == "!comment" {
+			return true
+		}
 		r := feat.NewOrUpdatePlatformFromJSON(key.String(), value, platforms[key.String()])
 		platforms[r.Name()] = r
 		return true

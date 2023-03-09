@@ -129,13 +129,6 @@ func ReadBaseTypeExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr
 		entry := NewOrUpdateBaseTypeFromJSON(key.String(), exVal, tr, vr)
 		tr[key.String()] = entry
 
-		// exVal.Get("constants").ForEach(func(ck, cv gjson.Result) bool {
-		// 	newVal := NewConstantValue(ck.String(), cv.String(), key.String())
-
-		// 	vr[newVal.RegistryName()] = newVal
-		// 	return true
-		// })
-
 		return true
 	})
 

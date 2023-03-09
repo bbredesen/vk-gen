@@ -71,7 +71,7 @@ func NewHandleTypeFromXML(node *xmlquery.Node) TypeDefiner {
 
 func ReadHandleExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr ValueRegistry) {
 	exceptions.Get("handle").ForEach(func(key, exVal gjson.Result) bool {
-		if key.String() == "comment" {
+		if key.String() == "!comment" {
 			return true
 		} // Ignore comments
 
@@ -100,6 +100,8 @@ func NewHandleTypeFromJSON(key, json gjson.Result) TypeDefiner {
 	rval.registryName = key.String()
 	rval.publicName = json.Get("publicName").String()
 	rval.underlyingTypeName = json.Get("underlyingType").String()
+
+	rval.comment = json.Get("comment").String()
 
 	return &rval
 }

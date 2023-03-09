@@ -510,11 +510,7 @@ func ReadStructExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr V
 		}
 
 		entry := NewOrUpdateStructTypeFromJSON(key, exVal, existing)
-		// if entry == nil {
-		// 	delete(tr, key.String())
-		// } else {
 		tr[key.String()] = entry
-		// }
 
 		return true
 	})
