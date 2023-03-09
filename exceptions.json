@@ -32,13 +32,15 @@
 
         "VK_USE_64_BIT_PTR_DEFINES": {
             "constantValue": "unsafe.Sizeof(uintptr(0))",
-            "comment": "Included for completeness, but this value is only used in a macro to determine how VK_NULL_HANDLE should be defined in C, based on architecture and compiler."
+            "!comment": "Included for completeness, but this value is only used in a macro to determine how VK_NULL_HANDLE should be defined in C, based on architecture and compiler."
         }
 
     },
 
     "handle": {
-        "VK_DEFINE_HANDLE": { "publicName": "handle", "underlyingType": "uintptr_t",
+        "VK_DEFINE_HANDLE": { 
+            "publicName": "handle", 
+            "underlyingType": "uintptr_t",
             "constants": {
                 "VK_NULL_HANDLE" : "0"
             }
@@ -50,7 +52,7 @@
         },
         "VK_USE_64_BIT_PTR_DEFINES": {
             "publicName": "!ignore",
-            "comment": "This and several following entries are defined as types in the spec, though they're really values. !ignore allows this type to be created for resolving the feature set, but it will not be output to the generated code."
+            "!comment": "This and several following entries are defined as types in the spec, though they're really values. !ignore allows this type to be created for resolving the feature set, but it will not be output to the generated code."
         },
         "VK_NULL_HANDLE": {
             "publicName": "!ignore"
@@ -128,7 +130,7 @@
 
     "external" : {
         "int8_t":  { "go:type": "int8", "primitive": true, 
-            "comment": "Primitive indicates a direct replacement? Necessary or not?" },
+            "!comment": "Primitive indicates a direct replacement? Necessary or not?" },
         "uint8_t": { "go:type": "uint8", "primitive": true },
         "int16_t":  { "go:type": "int16", "primitive": true },
         "uint16_t":  { "go:type": "uint16", "primitive": true },
