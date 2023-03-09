@@ -44,14 +44,4 @@ func (t *internalType) PrintPublicDeclaration(w io.Writer) {
 	} else {
 		fmt.Fprintf(w, "type %s %s\n", t.PublicName(), t.underlyingType.PublicName())
 	}
-
-	// 	sort.Sort(byValue(t.values))
-
-	// 	if len(t.values) > 0 {
-	// 		fmt.Fprint(w, "const (\n")
-	// 		for _, v := range t.values {
-	// 			v.PrintPublicDeclaration(w)
-	// 		}
-	// 		fmt.Fprint(w, ")\n\n")
-	// 	}
 }

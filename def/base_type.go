@@ -48,7 +48,6 @@ func (t *baseType) PrintPublicDeclaration(w io.Writer) {
 	t.PrintDocLink(w)
 	if t.publicTypeNameOverride != "" {
 		return
-		// fmt.Fprintf(w, "type %s %s\n", t.PublicName(), t.publicTypeNameOverride)
 	} else {
 		fmt.Fprintf(w, "type %s %s\n", t.PublicName(), t.resolvedUnderlyingType.InternalName())
 	}

@@ -12,6 +12,7 @@ func trimVk(s string) string {
 		return s
 	}
 	r := trimRx.FindStringSubmatch(s)
+	// Match References:
 	// r[0] = s
 	// r[1] = pointers
 	// r[2] = Vk, vk, or VK_

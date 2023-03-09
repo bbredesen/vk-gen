@@ -143,13 +143,6 @@ func ReadDefineExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr V
 
 		tr[entry.RegistryName()] = entry
 
-		// exVal.Get("constants").ForEach(func(ck, cv gjson.Result) bool {
-		// 	newVal := NewConstantValue(ck.String(), cv.String(), key.String())
-
-		// 	vr[newVal.RegistryName()] = newVal
-		// 	return true
-		// })
-
 		return true
 	})
 

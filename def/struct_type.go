@@ -90,7 +90,7 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 					if m.resolvedType.PublicName() != "unsafe.Pointer" /*&& n.isLenForOtherMember == nil*/ {
 						n.isLenForOtherMember = append(n.isLenForOtherMember, m)
 
-						// Edge case for (apparently only) VkWriteDescriptorSet...three arrays types, only one of which
+						// Edge case for (apparently only) VkWriteDescriptorSet...three array types, only one of which
 						// will be populated. Flagging the len member to use the max length of the three input slices.
 						// In practice, only one of the three should be populated.
 						// if m.noAutoValidityFlag && len(n.isLenForOtherMember) > 1 {
@@ -179,7 +179,6 @@ func (t *structType) PrintInternalDeclaration(w io.Writer) {
 		fmt.Fprintf(w, "}\n")
 	}
 
-	// if t.isReturnedOnly {
 	// Goify declaration
 	fmt.Fprintf(&preamble, "func (s *%s) Goify() *%s {\n", t.InternalName(), t.PublicName())
 
@@ -200,7 +199,6 @@ func (t *structType) PrintInternalDeclaration(w io.Writer) {
 	fmt.Fprint(w, preamble.String(), structDecl.String(), epilogue.String())
 
 	preamble, structDecl, epilogue = strings.Builder{}, strings.Builder{}, strings.Builder{}
-	// } else {
 
 	// Vulkanize declaration
 	// Set required values, like the stype
@@ -224,14 +222,14 @@ func (t *structType) PrintInternalDeclaration(w io.Writer) {
 	fmt.Fprintf(&epilogue, "}\n")
 
 	fmt.Fprint(w, preamble.String(), structDecl.String(), epilogue.String())
-	// }
+
 }
 
 func (m *structMember) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	m.publicName = strings.Title(RenameIdentifier(m.registryName))
 	m.internalName = RenameIdentifier(m.registryName)
 
-	// This automatically handles non-pointer types
+	// This automatically handles non-pointer types, i.e. pointerDepth == 0
 	previousTarget := tr[m.typeRegistryName]
 	for i := m.pointerDepth; i > 0; i-- {
 		pt := pointerType{}
@@ -373,7 +371,6 @@ func (m *structMember) PrintVulanizeContent(preamble, structDecl, epilogue io.Wr
 	default:
 		fmt.Fprintf(structDecl, "  %s : %s,/*default*/\n", m.InternalName(), m.resolvedType.TranslateToInternal("s."+m.PublicName()))
 
-		// fmt.Fprintf(structDecl, "%s: 0, // FELL THROUGH PRINT VULKANIZE CONTENT\n", m.InternalName())
 	}
 }
 
@@ -410,6 +407,7 @@ func (m *structMember) PrintGoifyContent(preamble, structDecl, epilogue io.Write
 		// pt := m.resolvedType.(*pointerType)
 		// toBeAssigned := pt.PrintGoifyContent(m, preamble)
 		// fmt.Fprintf(structDecl, "  %s : %s,/*c rem*/\n", m.InternalName(), toBeAssigned)
+		fmt.Fprintf(structDecl, "  // Unexpected pointer member %s in returned struct\n", m.InternalName())
 
 	case m.resolvedType.Category() == CatArray:
 		at := m.resolvedType.(*arrayType)
@@ -480,10 +478,8 @@ func newStructMemberFromXML(node *xmlquery.Node) *structMember {
 	// Go, and struct members have a related length member. But in certain
 	// cases, we will need handle it differently. For example, char*
 	// is transformed to a string using a null byte termination.
-	// (Of course this is not strictly correct, because char* implies ASCII
-	// encoding, but a Go string is UTF-8.)
 
-	rval.typeRegistryName = xmlquery.FindOne(node, "type").InnerText() // + strings.Repeat("*", rval.pointerDepth)
+	rval.typeRegistryName = xmlquery.FindOne(node, "type").InnerText()
 	if rval.typeRegistryName == "void" && rval.pointerDepth == 1 {
 		// special case for void* struct members...exceptions.json maps the member to unsafe.Pointer instead of byte*
 		rval.typeRegistryName = "void*"

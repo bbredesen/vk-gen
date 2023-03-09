@@ -22,14 +22,12 @@ type commandType struct {
 
 	parameters []*commandParam
 
-	bindingParams []*commandParam
-	returnParams  []*commandParam
-	// identicalInternalExternal bool
-	// isReturnedOnly            bool
+	bindingParams     []*commandParam
+	returnParams      []*commandParam
 	bindingParamCount int
 }
 
-// Two exceptions to camelCase rules used for function return params
+// Exceptions to camelCase rules used for function return params
 func init() {
 	// rename return params to avoid typenames
 	strcase.ConfigureAcronym("Result", "r")
@@ -73,17 +71,11 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		}
 	}
 
-	// if t.publicName == "" { // publicName may already be set by an entry from exceptions.json
-	// 	t.publicName = RenameIdentifier(t.registryName)
-	// }
-
 	for _, p := range t.parameters {
 		p.parentCommand = t
 
 		iset.MergeWith(p.Resolve(tr, vr))
 	}
-
-	// t.identicalInternalExternal = t.determineIdentical()
 
 	iset.ResolvedTypes[t.registryName] = t
 
@@ -128,18 +120,8 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		fmt.Fprintf(w, "var %s = %s\n\n", t.PublicName(), t.resolvedAliasType.PublicName())
 		return
 	}
-	// funcReturnNames, funcReturnTypes := &strings.Builder{}, &strings.Builder{}
 
 	preamble, epilogue, outputTranslation := &strings.Builder{}, &strings.Builder{}, &strings.Builder{}
-
-	// var doubleCallArrayParam *commandParam
-	// var doubleCallArrayTypeName string
-
-	// var isDoubleCallCommand bool
-
-	// for _, p := range t.bindingParams {
-	// 	funcParams = funcParams + ", " + p.publicName + " " + p.resolvedType.PublicName()
-	// }
 
 	funcReturnParams := make([]*commandParam, 0)
 	var trampolineReturns *commandParam
@@ -154,6 +136,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		trampolineReturns = retParam
 	}
 
+	// Iterative dev process:
 	// Start with a simple output scenario - vkEndCommandBuffer takes a single
 	// input (ignore for the moment) and returns a VkResult
 	// Deal with simple inputs, like handles and primitive/scalar types
@@ -167,20 +150,6 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		// - Go return values
 		// - Trampoline parameters, with or without translation
 
-		// if p.isDoubleCallArray {
-		// 	isDoubleCallCommand = true
-		// 	// This gets saved for later printing the calls
-		// 	doubleCallArrayParam = p
-
-		// 	fmt.Fprintf(funcReturnNames, ", %s", p.publicName)
-		// 	retSliceType := p.resolvedType.(*pointerType).resolvedPointsAtType
-		// 	fmt.Fprintf(funcReturnTypes, "[]%s", retSliceType.PublicName())
-		// } else if p.isOutput {
-		// 	fmt.Fprintf(funcReturnNames, ", %s", p.publicName)
-		// 	fmt.Fprintf(funcReturnTypes, ", %s", p.resolvedType.PublicName())
-		// } else {
-		// 	fmt.Fprintf(funcParams, ", %s %s", p.publicName, p.resolvedType.PublicName())
-		// }
 		if p.resolvedType.Category() == CatPointer {
 			paramTypeAsPointer := p.resolvedType.(*pointerType)
 
@@ -380,8 +349,6 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							stringParts := strings.Split(p.lenSpec, "->")
 							translatedLenMember := stringParts[0] + "." + stringParts[1]
 
-							// fmt.Fprintf(preamble, "  sl_%s := make([]%s, %s)\n", p.internalName, p.resolvedType.InternalName(), translatedLenMember)
-							// fmt.Fprintf(preamble, "  %s := &sl_%s[0]\n", p.internalName, p.internalName)
 							fmt.Fprintf(preamble, "  %s = make(%s, %s)\n", p.publicName, p.resolvedType.PublicName(), translatedLenMember)
 							fmt.Fprintf(preamble, "  %s := &%s[0]\n", p.internalName, p.publicName)
 
@@ -537,47 +504,8 @@ func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandPar
 	}
 }
 
-func (t *commandType) PrintInternalDeclaration(w io.Writer) {
-
-	// var preamble, structDecl, epilogue strings.Builder
-
-	// if t.identicalInternalExternal {
-	// 	fmt.Fprintf(w, "type %s = %s\n", t.InternalName(), t.PublicName())
-	// } else {
-	// 	if t.isReturnedOnly {
-	// 		fmt.Fprintf(w, "// WARNING - This struct is returned only, which is not yet handled in the binding\n")
-	// 	}
-	// 	// _vk type declaration
-	// 	fmt.Fprintf(w, "type %s struct {\n", t.InternalName())
-	// 	for _, m := range t.members {
-	// 		m.PrintInternalDeclaration(w)
-	// 	}
-
-	// 	fmt.Fprintf(w, "}\n")
-	// }
-
-	// // Vulkanize declaration
-	// // Set required values, like the stype
-	// // Expand slices to pointer and length parameters
-	// // Convert strings, and string arrays
-	// fmt.Fprintf(&preamble, "func (s *%s) Vulkanize() *%s {\n", t.PublicName(), t.InternalName())
-
-	// if t.identicalInternalExternal {
-	// 	fmt.Fprintf(&structDecl, "  rval := %s(*s)\n", t.InternalName())
-	// } else {
-	// 	fmt.Fprintf(&structDecl, "  rval := %s{\n", t.InternalName())
-	// 	for _, m := range t.members {
-	// 		m.PrintVulcDeclarationAsssignment(&preamble, &structDecl, &epilogue)
-	// 	}
-	// 	fmt.Fprintf(&structDecl, "  }\n")
-	// }
-	// fmt.Fprintf(&epilogue, "  return &rval\n")
-	// fmt.Fprintf(&epilogue, "}\n")
-
-	// fmt.Fprint(w, preamble.String(), structDecl.String(), epilogue.String())
-
-	// Goify declaration (if applicable?)
-}
+// There is no internal declaration for commands, this function is empty
+func (t *commandType) PrintInternalDeclaration(w io.Writer) {}
 
 type commandParam struct {
 	registryName string
@@ -658,7 +586,6 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		if p.isConstParam {
 			if p.lenSpec == "" {
 				p.isInput = true
-				// p.requiresTranslation = !p.resolvedType.IsIdenticalPublicAndInternal()
 
 			} else if p.lenMemberParam != nil {
 				// if this param is a const pointer with a len specifier that maps to

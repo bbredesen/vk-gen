@@ -25,9 +25,6 @@ func (t *unionType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	}
 
 	is := t.structType.Resolve(tr, vr)
-	// for _, m := range t.members {
-	// 	m.publicName = strcase.ToLowerCamel(m.publicName)
-	// }
 
 	is.ResolvedTypes[t.registryName] = t
 	t.isResolved = true
@@ -102,25 +99,25 @@ func (t *unionType) PrintInternalDeclaration(w io.Writer) {
 
 	fmt.Fprintf(w, "func (u *%s) Vulkanize() *%s {\n", t.PublicName(), t.InternalName())
 	fmt.Fprintf(w, "  switch true {\n")
-	// return (*_vkClearDepthStencilValue)(unsafe.Pointer(s))
+
 	for _, m := range t.members {
 		fmt.Fprintf(w, "    case u.as%s:\n", m.PublicName())
 		fmt.Fprintf(w, "    return (*%s)(unsafe.Pointer(&u.%s))\n", t.InternalName(), m.PublicName())
 		// TODO should be tested but I think there is a bug here. If I have a union with mixed 32 and 64 bit types, and I cast a
 		// 32 bit field as 64 bits (as an 8 byte array), will the field be in the most significant bits of the array?
+		// Where does Vulkan/C expect them to be?
 
 	}
 	fmt.Fprintf(w, "    default:\nreturn &%s{}\n", t.InternalName())
 	fmt.Fprintf(w, "  }\n")
 	fmt.Fprintf(w, "}\n")
 
+	// Don't attempt to Goify for now. There may be a command that returns a union, how to handle that TBD
 	// fmt.Fprintf(w, "func (u *%s) Goify() %s {\n", t.InternalName(), t.PublicName())
 	// fmt.Fprintf(w, "  panic(\"Cannot Goify to a Vulkan union type!\")\n")
 	// fmt.Fprintf(w, "}\n")
 
 	fmt.Fprint(w, preamble.String(), structDecl.String(), epilogue.String())
-
-	// Goify declaration (if applicable?)
 }
 
 func (t *unionType) TranslateToInternal(inputVar string) string {

@@ -63,7 +63,6 @@ func (f *Feature) Resolve(tr def.TypeRegistry, vr def.ValueRegistry) {
 
 	for k := range f.requireValueNames {
 		val := vr[k]
-		// later merge valset into the TD?
 		f.MergeIncludeSet(val.Resolve(tr, vr))
 
 		resVals, found := f.ResolvedValues[val.UnderlyingTypeName()]
@@ -91,7 +90,7 @@ func (f *Feature) FilterByCategory() map[def.TypeCategory]*Feature {
 	// Stuff all the values, segmented first by category then by type, into the new Feature
 	// Lots of maps to make...
 	for _, vr := range f.ResolvedValues {
-		// Default category to None
+		// Default category reset before starting the inner loop
 		cat := def.CatExten
 
 		for valName, valDef := range vr {
@@ -123,7 +122,7 @@ func ReadFeatureFromXML(featureNode *xmlquery.Node, tr def.TypeRegistry, vr def.
 	rval.version = featureNode.SelectAttr("number")
 
 	for _, reqNode := range xmlquery.Find(featureNode, "/require") {
-		for _, typeNode := range xmlquery.Find(reqNode, "/type") { //} or /command") {
+		for _, typeNode := range xmlquery.Find(reqNode, "/type") {
 			rval.requireTypeNames[typeNode.SelectAttr("name")] = true
 		}
 

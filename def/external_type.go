@@ -116,7 +116,6 @@ func NewOrUpdateExternalValueFromJSON(key, value string, td TypeDefiner, tr Type
 	updatedEntry.isCore = true
 
 	vr[key] = updatedEntry
-	// td.PushValue(updatedEntry)
 }
 
 func (t *externalType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {

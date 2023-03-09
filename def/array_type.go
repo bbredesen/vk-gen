@@ -19,9 +19,6 @@ func (t *arrayType) Category() TypeCategory { return CatArray }
 func (t *arrayType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 
 	return t.resolvedPointsAtType.Resolve(tr, vr)
-	// is := includeSet{
-	// 	includeTypeNames: ,
-	// }
 }
 
 func (t *arrayType) IsIdenticalPublicAndInternal() bool {
@@ -62,37 +59,13 @@ func (t *arrayType) PrintVulkanizeContent(forMember *structMember, preamble io.W
 		fmt.Fprintf(preamble, "copy(rval.%s[:], s.%s)\n", forMember.InternalName(), forMember.PublicName())
 
 		structMemberAssignment = ""
-	} else {
-		// 		pre := fmt.Sprintf(sliceTranslationTemplate,
-		// 			forMember.InternalName(), t.resolvedPointsAtType.InternalName(), forMember.PublicName(),
-		// 			forMember.PublicName(),
-		// 			forMember.InternalName(), t.resolvedPointsAtType.TranslateToInternal("v"),
-		// 		)
-		// 		fmt.Fprint(preamble, pre)
-		// 		structMemberAssignment = "&(sl_" + forMember.InternalName() + "[0])"
-		// 	}
-		// } else {
-		// 	if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
-		// 		structMemberAssignment = fmt.Sprintf("(%s)(s.%s)", t.InternalName(), forMember.PublicName())
-		// 	} else {
-		// 		structMemberAssignment = t.resolvedPointsAtType.TranslateToInternal("s." + forMember.PublicName())
-		// 		if t.resolvedPointsAtType.Category() == CatStruct {
-		// 			structMemberAssignment = strings.TrimLeft(structMemberAssignment, "*")
-		// 		}
-		// 	}
 	}
+
 	return
 }
 func (t *arrayType) PrintGoifyContent(forMember *structMember, preamble, epilogue io.Writer) (structMemberAssignment string) {
-	structMemberAssignment = "0 /* TODO ARRAY NOT HANDLED */"
-
-	// if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
-	// if this is an array to types that are "IsIdentical..." then just
-	// copy the array as a block and move on
-	// fmt.Fprintf(epilogue, t.TranslateToPublic("s."+forMember.InternalName()))
 
 	if t.resolvedPointsAtType.InternalName() == "byte" {
-		// fmt.Fprintf(epilogue, "rval.%s = nullTermBytesToString(s.%s[:])\n", forMember.PublicName(), forMember.InternalName())
 		structMemberAssignment = fmt.Sprintf("nullTermBytesToString(s.%s[:])", forMember.InternalName())
 		return
 	}
@@ -100,15 +73,5 @@ func (t *arrayType) PrintGoifyContent(forMember *structMember, preamble, epilogu
 	fmt.Fprintf(epilogue, "copy(rval.%s[:], s.%s[:])\n", forMember.PublicName(), forMember.InternalName())
 
 	structMemberAssignment = ""
-	// } else {
-	// 	structMemberAssignment = t.resolvedPointsAtType.TranslateToPublic("s." + forMember.InternalName())
-	// }
 	return
 }
-
-// const sliceTranslationTemplate string = `
-//   sl_%s := make([]%s, len(s.%s))
-//   for i, v := range s.%s {
-// 	sl_%s[i] = %s
-//   }
-// `
