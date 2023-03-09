@@ -411,18 +411,21 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 						} else {
 							fmt.Fprintf(preamble, "// %s is a binding-allocated single return value and will be populated by Vulkan, but requiring translation\n", p.publicName)
 							if p.resolvedType.Category() == CatPointer {
-								fmt.Fprintf(preamble, "var %s %s\n", p.internalName, p.resolvedType.(*pointerType).resolvedPointsAtType.InternalName())
-								fmt.Fprintf(preamble, "ptr_%s := &%s\n", p.internalName, p.internalName)
+								underlyingType := p.resolvedType.(*pointerType).resolvedPointsAtType
+								if underlyingType.Category() == CatStruct || underlyingType.Category() == CatUnion {
+									// Pointer type will end up calling Vulkanize()
+									fmt.Fprintf(preamble, "var %s %s = %s\n", p.internalName, p.resolvedType.InternalName(), p.resolvedType.TranslateToInternal(p.publicName))
 
-								fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, p.resolvedType.(*pointerType).resolvedPointsAtType.TranslateToPublic(p.internalName))
+									fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, p.resolvedType.(*pointerType).resolvedPointsAtType.TranslateToPublic(p.internalName))
+								} else {
+									fmt.Fprintf(preamble, "var internal_%s %s = %s\n", p.publicName, underlyingType.InternalName(), underlyingType.TranslateToInternal(p.publicName))
+									fmt.Fprintf(preamble, "var %s = &internal_%s\n", p.internalName, p.publicName)
+									fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, underlyingType.TranslateToPublic("internal_"+p.publicName))
+								}
 							} else {
-								fmt.Fprintf(preamble, "var %s %s\n", p.internalName, p.resolvedType.InternalName())
-								fmt.Fprintf(preamble, "ptr_%s := &%s\n", p.internalName, p.internalName)
-
-								fmt.Fprintf(epilogue, "  %s = *%s\n", p.publicName, p.resolvedType.TranslateToPublic(p.internalName))
+								// Vulkan *must* be accepting a pointer, if it is planning to fill in any kind of data
+								panic("found non-pointer return value from vulkan!")
 							}
-
-							p.internalName = "ptr_" + p.internalName // Done after the fact so the internal pointer will be used in the tramp params
 
 							fmt.Fprintln(preamble)
 
