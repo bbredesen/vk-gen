@@ -81,6 +81,7 @@ func (t *pointerType) TranslateToInternal(inputVar string) string {
 	} else if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
 		return inputVar
 	} else if t.resolvedPointsAtType.Category() == CatStruct || t.resolvedPointsAtType.Category() == CatUnion {
+		// This overrides the normal struct TranslateToInternal, to avoid uneccssary dereferencing and addressing a new pointer
 		return fmt.Sprintf("%s.Vulkanize()", inputVar)
 	} else {
 		return fmt.Sprintf("(%s)(%s)", t.InternalName(), t.resolvedPointsAtType.TranslateToInternal(inputVar))
