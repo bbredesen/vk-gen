@@ -49,7 +49,7 @@ func (t *enumType) PrintPublicDeclaration(w io.Writer) {
 	if len(t.values) > 0 {
 		fmt.Fprint(w, "const (\n")
 		for _, v := range t.values {
-			v.PrintPublicDeclaration(w) // || !v.IsAlias())
+			v.PrintPublicDeclaration(w)
 		}
 		fmt.Fprint(w, ")\n\n")
 	}

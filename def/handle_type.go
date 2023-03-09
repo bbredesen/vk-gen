@@ -84,8 +84,6 @@ func ReadHandleExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr V
 			newVal.valueString = cv.String()
 			newVal.underlyingTypeName = key.String()
 
-			// newVal := NewEnumValue(ck.String(), cv.String(), key.String())
-
 			vr[newVal.RegistryName()] = &newVal
 			return true
 		})

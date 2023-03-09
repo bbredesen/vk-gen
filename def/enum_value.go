@@ -76,7 +76,6 @@ func ReadApiConstantsFromXML(doc *xmlquery.Node, externalType TypeDefiner, tr Ty
 		valDef := NewEnumValueFromXML(externalType, node)
 		valDef.isCore = true
 		vr[valDef.RegistryName()] = valDef
-		// externalType.PushValue(valDef)
 	}
 }
 
@@ -114,8 +113,6 @@ func ReadEnumValuesFromXML(doc *xmlquery.Node, td TypeDefiner, tr TypeRegistry, 
 				// Some enums from extensions are double-defined (when promoted to core maybe?) See
 				// VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_INFO_KHR
 				// To handle this, we're reading the node and then merging with any val def already in the map
-
-				// valDef.isCore = valDef.extNumber != 0
 
 				if existing, found := vr[valDef.RegistryName()]; found {
 					existingAsEnum := existing.(*enumValue)
@@ -242,8 +239,6 @@ func NewUntypedEnumValueFromXML(elt *xmlquery.Node) *extenValue {
 		rval.aliasValueName = alias
 	}
 	rval.comment = elt.SelectAttr("comment")
-
-	// rval.underlyingTypeName = "!none"
 
 	return &rval
 }
