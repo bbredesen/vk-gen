@@ -39,10 +39,6 @@ func (t *internalType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 func (t *internalType) PrintPublicDeclaration(w io.Writer) {
 	t.PrintDocLink(w)
 
-	if t.comment != "" {
-		fmt.Fprintln(w, "// ", t.comment)
-	}
-
 	if t.IsAlias() {
 		fmt.Fprintf(w, "type %s = %s\n", t.PublicName(), t.resolvedAliasType.PublicName())
 	} else {
