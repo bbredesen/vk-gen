@@ -57,12 +57,15 @@ func (v *enumValue) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 }
 
 func (v *enumValue) PrintPublicDeclaration(w io.Writer) {
-	if v.comment != "" {
-		fmt.Fprintf(w, "// %s\n", v.comment)
+	// Special case to allow SUCCESS Result to be treated as nil error. Must be separately defined as var, not const
+	if v.resolvedType.RegistryName() != "VkResult" || v.PublicName() != "SUCCESS" {
+		fmt.Fprintf(w, "%s %s = %s", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
+		if v.comment != "" {
+			fmt.Fprintf(w, " // %s\n", v.comment)
+		} else {
+			fmt.Fprintln(w)
+		}
 	}
-
-	fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
-
 }
 
 func ReadApiConstantsFromXML(doc *xmlquery.Node, externalType TypeDefiner, tr TypeRegistry, vr ValueRegistry) {
@@ -242,5 +245,3 @@ func NewUntypedEnumValueFromXML(elt *xmlquery.Node) *extenValue {
 
 	return &rval
 }
-
-const test = "ABC"
