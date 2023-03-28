@@ -22,14 +22,12 @@ type commandType struct {
 
 	parameters []*commandParam
 
-	bindingParams []*commandParam
-	returnParams  []*commandParam
-	// identicalInternalExternal bool
-	// isReturnedOnly            bool
+	bindingParams     []*commandParam
+	returnParams      []*commandParam
 	bindingParamCount int
 }
 
-// Two exceptions to camelCase rules used for function return params
+// Exceptions to camelCase rules used for function return params
 func init() {
 	// rename return params to avoid typenames
 	strcase.ConfigureAcronym("Result", "r")
@@ -73,17 +71,11 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		}
 	}
 
-	// if t.publicName == "" { // publicName may already be set by an entry from exceptions.json
-	// 	t.publicName = RenameIdentifier(t.registryName)
-	// }
-
 	for _, p := range t.parameters {
 		p.parentCommand = t
 
 		iset.MergeWith(p.Resolve(tr, vr))
 	}
-
-	// t.identicalInternalExternal = t.determineIdentical()
 
 	iset.ResolvedTypes[t.registryName] = t
 
@@ -128,18 +120,8 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		fmt.Fprintf(w, "var %s = %s\n\n", t.PublicName(), t.resolvedAliasType.PublicName())
 		return
 	}
-	// funcReturnNames, funcReturnTypes := &strings.Builder{}, &strings.Builder{}
 
 	preamble, epilogue, outputTranslation := &strings.Builder{}, &strings.Builder{}, &strings.Builder{}
-
-	// var doubleCallArrayParam *commandParam
-	// var doubleCallArrayTypeName string
-
-	// var isDoubleCallCommand bool
-
-	// for _, p := range t.bindingParams {
-	// 	funcParams = funcParams + ", " + p.publicName + " " + p.resolvedType.PublicName()
-	// }
 
 	funcReturnParams := make([]*commandParam, 0)
 	var trampolineReturns *commandParam
@@ -154,6 +136,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		trampolineReturns = retParam
 	}
 
+	// Iterative dev process:
 	// Start with a simple output scenario - vkEndCommandBuffer takes a single
 	// input (ignore for the moment) and returns a VkResult
 	// Deal with simple inputs, like handles and primitive/scalar types
@@ -167,20 +150,6 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		// - Go return values
 		// - Trampoline parameters, with or without translation
 
-		// if p.isDoubleCallArray {
-		// 	isDoubleCallCommand = true
-		// 	// This gets saved for later printing the calls
-		// 	doubleCallArrayParam = p
-
-		// 	fmt.Fprintf(funcReturnNames, ", %s", p.publicName)
-		// 	retSliceType := p.resolvedType.(*pointerType).resolvedPointsAtType
-		// 	fmt.Fprintf(funcReturnTypes, "[]%s", retSliceType.PublicName())
-		// } else if p.isOutput {
-		// 	fmt.Fprintf(funcReturnNames, ", %s", p.publicName)
-		// 	fmt.Fprintf(funcReturnTypes, ", %s", p.resolvedType.PublicName())
-		// } else {
-		// 	fmt.Fprintf(funcParams, ", %s %s", p.publicName, p.resolvedType.PublicName())
-		// }
 		if p.resolvedType.Category() == CatPointer {
 			paramTypeAsPointer := p.resolvedType.(*pointerType)
 
@@ -227,6 +196,20 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					fmt.Fprintf(preamble, "  // %s is an input slice that requires translation to an internal type; length is embedded in %s\n", p.publicName, otherParamInternalName)
 					fmt.Fprintf(preamble, "  %s := unsafe.Pointer(nil)\n", p.internalName) //, otherParamInternalName, otherParamMemberName)
 					fmt.Fprintf(preamble, "  // WARNING TODO - passing nil pointer to get to a version that will compile. THIS VULKAN CALL WILL FAIL!")
+
+					funcTrampolineParams = append(funcTrampolineParams, p)
+
+				} else if p.altLenSpec != "" {
+					// This is another edge case where the length of the array is embedded in a bitfield. For now, the
+					// user must provide the bitfield and must ensure that their slice is the appropriate length.
+					// See vkCmdSetSampleMaskEXT for an example. Addressed as "no action" relative to other slices in
+					// Resolve(). Fix for issue #17
+					fmt.Fprintf(preamble, "  // %s is an edge case input slice, with an alternative length encoding. Developer must provide the length themselves.\n", p.publicName)
+					fmt.Fprintf(preamble, "  // No handling for internal vs. external types at this time, the only case this appears as of 1.3.240 is a handle type with a bitfield length encoding\n")
+					fmt.Fprintf(preamble, "  var %s *%s\n", p.internalName, p.resolvedType.(*pointerType).resolvedPointsAtType.PublicName())
+					fmt.Fprintf(preamble, "  if %s != nil {\n", p.publicName)
+					fmt.Fprintf(preamble, "    %s = &%s[0]\n", p.internalName, p.publicName)
+					fmt.Fprintf(preamble, "  }\n")
 
 					funcTrampolineParams = append(funcTrampolineParams, p)
 
@@ -309,7 +292,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							t.printTrampolineCall(epilogue, funcTrampolineParams, trampolineReturns)
 							fmt.Fprintln(epilogue)
 
-							// If the output requires tranlation, iterate the slice and translate here
+							// If the output requires translation, iterate the slice and translate here
 							fmt.Fprintf(epilogue, outputTranslation.String())
 
 						}
@@ -366,12 +349,10 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							stringParts := strings.Split(p.lenSpec, "->")
 							translatedLenMember := stringParts[0] + "." + stringParts[1]
 
-							// fmt.Fprintf(preamble, "  sl_%s := make([]%s, %s)\n", p.internalName, p.resolvedType.InternalName(), translatedLenMember)
-							// fmt.Fprintf(preamble, "  %s := &sl_%s[0]\n", p.internalName, p.internalName)
 							fmt.Fprintf(preamble, "  %s = make(%s, %s)\n", p.publicName, p.resolvedType.PublicName(), translatedLenMember)
 							fmt.Fprintf(preamble, "  %s := &%s[0]\n", p.internalName, p.publicName)
 
-							// At a practical level, this is only used to return an array of handles, we can avoid tranlation altogether; see
+							// At a practical level, this is only used to return an array of handles, we can avoid translation altogether; see
 							// AllocateCommandBuffers for an example. It is possible that a future API release will need
 							// updates here.
 
@@ -397,18 +378,21 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 						} else {
 							fmt.Fprintf(preamble, "// %s is a binding-allocated single return value and will be populated by Vulkan, but requiring translation\n", p.publicName)
 							if p.resolvedType.Category() == CatPointer {
-								fmt.Fprintf(preamble, "var %s %s\n", p.internalName, p.resolvedType.(*pointerType).resolvedPointsAtType.InternalName())
-								fmt.Fprintf(preamble, "ptr_%s := &%s\n", p.internalName, p.internalName)
+								underlyingType := p.resolvedType.(*pointerType).resolvedPointsAtType
+								if underlyingType.Category() == CatStruct || underlyingType.Category() == CatUnion {
+									// Pointer type will end up calling Vulkanize()
+									fmt.Fprintf(preamble, "var %s %s = %s\n", p.internalName, p.resolvedType.InternalName(), p.resolvedType.TranslateToInternal(p.publicName))
 
-								fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, p.resolvedType.(*pointerType).resolvedPointsAtType.TranslateToPublic(p.internalName))
+									fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, p.resolvedType.(*pointerType).resolvedPointsAtType.TranslateToPublic(p.internalName))
+								} else {
+									fmt.Fprintf(preamble, "var internal_%s %s = %s\n", p.publicName, underlyingType.InternalName(), underlyingType.TranslateToInternal(p.publicName))
+									fmt.Fprintf(preamble, "var %s = &internal_%s\n", p.internalName, p.publicName)
+									fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, underlyingType.TranslateToPublic("internal_"+p.publicName))
+								}
 							} else {
-								fmt.Fprintf(preamble, "var %s %s\n", p.internalName, p.resolvedType.InternalName())
-								fmt.Fprintf(preamble, "ptr_%s := &%s\n", p.internalName, p.internalName)
-
-								fmt.Fprintf(epilogue, "  %s = *%s\n", p.publicName, p.resolvedType.TranslateToPublic(p.internalName))
+								// Vulkan *must* be accepting a pointer, if it is planning to fill in any kind of data
+								panic("found non-pointer return value from vulkan!")
 							}
-
-							p.internalName = "ptr_" + p.internalName // Done after the fact so the internal pointer will be used in the tramp params
 
 							fmt.Fprintln(preamble)
 
@@ -520,47 +504,8 @@ func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandPar
 	}
 }
 
-func (t *commandType) PrintInternalDeclaration(w io.Writer) {
-
-	// var preamble, structDecl, epilogue strings.Builder
-
-	// if t.identicalInternalExternal {
-	// 	fmt.Fprintf(w, "type %s = %s\n", t.InternalName(), t.PublicName())
-	// } else {
-	// 	if t.isReturnedOnly {
-	// 		fmt.Fprintf(w, "// WARNING - This struct is returned only, which is not yet handled in the binding\n")
-	// 	}
-	// 	// _vk type declaration
-	// 	fmt.Fprintf(w, "type %s struct {\n", t.InternalName())
-	// 	for _, m := range t.members {
-	// 		m.PrintInternalDeclaration(w)
-	// 	}
-
-	// 	fmt.Fprintf(w, "}\n")
-	// }
-
-	// // Vulkanize declaration
-	// // Set required values, like the stype
-	// // Expand slices to pointer and length parameters
-	// // Convert strings, and string arrays
-	// fmt.Fprintf(&preamble, "func (s *%s) Vulkanize() *%s {\n", t.PublicName(), t.InternalName())
-
-	// if t.identicalInternalExternal {
-	// 	fmt.Fprintf(&structDecl, "  rval := %s(*s)\n", t.InternalName())
-	// } else {
-	// 	fmt.Fprintf(&structDecl, "  rval := %s{\n", t.InternalName())
-	// 	for _, m := range t.members {
-	// 		m.PrintVulcDeclarationAsssignment(&preamble, &structDecl, &epilogue)
-	// 	}
-	// 	fmt.Fprintf(&structDecl, "  }\n")
-	// }
-	// fmt.Fprintf(&epilogue, "  return &rval\n")
-	// fmt.Fprintf(&epilogue, "}\n")
-
-	// fmt.Fprint(w, preamble.String(), structDecl.String(), epilogue.String())
-
-	// Goify declaration (if applicable?)
-}
+// There is no internal declaration for commands, this function is empty
+func (t *commandType) PrintInternalDeclaration(w io.Writer) {}
 
 type commandParam struct {
 	registryName string
@@ -573,8 +518,8 @@ type commandParam struct {
 	optionalParamString string
 	isAlwaysOptional    bool
 
-	pointerLevel int
-	lenSpec      string
+	pointerLevel        int
+	lenSpec, altLenSpec string
 
 	parentCommand  *commandType
 	isResolved     bool
@@ -607,7 +552,17 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	}
 
 	// check for length specification
-	if p.lenSpec != "" {
+	if p.altLenSpec != "" {
+		// If altlen is present, then the array is a fixed length per the spec.
+		// as of 1.3.240, only vkCmdSetSampleMaskEXT has an altlen parameter, where the expected array length is
+		// embedded in a sample mask bitfield.
+		//
+		// Fix for issue #17 is to recognize this parameter as a slice, but we won't try to calculate the bitfield.
+		// (i.e., the developer needs to just pass a SampleMaskBits value that matches the slice)
+		//
+		// Net effect is to do noting here in Resolve.
+
+	} else if p.lenSpec != "" {
 		for _, otherP := range p.parentCommand.parameters {
 			if otherP.registryName == p.lenSpec {
 				otherP.isLenMemberFor = append(otherP.isLenMemberFor, p)
@@ -631,7 +586,6 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		if p.isConstParam {
 			if p.lenSpec == "" {
 				p.isInput = true
-				// p.requiresTranslation = !p.resolvedType.IsIdenticalPublicAndInternal()
 
 			} else if p.lenMemberParam != nil {
 				// if this param is a const pointer with a len specifier that maps to
@@ -728,6 +682,7 @@ func NewCommandParamFromXML(elt *xmlquery.Node, forCommand *commandType) *comman
 	rval.isConstParam = strings.HasPrefix(elt.InnerText(), "const")
 	rval.pointerLevel = strings.Count(elt.InnerText(), "*")
 	rval.lenSpec = elt.SelectAttr("len")
+	rval.altLenSpec = elt.SelectAttr("altlen")
 
 	rval.parentCommand = forCommand
 
@@ -736,7 +691,7 @@ func NewCommandParamFromXML(elt *xmlquery.Node, forCommand *commandType) *comman
 
 func ReadCommandExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr ValueRegistry) {
 	exceptions.Get("command").ForEach(func(key, exVal gjson.Result) bool {
-		if key.String() == "comment" {
+		if key.String() == "!comment" {
 			return true
 		} // Ignore comments
 

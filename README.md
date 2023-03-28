@@ -3,7 +3,7 @@
 vk-gen is a tool used to create Go bindings for the Vulkan graphics API. It uses the Vulkan XML specification to
 generate all type definitions and native function calls for the API. It generates the code for
 [go-vk](https://github.com/bbredesen/go-vk), but it can just as well be used to create a modified binding set in your
-own projects (for example, excluding certain vendor extensions, incluidng beta extensions, or to generate code from a
+own projects (for example, excluding certain vendor extensions, including beta extensions, or to generate code from a
 specific version of the Vulkan headers). 
 
 ## Basic Usage
@@ -40,10 +40,7 @@ issue/PR will clean this up, but they don't hurt anything at the moment.
 
 * `go:internalSize` - Go has no notion of union types. This field allows you to specify a size for the public
   to internal translation result. By default, vk-gen will use the size of the first member in the union, but that is
-  not neccesarily the largest member. This value must be a string and is copied to an array declaration. It can be
+  not necessarily the largest member. This value must be a string and is copied to an array declaration. It can be
   anything that resolves to a constant in Go, though most typically it will be an integer value (represented as a
   string). The value should be the aligned (?) data size in bytes of the largest member of the union. 
 
-## TODO
-
-* VkDescriptorDataEXT - Pointer members are being recognized as slices, compile error on slice copy.

@@ -100,26 +100,6 @@ func (t *genericType) PrintTranslateToInternal(w io.Writer, inputVar, outputVar 
 	fmt.Fprintf(w, "%s = %s", outputVar, inputVar)
 }
 
-// func (t *genericType) PrintConstValues(w io.Writer) {
-// 	switch len(t.values) {
-// 	case 0:
-// 		return
-// 	case 1:
-// 		fmt.Fprintln(w)
-// 		fmt.Fprint(w, "const ")
-// 		t.values[0].PrintPublicDeclaration(w, true)
-// 		fmt.Fprintln(w)
-// 	default:
-// 		fmt.Fprintln(w)
-// 		fmt.Fprintln(w, "const (")
-// 		for _, v := range t.values {
-// 			v.PrintPublicDeclaration(w, !v.IsAlias())
-// 		}
-// 		fmt.Fprintln(w, ")")
-// 		fmt.Fprintln(w)
-// 	}
-// }
-
 func (t *genericType) PrintDocLink(w io.Writer) {
 	fmt.Fprintf(w, "// %s: ", t.PublicName())
 	if t.comment != "" {

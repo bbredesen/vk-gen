@@ -61,9 +61,6 @@ func (t *pointerType) PublicName() string {
 func (t *pointerType) InternalName() string {
 	if t.resolvedPointsAtType.InternalName() == "!none" || t.resolvedPointsAtType.InternalName() == "" {
 		return "unsafe.Pointer"
-		// } else if t.resolvedPointsAtType.Category() == CatUnion {
-		// 	// Vulkan unions are just unsafe.Pointers on the internal side, don't need the asterisk
-		// 	return t.resolvedPointsAtType.InternalName()
 	}
 	return "*" + t.resolvedPointsAtType.InternalName()
 }
@@ -81,6 +78,7 @@ func (t *pointerType) TranslateToInternal(inputVar string) string {
 	} else if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
 		return inputVar
 	} else if t.resolvedPointsAtType.Category() == CatStruct || t.resolvedPointsAtType.Category() == CatUnion {
+		// This overrides the normal struct TranslateToInternal, to avoid uneccssary dereferencing and addressing a new pointer
 		return fmt.Sprintf("%s.Vulkanize()", inputVar)
 	} else {
 		return fmt.Sprintf("(%s)(%s)", t.InternalName(), t.resolvedPointsAtType.TranslateToInternal(inputVar))
@@ -105,19 +103,7 @@ func (t *pointerType) PrintVulkanizeContent(forMember *structMember, preamble io
 			fmt.Fprint(preamble, pre)
 			structMemberAssignment = "psl_" + forMember.InternalName()
 		} else {
-			var pre string
-			// if forMember.resolvedType.Category() == CatPointer && forMember.resolvedType.(*pointerType).resolvedPointsAtType.Category() == CatUnion {
-			// 	pre = fmt.Sprintf(sliceTranslationTemplate,
-			// 		forMember.InternalName(), "*"+forMember.resolvedType.InternalName(),
-			// 		forMember.PublicName(),
-			// 		forMember.InternalName(), t.resolvedPointsAtType.InternalName(), forMember.PublicName(),
-			// 		forMember.PublicName(),
-			// 		forMember.InternalName(), t.resolvedPointsAtType.TranslateToInternal("v"),
-			// 		forMember.InternalName(), forMember.InternalName(),
-			// 	)
-
-			// } else {
-			pre = fmt.Sprintf(sliceTranslationTemplate,
+			pre := fmt.Sprintf(sliceTranslationTemplate,
 				forMember.InternalName(), forMember.resolvedType.InternalName(),
 				forMember.PublicName(),
 				forMember.InternalName(), t.resolvedPointsAtType.InternalName(), forMember.PublicName(),
@@ -125,8 +111,6 @@ func (t *pointerType) PrintVulkanizeContent(forMember *structMember, preamble io
 				forMember.InternalName(), t.resolvedPointsAtType.TranslateToInternal("v"),
 				forMember.InternalName(), forMember.InternalName(),
 			)
-
-			// }
 
 			fmt.Fprint(preamble, pre)
 			structMemberAssignment = "psl_" + forMember.InternalName()
@@ -177,7 +161,7 @@ func (t *pointerType) PrintPublicToInternalTranslation(w io.Writer, publicValueN
 		fmt.Fprintf(w, "%s := &sl_%s[0]\n", internalValueName, internalValueName)
 
 		if t.lenSpec != "" {
-			// if lenspec is empty this is one of the few altlen element
+			// if lenspec is empty this is one of the few altlen elements
 			fmt.Fprintf(w, "%s := uint32(len(sl_%s))\n", t.lenSpec, internalValueName)
 		}
 
@@ -203,18 +187,14 @@ func (t *pointerType) PrintPublicToInternalTranslation(w io.Writer, publicValueN
 		fmt.Fprintf(w, "%s := &sl_%s[0]\n", internalValueName, internalValueName)
 
 		if t.lenSpec != "" {
-			// if lenspec is empty this is one of the few altlen element
+			// if lenspec is empty this is one of the few altlen elements
 			fmt.Fprintf(w, "%s := uint32(len(sl_%s))\n", t.lenSpec, internalValueName)
 		}
 
 	} else if t.externalSlice {
-		// if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
-		// 	fmt.Fprintf(w, "%s = (*%s)(&%s[0])\n", internalValueName, t.resolvedPointsAtType.InternalName(), publicValueName)
-		// 	fmt.Fprintf(w, "%s = len(%s)\n", internalLengthName, publicValueName)
-		// } else {
 		// 	// TODO: Need to translate each value in the slice...
 		fmt.Fprintf(w, "// marked as external slice TODO Translate each item in the slice\n")
-		// }
+
 	} else if t.resolvedPointsAtType.Category() == CatStruct {
 		fmt.Fprintf(w, "%s := %s.Vulkanize()\n", internalValueName, publicValueName)
 	}
@@ -240,8 +220,6 @@ func (t *pointerType) PrintInternalToPublicTranslation(w io.Writer, internalLeng
 			fmt.Fprintf(w, "%s := make([]%s, %d)\n", publicValueName, t.resolvedPointsAtType.InternalName(), internalLength)
 			fmt.Fprintf(w, "TODO: translate/copy values into slice\n")
 		}
-		// if t.resolvedPointsAtType.IsIdenticalPublicAndInternal() {
-		// 	fmt.Fprintf(w, "%s := make([]%s, %d)\n", publicValueName, t.resolvedPointsAtType.InternalName(), internalLength)
-		// }
+
 	}
 }

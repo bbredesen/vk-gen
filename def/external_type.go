@@ -78,10 +78,6 @@ func NewOrUpdateExternalTypeFromJSON(key string, exception gjson.Result, tr Type
 	existing := tr[key]
 	var updatedEntry *externalType
 
-	if key == "!comment" {
-		return nil
-	}
-
 	if existing == nil {
 		logrus.WithField("registry type", key).Info("no existing registry entry for external type")
 		updatedEntry = &externalType{}
@@ -120,7 +116,6 @@ func NewOrUpdateExternalValueFromJSON(key, value string, td TypeDefiner, tr Type
 	updatedEntry.isCore = true
 
 	vr[key] = updatedEntry
-	// td.PushValue(updatedEntry)
 }
 
 func (t *externalType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {

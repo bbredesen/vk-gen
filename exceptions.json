@@ -32,13 +32,15 @@
 
         "VK_USE_64_BIT_PTR_DEFINES": {
             "constantValue": "unsafe.Sizeof(uintptr(0))",
-            "comment": "Included for completeness, but this value is only used in a macro to determine how VK_NULL_HANDLE should be defined in C, based on architecture and compiler."
+            "!comment": "Included for completeness, but this value is only used in a macro to determine how VK_NULL_HANDLE should be defined in C, based on architecture and compiler."
         }
 
     },
 
     "handle": {
-        "VK_DEFINE_HANDLE": { "publicName": "handle", "underlyingType": "uintptr_t",
+        "VK_DEFINE_HANDLE": { 
+            "publicName": "handle", 
+            "underlyingType": "uintptr_t",
             "constants": {
                 "VK_NULL_HANDLE" : "0"
             }
@@ -50,7 +52,7 @@
         },
         "VK_USE_64_BIT_PTR_DEFINES": {
             "publicName": "!ignore",
-            "comment": "This and several following entries are defined as types in the spec, though they're really values. !ignore allows this type to be created for resolving the feature set, but it will not be output to the generated code."
+            "!comment": "This and several following entries are defined as types in the spec, though they're really values. !ignore allows this type to be created for resolving the feature set, but it will not be output to the generated code."
         },
         "VK_NULL_HANDLE": {
             "publicName": "!ignore"
@@ -128,7 +130,7 @@
 
     "external" : {
         "int8_t":  { "go:type": "int8", "primitive": true, 
-            "comment": "Primitive indicates a direct replacement? Neccessary or not?" },
+            "!comment": "Primitive indicates a direct replacement? Necessary or not?" },
         "uint8_t": { "go:type": "uint8", "primitive": true },
         "int16_t":  { "go:type": "int16", "primitive": true },
         "uint16_t":  { "go:type": "uint16", "primitive": true },
@@ -138,6 +140,7 @@
             "enums": {
                 "VK_REMAINING_MIP_LEVELS": "^uint32(0)",
                 "VK_REMAINING_ARRAY_LAYERS": "^uint32(0)",
+                "VK_REMAINING_3D_SLICES_EXT": "^uint32(0)",
                 "VK_ATTACHMENT_UNUSED": "^uint32(0)",
                 "VK_QUEUE_FAMILY_IGNORED": "^uint32(0)",
                 "VK_QUEUE_FAMILY_EXTERNAL":  "^uint32(1)",
@@ -274,7 +277,7 @@
 
     "basetype": {
         "VkBool32": {
-            "!comment": "must be re-defined as an exception, becuase vk.xml specifies the type of VK_TRUE/FALSE as uint32_t, not VkBool32, and because the translation is non-trivial",
+            "!comment": "must be re-defined as an exception, because vk.xml specifies the type of VK_TRUE/FALSE as uint32_t, not VkBool32, and because the translation is non-trivial",
             "comment": "Note that go-vk uses standard Go bools throughout the public API. Bool32 is only used internally and is automatically translated for you.",
             "go:type": "bool",
             "go:translatePublic": "translatePublic_Bool32",
@@ -315,14 +318,6 @@
     },
 
     "struct": {
-        "VkBaseInStructure": {
-            "publicName": "!ignore",
-            "!comment": "Causes a stack overflow in resolution by recursive self-referencing. Declares pNext, formally part of the API, but never actually used anywhere else."
-        },
-        "VkBaseOutStructure": {
-            "publicName": "!ignore",
-            "!comment": "See VkBaseInStructure"
-        },
         "VkDescriptorSetLayoutBinding": {
             "forceIncludeMember": "descriptorCount",
             "forceIncludeComment": "descriptorCount references an array field in the XML, but that field might be null and then descriptor count has a different meaning. See the man pages/spec."
