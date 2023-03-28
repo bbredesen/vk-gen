@@ -31,7 +31,7 @@ var (
 func init() {
 	flag.StringVar(&inFileName, "inFile", "vk.xml", "Vulkan XML registry file to read")
 	flag.StringVar(&outDirName, "outDir", "vk", "Directory to write go-vk output to")
-	flag.StringVar(&platformTargets, "platform", "win32", "Comma-separated list of platforms to generate for")
+	flag.StringVar(&platformTargets, "platform", "win32,macos,metal", "Comma-separated list of platforms to generate for; this looks at the Vulkan name, not the GOOS name for the platform")
 
 	flag.Parse()
 
@@ -209,7 +209,7 @@ func printCategory(tc def.TypeCategory, fc *feat.Feature, platform *feat.Platfor
 	f, _ := os.Create(outpath)
 	// explicit f.Close() below; not deferred because the file must be written to disk before goimports is run
 
-	if platform != nil && platform.GoBuildTag != "" {
+	if platform != nil && platform.GoBuildTag != "" && tc != def.CatEnum {
 		fmt.Fprintf(f, "//go:build %s\n", platform.GoBuildTag)
 	}
 
