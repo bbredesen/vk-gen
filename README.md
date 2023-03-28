@@ -15,6 +15,9 @@ Install: `go install github.com/bbredesen/vk-gen@latest`
 
 Download the latest registry file: `curl https://raw.githubusercontent.com/KhronosGroup/Vulkan-Headers/main/registry/vk.xml > vk.xml`
 
+(Or, replace "main" in the URL above with the tagged version you want to generate against: e.g., 
+`https://raw.githubusercontent.com/KhronosGroup/Vulkan-Headers/v1.2.203/registry/vk.xml` for the last version 1.2 specification.)
+
 Run the tool: `vk-gen`
 
 Use `-inFile` to specify a registry filename or path (defaults to `./vk.xml`)
