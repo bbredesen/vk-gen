@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/antchfx/xmlquery"
+	"github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 )
 
@@ -76,7 +77,8 @@ func (t *unionType) PrintInternalDeclaration(w io.Writer) {
 
 	var preamble, structDecl, epilogue strings.Builder
 	if t.isReturnedOnly {
-		fmt.Fprintf(w, "// WARNING - union %s is returned only, which is not yet handled in the binding\n", t.PublicName())
+		logrus.WithField("registry type", t.registryName).
+			Error("union is returned only, which is not yet handled in the binding")
 	}
 
 	// _vk type declaration
@@ -154,7 +156,18 @@ func ReadUnionExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr Va
 			return true
 		} // Ignore comments
 
-		UpdateUnionTypeFromJSON(key, exVal, tr[key.String()].(*unionType))
+		if entry, found := tr[key.String()]; !found {
+			logrus.WithField("registry type", key.String()).
+				Warn("no existing registry type for union exception")
+		} else {
+			if entry.Category() != CatUnion {
+				logrus.WithField("registry type", key.String()).
+					WithField("category", entry.Category().String()).
+					Error("exception for union type was not a union in the registry")
+			}
+
+			UpdateUnionTypeFromJSON(key, exVal, entry.(*unionType))
+		}
 
 		return true
 	})
