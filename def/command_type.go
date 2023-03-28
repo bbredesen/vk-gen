@@ -83,34 +83,6 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	return iset
 }
 
-func (t *commandType) PrintGlobalDeclarations(w io.Writer, idx int, isStart bool) {
-	if t.staticCodeRef != "" || t.IsAlias() {
-		// Ignored, static refs from exceptions.json aren't processed through
-		// Cgo/lazyCommands and no need to write key entries for alias commands
-		return
-	}
-
-	if isStart {
-		if idx == 0 {
-			fmt.Fprintf(w, "%s vkCommandKey = iota\n", t.keyName())
-		} else {
-			fmt.Fprintf(w, "%s vkCommandKey = iota + %d\n", t.keyName(), idx)
-		}
-	} else {
-		fmt.Fprintln(w, t.keyName())
-	}
-}
-
-func (t *commandType) PrintFileInitContent(w io.Writer) {
-	if t.IsAlias() {
-		// No need to write key entries for alias commands
-		return
-	}
-	fmt.Fprintf(w, "lazyCommands[%s] = vkCommand{\"%s\", %d, %v, nil}\n",
-		t.keyName(), t.RegistryName(), t.bindingParamCount, t.resolvedReturnType != nil)
-
-}
-
 func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 	if t.staticCodeRef != "" {
 		fmt.Fprintf(w, "// %s is static code, not generated from vk.xml; aliased to %s\n", t.PublicName(), t.staticCodeRef)
@@ -489,6 +461,9 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 	}
 
 	fmt.Fprintf(w, "}\n\n")
+
+	fmt.Fprintf(w, "var %s = &vkCommand{\"%s\", %d, %v, nil}\n",
+		t.RegistryName(), t.RegistryName(), t.bindingParamCount, t.resolvedReturnType != nil)
 }
 
 func trampStringFromParams(sl []*commandParam) string {
@@ -509,13 +484,13 @@ func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandPar
 
 	if returnParam != nil {
 		if returnParam.resolvedType.IsIdenticalPublicAndInternal() {
-			fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.keyName(), trampParamsString)
+			fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.RegistryName(), trampParamsString)
 		} else {
-			fmt.Fprintf(w, "  rval := %s(execTrampoline(%s%s))\n", returnParam.resolvedType.InternalName(), t.keyName(), trampParamsString)
+			fmt.Fprintf(w, "  rval := %s(execTrampoline(%s%s))\n", returnParam.resolvedType.InternalName(), t.RegistryName(), trampParamsString)
 			fmt.Fprintf(w, "  %s = %s\n", returnParam.publicName, returnParam.resolvedType.TranslateToPublic("rval"))
 		}
 	} else {
-		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.keyName(), trampParamsString)
+		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.RegistryName(), trampParamsString)
 	}
 }
 
