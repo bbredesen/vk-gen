@@ -444,17 +444,28 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 	}
 
-	specStringFromParams := func(sl []*commandParam) string {
+	specStringFromParams := func(sl []*commandParam) (string, bool) {
+		var remapResultToError bool = false
 		sb := &strings.Builder{}
 		for _, param := range sl {
+			if param.resolvedType.RegistryName() == "VkResult" {
+				remapResultToError = true
+				continue
+			}
 			fmt.Fprintf(sb, ", %s %s", param.publicName, param.resolvedType.PublicName())
 		}
-		return strings.TrimPrefix(sb.String(), ", ")
+
+		if remapResultToError {
+			fmt.Fprintf(sb, ", r error")
+		}
+		return strings.TrimPrefix(sb.String(), ", "), remapResultToError
+
 	}
 
 	t.bindingParamCount = len(funcTrampolineParams)
 
-	inputSpecString, returnSpecString := specStringFromParams(funcInputParams), specStringFromParams(funcReturnParams)
+	inputSpecString, _ := specStringFromParams(funcInputParams)
+	returnSpecString, hasResult := specStringFromParams(funcReturnParams)
 
 	t.PrintDocLink(w)
 	fmt.Fprintf(w, "func %s(%s) (%s) {\n",
@@ -469,11 +480,18 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 	fmt.Fprintf(w, epilogue.String())
 
+	if hasResult {
+		fmt.Fprint(w, "  if r == Result(0) {\nr = SUCCESS\n}\n")
+	}
+
 	if len(funcReturnParams) > 0 {
 		fmt.Fprintf(w, "  return\n")
 	}
 
 	fmt.Fprintf(w, "}\n\n")
+
+	fmt.Fprintf(w, "var %s = &vkCommand{\"%s\", %d, %v, nil}\n",
+		t.RegistryName(), t.RegistryName(), t.bindingParamCount, t.resolvedReturnType != nil)
 }
 
 func trampStringFromParams(sl []*commandParam) string {
@@ -494,13 +512,13 @@ func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandPar
 
 	if returnParam != nil {
 		if returnParam.resolvedType.IsIdenticalPublicAndInternal() {
-			fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.keyName(), trampParamsString)
+			fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.RegistryName(), trampParamsString)
 		} else {
-			fmt.Fprintf(w, "  rval := %s(execTrampoline(%s%s))\n", returnParam.resolvedType.InternalName(), t.keyName(), trampParamsString)
+			fmt.Fprintf(w, "  rval := %s(execTrampoline(%s%s))\n", returnParam.resolvedType.InternalName(), t.RegistryName(), trampParamsString)
 			fmt.Fprintf(w, "  %s = %s\n", returnParam.publicName, returnParam.resolvedType.TranslateToPublic("rval"))
 		}
 	} else {
-		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.keyName(), trampParamsString)
+		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.RegistryName(), trampParamsString)
 	}
 }
 
