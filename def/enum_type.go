@@ -46,6 +46,10 @@ func (t *enumType) PrintPublicDeclaration(w io.Writer) {
 
 	sort.Sort(ByValue(t.values))
 
+	if t.RegistryName() == "VkResult" {
+		fmt.Fprintf(w, "// Command completed successfully\nvar SUCCESS error = nil\n")
+	}
+
 	if len(t.values) > 0 {
 		fmt.Fprint(w, "const (\n")
 		for _, v := range t.values {
