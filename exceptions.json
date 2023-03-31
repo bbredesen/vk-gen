@@ -314,6 +314,25 @@
         },
         "PFN_vkGetInstanceProcAddrLUNARG": {
             "underlyingTypeName": "!pointer"
+        },
+
+        "MTLDevice_id": {
+            "underlyingTypeName": "!pointer"
+        },
+        "MTLCommandQueue_id": {
+            "underlyingTypeName": "!pointer"
+        },
+        "MTLBuffer_id": {
+            "underlyingTypeName": "!pointer"
+        },
+        "MTLTexture_id": {
+            "underlyingTypeName": "!pointer"
+        },
+        "MTLSharedEvent_id": {
+            "underlyingTypeName": "!pointer"
+        },
+        "IOSurfaceRef": {
+            "underlyingTypeName": "!pointer"
         }
     },
 
