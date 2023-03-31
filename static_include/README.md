@@ -1,10 +1,10 @@
-# go-vk
+# go-vk - Vulkan 1.3 supporting Windows and Mac
 
-***This package is in an alpha state right now!*** It is very likely that API details may change and it has only been
-tested on Windows. You may find bugs!
+***This package is in a beta state right now!*** It has been tested on Windows and Mac. Please report any bugs you find!
 
 go-vk is a Go-langauge (and Go-style) binding around the Vulkan graphics API. Rather than just slapping a Cgo wrapper
-around everything, Vulkan's functions, structures and other types have been translated to a Go-style API. For example, "native" Vulkan returns any resources you request in pointers your program passes into Vulkan. This allows
+around everything, Vulkan's functions, structures and other types have been translated to a Go-style API. For example, 
+"native" Vulkan returns any resources you request in pointers your program passes into Vulkan. This allows
 Vulkan to (generally) return a VkResult success or error code from the C function call. However, in Go, we have the
 luxury of multiple return values, so this:
 
@@ -120,8 +120,10 @@ import (
 
 func main() {
     if encodedVersion, err := vk.EnumerateInstanceVersion(); err != nil {
-        // Returned errors are vk.Results. You can directly compare err those predefined values to determine which error occured.
-        // The string returned by Error() is the name of the code, e.g vk.ERROR_OUT_OF_DATE_KHR.Error() == "ERROR_OUT_OF_DATE_KHR"
+        // Returned errors are vk.Results. You can directly compare err those 
+        // predefined values to determine which error occured.
+        // The string returned by Error() is the name of the code. For example,
+        // vk.ERROR_OUT_OF_DATE_KHR.Error() == "ERROR_OUT_OF_DATE_KHR"
         fmt.Printf("EnumerateInstanceVersion failed! Error code was %s\n", err.Error())
         os.Exit(1)
     } else {
@@ -139,7 +141,7 @@ func main() {
 		ApplicationName:    "Example App",
 		ApplicationVersion: vk.MAKE_VERSION(1, 0, 0),
 		EngineVersion:      vk.MAKE_VERSION(1, 0, 0),
-		ApiVersion:         vk.MAKE_VERSION(1, 0, 0),
+		ApiVersion:         vk.MAKE_VERSION(1, 3, 0),
 	}
 
 	icInfo := vk.InstanceCreateInfo{
@@ -280,3 +282,6 @@ this library. The samples currently run on Windows and Mac.
 * H.264 and H.265 commands and types are almost certainly broken. Vulkan does provide a separate XML file in the vk.xml format for those
   types, but reading that file has not yet been implemented in vk-gen. As a placeholder, all of these types are defined
   as int32 through exceptions.json.
+* The union type VkPipelineExecutableStatisticValueKHR is returned from Vulkan through VkPipelineExecutableStatisticKHR.
+  Returned unions are not supported and there is no Goify() function associated. VkPipelineExecutableStatisticKHR is
+  returned to the developer without the Value member populated.
