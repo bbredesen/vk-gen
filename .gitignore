@@ -2,7 +2,7 @@ vk/
 
 vk-gen
 vk-gen.exe
-vk.xml
+*.xml
 
 .vscode/
 .DS_Store
