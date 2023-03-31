@@ -39,8 +39,10 @@ func (t *externalType) TranslateToInternal(inputVar string) string {
 	return t.genericType.TranslateToInternal(inputVar)
 }
 
-func ReadExternalTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//types/type[not(@category)]") {
+func ReadExternalTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[not(@category) and (@api='%s' or not(@api))]", api)
+
+	for _, node := range xmlquery.Find(doc, queryString) {
 		typ := NewExternalTypeFromXML(node)
 		if tr[typ.RegistryName()] != nil {
 			logrus.WithField("registry name", typ.RegistryName()).Warn("Overwriting external type in registry")

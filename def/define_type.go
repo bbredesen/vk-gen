@@ -56,8 +56,9 @@ func (t *defineType) PrintPublicDeclaration(w io.Writer) {
 	}
 }
 
-func ReadDefineTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//types/type[@category='define']") {
+func ReadDefineTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[@category='define' and (@api='%s' or not(@api))]", api)
+	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewDefineTypeFromXML(node)
 		if tr[newType.RegistryName()] != nil {
 			logrus.WithField("registry name", newType.RegistryName()).

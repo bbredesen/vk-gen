@@ -39,7 +39,7 @@ const (
 	CatMaximum
 )
 
-type fnReadFromXML func(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry)
+type fnReadFromXML func(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string)
 type fnReadFromJSON func(exceptions gjson.Result, tr TypeRegistry, vr ValueRegistry)
 
 func (c TypeCategory) ReadFns() (fnReadFromXML, fnReadFromJSON) {

@@ -91,8 +91,10 @@ func (t *baseType) PrintTranslateToInternal(w io.Writer, inputVar, outputVar str
 	}
 }
 
-func ReadBaseTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//types/type[@category='basetype']") {
+func ReadBaseTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[@category='basetype' and (@api='%s' or not(@api))]", api)
+
+	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewBaseTypeFromXML(node)
 		if tr[newType.RegistryName()] != nil {
 			logrus.WithField("registry name", newType.RegistryName()).Warn("Overwriting base type in registry")
