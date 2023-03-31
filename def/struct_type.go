@@ -422,20 +422,23 @@ func (m *structMember) PrintGoifyContent(preamble, structDecl, epilogue io.Write
 	}
 }
 
-func ReadStructTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//type[@category='struct']") {
-		s := newStructTypeFromXML(node)
+func ReadStructTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[@category='struct' and (@api='%s' or not(@api))]", api)
+
+	for _, node := range xmlquery.Find(doc, queryString) {
+		s := newStructTypeFromXML(node, api)
 		tr[s.RegistryName()] = s
 	}
 }
 
-func newStructTypeFromXML(node *xmlquery.Node) *structType {
+func newStructTypeFromXML(node *xmlquery.Node, api string) *structType {
 	rval := structType{}
 
 	rval.registryName = node.SelectAttr("name")
 	rval.isReturnedOnly = node.SelectAttr("returnedonly") == "true"
 
-	for _, mNode := range xmlquery.Find(node, "member") {
+	queryString := fmt.Sprintf("member[@api='%s' or not(@api)]", api)
+	for _, mNode := range xmlquery.Find(node, queryString) {
 		rval.members = append(rval.members, newStructMemberFromXML(mNode))
 	}
 

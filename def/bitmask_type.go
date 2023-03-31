@@ -49,8 +49,10 @@ func (t *bitmaskType) PrintPublicDeclaration(w io.Writer) {
 	}
 }
 
-func ReadBitmaskTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//type[@category='bitmask']") {
+func ReadBitmaskTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[@category='bitmask' and (@api='%s' or not(@api))]", api)
+
+	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewBitmaskTypeFromXML(node)
 		if tr[newType.RegistryName()] != nil {
 			logrus.WithField("registry name", newType.RegistryName()).Warn("Overwriting bitmask type in registry")

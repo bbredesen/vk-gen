@@ -635,14 +635,17 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	return iset
 }
 
-func ReadCommandTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) {
-	for _, commandNode := range append(xmlquery.Find(doc, "//commands/command"), xmlquery.Find(doc, "//extension/command")...) {
-		val := NewCommandFromXML(commandNode)
+func ReadCommandTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
+	cQueryString := fmt.Sprintf("//commands/command[@api='%s' or not(@api)]", api)
+	exQueryString := fmt.Sprintf("//extension/command[@api='%s' or not(@api)]", api)
+
+	for _, commandNode := range append(xmlquery.Find(doc, cQueryString), xmlquery.Find(doc, exQueryString)...) {
+		val := NewCommandFromXML(commandNode, api)
 		tr[val.RegistryName()] = val
 	}
 }
 
-func NewCommandFromXML(elt *xmlquery.Node) *commandType {
+func NewCommandFromXML(elt *xmlquery.Node, api string) *commandType {
 	rval := commandType{}
 	name := elt.SelectAttr("name")
 	if name != "" {
@@ -652,7 +655,8 @@ func NewCommandFromXML(elt *xmlquery.Node) *commandType {
 		rval.registryName = xmlquery.FindOne(elt, "/proto/name").InnerText()
 		rval.returnTypeName = xmlquery.FindOne(elt, "/proto/type").InnerText()
 
-		for _, m := range xmlquery.Find(elt, "param") {
+		paramQueryString := fmt.Sprintf("param[@api='%s' or not(@api)]", api)
+		for _, m := range xmlquery.Find(elt, paramQueryString) {
 			par := NewCommandParamFromXML(m, &rval)
 			rval.parameters = append(rval.parameters, par)
 		}

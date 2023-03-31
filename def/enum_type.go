@@ -59,8 +59,10 @@ func (t *enumType) PrintPublicDeclaration(w io.Writer) {
 	}
 }
 
-func ReadEnumTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//type[@category='enum']") {
+func ReadEnumTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[@category='enum' and (@api='%s' or not(@api))]", api)
+
+	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewEnumTypeFromXML(node)
 		if tr[newType.RegistryName()] != nil {
 			logrus.WithField("registry name", newType.RegistryName()).Warn("Overwriting enum type in registry")

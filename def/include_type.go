@@ -1,6 +1,8 @@
 package def
 
 import (
+	"fmt"
+
 	"github.com/antchfx/xmlquery"
 	"github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
@@ -34,8 +36,10 @@ func (t *includeType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	return rval
 }
 
-func ReadIncludeTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//types/type[@category='include']") {
+func ReadIncludeTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[@category='include' and (@api='%s' or @api='')]", api)
+
+	for _, node := range xmlquery.Find(doc, queryString) {
 		typ := NewIncludeTypeFromXML(node)
 		if tr[typ.RegistryName()] != nil {
 			logrus.WithField("registry name", typ.RegistryName()).Warn("Overwriting include type in registry")

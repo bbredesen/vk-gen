@@ -23,6 +23,7 @@ import (
 
 var (
 	inFileName, outDirName string
+	apiName                string
 	platformTargets        string
 	separatedPlatforms     []string
 	useTemplates           bool
@@ -31,6 +32,7 @@ var (
 func init() {
 	flag.StringVar(&inFileName, "inFile", "vk.xml", "Vulkan XML registry file to read")
 	flag.StringVar(&outDirName, "outDir", "vk", "Directory to write go-vk output to")
+	flag.StringVar(&apiName, "api", "vulkan", "API to generate against; possible values include 'vulkan' and 'vulkansc'")
 	flag.StringVar(&platformTargets, "platform", "win32,macos,metal", "Comma-separated list of platforms to generate for; this looks at the Vulkan name, not the GOOS name for the platform")
 
 	flag.Parse()
@@ -92,7 +94,7 @@ func main() {
 	for tc := def.CatNone; tc < def.CatMaximum; tc++ {
 		xml, json := tc.ReadFns()
 		if xml != nil {
-			xml(xmlDoc, globalTypes, globalValues)
+			xml(xmlDoc, globalTypes, globalValues, apiName)
 		}
 		if json != nil {
 			json(jsonDoc, globalTypes, globalValues)
@@ -133,7 +135,8 @@ func main() {
 	}
 
 	// "Core" extensions
-	for _, extNode := range xmlquery.Find(xmlDoc, "//extension[not(@platform) and @supported='vulkan']") {
+	extQueryString := fmt.Sprintf("//extension[not(@platform) and contains(@supported,'%s')]", apiName)
+	for _, extNode := range xmlquery.Find(xmlDoc, extQueryString) {
 		ext := feat.ReadExtensionFromXML(extNode, globalTypes, globalValues)
 		platforms[""].IncludeExtension(ext)
 	}
@@ -174,7 +177,7 @@ func main() {
 		pf := plat.GeneratePlatformFeatures()
 		pf.Resolve(globalTypes, globalValues)
 
-		for tc, reg := range pf.FilterByCategory() { 
+		for tc, reg := range pf.FilterByCategory() {
 			printCategory(tc, reg, plat, commandCount, goimportsPath)
 			if tc == def.CatCommand {
 				commandCount += len(reg.ResolvedTypes)
@@ -209,7 +212,7 @@ func printCategory(tc def.TypeCategory, fc *feat.Feature, platform *feat.Platfor
 	f, _ := os.Create(outpath)
 	// explicit f.Close() below; not deferred because the file must be written to disk before goimports is run
 
-	if platform != nil && platform.GoBuildTag != "" && tc != def.CatEnum {
+	if platform != nil && platform.GoBuildTag != "" && tc != def.CatEnum && tc != def.CatBitmask {
 		fmt.Fprintf(f, "//go:build %s\n", platform.GoBuildTag)
 	}
 

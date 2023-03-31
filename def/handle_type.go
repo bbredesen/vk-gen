@@ -43,8 +43,10 @@ func (t *handleType) PrintPublicDeclaration(w io.Writer) {
 	}
 }
 
-func ReadHandleTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry) {
-	for _, node := range xmlquery.Find(doc, "//type[@category='handle']") {
+func ReadHandleTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry, api string) {
+	queryString := fmt.Sprintf("//types/type[@category='handle' and (@api='%s' or not(@api))]", api)
+
+	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewHandleTypeFromXML(node)
 		if tr[newType.RegistryName()] != nil {
 			logrus.WithField("registry name", newType.RegistryName()).Warn("Overwriting handle type in registry")
