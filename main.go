@@ -60,7 +60,7 @@ func main() {
 	if err != nil {
 		logrus.WithField("error", err).
 			WithField("filename", inFileName).
-			Fatal("Could not open Vulkan registry file", inFileName, err)
+			Fatal("Could not open Vulkan registry file")
 	}
 	defer f.Close()
 
