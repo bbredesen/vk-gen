@@ -89,16 +89,20 @@ func (f *Feature) FilterByCategory() map[def.TypeCategory]*Feature {
 
 	// Stuff all the values, segmented first by category then by type, into the new Feature
 	// Lots of maps to make...
-	for _, vr := range f.ResolvedValues {
+	for k, vr := range f.ResolvedValues {
+		_ = k
 		// Default category reset before starting the inner loop
-		cat := def.CatExten
+		cat := def.CatNone
 
 		for valName, valDef := range vr {
 			if valDef.ResolvedType() != nil {
 				cat = valDef.ResolvedType().Category()
+			} else {
+				cat = def.CatExten
 			}
-			tmp := rval[cat]
-			if tmp == nil {
+
+			_, found := rval[cat]
+			if !found {
 				rval[cat] = NewFeature()
 			}
 
