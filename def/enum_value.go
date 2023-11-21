@@ -66,8 +66,6 @@ func (v *enumValue) PrintPublicDeclaration(w io.Writer) {
 			fmt.Fprintln(w)
 		}
 	}
-<<<<<<< HEAD
-=======
 
 	if v.IsAlias() {
 		fmt.Fprintf(w, "%s = %s\n", v.PublicName(), v.ValueString())
@@ -75,7 +73,6 @@ func (v *enumValue) PrintPublicDeclaration(w io.Writer) {
 		fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
 	}
 
->>>>>>> 76a0513 (Remove type decl from external aliases)
 }
 
 func ReadApiConstantsFromXML(doc *xmlquery.Node, externalType TypeDefiner, tr TypeRegistry, vr ValueRegistry) {
