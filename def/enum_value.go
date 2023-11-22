@@ -65,13 +65,12 @@ func (v *enumValue) PrintPublicDeclaration(w io.Writer) {
 		} else {
 			fmt.Fprintln(w)
 		}
-	}
-
-	if v.IsAlias() {
+	} else if v.IsAlias() {
 		fmt.Fprintf(w, "%s = %s\n", v.PublicName(), v.ValueString())
-	} else {
-		fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
 	}
+	// else {
+	// 	fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
+	// }
 
 }
 
