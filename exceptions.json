@@ -146,7 +146,8 @@
                 "VK_QUEUE_FAMILY_EXTERNAL":  "^uint32(1)",
                 "VK_QUEUE_FAMILY_FOREIGN_EXT": "^uint32(2)",
                 "VK_SUBPASS_EXTERNAL": "^uint32(0)",
-                "VK_SHADER_UNUSED_KHR": "^uint32(0)"
+                "VK_SHADER_UNUSED_KHR": "^uint32(0)",
+                "VK_SHADER_INDEX_UNUSED_AMDX": "^uint32(0)"
             }
         },
         "int64_t":  { "go:type": "int64", "primitive": true },
