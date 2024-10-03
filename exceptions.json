@@ -1,372 +1,385 @@
 {
-    "define" : {
-        "VK_MAKE_API_VERSION" : {
-            "functionName" : "makeApiVersion"
-        },
-        "VK_MAKE_VERSION" : {
-            "functionName": "deprecatedMakeVersion"
-        },
-
-        "VK_API_VERSION_VARIANT": {
-            "functionName": "apiVersionVariant"
-        },
-        "VK_API_VERSION_MAJOR": {
-            "functionName": "apiVersionMajor"
-        },
-        "VK_API_VERSION_MINOR": {
-            "functionName": "apiVersionMinor"
-        },
-        "VK_API_VERSION_PATCH": {
-            "functionName": "apiVersionPatch"
-        },
-
-        "VK_VERSION_MAJOR": {
-            "functionName": "deprecatedVersionMajor"
-        },
-        "VK_VERSION_MINOR": {
-            "functionName": "deprecatedVersionMinor"
-        },
-        "VK_VERSION_PATCH": {
-            "functionName": "deprecatedVersionPatch"
-        },
-
-        "VK_USE_64_BIT_PTR_DEFINES": {
-            "constantValue": "unsafe.Sizeof(uintptr(0))",
-            "!comment": "Included for completeness, but this value is only used in a macro to determine how VK_NULL_HANDLE should be defined in C, based on architecture and compiler."
-        }
-
+  "define": {
+    "VK_MAKE_API_VERSION": {
+      "functionName": "makeApiVersion"
+    },
+    "VK_MAKE_VERSION": {
+      "functionName": "deprecatedMakeVersion"
     },
 
-    "handle": {
-        "VK_DEFINE_HANDLE": { 
-            "publicName": "handle", 
-            "underlyingType": "uintptr_t",
-            "constants": {
-                "VK_NULL_HANDLE" : "0"
-            }
-        },
-        "VK_DEFINE_NON_DISPATCHABLE_HANDLE": { 
-            "publicName": "nonDispatchableHandle", 
-            "underlyingType": "uint64_t",
-            "comment": "The Vulkan spec specifically defines a handle as a platform pointer type (i.e., could be 32 bits) and a non-dispatchable handle as a 64 bit type."
-        },
-        "VK_USE_64_BIT_PTR_DEFINES": {
-            "publicName": "!ignore",
-            "!comment": "This and several following entries are defined as types in the spec, though they're really values. !ignore allows this type to be created for resolving the feature set, but it will not be output to the generated code."
-        },
-        "VK_NULL_HANDLE": {
-            "publicName": "!ignore"
-        }
+    "VK_API_VERSION_VARIANT": {
+      "functionName": "apiVersionVariant"
+    },
+    "VK_API_VERSION_MAJOR": {
+      "functionName": "apiVersionMajor"
+    },
+    "VK_API_VERSION_MINOR": {
+      "functionName": "apiVersionMinor"
+    },
+    "VK_API_VERSION_PATCH": {
+      "functionName": "apiVersionPatch"
     },
 
-    "platform": {
-        "!comment": "Platform maps a Vulkan platform name to a Go build tag and allows for a set of imports.",
-        "win32": {
-            "go:build": "windows",
-            "go:imports": ["golang.org/x/sys/windows"]
-        },
-        "xlib": {
-            "go:build": "linux",
-            "go:imports": []
-        },
-        "xlib_xrandr": {
-            "go:build": "linux",
-            "go:imports": []
-        },
-        "xcb": {
-            "go:build": "linux",
-            "go:imports": []
-        },
-        "wayland": {
-            "go:build": "linux",
-            "go:imports": []
-        },
-        "directfb": {
-            "go:build": "linux",
-            "go:imports": []
-        },
-        "android": {
-            "go:build": "android",
-            "go:imports": []
-        },
-        "vi": {
-            "!comment" : "Nintendo Vi...not clear if Go can be compiled for Nintendo platforms",
-            "go:build": "!ignore",
-            "go:imports": []
-        },
-        "ios": {
-            "go:build": "ios",
-            "go:imports": []
-        },
-        "macos": {
-            "go:build": "darwin",
-            "go:imports": []
-        },
-        "metal": {
-            "go:build": "darwin",
-            "go:imports": []
-        },
-        "fuchsia": {
-            "!comment": "Guessing at this tag. Go can be built for Fuchsia, but a quick search did not turn up a specific build tag for the OS",
-            "go:build": "fuchsia",
-            "go:imports": []
-        },
-        "ggp": {
-            "!comment": "Guessing at this tag.",
-            "go:build": "stadia",
-            "go:imports": []
-        },
-        "provisional": {
-            "!comment": "Custom build tag for provisional/beta Vulkan extensions.",
-            "go:build": "vk_provisional",
-            "go:imports": []
-        },
-        "screen": {
-            "!comment" : "Go is not supported on QNX, nor is there any indication that it ever will be.",
-            "go:build": "!ignore",
-            "go:imports": []
-        }
+    "VK_VERSION_MAJOR": {
+      "functionName": "deprecatedVersionMajor"
+    },
+    "VK_VERSION_MINOR": {
+      "functionName": "deprecatedVersionMinor"
+    },
+    "VK_VERSION_PATCH": {
+      "functionName": "deprecatedVersionPatch"
     },
 
-    "external" : {
-        "int8_t":  { "go:type": "int8", "primitive": true, 
-            "!comment": "Primitive indicates a direct replacement? Necessary or not?" },
-        "uint8_t": { "go:type": "uint8", "primitive": true },
-        "int16_t":  { "go:type": "int16", "primitive": true },
-        "uint16_t":  { "go:type": "uint16", "primitive": true },
-        "int32_t":  { "go:type": "int32", "primitive": true },
-        "uint32_t": { 
-            "go:type": "uint32", "primitive": true,
-            "enums": {
-                "VK_REMAINING_MIP_LEVELS": "^uint32(0)",
-                "VK_REMAINING_ARRAY_LAYERS": "^uint32(0)",
-                "VK_REMAINING_3D_SLICES_EXT": "^uint32(0)",
-                "VK_ATTACHMENT_UNUSED": "^uint32(0)",
-                "VK_QUEUE_FAMILY_IGNORED": "^uint32(0)",
-                "VK_QUEUE_FAMILY_EXTERNAL":  "^uint32(1)",
-                "VK_QUEUE_FAMILY_FOREIGN_EXT": "^uint32(2)",
-                "VK_SUBPASS_EXTERNAL": "^uint32(0)",
-                "VK_SHADER_UNUSED_KHR": "^uint32(0)",
-                "VK_SHADER_INDEX_UNUSED_AMDX": "^uint32(0)"
-            }
-        },
-        "int64_t":  { "go:type": "int64", "primitive": true },
-        "uint64_t": {
-            "go:type": "uint64", "primitive": true,
-            "enums": {
-                "VK_WHOLE_SIZE": "^uint64(0)"
-            }
-        },
-        "uintptr_t" : { "go:type": "uintptr" },
-        "size_t":  { "go:type": "uintptr", "primitive": true },
-        "char":  { 
-            "go:type": "byte", 
-            "primitive": true,      
-            "go:translatePublic": "stringToCharPtr",
-            "go:translateInternal": "sys_stringToBytePointer"
-        },
-        "float" : {
-            "go:type": "float32", "primitive": true,
-            "enums": {
-                "VK_LOD_CLAMP_NONE" : "1000.0"
-            }
-        },
-        "double" : { "go:type": "float64", "primitive": true},
-        "int":  { "go:type": "int32", "primitive": true },
-        "void": {"go:type": "byte"},
-        "void*" : { "go:type": "unsafe.Pointer" },
-        
-        "char*" : { 
-            "go:type": "string",
-            "go:internalType": "[]byte",
-            "go:translatePublic": "stringToCharPtr",
-            "go:translateInternal": "sys_stringToBytePointerX"
-        },
-        "char**" : {
-            "go:type": "[]string",
-            "go:internalType": "[]byte*",
-            "go:translatePublic": "stringSliceToCharPtrPtr",
-            "go:translateInternal": "charPtrPtrToBytePtrSlice"
-        },
-        
-        "!empty_struct": { "go:type": "struct{}" },
-        "!pointer": { "go:type": "unsafe.Pointer" },
-        
-        "HANDLE": { "go:type": "windows.Handle" },
-        "HINSTANCE": { "go:type": "windows.Handle" },
-        "HWND": { "go:type": "windows.HWND" },
-        "HMONITOR": { "go:type": "windows.Handle" },
-        "DWORD": { "go:type": "uint32" },
-        "SECURITY_ATTRIBUTES": { "go:type": "windows.SecurityAttributes" },
-        "LPCWSTR": { "go:type": "unsafe.Pointer" },
-
-        "!comment" : "TODO : All of the platform types below need to be dealt with. uint32 is a placeholder only!",
-
-        "Display" : { "go:type": "uint32" },
-        "VisualID" : { "go:type": "uint32" },
-        "Window" : { "go:type": "uint32" },
-        "RROutput" : { "go:type": "uint32" },
-        "wl_display" : { "go:type": "uint32" },
-        "wl_surface" : { "go:type": "uint32" },
-
-        "xcb_connection_t" : { "go:type": "uint32" },
-        "xcb_visualid_t" : { "go:type": "uint32" },
-        "xcb_window_t" : { "go:type": "uint32" },
-        "IDirectFB" : { "go:type": "uint32" },
-        "IDirectFBSurface" : { "go:type": "uint32" },
-        "zx_handle_t" : { "go:type": "uint32" },
-        "GgpStreamDescriptor" : { "go:type": "uint32" },
-        "GgpFrameToken" : { "go:type": "uint32" },
-        "_screen_context" : { "go:type": "uint32" },
-        "_screen_window" : { "go:type": "uint32" },
-
-        "StdVideoH264ProfileIdc" : { "go:type": "int32" },
-        "StdVideoH264LevelIdc" : { "go:type": "int32" },
-        "StdVideoH264ChromaFormatIdc" : { "go:type": "int32" },
-        "StdVideoH264PocType" : { "go:type": "int32" },
-        "StdVideoH264SpsFlags" : { "go:type": "int32" },
-        "StdVideoH264ScalingLists" : { "go:type": "int32" },
-        "StdVideoH264AspectRatioIdc" : { "go:type": "int32" },
-        "StdVideoH264HrdParameters" : { "go:type": "int32" },
-        "StdVideoH264SpsVuiFlags" : { "go:type": "int32" },
-        "StdVideoH264WeightedBipredIdc" : { "go:type": "int32" },
-        "StdVideoH264PpsFlags" : { "go:type": "int32" },
-        "StdVideoH264SliceType" : { "go:type": "int32" },
-        "StdVideoH264CabacInitIdc" : { "go:type": "int32" },
-        "StdVideoH264DisableDeblockingFilterIdc" : { "go:type": "int32" },
-        "StdVideoH264PictureType" : { "go:type": "int32" },
-        "StdVideoH264ModificationOfPicNumsIdc" : { "go:type": "int32" },
-        "StdVideoH264MemMgmtControlOp" : { "go:type": "int32" },
-        "StdVideoDecodeH264PictureInfo" : { "go:type": "int32" },
-        "StdVideoDecodeH264ReferenceInfo" : { "go:type": "int32" },
-        "StdVideoDecodeH264PictureInfoFlags" : { "go:type": "int32" },
-        "StdVideoDecodeH264ReferenceInfoFlags" : { "go:type": "int32" },
-        "StdVideoH264SequenceParameterSet" : { "go:type": "int32" },
-        "StdVideoH264PictureParameterSet" : { "go:type": "int32" },
-
-        "StdVideoH265ProfileIdc" : { "go:type": "int32" },
-        "StdVideoH265VideoParameterSet" : { "go:type": "int32" },
-        "StdVideoH265SequenceParameterSet" : { "go:type": "int32" },
-        "StdVideoH265PictureParameterSet" : { "go:type": "int32" },
-        "StdVideoH265DecPicBufMgr" : { "go:type": "int32" },
-        "StdVideoH265HrdParameters" : { "go:type": "int32" },
-        "StdVideoH265VpsFlags" : { "go:type": "int32" },
-        "StdVideoH265LevelIdc" : { "go:type": "int32" },
-        "StdVideoH265SpsFlags" : { "go:type": "int32" },
-        "StdVideoH265ScalingLists" : { "go:type": "int32" },
-        "StdVideoH265SequenceParameterSetVui" : { "go:type": "int32" },
-        "StdVideoH265PredictorPaletteEntries" : { "go:type": "int32" },
-        "StdVideoH265PpsFlags" : { "go:type": "int32" },
-        "StdVideoH265SubLayerHrdParameters" : { "go:type": "int32" },
-        "StdVideoH265HrdFlags" : { "go:type": "int32" },
-        "StdVideoH265SpsVuiFlags" : { "go:type": "int32" },
-        "StdVideoH265SliceType" : { "go:type": "int32" },
-        "StdVideoH265PictureType" : { "go:type": "int32" },
-        "StdVideoDecodeH265PictureInfo" : { "go:type": "int32" },
-        "StdVideoDecodeH265ReferenceInfo" : { "go:type": "int32" },
-        "StdVideoDecodeH265PictureInfoFlags" : { "go:type": "int32" },
-        "StdVideoDecodeH265ReferenceInfoFlags" : { "go:type": "int32" }
-    },
-
-    "include": {
-        "!comment": "include types have an optional build tag and define a set of types that are rolled into the build. Includes must be listed here with a platform to be included in the build.",
-        "windows.h": {
-            "go:imports": ["golang.org/x/sys/windows"]
-        },
-        "vk_platform": {}   
-    },
-
-    "basetype": {
-        "VkBool32": {
-            "!comment": "must be re-defined as an exception, because vk.xml specifies the type of VK_TRUE/FALSE as uint32_t, not VkBool32, and because the translation is non-trivial",
-            "comment": "Note that go-vk uses standard Go bools throughout the public API. Bool32 is only used internally and is automatically translated for you.",
-            "go:type": "bool",
-            "go:translatePublic": "translatePublic_Bool32",
-            "go:translateInternal": "translateInternal_Bool32"
-            
-        },
-        "!comment": "TODO: Vulkan pointers to functions should be parsed from the XML file to automatically handle future pointer types. (<type category=funcpointer>) Note that actually providing a custom callback function to the API might not be simple or even needed.",
-        "PFN_vkAllocationFunction": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkFreeFunction": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkInternalAllocationNotification": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkInternalFreeNotification": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkReallocationFunction": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkVoidFunction": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkDebugReportCallbackEXT": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkDebugUtilsMessengerCallbackEXT": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkDeviceMemoryReportCallbackEXT": {
-            "underlyingTypeName": "!pointer"
-        },
-        "PFN_vkGetInstanceProcAddrLUNARG": {
-            "underlyingTypeName": "!pointer"
-        },
-
-        "MTLDevice_id": {
-            "underlyingTypeName": "!pointer"
-        },
-        "MTLCommandQueue_id": {
-            "underlyingTypeName": "!pointer"
-        },
-        "MTLBuffer_id": {
-            "underlyingTypeName": "!pointer"
-        },
-        "MTLTexture_id": {
-            "underlyingTypeName": "!pointer"
-        },
-        "MTLSharedEvent_id": {
-            "underlyingTypeName": "!pointer"
-        },
-        "IOSurfaceRef": {
-            "underlyingTypeName": "!pointer"
-        }
-    },
-
-    "struct": {
-        "VkDescriptorSetLayoutBinding": {
-            "forceIncludeMember": "descriptorCount",
-            "forceIncludeComment": "descriptorCount references an array field in the XML, but that field might be null and then descriptor count has a different meaning. See the man pages/spec."
-        }
-    },
-
-    "union": {
-        "!comment": "go:internalSize allows us to specify the internal data size in bytes for Vulkan's union types. See README.md for details.",
-        "VkClearValue": {
-            "go:internalSize": "unsafe.Sizeof(_vkClearColorValue{})"
-        },
-        "VkDeviceOrHostAddressConstKHR": {
-            "go:internalSize" : 8
-        },
-        "VkDeviceOrHostAddressKHR": {
-            "go:internalSize" : 8
-        },
-        "VkPerformanceCounterResultKHR": {
-            "go:internalSize" : 8
-        },
-        "VkPerformanceValueDataINTEL": {
-            "go:internalSize" : 8
-        },
-        "VkPipelineExecutableStatisticValueKHR": {
-            "go:internalSize" : 8
-        },
-        "VkAccelerationStructureMotionInstanceDataNV": {
-            "go:internalSize" : "unsafe.Sizeof(_vkAccelerationStructureMatrixMotionInstanceNV{})"
-        }
+    "VK_USE_64_BIT_PTR_DEFINES": {
+      "constantValue": "unsafe.Sizeof(uintptr(0))",
+      "!comment": "Included for completeness, but this value is only used in a macro to determine how VK_NULL_HANDLE should be defined in C, based on architecture and compiler."
     }
+  },
 
+  "handle": {
+    "VK_DEFINE_HANDLE": {
+      "publicName": "handle",
+      "underlyingType": "uintptr_t",
+      "constants": {
+        "VK_NULL_HANDLE": "0"
+      }
+    },
+    "VK_DEFINE_NON_DISPATCHABLE_HANDLE": {
+      "publicName": "nonDispatchableHandle",
+      "underlyingType": "uint64_t",
+      "comment": "The Vulkan spec specifically defines a handle as a platform pointer type (i.e., could be 32 bits) and a non-dispatchable handle as a 64 bit type."
+    },
+    "VK_USE_64_BIT_PTR_DEFINES": {
+      "publicName": "!ignore",
+      "!comment": "This and several following entries are defined as types in the spec, though they're really values. !ignore allows this type to be created for resolving the feature set, but it will not be output to the generated code."
+    },
+    "VK_NULL_HANDLE": {
+      "publicName": "!ignore"
+    }
+  },
+
+  "platform": {
+    "!comment": "Platform maps a Vulkan platform name to a Go build tag and allows for a set of imports.",
+    "win32": {
+      "go:build": "windows",
+      "go:imports": ["golang.org/x/sys/windows"]
+    },
+    "xlib": {
+      "go:build": "linux",
+      "go:imports": []
+    },
+    "xlib_xrandr": {
+      "go:build": "linux",
+      "go:imports": []
+    },
+    "xcb": {
+      "go:build": "linux",
+      "go:imports": []
+    },
+    "wayland": {
+      "go:build": "linux",
+      "go:imports": []
+    },
+    "directfb": {
+      "go:build": "linux",
+      "go:imports": []
+    },
+    "android": {
+      "go:build": "android",
+      "go:imports": []
+    },
+    "vi": {
+      "!comment": "Nintendo Vi...not clear if Go can be compiled for Nintendo platforms",
+      "go:build": "!ignore",
+      "go:imports": []
+    },
+    "ios": {
+      "go:build": "ios",
+      "go:imports": []
+    },
+    "macos": {
+      "go:build": "darwin",
+      "go:imports": []
+    },
+    "metal": {
+      "go:build": "darwin",
+      "go:imports": []
+    },
+    "fuchsia": {
+      "!comment": "Guessing at this tag. Go can be built for Fuchsia, but a quick search did not turn up a specific build tag for the OS",
+      "go:build": "fuchsia",
+      "go:imports": []
+    },
+    "ggp": {
+      "!comment": "Guessing at this tag.",
+      "go:build": "stadia",
+      "go:imports": []
+    },
+    "provisional": {
+      "!comment": "Custom build tag for provisional/beta Vulkan extensions.",
+      "go:build": "vk_provisional",
+      "go:imports": []
+    },
+    "screen": {
+      "!comment": "Go is not supported on QNX, nor is there any indication that it ever will be.",
+      "go:build": "!ignore",
+      "go:imports": []
+    }
+  },
+
+  "external": {
+    "int8_t": {
+      "go:type": "int8",
+      "primitive": true,
+      "!comment": "Primitive indicates a direct replacement? Necessary or not?"
+    },
+    "uint8_t": { "go:type": "uint8", "primitive": true },
+    "int16_t": { "go:type": "int16", "primitive": true },
+    "uint16_t": { "go:type": "uint16", "primitive": true },
+    "int32_t": {
+      "go:type": "int32",
+      "primitive": true
+    },
+    "uint32_t": {
+      "go:type": "uint32",
+      "primitive": true,
+      "enums": {
+        "VK_REMAINING_MIP_LEVELS": "^uint32(0)",
+        "VK_REMAINING_ARRAY_LAYERS": "^uint32(0)",
+        "VK_REMAINING_3D_SLICES_EXT": "^uint32(0)",
+        "VK_ATTACHMENT_UNUSED": "^uint32(0)",
+        "VK_QUEUE_FAMILY_IGNORED": "^uint32(0)",
+        "VK_QUEUE_FAMILY_EXTERNAL": "^uint32(1)",
+        "VK_QUEUE_FAMILY_FOREIGN_EXT": "^uint32(2)",
+        "VK_SUBPASS_EXTERNAL": "^uint32(0)",
+        "VK_SHADER_UNUSED_KHR": "^uint32(0)",
+        "VK_SHADER_INDEX_UNUSED_AMDX": "^uint32(0)",
+        "VK_MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR": "^uint32(0)"
+      }
+    },
+    "int64_t": { "go:type": "int64", "primitive": true },
+    "uint64_t": {
+      "go:type": "uint64",
+      "primitive": true,
+      "enums": {
+        "VK_WHOLE_SIZE": "^uint64(0)"
+      }
+    },
+    "uintptr_t": { "go:type": "uintptr" },
+    "size_t": { "go:type": "uintptr", "primitive": true },
+    "char": {
+      "go:type": "byte",
+      "primitive": true,
+      "go:translatePublic": "stringToCharPtr",
+      "go:translateInternal": "sys_stringToBytePointer"
+    },
+    "float": {
+      "go:type": "float32",
+      "primitive": true,
+      "enums": {
+        "VK_LOD_CLAMP_NONE": "1000.0"
+      }
+    },
+    "double": { "go:type": "float64", "primitive": true },
+    "int": { "go:type": "int32", "primitive": true },
+    "void": { "go:type": "byte" },
+    "void*": { "go:type": "unsafe.Pointer" },
+
+    "char*": {
+      "go:type": "string",
+      "go:internalType": "[]byte",
+      "go:translatePublic": "stringToCharPtr",
+      "go:translateInternal": "sys_stringToBytePointerX"
+    },
+    "char**": {
+      "go:type": "[]string",
+      "go:internalType": "[]byte*",
+      "go:translatePublic": "stringSliceToCharPtrPtr",
+      "go:translateInternal": "charPtrPtrToBytePtrSlice"
+    },
+
+    "!empty_struct": { "go:type": "struct{}" },
+    "!pointer": { "go:type": "unsafe.Pointer" },
+
+    "HANDLE": { "go:type": "windows.Handle" },
+    "HINSTANCE": { "go:type": "windows.Handle" },
+    "HWND": { "go:type": "windows.HWND" },
+    "HMONITOR": { "go:type": "windows.Handle" },
+    "DWORD": { "go:type": "uint32" },
+    "SECURITY_ATTRIBUTES": { "go:type": "windows.SecurityAttributes" },
+    "LPCWSTR": { "go:type": "unsafe.Pointer" },
+
+    "!comment": "TODO : All of the platform types below need to be dealt with. uint32 is a placeholder only!",
+
+    "Display": { "go:type": "uint32" },
+    "VisualID": { "go:type": "uint32" },
+    "Window": { "go:type": "uint32" },
+    "RROutput": { "go:type": "uint32" },
+    "wl_display": { "go:type": "uint32" },
+    "wl_surface": { "go:type": "uint32" },
+
+    "xcb_connection_t": { "go:type": "uint32" },
+    "xcb_visualid_t": { "go:type": "uint32" },
+    "xcb_window_t": { "go:type": "uint32" },
+    "IDirectFB": { "go:type": "uint32" },
+    "IDirectFBSurface": { "go:type": "uint32" },
+    "zx_handle_t": { "go:type": "uint32" },
+    "GgpStreamDescriptor": { "go:type": "uint32" },
+    "GgpFrameToken": { "go:type": "uint32" },
+    "_screen_context": { "go:type": "uint32" },
+    "_screen_window": { "go:type": "uint32" },
+
+    "StdVideoH264ProfileIdc": { "go:type": "int32" },
+    "StdVideoH264LevelIdc": { "go:type": "int32" },
+    "StdVideoH264ChromaFormatIdc": { "go:type": "int32" },
+    "StdVideoH264PocType": { "go:type": "int32" },
+    "StdVideoH264SpsFlags": { "go:type": "int32" },
+    "StdVideoH264ScalingLists": { "go:type": "int32" },
+    "StdVideoH264AspectRatioIdc": { "go:type": "int32" },
+    "StdVideoH264HrdParameters": { "go:type": "int32" },
+    "StdVideoH264SpsVuiFlags": { "go:type": "int32" },
+    "StdVideoH264WeightedBipredIdc": { "go:type": "int32" },
+    "StdVideoH264PpsFlags": { "go:type": "int32" },
+    "StdVideoH264SliceType": { "go:type": "int32" },
+    "StdVideoH264CabacInitIdc": { "go:type": "int32" },
+    "StdVideoH264DisableDeblockingFilterIdc": { "go:type": "int32" },
+    "StdVideoH264PictureType": { "go:type": "int32" },
+    "StdVideoH264ModificationOfPicNumsIdc": { "go:type": "int32" },
+    "StdVideoH264MemMgmtControlOp": { "go:type": "int32" },
+    "StdVideoDecodeH264PictureInfo": { "go:type": "int32" },
+    "StdVideoDecodeH264ReferenceInfo": { "go:type": "int32" },
+    "StdVideoDecodeH264PictureInfoFlags": { "go:type": "int32" },
+    "StdVideoDecodeH264ReferenceInfoFlags": { "go:type": "int32" },
+    "StdVideoH264SequenceParameterSet": { "go:type": "int32" },
+    "StdVideoH264PictureParameterSet": { "go:type": "int32" },
+
+    "StdVideoH265ProfileIdc": { "go:type": "int32" },
+    "StdVideoH265VideoParameterSet": { "go:type": "int32" },
+    "StdVideoH265SequenceParameterSet": { "go:type": "int32" },
+    "StdVideoH265PictureParameterSet": { "go:type": "int32" },
+    "StdVideoH265DecPicBufMgr": { "go:type": "int32" },
+    "StdVideoH265HrdParameters": { "go:type": "int32" },
+    "StdVideoH265VpsFlags": { "go:type": "int32" },
+    "StdVideoH265LevelIdc": { "go:type": "int32" },
+    "StdVideoH265SpsFlags": { "go:type": "int32" },
+    "StdVideoH265ScalingLists": { "go:type": "int32" },
+    "StdVideoH265SequenceParameterSetVui": { "go:type": "int32" },
+    "StdVideoH265PredictorPaletteEntries": { "go:type": "int32" },
+    "StdVideoH265PpsFlags": { "go:type": "int32" },
+    "StdVideoH265SubLayerHrdParameters": { "go:type": "int32" },
+    "StdVideoH265HrdFlags": { "go:type": "int32" },
+    "StdVideoH265SpsVuiFlags": { "go:type": "int32" },
+    "StdVideoH265SliceType": { "go:type": "int32" },
+    "StdVideoH265PictureType": { "go:type": "int32" },
+    "StdVideoDecodeH265PictureInfo": { "go:type": "int32" },
+    "StdVideoDecodeH265ReferenceInfo": { "go:type": "int32" },
+    "StdVideoDecodeH265PictureInfoFlags": { "go:type": "int32" },
+    "StdVideoDecodeH265ReferenceInfoFlags": { "go:type": "int32" },
+
+    "StdVideoAV1Level": { "go:type": "int32" },
+    "StdVideoAV1Profile": { "go:type": "int32" },
+    "StdVideoAV1SequenceHeader": { "go:type": "int32" },
+    "StdVideoDecodeAV1PictureInfo": { "go:type": "int32" },
+    "StdVideoDecodeAV1ReferenceInfo": { "go:type": "int32" }
+  },
+
+  "include": {
+    "!comment": "include types have an optional build tag and define a set of types that are rolled into the build. Includes must be listed here with a platform to be included in the build.",
+    "windows.h": {
+      "go:imports": ["golang.org/x/sys/windows"]
+    },
+    "vk_platform": {}
+  },
+
+  "basetype": {
+    "VkBool32": {
+      "!comment": "must be re-defined as an exception, because vk.xml specifies the type of VK_TRUE/FALSE as uint32_t, not VkBool32, and because the translation is non-trivial",
+      "comment": "Note that go-vk uses standard Go bools throughout the public API. Bool32 is only used internally and is automatically translated for you.",
+      "go:type": "bool",
+      "go:translatePublic": "translatePublic_Bool32",
+      "go:translateInternal": "translateInternal_Bool32"
+    },
+    "!comment": "TODO: Vulkan pointers to functions should be parsed from the XML file to automatically handle future pointer types. (<type category=funcpointer>) Note that actually providing a custom callback function to the API might not be simple or even needed.",
+    "PFN_vkAllocationFunction": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkFreeFunction": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkInternalAllocationNotification": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkInternalFreeNotification": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkReallocationFunction": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkVoidFunction": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkDebugReportCallbackEXT": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkDebugUtilsMessengerCallbackEXT": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkDeviceMemoryReportCallbackEXT": {
+      "underlyingTypeName": "!pointer"
+    },
+    "PFN_vkGetInstanceProcAddrLUNARG": {
+      "underlyingTypeName": "!pointer"
+    },
+
+    "MTLDevice_id": {
+      "underlyingTypeName": "!pointer"
+    },
+    "MTLCommandQueue_id": {
+      "underlyingTypeName": "!pointer"
+    },
+    "MTLBuffer_id": {
+      "underlyingTypeName": "!pointer"
+    },
+    "MTLTexture_id": {
+      "underlyingTypeName": "!pointer"
+    },
+    "MTLSharedEvent_id": {
+      "underlyingTypeName": "!pointer"
+    },
+    "IOSurfaceRef": {
+      "underlyingTypeName": "!pointer"
+    }
+  },
+
+  "struct": {
+    "VkDescriptorSetLayoutBinding": {
+      "forceIncludeMember": "descriptorCount",
+      "forceIncludeComment": "descriptorCount references an array field in the XML, but that field might be null and then descriptor count has a different meaning. See the man pages/spec."
+    }
+  },
+
+  "union": {
+    "!comment": "go:internalSize allows us to specify the internal data size in bytes for Vulkan's union types. See README.md for details.",
+    "VkClearValue": {
+      "go:internalSize": "unsafe.Sizeof(_vkClearColorValue{})"
+    },
+    "VkDeviceOrHostAddressConstKHR": {
+      "go:internalSize": 8
+    },
+    "VkDeviceOrHostAddressKHR": {
+      "go:internalSize": 8
+    },
+    "VkPerformanceCounterResultKHR": {
+      "go:internalSize": 8
+    },
+    "VkPerformanceValueDataINTEL": {
+      "go:internalSize": 8
+    },
+    "VkPipelineExecutableStatisticValueKHR": {
+      "go:internalSize": 8
+    },
+    "VkAccelerationStructureMotionInstanceDataNV": {
+      "go:internalSize": "unsafe.Sizeof(_vkAccelerationStructureMatrixMotionInstanceNV{})"
+    }
+  }
 }
