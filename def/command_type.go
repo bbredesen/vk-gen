@@ -315,7 +315,9 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 				} else {
 					// Parameter is user allocated but will be populated by Vulkan. Binding will treat it as an output only.
-					if p.lenSpec != "" {
+					if p.lenSpec != "" && p.lenSpec != "1" {
+						// As of 1.3.290, vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI breaks the rules and has a static length of 1 in the len field.
+
 						if p.lenMemberParam == nil {
 							fmt.Fprintf(preamble, "// Parameter is binding-allocated array populated by Vulkan; length is possibly embedded in a struct (%s) - %s\n", p.lenSpec, p.publicName)
 							stringParts := strings.Split(p.lenSpec, "->")
@@ -551,6 +553,9 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		// (i.e., the developer needs to just pass a SampleMaskBits value that matches the slice)
 		//
 		// Net effect is to do noting here in Resolve.
+	} else if p.lenSpec == "1" {
+		// As of 1.3.290, vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI breaks the rules and has a static length of 1 in the len field.
+		// Do nothing, treat it like any other struct pointer
 
 	} else if p.lenSpec != "" {
 		for _, otherP := range p.parentCommand.parameters {
