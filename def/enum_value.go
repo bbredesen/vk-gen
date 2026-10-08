@@ -118,24 +118,6 @@ func ReadEnumValuesFromXML(doc *xmlquery.Node, td TypeDefiner, tr TypeRegistry, 
 				valDef := NewEnumValueFromXML(td, enumNode)
 				valDef.isCore = false
 				vr[valDef.RegistryName()] = valDef
-
-				// Some enums from extensions are double-defined (when promoted to core maybe?) See
-				// VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_INFO_KHR
-				// To handle this, we're reading the node and then merging with any val def already in the map
-
-				if existing, found := vr[valDef.RegistryName()]; found {
-					existingAsEnum := existing.(*enumValue)
-					if valDef.extNumber == 0 {
-						valDef.extNumber = existingAsEnum.extNumber
-					}
-					if valDef.offset == 0 {
-						valDef.offset = existingAsEnum.offset
-					}
-					if valDef.direction == 0 {
-						valDef.direction = existingAsEnum.direction
-					}
-				}
-				vr[valDef.RegistryName()] = valDef
 			}
 		}
 	}
