@@ -199,7 +199,7 @@ func (a ByValuePublicName) Less(i, j int) bool {
 }
 
 func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory, filenameBase string) {
-	typesPerCallLimit := 32
+	const typesPerCallLimit = 32
 
 	types := ""
 	i := 0
@@ -208,23 +208,30 @@ func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory, fi
 	// catString := strings.ToLower(cat.String())
 	// catString := strings.ToLower(strings.TrimPrefix(cat.String(), "Cat"))
 
-	for j, v := range defs {
+	flush := func() {
+		outFile := fmt.Sprintf("%s_string_%d.go", filenameBase, fileCount)
+		types = types[:len(types)-1]
+		fmt.Fprintf(w, "//go:generate stringer -output=%s -type=%s\n", outFile, types)
 
-		if v.Category() == cat && len(v.AllValues()) > 0 {
-			types += v.PublicName() + ","
-			i++
-		} else {
+		types = ""
+		fileCount++
+		i = 0
+	}
+
+	for _, v := range defs {
+		if v.Category() != cat || len(v.AllValues()) == 0 {
 			continue
 		}
 
-		if i == typesPerCallLimit-1 || j == len(defs)-1 { // Limit the number of types per call to stringer
-			outFile := fmt.Sprintf("%s_string_%d.go", filenameBase, fileCount)
-			types = types[:len(types)-1]
-			fmt.Fprintf(w, "//go:generate stringer -output=%s -type=%s\n", outFile, types)
+		types += v.PublicName() + ","
+		i++
 
-			types = ""
-			fileCount++
-			i = 0
+		if i == typesPerCallLimit { // Limit the number of types per call to stringer
+			flush()
 		}
+	}
+
+	if i > 0 { // final flush for remainders
+		flush()
 	}
 }
