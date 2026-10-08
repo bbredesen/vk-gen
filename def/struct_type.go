@@ -103,8 +103,12 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 			}
 		}
 		m.forceInclude = t.forceIncludeMemberName == m.registryName
-		if m.comment != "" {
-			m.comment = m.comment + "; " + t.forceIncludeComment
+		if m.forceInclude && t.forceIncludeComment != "" {
+			if m.comment != "" {
+				m.comment = m.comment + "; " + t.forceIncludeComment
+			} else {
+				m.comment = t.forceIncludeComment
+			}
 		}
 	}
 
