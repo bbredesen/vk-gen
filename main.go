@@ -317,13 +317,12 @@ func printLooseValues(w io.Writer, valsByTypeName map[string]def.ValueRegistry) 
 			allValues = append(allValues, val)
 		}
 
+		sort.Sort(def.ByValue(allValues))
+
 		if k == "" {
 			fmt.Fprint(w, "// Extension names and versions\n")
-			// Drop the values into a slice and sort by the const name
-			sort.Sort(def.ByValuePublicName(allValues))
 		} else {
 			fmt.Fprintf(w, "// Platform-specific values for %s\n", k)
-			sort.Sort(def.ByValue(allValues))
 		}
 
 		fmt.Fprintf(w, "const (\n")

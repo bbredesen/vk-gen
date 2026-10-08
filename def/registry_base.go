@@ -180,22 +180,20 @@ func (a ByValue) Less(i, j int) bool {
 	iNum, err1 := strconv.Atoi(a[i].ValueString())
 	jNum, err2 := strconv.Atoi(a[j].ValueString())
 	if err1 == nil && err2 == nil {
+		if iNum == jNum {
+			// If the values are equal, sort by public name to ensure consistent ordering
+			return a[i].PublicName() < a[j].PublicName()
+		}
 		return iNum < jNum
 	}
-	return a[i].ValueString() < a[j].ValueString()
-}
 
-type ByValuePublicName []ValueDefiner // add for cleanup/issue-3
-
-func (a ByValuePublicName) Len() int      { return len(a) }
-func (a ByValuePublicName) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-func (a ByValuePublicName) Less(i, j int) bool {
-	iNum, err1 := strconv.Atoi(a[i].PublicName())
-	jNum, err2 := strconv.Atoi(a[j].PublicName())
-	if err1 == nil && err2 == nil {
-		return iNum < jNum
+	iStr, jStr := a[i].ValueString(), a[j].ValueString()
+	if iStr == jStr {
+		// If the values are equal, sort by public name to ensure consistent ordering
+		return a[i].PublicName() < a[j].PublicName()
 	}
-	return a[i].PublicName() < a[j].PublicName()
+
+	return iStr < jStr
 }
 
 func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory, filenameBase string) {
