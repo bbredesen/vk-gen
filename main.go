@@ -66,7 +66,7 @@ func main() {
 	defer f.Close()
 
 	separatedPlatforms = strings.Split(platformTargets, ",")
-	if len(separatedPlatforms) == 0 {
+	if len(separatedPlatforms) == 1 && separatedPlatforms[0] == "" {
 		logrus.Info("Generating core Vulkan only; no platform specific extensions will be available!")
 	} else {
 		logrus.WithField("platforms", separatedPlatforms).Infof("Found %d platforms to generate for", len(separatedPlatforms))
