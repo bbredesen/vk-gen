@@ -266,7 +266,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							fmt.Fprintln(epilogue)
 
 							// If the output requires translation, iterate the slice and translate here
-							fmt.Fprintf(epilogue, outputTranslation.String())
+							fmt.Fprint(epilogue, outputTranslation.String())
 
 						}
 
@@ -452,7 +452,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 	t.printTrampolineCall(w, funcTrampolineParams, trampolineReturns)
 	fmt.Fprintln(w)
 
-	fmt.Fprintf(w, epilogue.String())
+	fmt.Fprint(w, epilogue.String())
 
 	if hasResult {
 		fmt.Fprint(w, "  if r == Result(0) {\nr = SUCCESS\n}\n")
