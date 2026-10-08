@@ -7,9 +7,11 @@ import (
 	"io"
 	"io/fs"
 	"io/ioutil"
+	"maps"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -309,8 +311,10 @@ func printTypes(w io.Writer, types []def.TypeDefiner, vals map[string]def.ValueR
 
 func printLooseValues(w io.Writer, valsByTypeName map[string]def.ValueRegistry) {
 	// sort and refactored for cleanup/issue-3
+	keys := slices.Sorted(maps.Keys(valsByTypeName))
 
-	for k, vr := range valsByTypeName {
+	for _, k := range keys {
+		vr := valsByTypeName[k]
 		// Values will be sorted by const name for extension names/spec versions, and by value for typed consts
 		allValues := make([]def.ValueDefiner, 0, len(vr))
 		for _, val := range vr {
