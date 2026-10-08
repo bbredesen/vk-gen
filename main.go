@@ -6,7 +6,6 @@ import (
 	"go/build"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"maps"
 	"os"
 	"os/exec"
@@ -322,11 +321,11 @@ func copyStaticFiles() {
 		if info.IsDir() {
 			return os.Mkdir(filepath.Join(outDirName, relPath), 0777)
 		} else {
-			var data, err1 = ioutil.ReadFile(filepath.Join(source, relPath))
+			var data, err1 = os.ReadFile(filepath.Join(source, relPath))
 			if err1 != nil {
 				return err1
 			}
-			return ioutil.WriteFile(filepath.Join(outDirName, relPath), data, 0666)
+			return os.WriteFile(filepath.Join(outDirName, relPath), data, 0666)
 		}
 	})
 
