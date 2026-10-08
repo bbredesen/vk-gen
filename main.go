@@ -165,7 +165,7 @@ func main() {
 	}
 
 	for pName, plat := range platforms {
-		if pName == "" {
+		if pName == "" || plat.GoBuildTag == "!ignore" {
 			continue
 		}
 
