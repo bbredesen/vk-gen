@@ -134,7 +134,7 @@ func main() {
 	}
 
 	// "Core" extensions
-	extQueryString := fmt.Sprintf("//extension[not(@platform) and contains(@supported,'%s')]", apiName)
+	extQueryString := fmt.Sprintf("//extension[not(@platform) and @supported = '%s']", apiName)
 	for _, extNode := range xmlquery.Find(xmlDoc, extQueryString) {
 		ext := feat.ReadExtensionFromXML(extNode, globalTypes, globalValues)
 		platforms[""].IncludeExtension(ext)
