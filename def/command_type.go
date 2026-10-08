@@ -78,6 +78,12 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		iset.MergeWith(p.Resolve(tr, vr))
 	}
 
+	for _, p := range t.parameters {
+		if p.isLenMemberFor != nil {
+			p.isInput = false
+			p.isOutput = false
+		}
+	}
 	iset.ResolvedTypes[t.registryName] = t
 
 	t.isResolved = true
@@ -311,10 +317,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 						}
 
 					}
-				} else if p.isLenMemberFor != nil {
-					p.isOutput = false
-
-				} else {
+				} else if p.isLenMemberFor == nil {
 					// Parameter is user allocated but will be populated by Vulkan. Binding will treat it as an output only.
 					if p.lenSpec != "" && p.lenSpec != "1" {
 						// As of 1.3.290, vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI breaks the rules and has a static length of 1 in the len field.
@@ -345,8 +348,6 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					} else {
 						if p.resolvedType.IsIdenticalPublicAndInternal() {
 							fmt.Fprintf(preamble, "// %s is a binding-allocated single return value and will be populated by Vulkan\n", p.publicName)
-
-							p.internalName = "ptr_" + p.internalName // This should really be done in resolve, not here
 
 							fmt.Fprintf(preamble, "  %s := &%s\n", p.internalName, p.publicName)
 							fmt.Fprintln(preamble)
@@ -391,18 +392,10 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					fmt.Fprintf(preamble, "%s := len(%s)\n", p.publicName, p.isLenMemberFor[0].publicName)
 				}
 
-				p.isInput = false
-				p.isOutput = false
-
 				funcTrampolineParams = append(funcTrampolineParams, p)
 			}
 
 			if p.requiresTranslation {
-				// Non-pointer types have the same name for internal and public,
-				// but we would attempt redefine that variable here. Postfix the
-				// param name with the internal type to avoid the conflict. See
-				// vkWaitForFences for an example involving Bool32
-				p.internalName = p.internalName + "_" + p.resolvedType.InternalName()
 				fmt.Fprintf(preamble, "%s := %s\n", p.internalName, p.resolvedType.TranslateToInternal(p.publicName))
 			}
 
@@ -613,7 +606,6 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	}
 
 	p.internalName = RenameIdentifier(p.registryName)
-
 	if p.resolvedType.Category() == CatPointer {
 		p.publicName = strings.TrimPrefix(RenameIdentifier(p.registryName), "p")
 	} else {
@@ -627,6 +619,19 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		p.publicName = string(unicode.ToLower(r)) + p.publicName[n:]
 	}
 
+	if p.resolvedType.Category() == CatPointer {
+		if p.internalName == p.publicName {
+			p.internalName = "ptr_" + p.internalName
+		}
+	} else {
+		if p.requiresTranslation {
+			// Non-pointer types have the same name for internal and public,
+			// but we would attempt redefine that variable here. Postfix the
+			// param name with the internal type to avoid the conflict. See
+			// vkWaitForFences for an example involving Bool32
+			p.internalName = p.internalName + "_" + p.resolvedType.InternalName()
+		}
+	}
 	p.isAlwaysOptional = p.optionalParamString == "true"
 
 	if p.isAlwaysOptional || p.isConstParam || p.pointerLevel == 0 {
