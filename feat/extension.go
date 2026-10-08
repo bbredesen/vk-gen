@@ -5,6 +5,7 @@ import (
 
 	"github.com/antchfx/xmlquery"
 	"github.com/bbredesen/vk-gen/def"
+	"github.com/sirupsen/logrus"
 )
 
 type Extension struct {
@@ -48,7 +49,7 @@ func ReadExtensionFromXML(extNode *xmlquery.Node, tr def.TypeRegistry, vr def.Va
 
 			extNum, err := strconv.Atoi(rval.extensionNumber)
 			if err != nil {
-				panic(err)
+				logrus.WithField("extension number", rval.extensionNumber).WithField("error", err.Error()).Fatal("Could not convert extension number to int")
 			}
 
 			var vd def.ValueDefiner

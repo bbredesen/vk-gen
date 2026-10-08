@@ -469,7 +469,7 @@ func newStructMemberFromXML(node *xmlquery.Node) *structMember {
 		} else if matches[2] != "" {
 			rval.lenSpecs = append(rval.lenSpecs, matches[2])
 		} else {
-			panic("regexp unexpected matching in fixed length array")
+			logrus.Fatal("regexp unexpected matching in fixed length array")
 		}
 	} else {
 		rval.lenSpecString = node.SelectAttr("len")

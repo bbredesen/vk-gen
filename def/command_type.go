@@ -9,6 +9,7 @@ import (
 
 	"github.com/antchfx/xmlquery"
 	"github.com/iancoleman/strcase"
+	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 )
@@ -332,7 +333,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 						} else {
 							fmt.Fprintf(preamble, "// Parameter is binding-allocated array populated by Vulkan; length is provided by what? (%s) - %s\n", p.publicName, p.lenSpec)
-							panic("Parameter is binding-allocated array populated by Vulkan, length not provided?? " + p.lenSpec)
+							logrus.WithField("command", t.publicName).WithField("param", p.publicName).WithField("lenSpec", p.lenSpec).Fatal("Parameter is binding-allocated array populated by Vulkan, length not provided")
 						}
 
 						// rewrite the return param as a slice
@@ -364,8 +365,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 									fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, underlyingType.TranslateToPublic("internal_"+p.publicName))
 								}
 							} else {
-								// Vulkan *must* be accepting a pointer, if it is planning to fill in any kind of data
-								panic("found non-pointer return value from vulkan!")
+								logrus.WithField("category", p.resolvedType.Category().String()).Fatal("Found non-pointer return value from Vulkan")
 							}
 
 							fmt.Fprintln(preamble)

@@ -44,7 +44,6 @@ func main() {
 	_, err := os.Stat(outDirName)
 	if err != nil {
 		if os.IsNotExist(err) {
-
 			if err := os.Mkdir(outDirName, 0777|fs.ModeDir); err != nil {
 				logrus.WithField("error", err).
 					Fatal("Could not create output directory")
@@ -52,6 +51,9 @@ func main() {
 				logrus.WithField("directory", outDirName).
 					Info("Output directory created")
 			}
+		} else {
+			logrus.WithField("error", err).
+				Fatal("Could not stat output directory")
 		}
 	}
 
@@ -199,7 +201,10 @@ func printCategory(tc def.TypeCategory, fc *feat.Feature, platform *feat.Platfor
 
 	outpath := fmt.Sprintf("%s/%s", outDirName, filename+".go")
 
-	f, _ := os.Create(outpath)
+	f, err := os.Create(outpath)
+	if err != nil {
+		logrus.WithField("error", err).Fatal("Could not create output file")
+	}
 	// explicit f.Close() below; not deferred because the file must be written to disk before goimports is run
 
 	if platform != nil && platform.GoBuildTag != "" && tc != def.CatEnum && tc != def.CatBitmask {
@@ -330,7 +335,7 @@ func copyStaticFiles() {
 	})
 
 	if err != nil {
-		panic(err)
+		logrus.WithField("error", err).Fatal("Could not copy static files")
 	}
 }
 
