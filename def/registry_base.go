@@ -125,8 +125,6 @@ type TypeDefiner interface {
 
 type Printer interface {
 	RegisterImports(reg map[string]bool)
-	PrintGlobalDeclarations(io.Writer, int, bool)
-	PrintFileInitContent(io.Writer)
 	PrintPublicDeclaration(io.Writer)
 	PrintInternalDeclaration(io.Writer)
 	PrintPublicToInternalTranslation(w io.Writer, inputVar, outputVar, lenSpec string)
