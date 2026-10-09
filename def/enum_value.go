@@ -92,7 +92,7 @@ func ReadEnumValuesFromXML(doc *xmlquery.Node, td TypeDefiner, tr TypeRegistry, 
 	groupSearchNodes := xmlquery.Find(doc, fmt.Sprintf("//enums[@name='%s']", td.RegistryName()))
 
 	for _, groupNode := range groupSearchNodes {
-		coreVals := append(xmlquery.Find(groupNode, "/enum"))
+		coreVals := xmlquery.Find(groupNode, "/enum")
 		extVals := xmlquery.Find(doc, fmt.Sprintf("//require/enum[@extends='%s']", td.RegistryName()))
 
 		switch groupNode.SelectAttr("type") {
