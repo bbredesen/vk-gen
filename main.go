@@ -71,9 +71,10 @@ func main() {
 		separatedPlatforms[i] = strings.TrimSpace(s)
 	}
 	separatedPlatforms = slices.DeleteFunc(separatedPlatforms, func(s string) bool { return s == "" })
+	slices.Sort(separatedPlatforms)
 	separatedPlatforms = slices.Compact(separatedPlatforms)
 
-	if len(separatedPlatforms) == 1 && separatedPlatforms[0] == "" {
+	if len(separatedPlatforms) == 0 {
 		logrus.Info("Generating core Vulkan only; no platform specific extensions will be available!")
 	} else {
 		logrus.WithField("platforms", separatedPlatforms).Infof("Found %d platforms to generate for", len(separatedPlatforms))
