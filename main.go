@@ -65,7 +65,14 @@ func main() {
 	}
 	defer f.Close()
 
+	// Split and clean up the platform targets string into a slice of platform names
 	separatedPlatforms = strings.Split(platformTargets, ",")
+	for i, s := range separatedPlatforms {
+		separatedPlatforms[i] = strings.TrimSpace(s)
+	}
+	separatedPlatforms = slices.DeleteFunc(separatedPlatforms, func(s string) bool { return s == "" })
+	separatedPlatforms = slices.Compact(separatedPlatforms)
+
 	if len(separatedPlatforms) == 1 && separatedPlatforms[0] == "" {
 		logrus.Info("Generating core Vulkan only; no platform specific extensions will be available!")
 	} else {
@@ -112,10 +119,18 @@ func main() {
 		if key.String() == "!comment" {
 			return true
 		}
-		r := feat.NewOrUpdatePlatformFromJSON(key.String(), value, platforms[key.String()])
-		platforms[r.Name()] = r
+		if slices.Contains(separatedPlatforms, key.String()) {
+			r := feat.NewOrUpdatePlatformFromJSON(key.String(), value, platforms[key.String()])
+			platforms[r.Name()] = r
+		}
 		return true
 	})
+
+	for _, name := range separatedPlatforms {
+		if _, ok := platforms[name]; !ok {
+			logrus.WithField("platform", name).Fatal("Requested platform is not defined in vk.xml or exceptions.json")
+		}
+	}
 
 	vk1_0 := feat.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_0']"), globalTypes, globalValues)
 	vk1_1 := feat.ReadFeatureFromXML(xmlquery.FindOne(xmlDoc, "//feature[@name='VK_VERSION_1_1']"), globalTypes, globalValues)
@@ -164,7 +179,10 @@ func main() {
 	}
 
 	for pName, plat := range platforms {
-		if pName == "" || plat.GoBuildTag == "!ignore" {
+		if pName == "" {
+			continue
+		} else if plat.GoBuildTag == "!ignore" {
+			logrus.WithField("platform", pName).Warn("Requested platform is marked '!ignore' in exceptions.json; skipping")
 			continue
 		}
 
@@ -250,7 +268,7 @@ func printCategory(tc def.TypeCategory, fc *feat.Feature, platform *feat.Platfor
 
 	f.Close()
 
-	logrus.WithField("file", filename+".go").Info("Running goimports")
+	logrus.WithField("file", filename+".go").Debug("Running goimports")
 
 	cmd := exec.Command(goimportsPath, "-w", outpath)
 	e := &strings.Builder{}

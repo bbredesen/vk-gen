@@ -74,7 +74,7 @@ func NewOrUpdateIncludeTypeFromJSON(key string, exception gjson.Result, tr TypeR
 	existing := tr[key]
 	var updatedEntry *includeType
 	if existing == nil {
-		logrus.WithField("registry type", key).Info("no existing registry entry for include type")
+		logrus.WithField("registry type", key).Debug("no existing registry entry for include type")
 		updatedEntry = &includeType{}
 		updatedEntry.registryName = key
 		updatedEntry.publicName = RenameIdentifier(key)
