@@ -230,7 +230,7 @@ func (t *structType) PrintInternalDeclaration(w io.Writer) {
 }
 
 func (m *structMember) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
-	m.publicName = strings.Title(RenameIdentifier(m.registryName))
+	m.publicName = initCap(RenameIdentifier(m.registryName))
 	m.internalName = RenameIdentifier(m.registryName)
 
 	// This automatically handles non-pointer types, i.e. pointerDepth == 0

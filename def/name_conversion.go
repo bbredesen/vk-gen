@@ -3,6 +3,8 @@ package def
 import (
 	"regexp"
 	"strings"
+	"unicode"
+	"unicode/utf8"
 )
 
 var trimRx = regexp.MustCompile(`(\**)(Vk|VK_|vk)?(.+)`)
@@ -37,10 +39,18 @@ func RenameIdentifier(s string) string {
 	case "int32":
 		fallthrough
 	case "uint32":
-		return "type" + strings.Title(s)
+		return "type" + initCap(s)
 	case "bool":
 		return "b"
 	default:
 		return s
 	}
+}
+
+func initCap(s string) string {
+	if s == "" {
+		return s
+	}
+	r, n := utf8.DecodeRuneInString(s)
+	return string(unicode.ToUpper(r)) + s[n:]
 }
