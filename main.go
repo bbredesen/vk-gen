@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"flag"
 	"fmt"
 	"go/build"
@@ -20,6 +21,12 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 )
+
+//go:embed _static_include/*
+var staticFiles embed.FS
+
+//go:embed exceptions.json
+var exceptionsBytes []byte
 
 var (
 	inFileName, outDirName string
@@ -84,12 +91,6 @@ func main() {
 		logrus.WithField("filename", inFileName).
 			WithField("error", err).
 			Fatal("Could not parse XML from the provided file")
-	}
-
-	exceptionsBytes, err := os.ReadFile("exceptions.json")
-	if err != nil {
-		logrus.WithField("error", err).
-			Fatal("Could not parse json from exceptions.json")
 	}
 
 	jsonDoc := gjson.ParseBytes(exceptionsBytes)
@@ -329,28 +330,23 @@ func printLooseValues(w io.Writer, valsByTypeName map[string]def.ValueRegistry) 
 }
 
 func copyStaticFiles() {
-	logrus.Info("Copying static files")
-	source := "static_include"
+	logrus.Info("Writing static files")
 
-	// Naive solution from https://stackoverflow.com/questions/51779243/copy-a-folder-in-go
-	var err error = filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
-		var relPath string = strings.Replace(path, source, "", 1)
-		if relPath == "" {
-			return nil
-		}
-		if info.IsDir() {
-			return os.Mkdir(filepath.Join(outDirName, relPath), 0777)
-		} else {
-			var data, err1 = os.ReadFile(filepath.Join(source, relPath))
-			if err1 != nil {
-				return err1
-			}
-			return os.WriteFile(filepath.Join(outDirName, relPath), data, 0666)
-		}
-	})
-
+	// Note that this does not handle subdirectories, _static_include is expected to be flat.
+	staticFilesDir, err := staticFiles.ReadDir("_static_include")
 	if err != nil {
-		logrus.WithField("error", err).Fatal("Could not copy static files")
+		logrus.WithField("error", err).Fatal("Could not read static files directory")
+	}
+
+	for _, entry := range staticFilesDir {
+		var data, err1 = staticFiles.ReadFile("_static_include/" + entry.Name())
+		if err1 != nil {
+			logrus.WithField("error", err1).Fatal("Could not read static file")
+		}
+
+		if err2 := os.WriteFile(filepath.Join(outDirName, entry.Name()), data, 0666); err2 != nil {
+			logrus.WithField("error", err2).Fatal("Could not write static file")
+		}
 	}
 }
 

@@ -13,7 +13,7 @@ version of the API or want to produce a binding using only a subset of Vulkan.
 
 Install: `go install github.com/bbredesen/vk-gen@latest`
 
-Download the latest registry file: `curl https://raw.githubusercontent.com/KhronosGroup/Vulkan-Headers/main/registry/vk.xml > vk.xml`
+Download the latest Vulkan registry file: `curl https://raw.githubusercontent.com/KhronosGroup/Vulkan-Headers/main/registry/vk.xml > vk.xml`
 
 (Or, replace "main" in the URL above with the tagged version you want to generate against: e.g., 
 `https://raw.githubusercontent.com/KhronosGroup/Vulkan-Headers/v1.2.203/registry/vk.xml` for the last version 1.2 specification.)
@@ -24,12 +24,12 @@ Use `-inFile` to specify a registry filename or path (defaults to `./vk.xml`)
 
 Use `-outDir` to specify the destination folder for writing go-vk files (defaults to `./vk/`)
 
-The `static_include` folder in this repository contains static template files that are copied directly into the output
-folder. These files are directly copied to the output, but are not evaluated or compiled into this tool. If using the Go
-language server, you can set `-static_include` in your `directoryFilters` setting. See
-(https://github.com/golang/tools/blob/master/gopls/doc/settings.md) for details.
+The `_static_include` folder in this repository contains static template files that are copied directly into the output
+folder. These files are embeded in the binary and then written to the output, but are not evaluated or otherwise used uin this tool. Go tooling should ignore this folder because of the underscore prefix, but you can safely ignore linters or other warnings that arise.
 
 ## exceptions.json
+
+`exceptions.json` is also embedded, allowing you to `go install` and run without having a local copy of this file.
 
 There are a number of datatypes and values in vk.xml which need special handling, frequently because the spec uses
 C data type formats or types that don't translate 1-to-1 to Go's type system. While we could probably work
