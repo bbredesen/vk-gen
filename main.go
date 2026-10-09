@@ -85,12 +85,11 @@ func main() {
 	}
 
 	jsonDoc := gjson.ParseBytes(exceptionsBytes)
-	_ = jsonDoc
 	globalTypes := make(def.TypeRegistry)
 	globalValues := make(def.ValueRegistry)
 
-	pm := def.ReadPlatformsFromXML(xmlDoc)
-	def.ReadPlatformExceptionsFromJSON(jsonDoc, pm)
+	// pm := def.ReadPlatformsFromXML(xmlDoc)
+	// def.ReadPlatformExceptionsFromJSON(jsonDoc, pm)
 
 	for tc := def.CatNone; tc < def.CatMaximum; tc++ {
 		xml, json := tc.ReadFns()
