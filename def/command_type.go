@@ -23,8 +23,6 @@ type commandType struct {
 
 	parameters []*commandParam
 
-	// bindingParams     []*commandParam
-	// returnParams      []*commandParam
 	bindingParamCount int
 }
 
@@ -169,7 +167,6 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					// only example).
 					lenparts := strings.Split(p.lenSpec, "->")
 					otherParamInternalName := lenparts[0]
-					// otherParamMemberName := lenparts[1]
 
 					fmt.Fprintf(preamble, "  // %s is an input slice that requires translation to an internal type; length is embedded in %s\n", p.publicName, otherParamInternalName)
 					fmt.Fprintf(preamble, "  %s := unsafe.Pointer(nil)\n", p.internalName) //, otherParamInternalName, otherParamMemberName)
@@ -510,10 +507,7 @@ type commandParam struct {
 	isLenMemberFor []*commandParam
 	lenMemberParam *commandParam
 
-	isInput, isOutput bool
-	// isPublicSlice     bool
-	// isOutputArray                              bool
-	// isDoubleCallArray, isDoubleCallArrayLength bool
+	isInput, isOutput   bool
 	requiresTranslation bool
 }
 
@@ -559,9 +553,6 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		}
 	}
 
-	// if this param is undecorated, is not a pointer, and is not the length
-	// for another param, it is just straight input to pass through
-
 	p.requiresTranslation = !p.resolvedType.IsIdenticalPublicAndInternal()
 
 	if p.resolvedType.Category() == CatPointer {
@@ -569,7 +560,8 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		resTypeAsPointer.lenSpec = p.lenSpec
 
 		// if this param is an undecorated const pointer, it is input of a
-		// struct.
+		// struct. 	If this param is undecorated, is not a pointer, and is not the length
+		// for another param, it is just straight input to pass through
 		if p.isConstParam {
 			if p.lenSpec == "" {
 				p.isInput = true
@@ -579,26 +571,13 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 				// another parameter name, then this is an input array, represented as a
 				// slice on the public side
 				p.isInput = true
-				// p.isPublicSlice = true
 			}
 		} else {
 			// if this param is a non-const pointer with a len specifier that maps
 			// to another parameter name, then this is a double-call output array
 			// EXCEPT when that len param is also for an input array. Then this is a
 			// single-call output array
-			// if p.lenMemberParam != nil {
-			// 	if len(p.lenMemberParam.isLenMemberFor) > 1 {
-			// 		p.isOutputArray = true
-			// 		p.isPublicSlice = true
-			// 	} else {
-			// 		p.isDoubleCallArray = true
-			// 		p.isPublicSlice = true
-			// 	}
-			// } else if len(p.isLenMemberFor) > 0 {
-			// 	// if this param is a non-const pointer that is a len specifier for
-			// 	// another parameter, then this is a double-call array length
-			// 	p.isDoubleCallArrayLength = true
-			// }
+			// Nothing to do here after removing dead code, as the classification is done in PrintPublicDeclaration() and the param is added to the returnParams slice there.
 		}
 	} else {
 		p.isInput = true
@@ -632,12 +611,6 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		}
 	}
 	p.isAlwaysOptional = p.optionalParamString == "true"
-
-	// if p.isAlwaysOptional || p.isConstParam || p.pointerLevel == 0 {
-	// 	p.parentCommand.bindingParams = append(p.parentCommand.bindingParams, p)
-	// } else {
-	// 	p.parentCommand.returnParams = append(p.parentCommand.returnParams, p)
-	// }
 
 	p.isResolved = true
 
