@@ -96,9 +96,6 @@ func main() {
 	globalTypes := make(def.TypeRegistry)
 	globalValues := make(def.ValueRegistry)
 
-	// pm := def.ReadPlatformsFromXML(xmlDoc)
-	// def.ReadPlatformExceptionsFromJSON(jsonDoc, pm)
-
 	for tc := def.CatNone; tc < def.CatMaximum; tc++ {
 		xml, json := tc.ReadFns()
 		if xml != nil {
