@@ -23,8 +23,8 @@ type commandType struct {
 
 	parameters []*commandParam
 
-	bindingParams     []*commandParam
-	returnParams      []*commandParam
+	// bindingParams     []*commandParam
+	// returnParams      []*commandParam
 	bindingParamCount int
 }
 
@@ -47,7 +47,6 @@ func (t *commandType) findParam(regName string) *commandParam {
 	return nil
 }
 
-func (t *commandType) keyName() string        { return "key" + t.registryName }
 func (t *commandType) Category() TypeCategory { return CatCommand }
 
 func (t *commandType) IsIdenticalPublicAndInternal() bool { return true }
@@ -511,11 +510,11 @@ type commandParam struct {
 	isLenMemberFor []*commandParam
 	lenMemberParam *commandParam
 
-	isInput, isOutput                          bool
-	isPublicSlice                              bool
-	isOutputArray                              bool
-	isDoubleCallArray, isDoubleCallArrayLength bool
-	requiresTranslation                        bool
+	isInput, isOutput bool
+	// isPublicSlice     bool
+	// isOutputArray                              bool
+	// isDoubleCallArray, isDoubleCallArrayLength bool
+	requiresTranslation bool
 }
 
 func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
@@ -580,26 +579,26 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 				// another parameter name, then this is an input array, represented as a
 				// slice on the public side
 				p.isInput = true
-				p.isPublicSlice = true
+				// p.isPublicSlice = true
 			}
 		} else {
 			// if this param is a non-const pointer with a len specifier that maps
 			// to another parameter name, then this is a double-call output array
 			// EXCEPT when that len param is also for an input array. Then this is a
 			// single-call output array
-			if p.lenMemberParam != nil {
-				if len(p.lenMemberParam.isLenMemberFor) > 1 {
-					p.isOutputArray = true
-					p.isPublicSlice = true
-				} else {
-					p.isDoubleCallArray = true
-					p.isPublicSlice = true
-				}
-			} else if len(p.isLenMemberFor) > 0 {
-				// if this param is a non-const pointer that is a len specifier for
-				// another parameter, then this is a double-call array length
-				p.isDoubleCallArrayLength = true
-			}
+			// if p.lenMemberParam != nil {
+			// 	if len(p.lenMemberParam.isLenMemberFor) > 1 {
+			// 		p.isOutputArray = true
+			// 		p.isPublicSlice = true
+			// 	} else {
+			// 		p.isDoubleCallArray = true
+			// 		p.isPublicSlice = true
+			// 	}
+			// } else if len(p.isLenMemberFor) > 0 {
+			// 	// if this param is a non-const pointer that is a len specifier for
+			// 	// another parameter, then this is a double-call array length
+			// 	p.isDoubleCallArrayLength = true
+			// }
 		}
 	} else {
 		p.isInput = true
@@ -634,11 +633,11 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	}
 	p.isAlwaysOptional = p.optionalParamString == "true"
 
-	if p.isAlwaysOptional || p.isConstParam || p.pointerLevel == 0 {
-		p.parentCommand.bindingParams = append(p.parentCommand.bindingParams, p)
-	} else {
-		p.parentCommand.returnParams = append(p.parentCommand.returnParams, p)
-	}
+	// if p.isAlwaysOptional || p.isConstParam || p.pointerLevel == 0 {
+	// 	p.parentCommand.bindingParams = append(p.parentCommand.bindingParams, p)
+	// } else {
+	// 	p.parentCommand.returnParams = append(p.parentCommand.returnParams, p)
+	// }
 
 	p.isResolved = true
 
