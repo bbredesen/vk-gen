@@ -195,6 +195,10 @@ func (a ByValue) Less(i, j int) bool {
 }
 
 func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory, filenameBase string) {
+	if cat == CatExternal {
+		return
+	}
+
 	const typesPerCallLimit = 32
 
 	types := ""
