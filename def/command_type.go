@@ -470,6 +470,12 @@ func trampStringFromParams(sl []*commandParam) string {
 	return sb.String()
 }
 
+func printKeepAlive(w io.Writer, sl []*commandParam) {
+	for _, param := range sl {
+		fmt.Fprintf(w, "runtime.KeepAlive(%s)\n", param.internalName)
+	}
+}
+
 func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandParam, returnParam *commandParam) {
 	trampParamsString := trampStringFromParams(trampParams)
 
@@ -483,6 +489,10 @@ func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandPar
 	} else {
 		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.RegistryName(), trampParamsString)
 	}
+
+	fmt.Fprintf(w, "\n")
+	printKeepAlive(w, trampParams)
+	fmt.Fprintf(w, "\n")
 }
 
 // There is no internal declaration for commands, this function is empty
