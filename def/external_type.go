@@ -81,7 +81,7 @@ func NewOrUpdateExternalTypeFromJSON(key string, exception gjson.Result, tr Type
 	var updatedEntry *externalType
 
 	if existing == nil {
-		logrus.WithField("registry type", key).Info("no existing registry entry for external type")
+		logrus.WithField("registry type", key).Debug("no existing registry entry for external type")
 		updatedEntry = &externalType{}
 		updatedEntry.registryName = key
 		updatedEntry.publicName = RenameIdentifier(key)
@@ -107,7 +107,7 @@ func NewOrUpdateExternalValueFromJSON(key, value string, td TypeDefiner, tr Type
 	var updatedEntry *enumValue
 
 	if existing == nil {
-		logrus.WithField("registry type", key).Info("no existing registry entry for external type")
+		logrus.WithField("registry type", key).Debug("no existing registry entry for external type")
 		updatedEntry = &enumValue{}
 		updatedEntry.registryName = key
 	} else {

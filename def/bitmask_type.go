@@ -68,7 +68,7 @@ func ReadBitmaskTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegist
 				// Force set the enum's underlying type to be this bitmaskType
 				r.underlyingTypeName = newType.registryName
 			} else {
-				panic("Bitmask requires non-enum as underlying type!")
+				logrus.WithField("bitmask type", newType.registryName).Fatal("Bitmask requires non-enum as underlying type!")
 			}
 		}
 

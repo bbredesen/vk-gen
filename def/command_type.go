@@ -9,6 +9,7 @@ import (
 
 	"github.com/antchfx/xmlquery"
 	"github.com/iancoleman/strcase"
+	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 )
@@ -22,8 +23,6 @@ type commandType struct {
 
 	parameters []*commandParam
 
-	bindingParams     []*commandParam
-	returnParams      []*commandParam
 	bindingParamCount int
 }
 
@@ -46,7 +45,6 @@ func (t *commandType) findParam(regName string) *commandParam {
 	return nil
 }
 
-func (t *commandType) keyName() string        { return "key" + t.registryName }
 func (t *commandType) Category() TypeCategory { return CatCommand }
 
 func (t *commandType) IsIdenticalPublicAndInternal() bool { return true }
@@ -77,6 +75,12 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		iset.MergeWith(p.Resolve(tr, vr))
 	}
 
+	for _, p := range t.parameters {
+		if p.isLenMemberFor != nil {
+			p.isInput = false
+			p.isOutput = false
+		}
+	}
 	iset.ResolvedTypes[t.registryName] = t
 
 	t.isResolved = true
@@ -163,7 +167,6 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					// only example).
 					lenparts := strings.Split(p.lenSpec, "->")
 					otherParamInternalName := lenparts[0]
-					// otherParamMemberName := lenparts[1]
 
 					fmt.Fprintf(preamble, "  // %s is an input slice that requires translation to an internal type; length is embedded in %s\n", p.publicName, otherParamInternalName)
 					fmt.Fprintf(preamble, "  %s := unsafe.Pointer(nil)\n", p.internalName) //, otherParamInternalName, otherParamMemberName)
@@ -265,7 +268,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 							fmt.Fprintln(epilogue)
 
 							// If the output requires translation, iterate the slice and translate here
-							fmt.Fprintf(epilogue, outputTranslation.String())
+							fmt.Fprint(epilogue, outputTranslation.String())
 
 						}
 
@@ -310,10 +313,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 						}
 
 					}
-				} else if p.isLenMemberFor != nil {
-					p.isOutput = false
-
-				} else {
+				} else if p.isLenMemberFor == nil {
 					// Parameter is user allocated but will be populated by Vulkan. Binding will treat it as an output only.
 					if p.lenSpec != "" && p.lenSpec != "1" {
 						// As of 1.3.290, vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI breaks the rules and has a static length of 1 in the len field.
@@ -332,7 +332,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 						} else {
 							fmt.Fprintf(preamble, "// Parameter is binding-allocated array populated by Vulkan; length is provided by what? (%s) - %s\n", p.publicName, p.lenSpec)
-							panic("Parameter is binding-allocated array populated by Vulkan, length not provided?? " + p.lenSpec)
+							logrus.WithField("command", t.publicName).WithField("param", p.publicName).WithField("lenSpec", p.lenSpec).Fatal("Parameter is binding-allocated array populated by Vulkan, length not provided")
 						}
 
 						// rewrite the return param as a slice
@@ -344,8 +344,6 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					} else {
 						if p.resolvedType.IsIdenticalPublicAndInternal() {
 							fmt.Fprintf(preamble, "// %s is a binding-allocated single return value and will be populated by Vulkan\n", p.publicName)
-
-							p.internalName = "ptr_" + p.internalName // This should really be done in resolve, not here
 
 							fmt.Fprintf(preamble, "  %s := &%s\n", p.internalName, p.publicName)
 							fmt.Fprintln(preamble)
@@ -364,8 +362,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 									fmt.Fprintf(epilogue, "  %s = %s\n", p.publicName, underlyingType.TranslateToPublic("internal_"+p.publicName))
 								}
 							} else {
-								// Vulkan *must* be accepting a pointer, if it is planning to fill in any kind of data
-								panic("found non-pointer return value from vulkan!")
+								logrus.WithField("category", p.resolvedType.Category().String()).Fatal("Found non-pointer return value from Vulkan")
 							}
 
 							fmt.Fprintln(preamble)
@@ -391,18 +388,10 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 					fmt.Fprintf(preamble, "%s := len(%s)\n", p.publicName, p.isLenMemberFor[0].publicName)
 				}
 
-				p.isInput = false
-				p.isOutput = false
-
 				funcTrampolineParams = append(funcTrampolineParams, p)
 			}
 
 			if p.requiresTranslation {
-				// Non-pointer types have the same name for internal and public,
-				// but we would attempt redefine that variable here. Postfix the
-				// param name with the internal type to avoid the conflict. See
-				// vkWaitForFences for an example involving Bool32
-				p.internalName = p.internalName + "_" + p.resolvedType.InternalName()
 				fmt.Fprintf(preamble, "%s := %s\n", p.internalName, p.resolvedType.TranslateToInternal(p.publicName))
 			}
 
@@ -452,7 +441,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 	t.printTrampolineCall(w, funcTrampolineParams, trampolineReturns)
 	fmt.Fprintln(w)
 
-	fmt.Fprintf(w, epilogue.String())
+	fmt.Fprint(w, epilogue.String())
 
 	if hasResult {
 		fmt.Fprint(w, "  if r == Result(0) {\nr = SUCCESS\n}\n")
@@ -518,11 +507,8 @@ type commandParam struct {
 	isLenMemberFor []*commandParam
 	lenMemberParam *commandParam
 
-	isInput, isOutput                          bool
-	isPublicSlice                              bool
-	isOutputArray                              bool
-	isDoubleCallArray, isDoubleCallArrayLength bool
-	requiresTranslation                        bool
+	isInput, isOutput   bool
+	requiresTranslation bool
 }
 
 func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
@@ -567,9 +553,6 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		}
 	}
 
-	// if this param is undecorated, is not a pointer, and is not the length
-	// for another param, it is just straight input to pass through
-
 	p.requiresTranslation = !p.resolvedType.IsIdenticalPublicAndInternal()
 
 	if p.resolvedType.Category() == CatPointer {
@@ -577,7 +560,8 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		resTypeAsPointer.lenSpec = p.lenSpec
 
 		// if this param is an undecorated const pointer, it is input of a
-		// struct.
+		// struct. 	If this param is undecorated, is not a pointer, and is not the length
+		// for another param, it is just straight input to pass through
 		if p.isConstParam {
 			if p.lenSpec == "" {
 				p.isInput = true
@@ -587,33 +571,19 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 				// another parameter name, then this is an input array, represented as a
 				// slice on the public side
 				p.isInput = true
-				p.isPublicSlice = true
 			}
 		} else {
 			// if this param is a non-const pointer with a len specifier that maps
 			// to another parameter name, then this is a double-call output array
 			// EXCEPT when that len param is also for an input array. Then this is a
 			// single-call output array
-			if p.lenMemberParam != nil {
-				if len(p.lenMemberParam.isLenMemberFor) > 1 {
-					p.isOutputArray = true
-					p.isPublicSlice = true
-				} else {
-					p.isDoubleCallArray = true
-					p.isPublicSlice = true
-				}
-			} else if len(p.isLenMemberFor) > 0 {
-				// if this param is a non-const pointer that is a len specifier for
-				// another parameter, then this is a double-call array length
-				p.isDoubleCallArrayLength = true
-			}
+			// Nothing to do here after removing dead code, as the classification is done in PrintPublicDeclaration() and the param is added to the returnParams slice there.
 		}
 	} else {
 		p.isInput = true
 	}
 
 	p.internalName = RenameIdentifier(p.registryName)
-
 	if p.resolvedType.Category() == CatPointer {
 		p.publicName = strings.TrimPrefix(RenameIdentifier(p.registryName), "p")
 	} else {
@@ -627,13 +597,20 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		p.publicName = string(unicode.ToLower(r)) + p.publicName[n:]
 	}
 
-	p.isAlwaysOptional = p.optionalParamString == "true"
-
-	if p.isAlwaysOptional || p.isConstParam || p.pointerLevel == 0 {
-		p.parentCommand.bindingParams = append(p.parentCommand.bindingParams, p)
+	if p.resolvedType.Category() == CatPointer {
+		if p.internalName == p.publicName {
+			p.internalName = "ptr_" + p.internalName
+		}
 	} else {
-		p.parentCommand.returnParams = append(p.parentCommand.returnParams, p)
+		if p.requiresTranslation {
+			// Non-pointer types have the same name for internal and public,
+			// but we would attempt redefine that variable here. Postfix the
+			// param name with the internal type to avoid the conflict. See
+			// vkWaitForFences for an example involving Bool32
+			p.internalName = p.internalName + "_" + p.resolvedType.InternalName()
+		}
 	}
+	p.isAlwaysOptional = p.optionalParamString == "true"
 
 	p.isResolved = true
 

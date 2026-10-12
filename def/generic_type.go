@@ -75,9 +75,7 @@ func (t *genericType) AppendValues(vals ValueRegistry) {
 	}
 }
 
-func (t *genericType) PrintGlobalDeclarations(io.Writer, int, bool) {}
-func (t *genericType) PrintFileInitContent(io.Writer)               {}
-func (t *genericType) RegisterImports(reg map[string]bool)          {}
+func (t *genericType) RegisterImports(reg map[string]bool) {}
 
 func (t *genericType) PrintPublicDeclaration(w io.Writer) {
 	fmt.Fprintln(w, "PrintPublicDeclaration not defined for genericType")

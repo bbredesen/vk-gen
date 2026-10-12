@@ -139,7 +139,7 @@ func NewOrUpdateBaseTypeFromJSON(key string, exception gjson.Result, tr TypeRegi
 	var updatedEntry *baseType
 
 	if existing == nil {
-		logrus.WithField("registry type", key).Info("no existing registry entry for external type")
+		logrus.WithField("registry type", key).Debug("no existing registry entry for external type")
 		updatedEntry = &baseType{}
 		updatedEntry.registryName = key
 	} else {

@@ -103,8 +103,12 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 			}
 		}
 		m.forceInclude = t.forceIncludeMemberName == m.registryName
-		if m.comment != "" {
-			m.comment = m.comment + "; " + t.forceIncludeComment
+		if m.forceInclude && t.forceIncludeComment != "" {
+			if m.comment != "" {
+				m.comment = m.comment + "; " + t.forceIncludeComment
+			} else {
+				m.comment = t.forceIncludeComment
+			}
 		}
 	}
 
@@ -226,7 +230,7 @@ func (t *structType) PrintInternalDeclaration(w io.Writer) {
 }
 
 func (m *structMember) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
-	m.publicName = strings.Title(RenameIdentifier(m.registryName))
+	m.publicName = initCap(RenameIdentifier(m.registryName))
 	m.internalName = RenameIdentifier(m.registryName)
 
 	// This automatically handles non-pointer types, i.e. pointerDepth == 0
@@ -465,7 +469,7 @@ func newStructMemberFromXML(node *xmlquery.Node) *structMember {
 		} else if matches[2] != "" {
 			rval.lenSpecs = append(rval.lenSpecs, matches[2])
 		} else {
-			panic("regexp unexpected matching in fixed length array")
+			logrus.Fatal("regexp unexpected matching in fixed length array")
 		}
 	} else {
 		rval.lenSpecString = node.SelectAttr("len")

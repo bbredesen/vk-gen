@@ -53,6 +53,10 @@ func NewOrUpdatePlatformFromJSON(key string, exception gjson.Result, existing *P
 
 	// static mapping vk platform to go build tags
 	updatedEntry.GoBuildTag = exception.Get("go:build").String()
+	if updatedEntry.GoBuildTag == "" {
+		logrus.WithField("registry type", key).Warn("no go:build tag for platform type in exceptions.json")
+	}
+
 	exception.Get("go:imports").ForEach(func(_, val gjson.Result) bool {
 		updatedEntry.GoImports = append(updatedEntry.GoImports, val.String())
 		return true
