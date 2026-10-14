@@ -57,15 +57,15 @@ func OverrideDefaultVulkanLibrary(nameOrPath string) {
 	overrideLibName = nameOrPath
 }
 
-func execTrampoline(cmd *vkCommand, args ...uintptr) uintptr {
+// resolve loads the Vulkan library on first use, looks up the command's symbol on its first call, and returns the
+// function pointer. The typed trampoline wrappers in shapes.go call this before each invocation.
+func (cmd *vkCommand) resolve() unsafe.Pointer {
 	if dlHandle == nil {
 		var libName string
 		switch runtime.GOOS {
 		case "windows":
 			libName = "vulkan-1.dll"
 		case "darwin":
-			// TODO: Running on Mac/Darwin is tested only to the point of creating and
-			// destroying a Vulkan instance.
 			libName = "libMoltenVK.dylib"
 		case "linux":
 			// TODO: Running on Linux is tested only to the point of creating and
@@ -90,41 +90,7 @@ func execTrampoline(cmd *vkCommand, args ...uintptr) uintptr {
 		// lazyCommands[commandKey] = cmd
 	}
 
-	if len(args) != cmd.argCount {
-		panic("Wrong number of arguments passed for cmd " + cmd.protoName)
-	}
-
-	var result C.uintptr_t
-
-	switch cmd.argCount {
-	case 1:
-		result = C.Trampoline3(cmd.fnHandle, C.uintptr_t(args[0]), 0, 0)
-	case 2:
-		result = C.Trampoline3(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), 0)
-	case 3:
-		result = C.Trampoline3(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]))
-	case 4:
-		result = C.Trampoline6(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), 0, 0)
-	case 5:
-		result = C.Trampoline6(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), C.uintptr_t(args[4]), 0)
-	case 6:
-		result = C.Trampoline6(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), C.uintptr_t(args[4]), C.uintptr_t(args[5]))
-	case 7:
-		result = C.Trampoline9(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), C.uintptr_t(args[4]), C.uintptr_t(args[5]), C.uintptr_t(args[6]), 0, 0)
-	case 8:
-		result = C.Trampoline9(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), C.uintptr_t(args[4]), C.uintptr_t(args[5]), C.uintptr_t(args[6]), C.uintptr_t(args[7]), 0)
-	case 9:
-		result = C.Trampoline9(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), C.uintptr_t(args[4]), C.uintptr_t(args[5]), C.uintptr_t(args[6]), C.uintptr_t(args[7]), C.uintptr_t(args[8]))
-	case 10:
-		result = C.Trampoline12(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), C.uintptr_t(args[4]), C.uintptr_t(args[5]), C.uintptr_t(args[6]), C.uintptr_t(args[7]), C.uintptr_t(args[8]), C.uintptr_t(args[9]), 0, 0)
-	case 11:
-		result = C.Trampoline12(cmd.fnHandle, C.uintptr_t(args[0]), C.uintptr_t(args[1]), C.uintptr_t(args[2]), C.uintptr_t(args[3]), C.uintptr_t(args[4]), C.uintptr_t(args[5]), C.uintptr_t(args[6]), C.uintptr_t(args[7]), C.uintptr_t(args[8]), C.uintptr_t(args[9]), C.uintptr_t(args[10]), 0)
-	default:
-		// There are no commands with 0 or 12+ arguments as of Vulkan 1.3.204
-		panic("Unhandled number of arguments passed for cmd " + cmd.protoName)
-	}
-
-	return uintptr(result)
+	return cmd.fnHandle
 }
 
 func stringToNullTermBytes(s string) *byte {

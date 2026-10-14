@@ -211,7 +211,8 @@ The `basetype` map allows the following entries:
   size) - Partial support. 
     * ~~single-dimension arrays in structs are supported, eg VkClearColorValue float[4]~~
     * VkTransformMatrixKHR has a [3][4] member, multi-dimensional arrays not currently handled
-    * arrays as inputs to commands (vkCmdSetBlendConstants) not handled
+    * arrays as inputs to commands (vkCmdSetBlendConstants) are passed as a pointer to the first element (`*float32`); a
+      nicer Go type such as `*[4]float32` is not generated
 * ~~Handle bool <-> Bool32 conversion (users should not have to be exposed to Bool32, right?)~~
 * Handle feature and extension tags for output set. Should be able to say "output for version" or include/exclude
   extensions. Tags (specifically extensions) should be grouped into platform sets, for specific build-tag handling.

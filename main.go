@@ -193,6 +193,7 @@ func main() {
 		}
 	}
 
+	def.WriteTrampolineFiles(outDirName)
 	copyStaticFiles()
 
 }

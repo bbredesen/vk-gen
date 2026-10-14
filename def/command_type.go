@@ -460,9 +460,17 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 func trampStringFromParams(sl []*commandParam) string {
 	sb := &strings.Builder{}
 	for _, param := range sl {
-		if param.resolvedType.Category() == CatPointer {
+		// Classification was already checked when the shape was built; an error here is not possible
+		class, _ := abiClassOf(param.resolvedType)
+
+		switch {
+		case param.resolvedType.Category() == CatPointer:
 			fmt.Fprintf(sb, ", uintptr(unsafe.Pointer(%s))", param.internalName)
-		} else {
+		case class == classFloat:
+			fmt.Fprintf(sb, ", float32(%s)", param.internalName)
+		case class == classDouble:
+			fmt.Fprintf(sb, ", float64(%s)", param.internalName)
+		default:
 			fmt.Fprintf(sb, ", uintptr(%s)", param.internalName)
 		}
 	}
@@ -471,17 +479,24 @@ func trampStringFromParams(sl []*commandParam) string {
 }
 
 func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandParam, returnParam *commandParam) {
+	shape, err := shapeOfParams(trampParams)
+	if err != nil {
+		logrus.WithField("command", t.registryName).WithField("error", err).Fatal("Could not determine trampoline shape")
+	}
+	registerShape(shape)
+
+	call := callFuncName(shape)
 	trampParamsString := trampStringFromParams(trampParams)
 
 	if returnParam != nil {
 		if returnParam.resolvedType.IsIdenticalPublicAndInternal() {
-			fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.RegistryName(), trampParamsString)
+			fmt.Fprintf(w, "  %s = %s(%s(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), call, t.RegistryName(), trampParamsString)
 		} else {
-			fmt.Fprintf(w, "  rval := %s(execTrampoline(%s%s))\n", returnParam.resolvedType.InternalName(), t.RegistryName(), trampParamsString)
+			fmt.Fprintf(w, "  rval := %s(%s(%s%s))\n", returnParam.resolvedType.InternalName(), call, t.RegistryName(), trampParamsString)
 			fmt.Fprintf(w, "  %s = %s\n", returnParam.publicName, returnParam.resolvedType.TranslateToPublic("rval"))
 		}
 	} else {
-		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.RegistryName(), trampParamsString)
+		fmt.Fprintf(w, "  %s(%s%s)\n", call, t.RegistryName(), trampParamsString)
 	}
 }
 
@@ -657,6 +672,11 @@ func NewCommandParamFromXML(elt *xmlquery.Node, forCommand *commandType) *comman
 	rval.optionalParamString = elt.SelectAttr("optional")
 	rval.isConstParam = strings.HasPrefix(elt.InnerText(), "const")
 	rval.pointerLevel = strings.Count(elt.InnerText(), "*")
+	if strings.Contains(elt.InnerText(), "[") {
+		// A fixed size array parameter (e.g., vkCmdSetBlendConstants' float[4]) is passed as a pointer to its first
+		// element; without this it would be mistaken for a by-value argument.
+		rval.pointerLevel++
+	}
 	rval.lenSpec = elt.SelectAttr("len")
 	rval.altLenSpec = elt.SelectAttr("altlen")
 
