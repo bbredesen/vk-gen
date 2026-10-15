@@ -256,6 +256,22 @@ resolved and will return immediately with no further types required.
 
 
 
+## Calling Vulkan: trampoline shapes and Go pointers
+
+Commands are called through cgo trampolines generated per argument *shape*: the ordered classes of a command's
+parameters, `i` (integer, handle, enum, pointer), `f` (float), or `d` (double). `vkCmdSetDepthBias` is `ifff`. A float
+cannot travel through an all-integer call because the callee reads it from a floating point register, so each shape gets
+a C trampoline (`trampolines.c`) with correctly typed parameters and a typed Go wrapper (`vkCall_<shape>` in
+`shapes.go`). A type that cannot be classified (a struct passed by value) is a generator error. See `def/abi_shape.go`.
+
+Go pointers reach C as `uintptr(unsafe.Pointer(x))`, which the runtime does not track: the target could be freed while C
+is using it, or (if on a goroutine stack) moved by a stack copy before the call starts. Every `vkCall_*` wrapper is
+therefore marked `//go:uintptrescapes`, which keeps the target alive for the call and puts it on the heap. The cost is a
+heap allocation for commands with a binding-allocated output struct (about 35ns and one allocation for
+`GetPhysicalDeviceMemoryProperties`); commands that already allocate are unaffected. The directive requires the
+conversion to appear in the argument list of each call, so generated code must never convert to `uintptr` in a separate
+statement. `escapes_test.go` reproduces both hazards deterministically, and fails if the directive is removed.
+
 ## Open Questions
 
 ### VkResult as error

@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 )
 
@@ -14,11 +15,13 @@ import (
 // The library records its arguments; they are read back through the same trampoline machinery using integer-only
 // functions (float bits travel as integers).
 //
-// It needs a C compiler on PATH and is skipped otherwise.
+// It needs a C compiler on PATH and is skipped otherwise (and always skipped on Windows). The test binary re-executes itself with GODEBUG settings that
+// make memory-safety failures deterministic; see TestMain and escapes_test.go.
 
 const fakeVulkanC = `
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
 
 static float    g_f[4];
 static uint64_t g_i[4];
@@ -28,6 +31,68 @@ void vkCmdSetDepthBias(uintptr_t cb, float a, float b, float c) { g_i[0] = cb; g
 void vkCmdSetDepthBounds(uintptr_t cb, float a, float b) { g_i[0] = cb; g_f[0] = a; g_f[1] = b; }
 void vkSetDeviceMemoryPriorityEXT(uintptr_t dev, uint64_t mem, float p) { g_i[0] = dev; g_i[1] = mem; g_f[0] = p; }
 
+// ---- support for escapes_test.go ----
+
+// Commands that run "long" block for g_delay_us, as a real vkQueueSubmit or vkWaitForFences can.
+static unsigned g_delay_us;
+void testSetDelay(uintptr_t us) { g_delay_us = (unsigned)us; }
+
+// 1 if the last vkQueueSubmit saw exactly the data the test built, -1 if anything was wrong
+static int g_submit_ok;
+uintptr_t testSubmitOK(uintptr_t unused) { return (uintptr_t)(intptr_t)g_submit_ok; }
+
+// Mirrors VkSubmitInfo on 64 bit platforms
+typedef struct {
+	int32_t sType;
+	const void *pNext;
+	uint32_t waitSemaphoreCount;
+	const uint64_t *pWaitSemaphores;
+	const uint32_t *pWaitDstStageMask;
+	uint32_t commandBufferCount;
+	const uintptr_t *pCommandBuffers;
+	uint32_t signalSemaphoreCount;
+	const uint64_t *pSignalSemaphores;
+} SubmitInfo;
+
+// Every value in a submit is derivable from its position; escapes_test.go builds the same pattern.
+int32_t vkQueueSubmit(uintptr_t queue, uint32_t count, const SubmitInfo *p, uint64_t fence) {
+	usleep(g_delay_us);
+
+	int ok = (queue == 0x51 && fence == 0xFE);
+	for (uint32_t i = 0; ok && i < count; i++) {
+		ok = p[i].sType == 4 /* STRUCTURE_TYPE_SUBMIT_INFO */ &&
+			p[i].pNext != NULL && *(const uint64_t *)p[i].pNext == 0xFEEDFACE00000000ull + i &&
+			p[i].waitSemaphoreCount == 64 && p[i].commandBufferCount == 64 && p[i].signalSemaphoreCount == 64;
+		for (uint32_t j = 0; ok && j < 64; j++) {
+			ok = p[i].pWaitSemaphores[j] == 0x1000 + i * 100 + j &&
+				p[i].pWaitDstStageMask[j] == 0x2000 + i * 100 + j &&
+				p[i].pCommandBuffers[j] == 0x3000 + i * 100 + j &&
+				p[i].pSignalSemaphores[j] == 0x4000 + i * 100 + j;
+		}
+	}
+	g_submit_ok = ok ? 1 : -1;
+	return 0;
+}
+
+// Mirrors VkPhysicalDeviceMemoryProperties
+typedef struct { uint32_t propertyFlags; uint32_t heapIndex; } MemoryType;
+typedef struct { uint64_t size; uint32_t flags; } MemoryHeap;
+typedef struct {
+	uint32_t memoryTypeCount;
+	MemoryType memoryTypes[32];
+	uint32_t memoryHeapCount;
+	MemoryHeap memoryHeaps[16];
+} MemoryProperties;
+
+void vkGetPhysicalDeviceMemoryProperties(uintptr_t pd, MemoryProperties *out) {
+	usleep(g_delay_us);
+	memset(out, 0, sizeof *out);
+	out->memoryTypeCount = 3;
+	out->memoryTypes[2].heapIndex = 7;
+	out->memoryHeapCount = 2;
+	out->memoryHeaps[1].size = 0x123456789ull;
+}
+
 uintptr_t testGetFloatBits(uintptr_t i) { uint32_t u; memcpy(&u, &g_f[i], sizeof u); return u; }
 uintptr_t testGetInt(uintptr_t i) { return (uintptr_t)g_i[i]; }
 void testReset(void) { memset(g_f, 0, sizeof g_f); memset(g_i, 0, sizeof g_i); }
@@ -36,6 +101,8 @@ void testReset(void) { memset(g_f, 0, sizeof g_f); memset(g_i, 0, sizeof g_i); }
 var (
 	cmdGetFloatBits = &vkCommand{"testGetFloatBits", 1, true, nil}
 	cmdGetInt       = &vkCommand{"testGetInt", 1, true, nil}
+	cmdSetDelay     = &vkCommand{"testSetDelay", 1, false, nil}
+	cmdSubmitOK     = &vkCommand{"testSubmitOK", 1, true, nil}
 	// testReset takes no arguments, but no generated command has an empty shape; the extra argument is ignored by the callee
 	cmdReset = &vkCommand{"testReset", 1, false, nil}
 )
@@ -46,14 +113,50 @@ func gotFloat(i uintptr) float32 {
 
 func gotInt(i uintptr) uintptr { return vkCall_i(cmdGetInt, i) }
 
+// reexecEnv guards against re-executing more than once
+const reexecEnv = "VK_TEST_REEXEC"
+
+// skipReason is non-empty when the fake Vulkan library could not be built; tests that need it report SKIP with this reason.
+var skipReason string
+
+// requireFakeLibrary skips the calling test or benchmark if the fake Vulkan library is unavailable.
+func requireFakeLibrary(tb testing.TB) {
+	tb.Helper()
+	if skipReason != "" {
+		tb.Skip(skipReason)
+	}
+}
+
 func TestMain(m *testing.M) {
 	if runtime.GOOS == "windows" {
+		// The fake library is built with a Unix style C toolchain and its stubs use POSIX calls. There is no Windows
+		// equivalent yet, so these tests are skipped (visibly, with -v) rather than run against a real vulkan-1.dll.
+		skipReason = "the fake Vulkan library is not supported on windows"
 		os.Exit(m.Run())
+	}
+
+	// The memory-safety tests in escapes_test.go need runtime debugging help to be reliable:
+	//  - clobberfree=1 overwrites freed objects, so a use-after-free is seen as corruption rather than passing by luck
+	//  - adaptivestackstart=0 gives every goroutine the same small initial stack, so stack growth is reproducible
+	// GODEBUG is read at process start, so re-execute the test binary with it set.
+	if os.Getenv(reexecEnv) == "" {
+		child := exec.Command(os.Args[0], os.Args[1:]...)
+		child.Stdin, child.Stdout, child.Stderr = os.Stdin, os.Stdout, os.Stderr
+		godebug := strings.Trim(os.Getenv("GODEBUG")+",clobberfree=1,adaptivestackstart=0", ",")
+		child.Env = append(os.Environ(), "GODEBUG="+godebug, reexecEnv+"=1")
+		if err := child.Run(); err != nil {
+			if exitErr, ok := err.(*exec.ExitError); ok {
+				os.Exit(exitErr.ExitCode())
+			}
+			println("could not re-execute test binary:", err.Error())
+			os.Exit(1)
+		}
+		os.Exit(0)
 	}
 	cc, err := exec.LookPath("cc")
 	if err != nil {
-		println("no C compiler found, skipping trampoline tests")
-		os.Exit(0)
+		skipReason = "no C compiler (cc) found on PATH"
+		os.Exit(m.Run())
 	}
 
 	dir, err := os.MkdirTemp("", "vkfake")
@@ -82,6 +185,8 @@ func TestMain(m *testing.M) {
 }
 
 func TestFloatArgs(t *testing.T) {
+	requireFakeLibrary(t)
+
 	tests := []struct {
 		name   string
 		call   func()
@@ -120,6 +225,8 @@ func TestFloatArgs(t *testing.T) {
 // TestIntegerOnlyShapeLosesFloats is a negative control documenting why shapes exist: calling a float-taking function
 // through an all-integer trampoline puts the float bits in an integer register, where the callee does not look for them.
 func TestIntegerOnlyShapeLosesFloats(t *testing.T) {
+	requireFakeLibrary(t)
+
 	wrong := &vkCommand{"vkCmdSetLineWidth", 2, false, nil}
 
 	vkCall_i(cmdReset, 0)
