@@ -12,8 +12,6 @@ import (
 type enumValue struct {
 	genericValue
 
-	bitposString string
-
 	comment string
 
 	sourceOrder int
@@ -23,10 +21,8 @@ func (v *enumValue) ValueString() string {
 	if v.IsAlias() {
 		return v.resolvedAliasValue.PublicName()
 	} else {
-		if v.bitposString != "" {
-			return fmt.Sprintf("1 << %s", v.bitposString)
-		}
-		if v.extNumber != 0 {
+		// An explicit value (e.g. an extension's *_NONE_KHR = 0) takes precedence over the extension offset formula
+		if v.valueString == "" && v.extNumber != 0 {
 			tmp := (1000000000 + (v.extNumber-1)*1000 + v.offset) * v.direction
 			return strconv.Itoa(tmp)
 		}
@@ -138,7 +134,6 @@ func NewEnumValueFromXML(td TypeDefiner, elt *xmlquery.Node) *enumValue {
 		rval.aliasValueName = alias
 	}
 	rval.comment = elt.SelectAttr("comment")
-	rval.bitposString = elt.SelectAttr("bitpos")
 
 	if rval.underlyingTypeName = elt.SelectAttr("extends"); rval.underlyingTypeName != "" {
 		var err error
