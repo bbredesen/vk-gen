@@ -93,6 +93,24 @@ void vkGetPhysicalDeviceMemoryProperties(uintptr_t pd, MemoryProperties *out) {
 	out->memoryHeaps[1].size = 0x123456789ull;
 }
 
+// ---- support for resolve_test.go ----
+
+// Instances get distinct handles so tests can tell them apart
+static uintptr_t g_next_instance = 0xABC000;
+int32_t vkCreateInstance(const void *info, const void *allocator, uintptr_t *out) { *out = g_next_instance++; return 0; }
+void vkDestroyInstance(uintptr_t instance, const void *allocator) {}
+
+// Not an exported symbol: reachable only through vkGetInstanceProcAddr, as an extension command is through the loader.
+static void hiddenCmdSetStencilReference(uintptr_t cb, uint32_t mask, uint32_t ref) { g_i[0] = cb; g_i[1] = mask; g_i[2] = ref; }
+
+// Like the loader: with no instance only global commands are returned (none here are, so everything falls through to
+// dlsym); with an instance, commands behind the hidden function table are available.
+void *vkGetInstanceProcAddr(uintptr_t instance, const char *name) {
+	if (instance == 0) return NULL;
+	if (strcmp(name, "vkCmdSetStencilReference") == 0) return (void *)hiddenCmdSetStencilReference;
+	return NULL;
+}
+
 uintptr_t testGetFloatBits(uintptr_t i) { uint32_t u; memcpy(&u, &g_f[i], sizeof u); return u; }
 uintptr_t testGetInt(uintptr_t i) { return (uintptr_t)g_i[i]; }
 void testReset(void) { memset(g_f, 0, sizeof g_f); memset(g_i, 0, sizeof g_i); }
@@ -115,6 +133,9 @@ func gotInt(i uintptr) uintptr { return vkCall_i(cmdGetInt, i) }
 
 // reexecEnv guards against re-executing more than once
 const reexecEnv = "VK_TEST_REEXEC"
+
+// loaderEnv names the environment variable that opts in to the real-loader integration tests in loader_test.go
+const loaderEnv = "VK_TEST_LOADER"
 
 // skipReason is non-empty when the fake Vulkan library could not be built; tests that need it report SKIP with this reason.
 var skipReason string
@@ -153,6 +174,13 @@ func TestMain(m *testing.M) {
 		}
 		os.Exit(0)
 	}
+	// Integration tests against a real Vulkan loader (see loader_test.go) use that library instead of the fake one.
+	if loader := os.Getenv(loaderEnv); loader != "" {
+		skipReason = "the fake Vulkan library is not used when " + loaderEnv + " is set"
+		OverrideDefaultVulkanLibrary(loader)
+		os.Exit(m.Run())
+	}
+
 	cc, err := exec.LookPath("cc")
 	if err != nil {
 		skipReason = "no C compiler (cc) found on PATH"

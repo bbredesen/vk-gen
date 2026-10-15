@@ -3,6 +3,8 @@ package vk
 import (
 	"bytes"
 	"runtime"
+	"sync"
+	"sync/atomic"
 	"unsafe"
 )
 
@@ -42,7 +44,7 @@ type vkCommand struct {
 	protoName string
 	argCount  int
 	hasReturn bool
-	fnHandle  unsafe.Pointer
+	fnHandle  unsafe.Pointer // read and written atomically; see resolve()
 }
 
 var dlHandle unsafe.Pointer
@@ -57,40 +59,134 @@ func OverrideDefaultVulkanLibrary(nameOrPath string) {
 	overrideLibName = nameOrPath
 }
 
-// resolve loads the Vulkan library on first use, looks up the command's symbol on its first call, and returns the
-// function pointer. The typed trampoline wrappers in shapes.go call this before each invocation.
+// Command resolution
+//
+// A command's function pointer is found the first time it is called, in this order:
+//
+//  1. vkGetInstanceProcAddr(NULL, name), which returns the global commands (vkCreateInstance and friends)
+//  2. vkGetInstanceProcAddr(instance, name), using a live instance created through CreateInstance. This is the only way
+//     to find extension commands through the Khronos loader, which does not export them as symbols. Through the loader,
+//     device-level commands resolved this way are trampolines that dispatch on the handle passed to them, so they work
+//     for any device of the instance, and no per-device state is needed.
+//  3. dlsym/GetProcAddress on the library, for libraries that export commands directly (such as MoltenVK) or that do not
+//     export vkGetInstanceProcAddr
+//
+// A command that is found nowhere panics with its name. Callers are expected to have checked, through the Vulkan API,
+// that the extension providing a command is available and enabled before calling it.
+//
+// Resolved pointers are cleared when an instance is destroyed (DestroyInstance), because the specification ties them to
+// the instance that produced them. resolveMu guards the state below, and the fast path in resolve() takes no lock.
+var (
+	resolveMu     sync.Mutex
+	getProcAddr   unsafe.Pointer // vkGetInstanceProcAddr, or nil if the library does not export it
+	liveInstances []Instance     // in creation order; the most recent is used to resolve
+	resolvedCmds  []*vkCommand   // commands with a cached pointer, so that it can be cleared
+)
+
+// instanceCreated and instanceDestroyed are called from the generated CreateInstance and DestroyInstance (see the "command"
+// section of exceptions.json).
+func instanceCreated(instance Instance) {
+	resolveMu.Lock()
+	defer resolveMu.Unlock()
+
+	liveInstances = append(liveInstances, instance)
+}
+
+func instanceDestroyed(instance Instance) {
+	resolveMu.Lock()
+	defer resolveMu.Unlock()
+
+	for i, live := range liveInstances {
+		if live == instance {
+			liveInstances = append(liveInstances[:i], liveInstances[i+1:]...)
+			break
+		}
+	}
+
+	for _, cmd := range resolvedCmds {
+		atomic.StorePointer(&cmd.fnHandle, nil)
+	}
+	resolvedCmds = nil
+}
+
+// resolve returns the command's function pointer, finding it on first use.
 func (cmd *vkCommand) resolve() unsafe.Pointer {
+	if fn := atomic.LoadPointer(&cmd.fnHandle); fn != nil {
+		return fn
+	}
+	return cmd.resolveSlow()
+}
+
+func (cmd *vkCommand) resolveSlow() unsafe.Pointer {
+	resolveMu.Lock()
+	defer resolveMu.Unlock()
+
+	if fn := atomic.LoadPointer(&cmd.fnHandle); fn != nil {
+		return fn // another goroutine resolved it while this one waited for the lock
+	}
+
+	openLibrary()
+
+	cname := C.CString(cmd.protoName)
+	defer C.free(unsafe.Pointer(cname))
+
+	var fn unsafe.Pointer
+	if getProcAddr != nil {
+		fn = C.CallGetProcAddr(getProcAddr, 0, cname)
+		if fn == nil && len(liveInstances) > 0 {
+			fn = C.CallGetProcAddr(getProcAddr, C.uintptr_t(liveInstances[len(liveInstances)-1]), cname)
+		}
+	}
+	if fn == nil {
+		fn = C.SymbolFromName(dlHandle, unsafe.Pointer(cname))
+	}
+	if fn == nil {
+		panic("vk: " + cmd.protoName + " is not available: the extension that provides it is not supported or not enabled " +
+			"(or, for an instance or device level command, no instance has been created)")
+	}
+
+	atomic.StorePointer(&cmd.fnHandle, fn)
+	resolvedCmds = append(resolvedCmds, cmd)
+	return fn
+}
+
+// openLibrary loads the Vulkan library on first use. The caller must hold resolveMu.
+func openLibrary() {
+	if dlHandle != nil {
+		return
+	}
+
+	var libName string
+	switch runtime.GOOS {
+	case "windows":
+		libName = "vulkan-1.dll"
+	case "darwin":
+		// TODO: Running on Mac/Darwin is tested only to the point of creating and
+		// destroying a Vulkan instance.
+		libName = "libMoltenVK.dylib"
+	case "linux":
+		// TODO: Running on Linux is tested only to the point of creating and
+		// destroying a Vulkan instance.
+		libName = "libvulkan.so"
+	default:
+		panic("Unsupported GOOS at OpenLibrary: " + runtime.GOOS)
+	}
+
+	if overrideLibName != "" {
+		libName = overrideLibName
+	}
+
+	cstr := C.CString(libName)
+	defer C.free(unsafe.Pointer(cstr))
+
+	dlHandle = C.OpenLibrary(cstr)
 	if dlHandle == nil {
-		var libName string
-		switch runtime.GOOS {
-		case "windows":
-			libName = "vulkan-1.dll"
-		case "darwin":
-			libName = "libMoltenVK.dylib"
-		case "linux":
-			// TODO: Running on Linux is tested only to the point of creating and
-			// destroying a Vulkan instance.
-			libName = "libvulkan.so"
-		default:
-			panic("Unsupported GOOS at OpenLibrary: " + runtime.GOOS)
-		}
-
-		if overrideLibName != "" {
-			libName = overrideLibName
-		}
-
-		cstr := C.CString(libName)
-		dlHandle = C.OpenLibrary(cstr)
-		C.free(unsafe.Pointer(cstr))
+		panic("vk: could not load the Vulkan library " + libName)
 	}
 
-	// cmd := lazyCommands[commandKey]
-	if cmd.fnHandle == nil {
-		cmd.fnHandle = C.SymbolFromName(dlHandle, unsafe.Pointer(sys_stringToBytePointer(cmd.protoName)))
-		// lazyCommands[commandKey] = cmd
-	}
-
-	return cmd.fnHandle
+	name := C.CString("vkGetInstanceProcAddr")
+	defer C.free(unsafe.Pointer(name))
+	getProcAddr = C.SymbolFromName(dlHandle, unsafe.Pointer(name))
 }
 
 func stringToNullTermBytes(s string) *byte {

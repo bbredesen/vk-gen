@@ -48,3 +48,9 @@ void CloseLibrary(void *lib_handle) {
 
 
 #endif
+
+typedef void* (*vkGetInstanceProcAddr_func)(uintptr_t, const char*);
+
+void* CallGetProcAddr(void *get_proc_addr, uintptr_t instance, const char *name) {
+	return ((vkGetInstanceProcAddr_func) get_proc_addr)(instance, name);
+}

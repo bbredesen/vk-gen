@@ -272,6 +272,35 @@ heap allocation for commands with a binding-allocated output struct (about 35ns 
 conversion to appear in the argument list of each call, so generated code must never convert to `uintptr` in a separate
 statement. `escapes_test.go` reproduces both hazards deterministically, and fails if the directive is removed.
 
+### Resolving commands
+
+A command's function pointer is found on its first call, by trying `vkGetInstanceProcAddr(NULL, name)` (global commands),
+then `vkGetInstanceProcAddr(instance, name)` with a live instance, then `dlsym`/`GetProcAddress`. The Khronos loader
+exports only core commands plus the surface, swapchain and display extensions, so every other extension command
+(`VK_EXT_debug_utils`, `VK_KHR_push_descriptor`, ...) is reachable only through `vkGetInstanceProcAddr`. A command found
+nowhere panics with its name. There is deliberately no public "is this command available" function: callers should check
+extension support through the Vulkan API (`vkEnumerate*ExtensionProperties`) before using an extension.
+
+Instances are tracked by hooks that `exceptions.json` ("command" section, `go:afterCall`) adds to the generated
+`CreateInstance` and `DestroyInstance`; destroying an instance clears every cached pointer, since the specification ties
+pointers to the instance that produced them. Device-level commands are resolved through the instance, not
+`vkGetDeviceProcAddr`: through the loader these are trampolines that dispatch on the handle passed, valid for any device
+of the instance, so no per-device state or Queue/CommandBuffer-to-Device bookkeeping is needed. Observed with the 1.4.363
+loader (not guaranteed by the specification): two instances returned identical pointers. Per-device pointers would
+save the loader's dispatch (an estimated 1 to 3 ns per call) at the cost of a handle-to-device lookup on every call,
+including all `vkCmd*` calls, which would likely cost more than it saves.
+
+For device-level names the loader returns a trampoline even for commands it does not know (`vkCmdDrawMeshTasksEXT`
+resolved with the extension not enabled), so a successful lookup does not prove a command is supported.
+
+### Testing against a real loader
+
+`loader_test.go` holds opt-in integration tests that need a Vulkan loader but no GPU. Run them with
+`VK_TEST_LOADER=/usr/local/lib/libvulkan.dylib go test ./vk/ -run Loader -v` (use your platform's loader library). They
+skip when the variable is unset, and the fake-library tests skip when it is set, because a process loads one Vulkan
+library. `resolve_test.go` covers resolution against the fake library, which exports `vkGetInstanceProcAddr` and a
+command reachable only through it.
+
 ## Open Questions
 
 ### VkResult as error

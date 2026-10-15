@@ -21,6 +21,11 @@ type commandType struct {
 
 	staticCodeRef string
 
+	// afterCall is optional Go source from exceptions.json ("go:afterCall") emitted at the end of the generated function,
+	// after the Vulkan call and result handling and before the final return. It may refer to the command's parameters
+	// and results by their public names. It is currently only used to track instance lifetime for command resolution.
+	afterCall string
+
 	parameters []*commandParam
 
 	bindingParamCount int
@@ -447,6 +452,10 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		fmt.Fprint(w, "  if r == Result(0) {\nr = SUCCESS\n}\n")
 	}
 
+	if t.afterCall != "" {
+		fmt.Fprintf(w, "  %s\n", t.afterCall)
+	}
+
 	if len(funcReturnParams) > 0 {
 		fmt.Fprintf(w, "  return\n")
 	}
@@ -691,18 +700,30 @@ func ReadCommandExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr 
 			return true
 		} // Ignore comments
 
-		entry := NewCommandFromJSON(key, exVal)
-		tr[key.String()] = entry
+		tr[key.String()] = NewOrUpdateCommandFromJSON(key.String(), exVal, tr)
 
 		return true
 	})
 }
 
-func NewCommandFromJSON(key, json gjson.Result) *commandType {
-	rval := commandType{}
-	rval.registryName = key.String()
-	rval.publicName = json.Get("publicName").String()
-	rval.staticCodeRef = json.Get("staticCodeRef").String()
+// NewOrUpdateCommandFromJSON applies an exceptions.json entry to the command read from vk.xml, or creates a new command
+// if the registry has none by that name (static code, which does not exist in vk.xml).
+func NewOrUpdateCommandFromJSON(key string, json gjson.Result, tr TypeRegistry) *commandType {
+	rval, ok := tr[key].(*commandType)
+	if !ok {
+		rval = &commandType{}
+		rval.registryName = key
+	}
 
-	return &rval
+	if v := json.Get("publicName"); v.Exists() {
+		rval.publicName = v.String()
+	}
+	if v := json.Get("staticCodeRef"); v.Exists() {
+		rval.staticCodeRef = v.String()
+	}
+	if v := json.Get("go:afterCall"); v.Exists() {
+		rval.afterCall = v.String()
+	}
+
+	return rval
 }
