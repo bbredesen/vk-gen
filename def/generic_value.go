@@ -39,8 +39,9 @@ func (v *genericValue) UnderlyingTypeName() string { return v.underlyingTypeName
 
 func (v *genericValue) ResolvedType() TypeDefiner { return v.resolvedType }
 
-func (v *genericValue) IsAlias() bool { return v.aliasValueName != "" }
-func (v *genericValue) IsCore() bool  { return v.isCore }
+func (v *genericValue) IsAlias() bool             { return v.aliasValueName != "" }
+func (v *genericValue) AliasTarget() ValueDefiner { return v.resolvedAliasValue }
+func (v *genericValue) IsCore() bool              { return v.isCore }
 
 func (v *genericValue) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	if v.isResolved {
