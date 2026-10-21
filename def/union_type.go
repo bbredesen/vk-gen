@@ -14,6 +14,39 @@ type unionType struct {
 	structType
 
 	internalByteSize string
+
+	// selectorType is the type of the sibling member (in the containing struct) that determines which union member is
+	// valid when the union is returned by Vulkan. selectorOwner is "Struct.Member" for that sibling, used for docs.
+	selectorType  TypeDefiner
+	selectorOwner string
+
+	// Set by exceptions.json for unions that have no selector in the registry (see VkPerformanceCounterResultKHR).
+	// The union then has no containing struct, so a standalone FromBytes function is generated.
+	exceptionSelectorName string
+	exceptionSelections   map[string]string // union member registry name -> selector enum value registry name
+}
+
+// canGoify is true when the union is selected by a sibling member and every union member can be read back as a
+// primitive or string. Struct, union, and array members are not yet supported; however, they are not returned in any unions
+// as of Vulkan 1.3, and can be ignored for now. Recursive Goificiation may be needed if that changes in the future.
+func (t *unionType) canGoify() bool {
+	if t.selectorType == nil {
+		return false
+	}
+	for _, m := range t.members {
+		if m.resolvedSelection == nil {
+			return false
+		}
+		switch m.resolvedType.Category() {
+		case CatStruct, CatUnion, CatArray:
+			return false
+		}
+	}
+	return true
+}
+
+func (m *structMember) isCString() bool {
+	return m.pointerDepth > 0 && m.resolvedType.PublicName() == "string"
 }
 
 func (t *unionType) Category() TypeCategory { return CatUnion }
@@ -25,7 +58,23 @@ func (t *unionType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		return NewIncludeSet()
 	}
 
+	if t.exceptionSelectorName != "" {
+		for _, m := range t.members {
+			m.selection = t.exceptionSelections[m.registryName]
+		}
+	}
+
 	is := t.structType.Resolve(tr, vr)
+
+	if t.exceptionSelectorName != "" {
+		if st := tr[t.exceptionSelectorName]; st != nil {
+			is.MergeWith(st.Resolve(tr, vr))
+			t.selectorType = st
+		} else {
+			logrus.WithField("registry type", t.registryName).WithField("selector", t.exceptionSelectorName).
+				Error("go:selector type not found in registry")
+		}
+	}
 
 	is.ResolvedTypes[t.registryName] = t
 	t.isResolved = true
@@ -36,6 +85,18 @@ func (t *unionType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 func (t *unionType) PrintPublicDeclaration(w io.Writer) {
 	t.PrintDocLink(w)
 
+	if t.canGoify() {
+		if t.selectorOwner != "" {
+			fmt.Fprintf(w, "//\n// When returned by Vulkan, exactly one field is populated, selected by %s:\n", t.selectorOwner)
+		} else {
+			fmt.Fprintf(w, "//\n// Exactly one field is valid when returned by Vulkan, selected by a %s value that you supply (see %sFromBytes):\n",
+				t.selectorType.PublicName(), t.PublicName())
+		}
+		for _, m := range t.members {
+			fmt.Fprintf(w, "//   %s -> %s\n", m.resolvedSelection.PublicName(), m.PublicName())
+		}
+		fmt.Fprintf(w, "//\n// Use the Is<Field> methods or switch on the selector to determine which field is valid.\n")
+	}
 	fmt.Fprintf(w, "type %s struct {\n", t.PublicName())
 
 	for _, m := range t.members {
@@ -71,12 +132,17 @@ func (t *unionType) PrintPublicDeclaration(w io.Writer) {
 
 		fmt.Fprintf(w, "}\n\n")
 	}
+
+	for _, m := range t.members {
+		fmt.Fprintf(w, "// Is%s is true if %s is the active field of the union.\n", m.PublicName(), m.PublicName())
+		fmt.Fprintf(w, "func (u *%s) Is%s() bool { return u.as%s }\n\n", t.PublicName(), m.PublicName(), m.PublicName())
+	}
 }
 
 func (t *unionType) PrintInternalDeclaration(w io.Writer) {
 
 	var preamble, structDecl, epilogue strings.Builder
-	if t.isReturnedOnly {
+	if t.isReturnedOnly && !t.canGoify() {
 		logrus.WithField("registry type", t.registryName).
 			Error("union is returned only, which is not yet handled in the binding")
 	}
@@ -113,6 +179,29 @@ func (t *unionType) PrintInternalDeclaration(w io.Writer) {
 	fmt.Fprintf(w, "    default:\nreturn &%s{}\n", t.InternalName())
 	fmt.Fprintf(w, "  }\n")
 	fmt.Fprintf(w, "}\n")
+
+	if t.canGoify() {
+		fmt.Fprintf(&epilogue, "func (u *%s) Goify(selector %s) *%s {\n", t.InternalName(), t.selectorType.PublicName(), t.PublicName())
+		fmt.Fprintf(&epilogue, "  rval := &%s{}\n  switch selector {\n", t.PublicName())
+		for _, m := range t.members {
+			fmt.Fprintf(&epilogue, "  case %s:\n", m.resolvedSelection.PublicName())
+			if m.isCString() {
+				fmt.Fprintf(&epilogue, "    rval.%s = cStringToString(*(*unsafe.Pointer)(unsafe.Pointer(u)))\n", m.PublicName())
+			} else {
+				fmt.Fprintf(&epilogue, "    rval.%s = %s\n", m.PublicName(),
+					m.resolvedType.TranslateToPublic(fmt.Sprintf("*(*%s)(unsafe.Pointer(u))", m.resolvedType.InternalName())))
+			}
+			fmt.Fprintf(&epilogue, "    rval.as%s = true\n", m.PublicName())
+		}
+		fmt.Fprintf(&epilogue, "  }\n  return rval\n}\n")
+
+		if t.exceptionSelectorName != "" {
+			fmt.Fprintf(&epilogue, "\n// %sFromBytes interprets the leading bytes of b (for example, an element of a result buffer) as the member of\n", t.PublicName())
+			fmt.Fprintf(&epilogue, "// the union chosen by selector. b must be at least as long as the largest member of the union.\n")
+			fmt.Fprintf(&epilogue, "func %sFromBytes(b []byte, selector %s) *%s {\n", t.PublicName(), t.selectorType.PublicName(), t.PublicName())
+			fmt.Fprintf(&epilogue, "  var u %s\n  copy(u[:], b)\n  return u.Goify(selector)\n}\n", t.InternalName())
+		}
+	}
 
 	// Don't attempt to Goify for now. There may be a command that returns a union, how to handle that TBD
 	// fmt.Fprintf(w, "func (u *%s) Goify() %s {\n", t.InternalName(), t.PublicName())
@@ -179,4 +268,13 @@ func ReadUnionExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr Va
 
 func UpdateUnionTypeFromJSON(key, json gjson.Result, td *unionType) {
 	td.internalByteSize = json.Get("go:internalSize").String()
+
+	td.exceptionSelectorName = json.Get("go:selector").String()
+	json.Get("go:selections").ForEach(func(member, value gjson.Result) bool {
+		if td.exceptionSelections == nil {
+			td.exceptionSelections = make(map[string]string)
+		}
+		td.exceptionSelections[member.String()] = value.String()
+		return true
+	})
 }

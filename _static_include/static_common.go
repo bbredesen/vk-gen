@@ -199,3 +199,15 @@ func nullTermBytesToString(b []byte) string {
 	n := bytes.IndexByte(b, 0)
 	return string(b[:n])
 }
+
+// cStringToString copies a null-terminated C string into a Go string. A nil pointer returns the empty string.
+func cStringToString(p unsafe.Pointer) string {
+	if p == nil {
+		return ""
+	}
+	n := 0
+	for *(*byte)(unsafe.Add(p, n)) != 0 {
+		n++
+	}
+	return string(unsafe.Slice((*byte)(p), n))
+}

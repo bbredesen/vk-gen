@@ -38,6 +38,13 @@ type structMember struct {
 	valueString   string
 	resolvedValue ValueDefiner
 
+	// selector is set on a struct member whose type is a union; it names the sibling member that determines which
+	// union member is valid. selection is set on a union member; it names the enum value of the selector for which
+	// this member is valid.
+	selector          string
+	selection         string
+	resolvedSelection ValueDefiner
+
 	forceInclude       bool
 	comment            string
 	noAutoValidityFlag bool
@@ -102,6 +109,7 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 				}
 			}
 		}
+		t.linkSelector(m)
 		m.forceInclude = t.forceIncludeMemberName == m.registryName
 		if m.forceInclude && t.forceIncludeComment != "" {
 			if m.comment != "" {
@@ -115,6 +123,25 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	rb.ResolvedTypes[t.registryName] = t
 
 	return rb
+}
+
+// linkSelector tells a union-typed member's union which sibling member selects its active field, so the union can
+// generate a selector-driven Goify.
+func (t *structType) linkSelector(m *structMember) {
+	if m.selector == "" {
+		return
+	}
+	u, isUnion := m.resolvedType.(*unionType)
+	if !isUnion || u.selectorType != nil {
+		return
+	}
+	for _, n := range t.members {
+		if n.registryName == m.selector {
+			u.selectorType = n.resolvedType
+			u.selectorOwner = fmt.Sprintf("%s.%s", t.PublicName(), n.PublicName())
+			return
+		}
+	}
 }
 
 func (t *structType) IsIdenticalPublicAndInternal() bool {
@@ -272,8 +299,11 @@ func (m *structMember) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		rval.MergeWith(m.resolvedValue.Resolve(tr, vr))
 	}
 
-	if len(m.lenSpecs) > 0 {
-
+	if m.selection != "" {
+		m.resolvedSelection = vr[m.selection]
+		if m.resolvedSelection != nil {
+			rval.MergeWith(m.resolvedSelection.Resolve(tr, vr))
+		}
 	}
 	return rval
 }
@@ -383,7 +413,12 @@ func (m *structMember) PrintGoifyContent(preamble, structDecl, epilogue io.Write
 	case m.resolvedValue != nil: // Edge case 1 never happens in returned strucs
 
 	case m.resolvedType.Category() == CatUnion:
-		fmt.Fprintf(structDecl, "  // Can't Goify union member %s\n", m.InternalName())
+		if u := m.resolvedType.(*unionType); m.selector != "" && u.canGoify() {
+			fmt.Fprintf(structDecl, "  %s : *(s.%s.Goify(%s(s.%s))),\n", m.PublicName(), m.InternalName(),
+				u.selectorType.PublicName(), RenameIdentifier(m.selector))
+		} else {
+			fmt.Fprintf(structDecl, "  // Can't Goify union member %s\n", m.InternalName())
+		}
 
 	case m.isLenForOtherMember != nil: // Edge case 6 happens, but is not identified in vk.xml.
 		// Example: VkPhysicalDeviceMemoryProperties has two fixed length
@@ -494,6 +529,8 @@ func newStructMemberFromXML(node *xmlquery.Node) *structMember {
 	}
 
 	rval.valueString = node.SelectAttr("values")
+	rval.selector = node.SelectAttr("selector")
+	rval.selection = node.SelectAttr("selection")
 
 	return &rval
 

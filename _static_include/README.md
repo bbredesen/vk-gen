@@ -270,6 +270,34 @@ ccv.AsTypeFloat32(float32[4]{0.0, 0.0, 0.0, 1.0})
 // renames these fields to TypeFloat32, TypeInt32, etc. to avoid any conflicts.
 ```
 
+### Returned unions
+
+A few unions are returned by Vulkan, and which member is valid depends on another value. In those cases the
+union is embedded in a struct next to a selector field, and go-vk populates **only the selected member**; the others are
+left as zero values. `As<FieldName>` is for building input and does not apply to returned values.
+
+The recommended approach is to switch on the selector in the containing struct, as the spec describes:
+
+```go
+v, _ := vk.GetPerformanceParameterINTEL(device, param)
+switch v.Typ {
+case vk.PERFORMANCE_VALUE_TYPE_UINT32_INTEL:
+	use(v.Data.Value32)
+case vk.PERFORMANCE_VALUE_TYPE_STRING_INTEL:
+	use(v.Data.ValueString) // C string has been copied into Go memory
+}
+```
+
+Each union also has an `Is<FieldName>()` method that reports which member is active, and its doc comment lists the
+selector value for each member. The returned unions are `VkPerformanceValueDataINTEL` (selected by
+`PerformanceValueINTEL.Typ`) and `VkPipelineExecutableStatisticValueKHR` (selected by
+`PipelineExecutableStatisticKHR.Format`).
+
+`VkPerformanceCounterResultKHR` is different: the spec gives no selector for it, because results are read from a
+`void*` buffer via `vkGetQueryPoolResults`. Which member is valid is determined by the `Storage` field of the
+`PerformanceCounterKHR` that describes the counter, which **you** must keep track of. Use
+`PerformanceCounterResultKHRFromBytes(buf, storage)` to interpret each element of the result buffer.
+
 ## Examples
 
 See the [go-vk-samples](https://github.com/bbredesen/go-vk-samples) repo for a number of working Vulkan samples using
@@ -282,6 +310,5 @@ this library. The samples currently run on Windows and Mac.
 * H.264 and H.265 commands and types are almost certainly broken. Vulkan does provide a separate XML file in the vk.xml format for those
   types, but reading that file has not yet been implemented in vk-gen. As a placeholder, all of these types are defined
   as int32 through exceptions.json.
-* The union type VkPipelineExecutableStatisticValueKHR is returned from Vulkan through VkPipelineExecutableStatisticKHR.
-  Returned unions are not supported and there is no Goify() function associated. VkPipelineExecutableStatisticKHR is
-  returned to the developer without the Value member populated.
+* Returned unions are supported only when every member is a primitive, bool, or string, and the union is selected by a
+  sibling field (or an entry in exceptions.json). Unions with struct or array members are not Goified.

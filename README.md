@@ -46,4 +46,8 @@ issue/PR will clean this up, but they don't hurt anything at the moment.
   not necessarily the largest member. This value must be a string and is copied to an array declaration. It can be
   anything that resolves to a constant in Go, though most typically it will be an integer value (represented as a
   string). The value should be the aligned (?) data size in bytes of the largest member of the union. 
-
+* `go:selector` and `go:selections` - Used for returned unions whose registry entry has no `selector` attribute (only
+  `VkPerformanceCounterResultKHR` at present). `go:selector` is the registry name of the enum type that decides which
+  member is valid, and `go:selections` maps each union member's registry name to the enum value that selects it. These
+  unions get a `Goify(selector)` and an exported `<Name>FromBytes(buf, selector)` function. Unions that do have a
+  `selector`/`selection` in vk.xml are handled automatically.
