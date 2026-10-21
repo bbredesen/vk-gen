@@ -1,0 +1,20 @@
+{
+  "1.0.69-core": {
+    "files": [
+      "escapes_test.go",
+      "loader_test.go",
+      "resolve_test.go",
+      "trampoline_test.go"
+    ],
+    "reason": "the static tests are one unit (they share helpers across files) and use VK_EXT_debug_utils (loader_test.go) and VK_EXT_pageable_device_local_memory's SetDeviceMemoryPriorityEXT (trampoline_test.go), both added to the registry after 1.0.69"
+  },
+  "1.1.130": {
+    "files": [
+      "escapes_test.go",
+      "loader_test.go",
+      "resolve_test.go",
+      "trampoline_test.go"
+    ],
+    "reason": "the static tests are one unit (they share helpers across files) and trampoline_test.go calls SetDeviceMemoryPriorityEXT (VK_EXT_pageable_device_local_memory), added to the registry after 1.1.130"
+  }
+}
