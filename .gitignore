@@ -7,3 +7,5 @@ vk-gen.exe
 
 .vscode/
 .DS_Store
+# Pinned registry files for the matrix tests
+!matrix/testdata/registry/*.xml
