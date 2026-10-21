@@ -277,6 +277,8 @@
     "StdVideoDecodeH265ReferenceInfoFlags": { "go:type": "int32" },
 
     "StdVideoAV1Level": { "go:type": "int32" },
+    "StdVideoVP9Level": { "go:type": "int32" },
+    "StdVideoVP9Profile": { "go:type": "int32" },
     "StdVideoAV1Profile": { "go:type": "int32" },
     "StdVideoAV1SequenceHeader": { "go:type": "int32" },
     "StdVideoDecodeAV1PictureInfo": { "go:type": "int32" },
@@ -396,7 +398,15 @@
       "go:internalSize": 8
     },
     "VkPipelineExecutableStatisticValueKHR": {
-      "go:internalSize": 8
+      "go:internalSize": 8,
+      "!comment": "registry files before 1.2.1xx have no selector/selection attributes for this union; the selector is VkPipelineExecutableStatisticKHR.format",
+      "go:selector": "VkPipelineExecutableStatisticFormatKHR",
+      "go:selections": {
+        "b32": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_BOOL32_KHR",
+        "i64": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_INT64_KHR",
+        "u64": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_UINT64_KHR",
+        "f64": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_FLOAT64_KHR"
+      }
     },
     "VkAccelerationStructureMotionInstanceDataNV": {
       "go:internalSize": "unsafe.Sizeof(_vkAccelerationStructureMatrixMotionInstanceNV{})"
