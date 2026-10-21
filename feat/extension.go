@@ -23,7 +23,7 @@ func ReadExtensionFromXML(extNode *xmlquery.Node, tr def.TypeRegistry, vr def.Va
 		extensionName:         extNode.SelectAttr("name"),
 		extensionNumber:       extNode.SelectAttr("number"),
 		supportedString:       extNode.SelectAttr("supported"),
-		platformString:        extNode.SelectAttr("platform"),
+		platformString:        extensionPlatform(extNode),
 		requireExtensionNames: make(map[string]bool),
 		Feature:               NewFeature(),
 	}
@@ -71,6 +71,15 @@ func ReadExtensionFromXML(extNode *xmlquery.Node, tr def.TypeRegistry, vr def.Va
 	}
 
 	return &rval
+}
+
+// extensionPlatform returns the extension's platform name, from the platform attribute or, in registry files that
+// predate it, from the protect macro. It is "" for an extension that is not platform specific.
+func extensionPlatform(extNode *xmlquery.Node) string {
+	if platform := extNode.SelectAttr("platform"); platform != "" {
+		return platform
+	}
+	return legacyProtectPlatforms[extNode.SelectAttr("protect")]
 }
 
 func (e *Extension) Name() string         { return e.extensionName }

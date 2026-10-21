@@ -40,7 +40,7 @@ func (t *externalType) TranslateToInternal(inputVar string) string {
 }
 
 func ReadExternalTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
-	queryString := fmt.Sprintf("//types/type[not(@category) and (@api='%s' or not(@api))]", api)
+	queryString := fmt.Sprintf("//types/type[not(@category) and %s]", apiPredicate(api))
 
 	for _, node := range xmlquery.Find(doc, queryString) {
 		typ := NewExternalTypeFromXML(node)

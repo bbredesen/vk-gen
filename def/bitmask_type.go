@@ -27,6 +27,12 @@ func (t *bitmaskType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 
 	rval.MergeWith(t.internalType.Resolve(tr, vr))
 
+	// The enum that defines the bits is not necessarily required by the feature or extension, for example
+	// VkDebugUtilsMessageTypeFlagBitsEXT in registry files before 1.2.
+	if values := tr[t.valuesTypeName]; values != nil {
+		rval.MergeWith(values.Resolve(tr, vr))
+	}
+
 	rval.IncludeTypes[t.registryName] = true
 	rval.ResolvedTypes[t.registryName] = t
 
@@ -50,7 +56,7 @@ func (t *bitmaskType) PrintPublicDeclaration(w io.Writer) {
 }
 
 func ReadBitmaskTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
-	queryString := fmt.Sprintf("//types/type[@category='bitmask' and (@api='%s' or not(@api))]", api)
+	queryString := fmt.Sprintf("//types/type[@category='bitmask' and %s]", apiPredicate(api))
 
 	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewBitmaskTypeFromXML(node)

@@ -642,8 +642,8 @@ func (p *commandParam) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 }
 
 func ReadCommandTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
-	cQueryString := fmt.Sprintf("//commands/command[@api='%s' or not(@api)]", api)
-	exQueryString := fmt.Sprintf("//extension/command[@api='%s' or not(@api)]", api)
+	cQueryString := fmt.Sprintf("//commands/command[%s]", apiPredicate(api))
+	exQueryString := fmt.Sprintf("//extension/command[%s]", apiPredicate(api))
 
 	for _, commandNode := range append(xmlquery.Find(doc, cQueryString), xmlquery.Find(doc, exQueryString)...) {
 		val := NewCommandFromXML(commandNode, api)
@@ -661,7 +661,7 @@ func NewCommandFromXML(elt *xmlquery.Node, api string) *commandType {
 		rval.registryName = xmlquery.FindOne(elt, "/proto/name").InnerText()
 		rval.returnTypeName = xmlquery.FindOne(elt, "/proto/type").InnerText()
 
-		paramQueryString := fmt.Sprintf("param[@api='%s' or not(@api)]", api)
+		paramQueryString := fmt.Sprintf("param[%s]", apiPredicate(api))
 		for _, m := range xmlquery.Find(elt, paramQueryString) {
 			par := NewCommandParamFromXML(m, &rval)
 			rval.parameters = append(rval.parameters, par)
@@ -686,7 +686,8 @@ func NewCommandParamFromXML(elt *xmlquery.Node, forCommand *commandType) *comman
 		// element; without this it would be mistaken for a by-value argument.
 		rval.pointerLevel++
 	}
-	rval.lenSpec = elt.SelectAttr("len")
+	// Registry files before 1.2 write a struct member length as "pInfo::count"; later ones write "pInfo->count"
+	rval.lenSpec = strings.ReplaceAll(elt.SelectAttr("len"), "::", "->")
 	rval.altLenSpec = elt.SelectAttr("altlen")
 
 	rval.parentCommand = forCommand

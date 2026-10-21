@@ -60,7 +60,7 @@ func (t *enumType) PrintPublicDeclaration(w io.Writer) {
 }
 
 func ReadEnumTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
-	queryString := fmt.Sprintf("//types/type[@category='enum' and (@api='%s' or not(@api))]", api)
+	queryString := fmt.Sprintf("//types/type[@category='enum' and %s]", apiPredicate(api))
 
 	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewEnumTypeFromXML(node)

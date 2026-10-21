@@ -3,7 +3,9 @@ package def
 import (
 	"fmt"
 	"io"
+	"regexp"
 	"strconv"
+	"strings"
 
 	"github.com/antchfx/xmlquery"
 	"github.com/sirupsen/logrus"
@@ -81,9 +83,68 @@ func ReadApiConstantsFromXML(doc *xmlquery.Node, externalType TypeDefiner, tr Ty
 		selector = fmt.Sprintf("//enums[@name='API Constants']/enum[@type='%s']", externalType.RegistryName())
 	}
 	for _, node := range xmlquery.Find(doc, selector) {
-		valDef := NewEnumValueFromXML(externalType, node)
+		td := externalType
+		if td == nil && node.SelectAttr("alias") == "" {
+			// Registry files before API constants were typed (before 1.2.131 or so) give only a value; infer the type
+			// from it. Aliases are left alone and take their type from the target.
+			td = tr[inferConstantType(node.SelectAttr("value"))]
+		}
+		valDef := NewEnumValueFromXML(td, node)
 		valDef.isCore = true
 		vr[valDef.RegistryName()] = valDef
+	}
+}
+
+// aliasTarget returns the registry name of the value that the enum node is an alias of, or "". Registry files before the
+// alias attribute (1.0.69 and earlier) give an alias as value="VK_OTHER_ENUM".
+func aliasTarget(elt *xmlquery.Node) string {
+	if alias := elt.SelectAttr("alias"); alias != "" {
+		return alias
+	}
+	if value := elt.SelectAttr("value"); strings.HasPrefix(value, "VK_") {
+		return value
+	}
+	return ""
+}
+
+var rxFloatConstant = regexp.MustCompile(`^\d+\.\d+[fF]$`)
+
+var rxComplementConstant = regexp.MustCompile(`^\(~(\d+)(U|ULL)(?:-(\d+))?\)$`)
+
+// cConstantToGo converts the C unsigned complement forms that registry files use for constants, "(~0U)", "(~1U)" and
+// "(~0U-1)", and their 64-bit "ULL" equivalents, to Go expressions. Any other value is returned as it is. The names in
+// exceptions.json are applied after this, and take precedence.
+func cConstantToGo(value string) string {
+	if rxFloatConstant.MatchString(value) {
+		return value[:len(value)-1] // C's f suffix is not valid in Go
+	}
+	m := rxComplementConstant.FindStringSubmatch(value)
+	if m == nil {
+		return value
+	}
+	goType := "uint32"
+	if m[2] == "ULL" {
+		goType = "uint64"
+	}
+	n, _ := strconv.Atoi(m[1])
+	if m[3] != "" {
+		sub, _ := strconv.Atoi(m[3])
+		n += sub
+	}
+	return fmt.Sprintf("^%s(%d)", goType, n)
+}
+
+// inferConstantType returns the registry name of the C type for an untyped API constant, from the form of its value,
+// following the types that later registry versions give the same constants: a floating point literal is a float, "~0ULL"
+// is a uint64_t, and everything else is a uint32_t.
+func inferConstantType(value string) string {
+	switch {
+	case strings.HasSuffix(value, "f") || strings.HasSuffix(value, "F"):
+		return "float"
+	case strings.Contains(value, "ULL"):
+		return "uint64_t"
+	default:
+		return "uint32_t"
 	}
 }
 
@@ -125,10 +186,10 @@ func ReadEnumValuesFromXML(doc *xmlquery.Node, td TypeDefiner, tr TypeRegistry, 
 func NewEnumValueFromXML(td TypeDefiner, elt *xmlquery.Node) *enumValue {
 	rval := enumValue{}
 
-	alias := elt.SelectAttr("alias")
+	alias := aliasTarget(elt)
 	if alias == "" {
 		rval.registryName = elt.SelectAttr("name")
-		rval.valueString = elt.SelectAttr("value")
+		rval.valueString = cConstantToGo(elt.SelectAttr("value"))
 	} else {
 		rval.registryName = elt.SelectAttr("name")
 		rval.aliasValueName = alias
@@ -220,7 +281,7 @@ func (v *extenValue) ValueString() string {
 func NewUntypedEnumValueFromXML(elt *xmlquery.Node) *extenValue {
 	rval := extenValue{}
 
-	alias := elt.SelectAttr("alias") // I don't think there are any alias entries for this category?
+	alias := aliasTarget(elt)
 	if alias == "" {
 		rval.registryName = elt.SelectAttr("name")
 		rval.valueString = elt.SelectAttr("value")

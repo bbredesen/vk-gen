@@ -26,6 +26,12 @@ func (t *defineType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 
 	rval := t.internalType.Resolve(tr, vr)
 
+	// A define may be written in terms of a macro define, such as VK_API_VERSION_1_0 and VK_MAKE_VERSION. Registry files
+	// before 1.2 do not list the macro among the feature's required types, so pull it in here.
+	if macro := tr[t.functionName]; macro != nil && macro != TypeDefiner(t) {
+		rval.MergeWith(macro.Resolve(tr, vr))
+	}
+
 	t.functionName = RenameIdentifier(t.functionName)
 	t.valueString = RenameIdentifier(t.valueString)
 	t.paramString = rxParamSearch.ReplaceAllStringFunc(t.paramString, RenameIdentifier)
@@ -52,12 +58,14 @@ func (t *defineType) PrintPublicDeclaration(w io.Writer) {
 		// gets passed to a function expecting uint32.
 		fmt.Fprintf(w, "var %s = uint32(%s)\n", t.PublicName(), t.valueString)
 	} else {
-		fmt.Fprintf(w, "4 other define for %s\n", t.PublicName())
+		// A declaration of an opaque platform type, such as CAMetalLayer. Registry files after 1.1 give these the basetype
+		// category; they are printed the same way here.
+		fmt.Fprintf(w, "type %s struct{}\n", t.PublicName())
 	}
 }
 
 func ReadDefineTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry, api string) {
-	queryString := fmt.Sprintf("//types/type[@category='define' and (@api='%s' or not(@api))]", api)
+	queryString := fmt.Sprintf("//types/type[@category='define' and %s]", apiPredicate(api))
 	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewDefineTypeFromXML(node)
 		if tr[newType.RegistryName()] != nil {

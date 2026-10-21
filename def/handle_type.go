@@ -44,7 +44,7 @@ func (t *handleType) PrintPublicDeclaration(w io.Writer) {
 }
 
 func ReadHandleTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, _ ValueRegistry, api string) {
-	queryString := fmt.Sprintf("//types/type[@category='handle' and (@api='%s' or not(@api))]", api)
+	queryString := fmt.Sprintf("//types/type[@category='handle' and %s]", apiPredicate(api))
 
 	for _, node := range xmlquery.Find(doc, queryString) {
 		newType := NewHandleTypeFromXML(node)

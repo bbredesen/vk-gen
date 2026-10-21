@@ -41,8 +41,23 @@ func (t *unionType) canGoify() bool {
 		case CatStruct, CatUnion, CatArray:
 			return false
 		}
+		if m.pointerDepth > 0 && !m.isCString() {
+			// A pointer to a struct (for example VkIndirectExecutionSetInfoEXT's members), which would need to be read back
+			// through the pointer
+			return false
+		}
 	}
 	return true
+}
+
+// hasRegistrySelections is true if the registry file gave any member of the union a selection attribute.
+func (t *unionType) hasRegistrySelections() bool {
+	for _, m := range t.members {
+		if m.selection != "" {
+			return true
+		}
+	}
+	return false
 }
 
 func (m *structMember) isCString() bool {
@@ -58,7 +73,13 @@ func (t *unionType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 		return NewIncludeSet()
 	}
 
-	if t.exceptionSelectorName != "" {
+	// The selector exception supplies what the registry lacks. Later registry files carry the selection on each member,
+	// and those take precedence.
+	if t.hasRegistrySelections() {
+		t.exceptionSelectorName = "" // also stops PrintInternalDeclaration from adding the FromBytes helper
+	}
+	useException := t.exceptionSelectorName != ""
+	if useException {
 		for _, m := range t.members {
 			m.selection = t.exceptionSelections[m.registryName]
 		}
@@ -66,7 +87,7 @@ func (t *unionType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 
 	is := t.structType.Resolve(tr, vr)
 
-	if t.exceptionSelectorName != "" {
+	if useException {
 		if st := tr[t.exceptionSelectorName]; st != nil {
 			is.MergeWith(st.Resolve(tr, vr))
 			t.selectorType = st
@@ -220,7 +241,7 @@ func (t *unionType) TranslateToInternal(inputVar string) string {
 }
 
 func ReadUnionTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
-	queryString := fmt.Sprintf("//types/type[@category='union' and (@api='%s' or not(@api))]", api)
+	queryString := fmt.Sprintf("//types/type[@category='union' and %s]", apiPredicate(api))
 
 	for _, node := range xmlquery.Find(doc, queryString) {
 		s := newUnionTypeFromXML(node, api)
@@ -234,7 +255,7 @@ func newUnionTypeFromXML(node *xmlquery.Node, api string) *unionType {
 	rval.registryName = node.SelectAttr("name")
 	rval.isReturnedOnly = node.SelectAttr("returnedonly") == "true"
 
-	queryString := fmt.Sprintf("member[@api='%s' or not(@api)]", api)
+	queryString := fmt.Sprintf("member[%s]", apiPredicate(api))
 	for _, mNode := range xmlquery.Find(node, queryString) {
 		rval.members = append(rval.members, newStructMemberFromXML(mNode))
 	}

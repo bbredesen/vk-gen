@@ -20,6 +20,8 @@ type structType struct {
 	forceIncludeComment    string
 }
 
+var rxLineBreak = regexp.MustCompile(`\s*\n\s*`)
+
 type structMember struct {
 	genericNamer
 	Resolver
@@ -462,7 +464,7 @@ func (m *structMember) PrintGoifyContent(preamble, structDecl, epilogue io.Write
 }
 
 func ReadStructTypesFromXML(doc *xmlquery.Node, tr TypeRegistry, vr ValueRegistry, api string) {
-	queryString := fmt.Sprintf("//types/type[@category='struct' and (@api='%s' or not(@api))]", api)
+	queryString := fmt.Sprintf("//types/type[@category='struct' and %s]", apiPredicate(api))
 
 	for _, node := range xmlquery.Find(doc, queryString) {
 		s := newStructTypeFromXML(node, api)
@@ -476,7 +478,7 @@ func newStructTypeFromXML(node *xmlquery.Node, api string) *structType {
 	rval.registryName = node.SelectAttr("name")
 	rval.isReturnedOnly = node.SelectAttr("returnedonly") == "true"
 
-	queryString := fmt.Sprintf("member[@api='%s' or not(@api)]", api)
+	queryString := fmt.Sprintf("member[%s]", apiPredicate(api))
 	for _, mNode := range xmlquery.Find(node, queryString) {
 		rval.members = append(rval.members, newStructMemberFromXML(mNode))
 	}
@@ -492,7 +494,8 @@ func newStructMemberFromXML(node *xmlquery.Node) *structMember {
 	rval.registryName = xmlquery.FindOne(node, "name").InnerText()
 
 	if commentNode := xmlquery.FindOne(node, "comment"); commentNode != nil {
-		rval.comment = commentNode.InnerText()
+		// A comment can wrap onto a second line in the registry, which would end the Go comment early
+		rval.comment = rxLineBreak.ReplaceAllString(commentNode.InnerText(), " ")
 	}
 	rval.pointerDepth = strings.Count(node.InnerText(), "*") - strings.Count(rval.comment, "*")
 
