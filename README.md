@@ -51,3 +51,10 @@ issue/PR will clean this up, but they don't hurt anything at the moment.
   member is valid, and `go:selections` maps each union member's registry name to the enum value that selects it. These
   unions get a `Goify(selector)` and an exported `<Name>FromBytes(buf, selector)` function. Unions that do have a
   `selector`/`selection` in vk.xml are handled automatically.
+
+## Testing against Vulkan registry versions
+
+`matrix/` runs vk-gen against pinned `vk.xml` files (the last release of each minor version, plus the current 1.4
+revision) and checks that the generated package builds and passes its tests; see [matrix/README.md](matrix/README.md).
+
+    go test -count=1 ./matrix   # needs goimports and stringer in PATH or GOPATH/bin
