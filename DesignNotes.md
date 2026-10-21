@@ -211,7 +211,8 @@ The `basetype` map allows the following entries:
   size) - Partial support. 
     * ~~single-dimension arrays in structs are supported, eg VkClearColorValue float[4]~~
     * VkTransformMatrixKHR has a [3][4] member, multi-dimensional arrays not currently handled
-    * arrays as inputs to commands (vkCmdSetBlendConstants) not handled
+    * arrays as inputs to commands (vkCmdSetBlendConstants) are passed as a pointer to the first element (`*float32`); a
+      nicer Go type such as `*[4]float32` is not generated
 * ~~Handle bool <-> Bool32 conversion (users should not have to be exposed to Bool32, right?)~~
 * Handle feature and extension tags for output set. Should be able to say "output for version" or include/exclude
   extensions. Tags (specifically extensions) should be grouped into platform sets, for specific build-tag handling.
@@ -254,6 +255,51 @@ newly inserted entry (which will be a rare case) is visited later in the loop, b
 resolved and will return immediately with no further types required.
 
 
+
+## Calling Vulkan: trampoline shapes and Go pointers
+
+Commands are called through cgo trampolines generated per argument *shape*: the ordered classes of a command's
+parameters, `i` (integer, handle, enum, pointer), `f` (float), or `d` (double). `vkCmdSetDepthBias` is `ifff`. A float
+cannot travel through an all-integer call because the callee reads it from a floating point register, so each shape gets
+a C trampoline (`trampolines.c`) with correctly typed parameters and a typed Go wrapper (`vkCall_<shape>` in
+`shapes.go`). A type that cannot be classified (a struct passed by value) is a generator error. See `def/abi_shape.go`.
+
+Go pointers reach C as `uintptr(unsafe.Pointer(x))`, which the runtime does not track: the target could be freed while C
+is using it, or (if on a goroutine stack) moved by a stack copy before the call starts. Every `vkCall_*` wrapper is
+therefore marked `//go:uintptrescapes`, which keeps the target alive for the call and puts it on the heap. The cost is a
+heap allocation for commands with a binding-allocated output struct (about 35ns and one allocation for
+`GetPhysicalDeviceMemoryProperties`); commands that already allocate are unaffected. The directive requires the
+conversion to appear in the argument list of each call, so generated code must never convert to `uintptr` in a separate
+statement. `escapes_test.go` reproduces both hazards deterministically, and fails if the directive is removed.
+
+### Resolving commands
+
+A command's function pointer is found on its first call, by trying `vkGetInstanceProcAddr(NULL, name)` (global commands),
+then `vkGetInstanceProcAddr(instance, name)` with a live instance, then `dlsym`/`GetProcAddress`. The Khronos loader
+exports only core commands plus the surface, swapchain and display extensions, so every other extension command
+(`VK_EXT_debug_utils`, `VK_KHR_push_descriptor`, ...) is reachable only through `vkGetInstanceProcAddr`. A command found
+nowhere panics with its name. There is deliberately no public "is this command available" function: callers should check
+extension support through the Vulkan API (`vkEnumerate*ExtensionProperties`) before using an extension.
+
+Instances are tracked by hooks that `exceptions.json` ("command" section, `go:afterCall`) adds to the generated
+`CreateInstance` and `DestroyInstance`; destroying an instance clears every cached pointer, since the specification ties
+pointers to the instance that produced them. Device-level commands are resolved through the instance, not
+`vkGetDeviceProcAddr`: through the loader these are trampolines that dispatch on the handle passed, valid for any device
+of the instance, so no per-device state or Queue/CommandBuffer-to-Device bookkeeping is needed. Observed with the 1.4.363
+loader (not guaranteed by the specification): two instances returned identical pointers. Per-device pointers would
+save the loader's dispatch (an estimated 1 to 3 ns per call) at the cost of a handle-to-device lookup on every call,
+including all `vkCmd*` calls, which would likely cost more than it saves.
+
+For device-level names the loader returns a trampoline even for commands it does not know (`vkCmdDrawMeshTasksEXT`
+resolved with the extension not enabled), so a successful lookup does not prove a command is supported.
+
+### Testing against a real loader
+
+`loader_test.go` holds opt-in integration tests that need a Vulkan loader but no GPU. Run them with
+`VK_TEST_LOADER=/usr/local/lib/libvulkan.dylib go test ./vk/ -run Loader -v` (use your platform's loader library). They
+skip when the variable is unset, and the fake-library tests skip when it is set, because a process loads one Vulkan
+library. `resolve_test.go` covers resolution against the fake library, which exports `vkGetInstanceProcAddr` and a
+command reachable only through it.
 
 ## Open Questions
 

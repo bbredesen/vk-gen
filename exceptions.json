@@ -351,6 +351,16 @@
     }
   },
 
+  "command": {
+    "!comment": "go:afterCall is Go source appended to the generated function after the Vulkan call. Instance lifetime is tracked so that commands can be resolved through vkGetInstanceProcAddr (see static_common.go).",
+    "vkCreateInstance": {
+      "go:afterCall": "if r == SUCCESS { instanceCreated(instance) }"
+    },
+    "vkDestroyInstance": {
+      "go:afterCall": "instanceDestroyed(instance)"
+    }
+  },
+
   "struct": {
     "VkDescriptorSetLayoutBinding": {
       "forceIncludeMember": "descriptorCount",

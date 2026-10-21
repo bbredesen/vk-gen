@@ -55,7 +55,11 @@ func ReadExtensionFromXML(extNode *xmlquery.Node, tr def.TypeRegistry, vr def.Va
 			var vd def.ValueDefiner
 
 			if td, found := tr[extendsTypeName]; found {
-				vd = def.NewEnumValueFromXML(td, enumNode)
+				if enumNode.SelectAttr("bitpos") != "" {
+					vd = def.NewBitmaskValueFromXML(td, enumNode)
+				} else {
+					vd = def.NewEnumValueFromXML(td, enumNode)
+				}
 			} else {
 				vd = def.NewUntypedEnumValueFromXML(enumNode)
 			}

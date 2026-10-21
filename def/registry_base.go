@@ -3,8 +3,10 @@ package def
 import (
 	"fmt"
 	"io"
+	"math/big"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/antchfx/xmlquery"
 	"github.com/tidwall/gjson"
@@ -166,32 +168,98 @@ type ValueDefiner interface {
 	SetExtensionNumber(int)
 
 	IsAlias() bool
+	// AliasTarget returns the resolved value this one aliases, or nil if it is not an alias or is not yet resolved
+	AliasTarget() ValueDefiner
 	IsCore() bool
 }
 
 type ByValue []ValueDefiner
 
-// TODO: also sort by bitmask values and aliases
 func (a ByValue) Len() int      { return len(a) }
 func (a ByValue) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (a ByValue) Less(i, j int) bool {
-	iNum, err1 := strconv.Atoi(a[i].ValueString())
-	jNum, err2 := strconv.Atoi(a[j].ValueString())
-	if err1 == nil && err2 == nil {
-		if iNum == jNum {
-			// If the values are equal, sort by public name to ensure consistent ordering
-			return a[i].PublicName() < a[j].PublicName()
+	ki, kj := newValueSortKey(a[i]), newValueSortKey(a[j])
+	return ki.less(kj)
+}
+
+// Sort groups, in output order.
+const (
+	sortGroupLiteral = iota // value parses as a number: decimal, hex, or "1 << N"
+	sortGroupOther          // any other non-alias value expression, for example "(~0U)"
+	sortGroupAlias          // alias of another value, grouped at the end
+)
+
+// valueSortKey is compared field by field, which makes ByValue a strict total order (the final tiebreaker is the
+// unique public name). A comparator that mixes numeric and string comparison depending on the pair is not transitive in
+// general, and would make output depend on map iteration order.
+type valueSortKey struct {
+	group int
+	num   *big.Int // nil when the value (or an alias's final target) is not numeric
+	str   string   // non-numeric values compare by this: the value expression, or for aliases the target's name
+	name  string
+}
+
+func newValueSortKey(v ValueDefiner) valueSortKey {
+	k := valueSortKey{name: v.PublicName()}
+
+	if v.IsAlias() {
+		k.group = sortGroupAlias
+		target := v
+		for depth := 0; target.IsAlias() && target.AliasTarget() != nil && depth < 16; depth++ {
+			target = target.AliasTarget()
 		}
-		return iNum < jNum
+		if target.IsAlias() {
+			// Unresolved or cyclic alias
+			k.str = v.RegistryName()
+			return k
+		}
+		k.str = target.PublicName()
+		k.num = parseValueNumber(target.ValueString())
+		return k
 	}
 
-	iStr, jStr := a[i].ValueString(), a[j].ValueString()
-	if iStr == jStr {
-		// If the values are equal, sort by public name to ensure consistent ordering
-		return a[i].PublicName() < a[j].PublicName()
+	s := v.ValueString()
+	if n := parseValueNumber(s); n != nil {
+		k.group, k.num = sortGroupLiteral, n
+	} else {
+		k.group, k.str = sortGroupOther, s
 	}
+	return k
+}
 
-	return iStr < jStr
+func (a valueSortKey) less(b valueSortKey) bool {
+	if a.group != b.group {
+		return a.group < b.group
+	}
+	if (a.num != nil) != (b.num != nil) {
+		return a.num != nil // numeric before non-numeric
+	}
+	if a.num != nil {
+		if c := a.num.Cmp(b.num); c != 0 {
+			return c < 0
+		}
+	} else if a.str != b.str {
+		return a.str < b.str
+	}
+	return a.name < b.name
+}
+
+// parseValueNumber understands the forms generated for a constant: a decimal or hex literal, or "1 << N" for a
+// bitpos. The shift is done with big.Int because 64-bit flag types use up to bit 63. Returns nil for anything else.
+func parseValueNumber(s string) *big.Int {
+	s = strings.TrimSpace(s)
+	if rest, ok := strings.CutPrefix(s, "1 << "); ok {
+		n, err := strconv.ParseUint(rest, 10, 8)
+		if err != nil {
+			return nil
+		}
+		return new(big.Int).Lsh(big.NewInt(1), uint(n))
+	}
+	n, ok := new(big.Int).SetString(s, 0)
+	if !ok {
+		return nil
+	}
+	return n
 }
 
 func WriteStringerCommands(w io.Writer, defs []TypeDefiner, cat TypeCategory, filenameBase string) {

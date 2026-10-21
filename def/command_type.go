@@ -21,6 +21,11 @@ type commandType struct {
 
 	staticCodeRef string
 
+	// afterCall is optional Go source from exceptions.json ("go:afterCall") emitted at the end of the generated function,
+	// after the Vulkan call and result handling and before the final return. It may refer to the command's parameters
+	// and results by their public names. It is currently only used to track instance lifetime for command resolution.
+	afterCall string
+
 	parameters []*commandParam
 
 	bindingParamCount int
@@ -447,6 +452,10 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		fmt.Fprint(w, "  if r == Result(0) {\nr = SUCCESS\n}\n")
 	}
 
+	if t.afterCall != "" {
+		fmt.Fprintf(w, "  %s\n", t.afterCall)
+	}
+
 	if len(funcReturnParams) > 0 {
 		fmt.Fprintf(w, "  return\n")
 	}
@@ -460,9 +469,17 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 func trampStringFromParams(sl []*commandParam) string {
 	sb := &strings.Builder{}
 	for _, param := range sl {
-		if param.resolvedType.Category() == CatPointer {
+		// Classification was already checked when the shape was built; an error here is not possible
+		class, _ := abiClassOf(param.resolvedType)
+
+		switch {
+		case param.resolvedType.Category() == CatPointer:
 			fmt.Fprintf(sb, ", uintptr(unsafe.Pointer(%s))", param.internalName)
-		} else {
+		case class == classFloat:
+			fmt.Fprintf(sb, ", float32(%s)", param.internalName)
+		case class == classDouble:
+			fmt.Fprintf(sb, ", float64(%s)", param.internalName)
+		default:
 			fmt.Fprintf(sb, ", uintptr(%s)", param.internalName)
 		}
 	}
@@ -471,17 +488,24 @@ func trampStringFromParams(sl []*commandParam) string {
 }
 
 func (t *commandType) printTrampolineCall(w io.Writer, trampParams []*commandParam, returnParam *commandParam) {
+	shape, err := shapeOfParams(trampParams)
+	if err != nil {
+		logrus.WithField("command", t.registryName).WithField("error", err).Fatal("Could not determine trampoline shape")
+	}
+	registerShape(shape)
+
+	call := callFuncName(shape)
 	trampParamsString := trampStringFromParams(trampParams)
 
 	if returnParam != nil {
 		if returnParam.resolvedType.IsIdenticalPublicAndInternal() {
-			fmt.Fprintf(w, "  %s = %s(execTrampoline(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), t.RegistryName(), trampParamsString)
+			fmt.Fprintf(w, "  %s = %s(%s(%s%s))\n", returnParam.publicName, returnParam.resolvedType.PublicName(), call, t.RegistryName(), trampParamsString)
 		} else {
-			fmt.Fprintf(w, "  rval := %s(execTrampoline(%s%s))\n", returnParam.resolvedType.InternalName(), t.RegistryName(), trampParamsString)
+			fmt.Fprintf(w, "  rval := %s(%s(%s%s))\n", returnParam.resolvedType.InternalName(), call, t.RegistryName(), trampParamsString)
 			fmt.Fprintf(w, "  %s = %s\n", returnParam.publicName, returnParam.resolvedType.TranslateToPublic("rval"))
 		}
 	} else {
-		fmt.Fprintf(w, "  execTrampoline(%s%s)\n", t.RegistryName(), trampParamsString)
+		fmt.Fprintf(w, "  %s(%s%s)\n", call, t.RegistryName(), trampParamsString)
 	}
 }
 
@@ -657,6 +681,11 @@ func NewCommandParamFromXML(elt *xmlquery.Node, forCommand *commandType) *comman
 	rval.optionalParamString = elt.SelectAttr("optional")
 	rval.isConstParam = strings.HasPrefix(elt.InnerText(), "const")
 	rval.pointerLevel = strings.Count(elt.InnerText(), "*")
+	if strings.Contains(elt.InnerText(), "[") {
+		// A fixed size array parameter (e.g., vkCmdSetBlendConstants' float[4]) is passed as a pointer to its first
+		// element; without this it would be mistaken for a by-value argument.
+		rval.pointerLevel++
+	}
 	rval.lenSpec = elt.SelectAttr("len")
 	rval.altLenSpec = elt.SelectAttr("altlen")
 
@@ -671,18 +700,30 @@ func ReadCommandExceptionsFromJSON(exceptions gjson.Result, tr TypeRegistry, vr 
 			return true
 		} // Ignore comments
 
-		entry := NewCommandFromJSON(key, exVal)
-		tr[key.String()] = entry
+		tr[key.String()] = NewOrUpdateCommandFromJSON(key.String(), exVal, tr)
 
 		return true
 	})
 }
 
-func NewCommandFromJSON(key, json gjson.Result) *commandType {
-	rval := commandType{}
-	rval.registryName = key.String()
-	rval.publicName = json.Get("publicName").String()
-	rval.staticCodeRef = json.Get("staticCodeRef").String()
+// NewOrUpdateCommandFromJSON applies an exceptions.json entry to the command read from vk.xml, or creates a new command
+// if the registry has none by that name (static code, which does not exist in vk.xml).
+func NewOrUpdateCommandFromJSON(key string, json gjson.Result, tr TypeRegistry) *commandType {
+	rval, ok := tr[key].(*commandType)
+	if !ok {
+		rval = &commandType{}
+		rval.registryName = key
+	}
 
-	return &rval
+	if v := json.Get("publicName"); v.Exists() {
+		rval.publicName = v.String()
+	}
+	if v := json.Get("staticCodeRef"); v.Exists() {
+		rval.staticCodeRef = v.String()
+	}
+	if v := json.Get("go:afterCall"); v.Exists() {
+		rval.afterCall = v.String()
+	}
+
+	return rval
 }

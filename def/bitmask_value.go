@@ -26,7 +26,12 @@ func (v *bitmaskValue) ValueString() string {
 }
 
 func (v *bitmaskValue) PrintPublicDeclaration(w io.Writer) {
-	fmt.Fprintf(w, "%s %s = %s\n", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
+	fmt.Fprintf(w, "%s %s = %s", v.PublicName(), v.resolvedType.PublicName(), v.ValueString())
+	if v.comment != "" {
+		fmt.Fprintf(w, " // %s\n", v.comment)
+	} else {
+		fmt.Fprintln(w)
+	}
 }
 
 func (v *bitmaskValue) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
@@ -67,6 +72,7 @@ func NewBitmaskValueFromXML(forBitmask TypeDefiner, elt *xmlquery.Node) *bitmask
 		rval.registryName = elt.SelectAttr("name")
 		rval.aliasValueName = alias
 	}
+	rval.comment = elt.SelectAttr("comment")
 	rval.underlyingTypeName = forBitmask.RegistryName()
 
 	return &rval
