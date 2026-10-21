@@ -370,7 +370,17 @@
       "go:internalSize": 8
     },
     "VkPerformanceCounterResultKHR": {
-      "go:internalSize": 8
+      "go:internalSize": 8,
+      "!comment": "vk.xml has no selector for this union; results come back through void* in vkGetQueryPoolResults and the active member is chosen by the storage of the matching VkPerformanceCounterKHR. go:selector/go:selections supply that mapping and generate PerformanceCounterResultKHRFromBytes.",
+      "go:selector": "VkPerformanceCounterStorageKHR",
+      "go:selections": {
+        "int32": "VK_PERFORMANCE_COUNTER_STORAGE_INT32_KHR",
+        "int64": "VK_PERFORMANCE_COUNTER_STORAGE_INT64_KHR",
+        "uint32": "VK_PERFORMANCE_COUNTER_STORAGE_UINT32_KHR",
+        "uint64": "VK_PERFORMANCE_COUNTER_STORAGE_UINT64_KHR",
+        "float32": "VK_PERFORMANCE_COUNTER_STORAGE_FLOAT32_KHR",
+        "float64": "VK_PERFORMANCE_COUNTER_STORAGE_FLOAT64_KHR"
+      }
     },
     "VkPerformanceValueDataINTEL": {
       "go:internalSize": 8
