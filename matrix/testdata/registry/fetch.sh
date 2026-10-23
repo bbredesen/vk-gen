@@ -19,6 +19,6 @@ fetch 1.0.69-core "$B/Vulkan-Docs/v1.0.69-core/src/spec/vk.xml"
 fetch 1.1.130 "$B/Vulkan-Headers/v1.1.130/registry/vk.xml"
 fetch 1.2.203 "$B/Vulkan-Headers/v1.2.203/registry/vk.xml"
 fetch 1.3.302 "$B/Vulkan-Headers/v1.3.302/registry/vk.xml"
-fetch 1.4.365 "$B/Vulkan-Headers/v1.4.365/registry/vk.xml"
+fetch 1.4.366 "$B/Vulkan-Headers/v1.4.366/registry/vk.xml"
 
 shasum -a 256 vk-*.xml > SHA256SUMS
