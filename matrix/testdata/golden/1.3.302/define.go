@@ -14,6 +14,9 @@ var API_VERSION_1_1 = MAKE_API_VERSION(0, 1, 1, 0)
 // API_VERSION_1_2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_API_VERSION_1_2.html
 var API_VERSION_1_2 = MAKE_API_VERSION(0, 1, 2, 0)
 
+// API_VERSION_1_3: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_API_VERSION_1_3.html
+var API_VERSION_1_3 = MAKE_API_VERSION(0, 1, 3, 0)
+
 // API_VERSION_MAJOR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_API_VERSION_MAJOR.html
 var API_VERSION_MAJOR = apiVersionMajor
 

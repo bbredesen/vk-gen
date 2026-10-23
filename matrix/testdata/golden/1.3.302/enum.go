@@ -3557,6 +3557,8 @@ const (
 	STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES                               StructureType = 50
 	STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES                                 StructureType = 51
 	STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES                               StructureType = 52
+	STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES                                 StructureType = 53
+	STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES                               StructureType = 54
 	STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR                                           StructureType = 1000001000
 	STRUCTURE_TYPE_PRESENT_INFO_KHR                                                    StructureType = 1000001001
 	STRUCTURE_TYPE_DISPLAY_MODE_CREATE_INFO_KHR                                        StructureType = 1000002000
