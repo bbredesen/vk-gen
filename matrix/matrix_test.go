@@ -37,6 +37,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"slices"
 	"sort"
 	"strings"
@@ -81,6 +82,9 @@ func TestMain(m *testing.M) {
 		os.Exit(2)
 	}
 	genPath = filepath.Join(dir, "vk-gen")
+	if runtime.GOOS == "windows" {
+		genPath += ".exe"
+	}
 	if out, err := exec.Command("go", "build", "-o", genPath, "..").CombinedOutput(); err != nil {
 		buildErr = fmt.Errorf("building vk-gen: %v\n%s", err, out)
 	}
@@ -468,10 +472,11 @@ func runIn(dir string, env []string, timeout time.Duration, name string, args ..
 
 func requireTool(t *testing.T, name string) {
 	t.Helper()
-	// vk-gen and `go generate` look in GOPATH/bin too, so check there as well as PATH.
+	// vk-gen and `go generate` look in GOPATH/bin too, so check there as well as PATH. LookPath adds the .exe extension
+	// on Windows.
 	path := strings.Join(append(filepath.SplitList(os.Getenv("PATH")), gopathBins()...), string(os.PathListSeparator))
 	for _, dir := range filepath.SplitList(path) {
-		if st, err := os.Stat(filepath.Join(dir, name)); err == nil && !st.IsDir() {
+		if _, err := exec.LookPath(filepath.Join(dir, name)); err == nil {
 			return
 		}
 	}
