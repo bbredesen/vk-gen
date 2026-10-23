@@ -1,29 +1,32 @@
 # Registry matrix tests
 
 These tests run vk-gen against pinned versions of the Vulkan registry (`vk.xml`) and check that each one produces a Go
-package that builds and passes its tests. vk-gen is meant to work with any published version of the specification, so
+package that builds and passes its tests in matrix_test.go, including a diff test against the appropriate "golden" copy
+of go-vk stored under this directory.
+
+vk-gen is meant to work with any published version of the specification, so
 that someone targeting a limited Vulkan implementation can generate against the version they need. This is the check
 that keeps it that way.
 
-The matrix pins the last release of each minor version, plus the current revision:
+The matrix pins the last release of each minor version, plus the current 1.4 revision:
 
 | Version | Source |
 |---|---|
 | 1.0.69-core | Vulkan-Docs `v1.0.69-core` (`src/spec/vk.xml`); Vulkan-Headers has no tag this old |
-| 1.1.130, 1.2.203, 1.3.302, 1.4.365 | Vulkan-Headers `v<version>` (`registry/vk.xml`) |
+| 1.1.130, 1.2.203, 1.3.302, 1.4.366 | Vulkan-Headers `v<version>` (`registry/vk.xml`) |
 
 ## Running
 
 ```sh
 go test -count=1 ./matrix            # all versions, about 30 seconds
 go test -count=1 ./matrix -run 'RegistryMatrix/1.2'   # one version
-go test -count=1 ./matrix -v         # shows each stage, and why known failures fail
+go test -count=1 ./matrix -v         # shows each stage
 ```
 
-Use `-count=1`. The test builds and runs vk-gen as a separate program, so Go's test cache cannot see that vk-gen's source
-changed and will report a stale pass.
+The test builds and runs vk-gen as a separate program, so Go's test cache cannot see that vk-gen's source
+changed and will report a stale pass. Use `-count=1` to force a test run.
 
-It needs `goimports` and `stringer` (in `PATH` or `GOPATH/bin`) and a C compiler, because the generated package uses cgo.
+Testing needs `goimports` and `stringer` (in `PATH` or `GOPATH/bin`) and a C compiler, because the generated package uses cgo.
 Without the tools the test skips locally; it fails if `CI` or `VK_MATRIX_REQUIRE_TOOLS` is set. The generated package is
 built for the host OS only, since cgo cannot be cross-compiled without a cross C compiler. The first run may download
 `golang.org/x/sys`.
@@ -38,7 +41,6 @@ testdata/
     SHA256SUMS                  checked by TestRegistryChecksums
     fetch.sh                    downloads the pinned files; only run it to add or re-pin a version
   golden/<version>/             expected output for a version (see below)
-  known_failures.json           versions that are expected to fail a stage
   excluded_static_tests.json    static test files removed for versions that predate what they use
 ```
 
@@ -65,18 +67,6 @@ failing stage.
 
 `TestRegistryChecksums` checks the committed registry files against `SHA256SUMS`, so a pinned file cannot change unnoticed.
 
-## Known failures
-
-`known_failures.json` records a version that is expected to fail, and where:
-
-```json
-{ "1.4.365": { "stage": "vet", "reason": "what is wrong" } }
-```
-
-The version is expected to fail at exactly that stage. The test fails if it passes instead (so the entry gets removed when
-the generator is fixed) or fails at a different stage. A version with an entry cannot have a golden, because it does not
-reach the golden stage.
-
 ## Excluded static tests
 
 The files in `_static_include/*_test.go` are one unit (they share helpers) and use specific extensions, for example
@@ -93,8 +83,8 @@ before the vet and test stages, with the reason. Do not use it to hide a failure
 2. Run `go test -count=1 ./matrix -run 'RegistryMatrix/<version>' -v`. Without a golden it runs the smoke stages
    (generate through test). To try a version without touching `fetch.sh`, drop the file into `testdata/registry/` and
    add its checksum to `SHA256SUMS`.
-3. If a stage fails, either fix the generator, or if that is not going to happen now, add an entry to
-   `known_failures.json` with the reason.
+3. If a stage fails, fix the generator. A pinned version must pass every stage. If the failure is only because the 
+   version predates an API that the static tests use, see "Excluded static tests".
 4. When the version passes every stage, record the golden:
 
    ```sh

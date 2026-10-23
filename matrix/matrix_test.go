@@ -20,10 +20,6 @@
 // testdata/excluded_static_tests.json lists static test files that are removed from a version's output before the vet and
 // test stages because the version predates an API the test uses (for example, loader_test.go needs VK_EXT_debug_utils).
 //
-// testdata/known_failures.json lists versions that are known to fail a stage, with the reason. A listed version is
-// expected to fail at exactly that stage, and the test fails if it passes instead, so the entry gets removed when the
-// generator is fixed.
-//
 // The generated package uses cgo and is built for the host GOOS only. The tests need goimports and stringer; set
 // VK_MATRIX_REQUIRE_TOOLS=1 (or CI) to fail, rather than skip, when they are missing.
 package matrix
@@ -58,19 +54,12 @@ const (
 // files copied from _static_include (see staticNames).
 var testModuleFiles = map[string]bool{"go.mod": true, "go.sum": true}
 
-type knownFailure struct {
-	Stage  string `json:"stage"`
-	Reason string `json:"reason"`
-}
-
 // excludedTests lists static test files that are removed from a version's output before the vet and test stages, because
 // they use an API that the version does not have.
 type excludedTests struct {
 	Files  []string `json:"files"`
 	Reason string   `json:"reason"`
 }
-
-var stageOrder = []string{"generate", "gogenerate", "build", "vet", "test", "golden"}
 
 var (
 	buildOnce sync.Once
@@ -133,12 +122,6 @@ func TestRegistryMatrix(t *testing.T) {
 		t.Fatalf("no registry files found in %s (err %v)", registryDir, err)
 	}
 
-	known := map[string]knownFailure{}
-	if data, err := os.ReadFile("testdata/known_failures.json"); err != nil {
-		t.Fatal(err)
-	} else if err := json.Unmarshal(data, &known); err != nil {
-		t.Fatalf("known_failures.json: %v", err)
-	}
 	statics := staticNames(t)
 
 	excluded := map[string]excludedTests{}
@@ -152,7 +135,7 @@ func TestRegistryMatrix(t *testing.T) {
 		version := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(f), "vk-"), ".xml")
 		t.Run(version, func(t *testing.T) {
 			t.Parallel()
-			runVersion(t, version, known[version], excluded[version], statics)
+			runVersion(t, version, excluded[version], statics)
 		})
 	}
 
@@ -166,18 +149,9 @@ func TestRegistryMatrix(t *testing.T) {
 			}
 		}
 	}
-
-	for version, kf := range known {
-		if _, err := os.Stat(filepath.Join(registryDir, "vk-"+version+".xml")); err != nil {
-			t.Errorf("known_failures.json lists %s, which has no registry file", version)
-		}
-		if indexOf(stageOrder, kf.Stage) < 0 {
-			t.Errorf("known_failures.json: %s has unknown stage %q", version, kf.Stage)
-		}
-	}
 }
 
-func runVersion(t *testing.T, version string, known knownFailure, excluded excludedTests, statics map[string]bool) {
+func runVersion(t *testing.T, version string, excluded excludedTests, statics map[string]bool) {
 	out := t.TempDir()
 	env := toolEnv()
 
@@ -197,21 +171,10 @@ func runVersion(t *testing.T, version string, known knownFailure, excluded exclu
 	for _, s := range stages {
 		err := s.fn()
 
-		if known.Stage == s.name {
-			if err == nil {
-				t.Fatalf("stage %s passed, but is listed in known_failures.json as failing (%s); remove the entry", s.name, known.Reason)
-			}
-			t.Logf("stage %s fails as expected: %s\n%v", s.name, known.Reason, firstLines(err.Error(), 12))
-			return
-		}
 		if err != nil {
 			t.Fatalf("stage %s: %v", s.name, err)
 		}
 		t.Logf("stage %s ok", s.name)
-	}
-
-	if known.Stage != "" {
-		t.Fatalf("version passed every stage, but known_failures.json lists %s as failing", known.Stage)
 	}
 }
 
@@ -474,21 +437,4 @@ func tail(s string) string {
 		lines = append([]string{"..."}, lines[len(lines)-40:]...)
 	}
 	return strings.Join(lines, "\n")
-}
-
-func firstLines(s string, n int) string {
-	lines := strings.Split(s, "\n")
-	if len(lines) > n {
-		lines = append(lines[:n], "...")
-	}
-	return strings.Join(lines, "\n")
-}
-
-func indexOf(s []string, v string) int {
-	for i, x := range s {
-		if x == v {
-			return i
-		}
-	}
-	return -1
 }

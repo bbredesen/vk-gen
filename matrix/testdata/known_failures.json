@@ -1,6 +1,0 @@
-{
-  "1.4.365": {
-    "stage": "vet",
-    "reason": "main.go reads only VK_VERSION_1_0 to 1_2. From 1.4 the registry moves the 1.0 content into the internal VK_BASE_VERSION_1_0, VK_COMPUTE_VERSION_1_0 and VK_GRAPHICS_VERSION_1_0 features (VK_VERSION_1_0 only depends on them), so core types and commands such as SubmitInfo and QueueSubmit are not generated and the static tests do not compile"
-  }
-}
