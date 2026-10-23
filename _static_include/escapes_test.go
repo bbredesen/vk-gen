@@ -147,7 +147,11 @@ func TestOutputPointerSurvivesStackGrowth(t *testing.T) {
 	}
 
 	if len(failures) > 0 {
-		t.Errorf("output of GetPhysicalDeviceMemoryProperties was lost at %d stack depths (first few: %v)", len(failures), failures[:min(len(failures), 5)])
+		first := failures
+		if len(first) > 5 {
+			first = first[:5]
+		}
+		t.Errorf("output of GetPhysicalDeviceMemoryProperties was lost at %d stack depths (first few: %v)", len(failures), first)
 	}
 }
 
