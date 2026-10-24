@@ -6034,11 +6034,12 @@ func GetAccelerationStructureMemoryRequirementsNV(device Device, info *Accelerat
 		pInfo = info.Vulkanize()
 	}
 
-	// memoryRequirements is a binding-allocated single return value and will be populated by Vulkan
-	pMemoryRequirements := &memoryRequirements
+	// memoryRequirements is a binding-allocated single return value and will be populated by Vulkan, but requiring translation
+	var pMemoryRequirements *_vkMemoryRequirements2KHR = memoryRequirements.Vulkanize()
 
 	vkCall_iii(vkGetAccelerationStructureMemoryRequirementsNV, uintptr(device), uintptr(unsafe.Pointer(pInfo)), uintptr(unsafe.Pointer(pMemoryRequirements)))
 
+	memoryRequirements = *(pMemoryRequirements.Goify())
 	return
 }
 
@@ -8551,10 +8552,10 @@ var vkGetPipelineKeyKHR = &vkCommand{"vkGetPipelineKeyKHR", 3, true, nil}
 
 // GetPipelinePropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPipelinePropertiesEXT.html
 func GetPipelinePropertiesEXT(device Device, pipelineInfo *PipelineInfoEXT) (pipelineProperties BaseOutStructure, r error) {
-	// Parameter is a singular input, pass direct - pipelineInfo
-	var pPipelineInfo unsafe.Pointer
+	// Parameter is a singular input, requires translation - pipelineInfo
+	var pPipelineInfo *_vkPipelineInfoEXT
 	if pipelineInfo != nil {
-		pPipelineInfo = unsafe.Pointer(pipelineInfo)
+		pPipelineInfo = pipelineInfo.Vulkanize()
 	}
 
 	// pipelineProperties is a binding-allocated single return value and will be populated by Vulkan

@@ -29,22 +29,9 @@ func (s *AabbPositionsKHR) Vulkanize() *_vkAabbPositionsKHR {
 }
 
 // AabbPositionsNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAabbPositionsNV.html
-type AabbPositionsNV struct {
-}
+type AabbPositionsNV = AabbPositionsKHR
 
-type _vkAabbPositionsNV = AabbPositionsNV
-
-func (s *_vkAabbPositionsNV) Goify() *AabbPositionsNV {
-	rval := (*AabbPositionsNV)(s)
-	return rval
-}
-func (s *AabbPositionsNV) Vulkanize() *_vkAabbPositionsNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkAabbPositionsNV)(s)
-	return rval
-}
+type _vkAabbPositionsNV = _vkAabbPositionsKHR
 
 // AccelerationStructureBuildGeometryInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAccelerationStructureBuildGeometryInfoKHR.html
 type AccelerationStructureBuildGeometryInfoKHR struct {
@@ -905,22 +892,9 @@ func (s *AccelerationStructureInstanceKHR) Vulkanize() *_vkAccelerationStructure
 }
 
 // AccelerationStructureInstanceNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAccelerationStructureInstanceNV.html
-type AccelerationStructureInstanceNV struct {
-}
+type AccelerationStructureInstanceNV = AccelerationStructureInstanceKHR
 
-type _vkAccelerationStructureInstanceNV = AccelerationStructureInstanceNV
-
-func (s *_vkAccelerationStructureInstanceNV) Goify() *AccelerationStructureInstanceNV {
-	rval := (*AccelerationStructureInstanceNV)(s)
-	return rval
-}
-func (s *AccelerationStructureInstanceNV) Vulkanize() *_vkAccelerationStructureInstanceNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkAccelerationStructureInstanceNV)(s)
-	return rval
-}
+type _vkAccelerationStructureInstanceNV = _vkAccelerationStructureInstanceKHR
 
 // AccelerationStructureMatrixMotionInstanceNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAccelerationStructureMatrixMotionInstanceNV.html
 type AccelerationStructureMatrixMotionInstanceNV struct {
@@ -1650,22 +1624,9 @@ func (s *AttachmentDescription2) Vulkanize() *_vkAttachmentDescription2 {
 }
 
 // AttachmentDescription2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentDescription2KHR.html
-type AttachmentDescription2KHR struct {
-}
+type AttachmentDescription2KHR = AttachmentDescription2
 
-type _vkAttachmentDescription2KHR = AttachmentDescription2KHR
-
-func (s *_vkAttachmentDescription2KHR) Goify() *AttachmentDescription2KHR {
-	rval := (*AttachmentDescription2KHR)(s)
-	return rval
-}
-func (s *AttachmentDescription2KHR) Vulkanize() *_vkAttachmentDescription2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkAttachmentDescription2KHR)(s)
-	return rval
-}
+type _vkAttachmentDescription2KHR = _vkAttachmentDescription2
 
 // AttachmentDescriptionStencilLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentDescriptionStencilLayout.html
 type AttachmentDescriptionStencilLayout struct {
@@ -1704,22 +1665,9 @@ func (s *AttachmentDescriptionStencilLayout) Vulkanize() *_vkAttachmentDescripti
 }
 
 // AttachmentDescriptionStencilLayoutKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentDescriptionStencilLayoutKHR.html
-type AttachmentDescriptionStencilLayoutKHR struct {
-}
+type AttachmentDescriptionStencilLayoutKHR = AttachmentDescriptionStencilLayout
 
-type _vkAttachmentDescriptionStencilLayoutKHR = AttachmentDescriptionStencilLayoutKHR
-
-func (s *_vkAttachmentDescriptionStencilLayoutKHR) Goify() *AttachmentDescriptionStencilLayoutKHR {
-	rval := (*AttachmentDescriptionStencilLayoutKHR)(s)
-	return rval
-}
-func (s *AttachmentDescriptionStencilLayoutKHR) Vulkanize() *_vkAttachmentDescriptionStencilLayoutKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkAttachmentDescriptionStencilLayoutKHR)(s)
-	return rval
-}
+type _vkAttachmentDescriptionStencilLayoutKHR = _vkAttachmentDescriptionStencilLayout
 
 // AttachmentFeedbackLoopInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentFeedbackLoopInfoEXT.html
 type AttachmentFeedbackLoopInfoEXT struct {
@@ -1814,22 +1762,9 @@ func (s *AttachmentReference2) Vulkanize() *_vkAttachmentReference2 {
 }
 
 // AttachmentReference2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentReference2KHR.html
-type AttachmentReference2KHR struct {
-}
+type AttachmentReference2KHR = AttachmentReference2
 
-type _vkAttachmentReference2KHR = AttachmentReference2KHR
-
-func (s *_vkAttachmentReference2KHR) Goify() *AttachmentReference2KHR {
-	rval := (*AttachmentReference2KHR)(s)
-	return rval
-}
-func (s *AttachmentReference2KHR) Vulkanize() *_vkAttachmentReference2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkAttachmentReference2KHR)(s)
-	return rval
-}
+type _vkAttachmentReference2KHR = _vkAttachmentReference2
 
 // AttachmentReferenceStencilLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentReferenceStencilLayout.html
 type AttachmentReferenceStencilLayout struct {
@@ -1864,22 +1799,9 @@ func (s *AttachmentReferenceStencilLayout) Vulkanize() *_vkAttachmentReferenceSt
 }
 
 // AttachmentReferenceStencilLayoutKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentReferenceStencilLayoutKHR.html
-type AttachmentReferenceStencilLayoutKHR struct {
-}
+type AttachmentReferenceStencilLayoutKHR = AttachmentReferenceStencilLayout
 
-type _vkAttachmentReferenceStencilLayoutKHR = AttachmentReferenceStencilLayoutKHR
-
-func (s *_vkAttachmentReferenceStencilLayoutKHR) Goify() *AttachmentReferenceStencilLayoutKHR {
-	rval := (*AttachmentReferenceStencilLayoutKHR)(s)
-	return rval
-}
-func (s *AttachmentReferenceStencilLayoutKHR) Vulkanize() *_vkAttachmentReferenceStencilLayoutKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkAttachmentReferenceStencilLayoutKHR)(s)
-	return rval
-}
+type _vkAttachmentReferenceStencilLayoutKHR = _vkAttachmentReferenceStencilLayout
 
 // AttachmentSampleCountInfoAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentSampleCountInfoAMD.html
 type AttachmentSampleCountInfoAMD struct {
@@ -1927,22 +1849,9 @@ func (s *AttachmentSampleCountInfoAMD) Vulkanize() *_vkAttachmentSampleCountInfo
 }
 
 // AttachmentSampleCountInfoNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentSampleCountInfoNV.html
-type AttachmentSampleCountInfoNV struct {
-}
+type AttachmentSampleCountInfoNV = AttachmentSampleCountInfoAMD
 
-type _vkAttachmentSampleCountInfoNV = AttachmentSampleCountInfoNV
-
-func (s *_vkAttachmentSampleCountInfoNV) Goify() *AttachmentSampleCountInfoNV {
-	rval := (*AttachmentSampleCountInfoNV)(s)
-	return rval
-}
-func (s *AttachmentSampleCountInfoNV) Vulkanize() *_vkAttachmentSampleCountInfoNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkAttachmentSampleCountInfoNV)(s)
-	return rval
-}
+type _vkAttachmentSampleCountInfoNV = _vkAttachmentSampleCountInfoAMD
 
 // AttachmentSampleLocationsEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAttachmentSampleLocationsEXT.html
 type AttachmentSampleLocationsEXT struct {
@@ -2136,22 +2045,9 @@ func (s *BindBufferMemoryDeviceGroupInfo) Vulkanize() *_vkBindBufferMemoryDevice
 }
 
 // BindBufferMemoryDeviceGroupInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindBufferMemoryDeviceGroupInfoKHR.html
-type BindBufferMemoryDeviceGroupInfoKHR struct {
-}
+type BindBufferMemoryDeviceGroupInfoKHR = BindBufferMemoryDeviceGroupInfo
 
-type _vkBindBufferMemoryDeviceGroupInfoKHR = BindBufferMemoryDeviceGroupInfoKHR
-
-func (s *_vkBindBufferMemoryDeviceGroupInfoKHR) Goify() *BindBufferMemoryDeviceGroupInfoKHR {
-	rval := (*BindBufferMemoryDeviceGroupInfoKHR)(s)
-	return rval
-}
-func (s *BindBufferMemoryDeviceGroupInfoKHR) Vulkanize() *_vkBindBufferMemoryDeviceGroupInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBindBufferMemoryDeviceGroupInfoKHR)(s)
-	return rval
-}
+type _vkBindBufferMemoryDeviceGroupInfoKHR = _vkBindBufferMemoryDeviceGroupInfo
 
 // BindBufferMemoryInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindBufferMemoryInfo.html
 type BindBufferMemoryInfo struct {
@@ -2194,22 +2090,9 @@ func (s *BindBufferMemoryInfo) Vulkanize() *_vkBindBufferMemoryInfo {
 }
 
 // BindBufferMemoryInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindBufferMemoryInfoKHR.html
-type BindBufferMemoryInfoKHR struct {
-}
+type BindBufferMemoryInfoKHR = BindBufferMemoryInfo
 
-type _vkBindBufferMemoryInfoKHR = BindBufferMemoryInfoKHR
-
-func (s *_vkBindBufferMemoryInfoKHR) Goify() *BindBufferMemoryInfoKHR {
-	rval := (*BindBufferMemoryInfoKHR)(s)
-	return rval
-}
-func (s *BindBufferMemoryInfoKHR) Vulkanize() *_vkBindBufferMemoryInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBindBufferMemoryInfoKHR)(s)
-	return rval
-}
+type _vkBindBufferMemoryInfoKHR = _vkBindBufferMemoryInfo
 
 // BindDataGraphPipelineSessionMemoryInfoARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindDataGraphPipelineSessionMemoryInfoARM.html
 type BindDataGraphPipelineSessionMemoryInfoARM struct {
@@ -2366,22 +2249,9 @@ func (s *BindDescriptorSetsInfo) Vulkanize() *_vkBindDescriptorSetsInfo {
 }
 
 // BindDescriptorSetsInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindDescriptorSetsInfoKHR.html
-type BindDescriptorSetsInfoKHR struct {
-}
+type BindDescriptorSetsInfoKHR = BindDescriptorSetsInfo
 
-type _vkBindDescriptorSetsInfoKHR = BindDescriptorSetsInfoKHR
-
-func (s *_vkBindDescriptorSetsInfoKHR) Goify() *BindDescriptorSetsInfoKHR {
-	rval := (*BindDescriptorSetsInfoKHR)(s)
-	return rval
-}
-func (s *BindDescriptorSetsInfoKHR) Vulkanize() *_vkBindDescriptorSetsInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBindDescriptorSetsInfoKHR)(s)
-	return rval
-}
+type _vkBindDescriptorSetsInfoKHR = _vkBindDescriptorSetsInfo
 
 // BindHeapInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindHeapInfoEXT.html
 type BindHeapInfoEXT struct {
@@ -2482,22 +2352,9 @@ func (s *BindImageMemoryDeviceGroupInfo) Vulkanize() *_vkBindImageMemoryDeviceGr
 }
 
 // BindImageMemoryDeviceGroupInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindImageMemoryDeviceGroupInfoKHR.html
-type BindImageMemoryDeviceGroupInfoKHR struct {
-}
+type BindImageMemoryDeviceGroupInfoKHR = BindImageMemoryDeviceGroupInfo
 
-type _vkBindImageMemoryDeviceGroupInfoKHR = BindImageMemoryDeviceGroupInfoKHR
-
-func (s *_vkBindImageMemoryDeviceGroupInfoKHR) Goify() *BindImageMemoryDeviceGroupInfoKHR {
-	rval := (*BindImageMemoryDeviceGroupInfoKHR)(s)
-	return rval
-}
-func (s *BindImageMemoryDeviceGroupInfoKHR) Vulkanize() *_vkBindImageMemoryDeviceGroupInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBindImageMemoryDeviceGroupInfoKHR)(s)
-	return rval
-}
+type _vkBindImageMemoryDeviceGroupInfoKHR = _vkBindImageMemoryDeviceGroupInfo
 
 // BindImageMemoryInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindImageMemoryInfo.html
 type BindImageMemoryInfo struct {
@@ -2540,22 +2397,9 @@ func (s *BindImageMemoryInfo) Vulkanize() *_vkBindImageMemoryInfo {
 }
 
 // BindImageMemoryInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindImageMemoryInfoKHR.html
-type BindImageMemoryInfoKHR struct {
-}
+type BindImageMemoryInfoKHR = BindImageMemoryInfo
 
-type _vkBindImageMemoryInfoKHR = BindImageMemoryInfoKHR
-
-func (s *_vkBindImageMemoryInfoKHR) Goify() *BindImageMemoryInfoKHR {
-	rval := (*BindImageMemoryInfoKHR)(s)
-	return rval
-}
-func (s *BindImageMemoryInfoKHR) Vulkanize() *_vkBindImageMemoryInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBindImageMemoryInfoKHR)(s)
-	return rval
-}
+type _vkBindImageMemoryInfoKHR = _vkBindImageMemoryInfo
 
 // BindImageMemorySwapchainInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindImageMemorySwapchainInfoKHR.html
 type BindImageMemorySwapchainInfoKHR struct {
@@ -2626,22 +2470,9 @@ func (s *BindImagePlaneMemoryInfo) Vulkanize() *_vkBindImagePlaneMemoryInfo {
 }
 
 // BindImagePlaneMemoryInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindImagePlaneMemoryInfoKHR.html
-type BindImagePlaneMemoryInfoKHR struct {
-}
+type BindImagePlaneMemoryInfoKHR = BindImagePlaneMemoryInfo
 
-type _vkBindImagePlaneMemoryInfoKHR = BindImagePlaneMemoryInfoKHR
-
-func (s *_vkBindImagePlaneMemoryInfoKHR) Goify() *BindImagePlaneMemoryInfoKHR {
-	rval := (*BindImagePlaneMemoryInfoKHR)(s)
-	return rval
-}
-func (s *BindImagePlaneMemoryInfoKHR) Vulkanize() *_vkBindImagePlaneMemoryInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBindImagePlaneMemoryInfoKHR)(s)
-	return rval
-}
+type _vkBindImagePlaneMemoryInfoKHR = _vkBindImagePlaneMemoryInfo
 
 // BindIndexBuffer3InfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindIndexBuffer3InfoKHR.html
 type BindIndexBuffer3InfoKHR struct {
@@ -2758,22 +2589,9 @@ func (s *BindMemoryStatus) Vulkanize() *_vkBindMemoryStatus {
 }
 
 // BindMemoryStatusKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindMemoryStatusKHR.html
-type BindMemoryStatusKHR struct {
-}
+type BindMemoryStatusKHR = BindMemoryStatus
 
-type _vkBindMemoryStatusKHR = BindMemoryStatusKHR
-
-func (s *_vkBindMemoryStatusKHR) Goify() *BindMemoryStatusKHR {
-	rval := (*BindMemoryStatusKHR)(s)
-	return rval
-}
-func (s *BindMemoryStatusKHR) Vulkanize() *_vkBindMemoryStatusKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBindMemoryStatusKHR)(s)
-	return rval
-}
+type _vkBindMemoryStatusKHR = _vkBindMemoryStatus
 
 // BindPipelineIndirectCommandNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBindPipelineIndirectCommandNV.html
 type BindPipelineIndirectCommandNV struct {
@@ -3218,22 +3036,9 @@ func (s *BlitImageInfo2) Vulkanize() *_vkBlitImageInfo2 {
 }
 
 // BlitImageInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBlitImageInfo2KHR.html
-type BlitImageInfo2KHR struct {
-}
+type BlitImageInfo2KHR = BlitImageInfo2
 
-type _vkBlitImageInfo2KHR = BlitImageInfo2KHR
-
-func (s *_vkBlitImageInfo2KHR) Goify() *BlitImageInfo2KHR {
-	rval := (*BlitImageInfo2KHR)(s)
-	return rval
-}
-func (s *BlitImageInfo2KHR) Vulkanize() *_vkBlitImageInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBlitImageInfo2KHR)(s)
-	return rval
-}
+type _vkBlitImageInfo2KHR = _vkBlitImageInfo2
 
 // BufferCaptureDescriptorDataInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferCaptureDescriptorDataInfoEXT.html
 type BufferCaptureDescriptorDataInfoEXT struct {
@@ -3335,22 +3140,9 @@ func (s *BufferCopy2) Vulkanize() *_vkBufferCopy2 {
 }
 
 // BufferCopy2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferCopy2KHR.html
-type BufferCopy2KHR struct {
-}
+type BufferCopy2KHR = BufferCopy2
 
-type _vkBufferCopy2KHR = BufferCopy2KHR
-
-func (s *_vkBufferCopy2KHR) Goify() *BufferCopy2KHR {
-	rval := (*BufferCopy2KHR)(s)
-	return rval
-}
-func (s *BufferCopy2KHR) Vulkanize() *_vkBufferCopy2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferCopy2KHR)(s)
-	return rval
-}
+type _vkBufferCopy2KHR = _vkBufferCopy2
 
 // BufferCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferCreateInfo.html
 type BufferCreateInfo struct {
@@ -3509,40 +3301,14 @@ func (s *BufferDeviceAddressInfo) Vulkanize() *_vkBufferDeviceAddressInfo {
 }
 
 // BufferDeviceAddressInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferDeviceAddressInfoEXT.html
-type BufferDeviceAddressInfoEXT struct {
-}
+type BufferDeviceAddressInfoEXT = BufferDeviceAddressInfo
 
-type _vkBufferDeviceAddressInfoEXT = BufferDeviceAddressInfoEXT
-
-func (s *_vkBufferDeviceAddressInfoEXT) Goify() *BufferDeviceAddressInfoEXT {
-	rval := (*BufferDeviceAddressInfoEXT)(s)
-	return rval
-}
-func (s *BufferDeviceAddressInfoEXT) Vulkanize() *_vkBufferDeviceAddressInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferDeviceAddressInfoEXT)(s)
-	return rval
-}
+type _vkBufferDeviceAddressInfoEXT = _vkBufferDeviceAddressInfo
 
 // BufferDeviceAddressInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferDeviceAddressInfoKHR.html
-type BufferDeviceAddressInfoKHR struct {
-}
+type BufferDeviceAddressInfoKHR = BufferDeviceAddressInfo
 
-type _vkBufferDeviceAddressInfoKHR = BufferDeviceAddressInfoKHR
-
-func (s *_vkBufferDeviceAddressInfoKHR) Goify() *BufferDeviceAddressInfoKHR {
-	rval := (*BufferDeviceAddressInfoKHR)(s)
-	return rval
-}
-func (s *BufferDeviceAddressInfoKHR) Vulkanize() *_vkBufferDeviceAddressInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferDeviceAddressInfoKHR)(s)
-	return rval
-}
+type _vkBufferDeviceAddressInfoKHR = _vkBufferDeviceAddressInfo
 
 // BufferImageCopy: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferImageCopy.html
 type BufferImageCopy struct {
@@ -3650,22 +3416,9 @@ func (s *BufferImageCopy2) Vulkanize() *_vkBufferImageCopy2 {
 }
 
 // BufferImageCopy2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferImageCopy2KHR.html
-type BufferImageCopy2KHR struct {
-}
+type BufferImageCopy2KHR = BufferImageCopy2
 
-type _vkBufferImageCopy2KHR = BufferImageCopy2KHR
-
-func (s *_vkBufferImageCopy2KHR) Goify() *BufferImageCopy2KHR {
-	rval := (*BufferImageCopy2KHR)(s)
-	return rval
-}
-func (s *BufferImageCopy2KHR) Vulkanize() *_vkBufferImageCopy2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferImageCopy2KHR)(s)
-	return rval
-}
+type _vkBufferImageCopy2KHR = _vkBufferImageCopy2
 
 // BufferMemoryBarrier: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferMemoryBarrier.html
 type BufferMemoryBarrier struct {
@@ -3795,22 +3548,9 @@ func (s *BufferMemoryBarrier2) Vulkanize() *_vkBufferMemoryBarrier2 {
 }
 
 // BufferMemoryBarrier2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferMemoryBarrier2KHR.html
-type BufferMemoryBarrier2KHR struct {
-}
+type BufferMemoryBarrier2KHR = BufferMemoryBarrier2
 
-type _vkBufferMemoryBarrier2KHR = BufferMemoryBarrier2KHR
-
-func (s *_vkBufferMemoryBarrier2KHR) Goify() *BufferMemoryBarrier2KHR {
-	rval := (*BufferMemoryBarrier2KHR)(s)
-	return rval
-}
-func (s *BufferMemoryBarrier2KHR) Vulkanize() *_vkBufferMemoryBarrier2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferMemoryBarrier2KHR)(s)
-	return rval
-}
+type _vkBufferMemoryBarrier2KHR = _vkBufferMemoryBarrier2
 
 // BufferMemoryRequirementsInfo2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferMemoryRequirementsInfo2.html
 type BufferMemoryRequirementsInfo2 struct {
@@ -3845,22 +3585,9 @@ func (s *BufferMemoryRequirementsInfo2) Vulkanize() *_vkBufferMemoryRequirements
 }
 
 // BufferMemoryRequirementsInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferMemoryRequirementsInfo2KHR.html
-type BufferMemoryRequirementsInfo2KHR struct {
-}
+type BufferMemoryRequirementsInfo2KHR = BufferMemoryRequirementsInfo2
 
-type _vkBufferMemoryRequirementsInfo2KHR = BufferMemoryRequirementsInfo2KHR
-
-func (s *_vkBufferMemoryRequirementsInfo2KHR) Goify() *BufferMemoryRequirementsInfo2KHR {
-	rval := (*BufferMemoryRequirementsInfo2KHR)(s)
-	return rval
-}
-func (s *BufferMemoryRequirementsInfo2KHR) Vulkanize() *_vkBufferMemoryRequirementsInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferMemoryRequirementsInfo2KHR)(s)
-	return rval
-}
+type _vkBufferMemoryRequirementsInfo2KHR = _vkBufferMemoryRequirementsInfo2
 
 // BufferOpaqueCaptureAddressCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferOpaqueCaptureAddressCreateInfo.html
 type BufferOpaqueCaptureAddressCreateInfo struct {
@@ -3895,22 +3622,9 @@ func (s *BufferOpaqueCaptureAddressCreateInfo) Vulkanize() *_vkBufferOpaqueCaptu
 }
 
 // BufferOpaqueCaptureAddressCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferOpaqueCaptureAddressCreateInfoKHR.html
-type BufferOpaqueCaptureAddressCreateInfoKHR struct {
-}
+type BufferOpaqueCaptureAddressCreateInfoKHR = BufferOpaqueCaptureAddressCreateInfo
 
-type _vkBufferOpaqueCaptureAddressCreateInfoKHR = BufferOpaqueCaptureAddressCreateInfoKHR
-
-func (s *_vkBufferOpaqueCaptureAddressCreateInfoKHR) Goify() *BufferOpaqueCaptureAddressCreateInfoKHR {
-	rval := (*BufferOpaqueCaptureAddressCreateInfoKHR)(s)
-	return rval
-}
-func (s *BufferOpaqueCaptureAddressCreateInfoKHR) Vulkanize() *_vkBufferOpaqueCaptureAddressCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferOpaqueCaptureAddressCreateInfoKHR)(s)
-	return rval
-}
+type _vkBufferOpaqueCaptureAddressCreateInfoKHR = _vkBufferOpaqueCaptureAddressCreateInfo
 
 // BufferUsageFlags2CreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferUsageFlags2CreateInfo.html
 type BufferUsageFlags2CreateInfo struct {
@@ -3945,22 +3659,9 @@ func (s *BufferUsageFlags2CreateInfo) Vulkanize() *_vkBufferUsageFlags2CreateInf
 }
 
 // BufferUsageFlags2CreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferUsageFlags2CreateInfoKHR.html
-type BufferUsageFlags2CreateInfoKHR struct {
-}
+type BufferUsageFlags2CreateInfoKHR = BufferUsageFlags2CreateInfo
 
-type _vkBufferUsageFlags2CreateInfoKHR = BufferUsageFlags2CreateInfoKHR
-
-func (s *_vkBufferUsageFlags2CreateInfoKHR) Goify() *BufferUsageFlags2CreateInfoKHR {
-	rval := (*BufferUsageFlags2CreateInfoKHR)(s)
-	return rval
-}
-func (s *BufferUsageFlags2CreateInfoKHR) Vulkanize() *_vkBufferUsageFlags2CreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkBufferUsageFlags2CreateInfoKHR)(s)
-	return rval
-}
+type _vkBufferUsageFlags2CreateInfoKHR = _vkBufferUsageFlags2CreateInfo
 
 // BufferViewCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferViewCreateInfo.html
 type BufferViewCreateInfo struct {
@@ -4099,22 +3800,9 @@ func (s *BuildPartitionedAccelerationStructureInfoNV) Vulkanize() *_vkBuildParti
 }
 
 // CalibratedTimestampInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCalibratedTimestampInfoEXT.html
-type CalibratedTimestampInfoEXT struct {
-}
+type CalibratedTimestampInfoEXT = CalibratedTimestampInfoKHR
 
-type _vkCalibratedTimestampInfoEXT = CalibratedTimestampInfoEXT
-
-func (s *_vkCalibratedTimestampInfoEXT) Goify() *CalibratedTimestampInfoEXT {
-	rval := (*CalibratedTimestampInfoEXT)(s)
-	return rval
-}
-func (s *CalibratedTimestampInfoEXT) Vulkanize() *_vkCalibratedTimestampInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCalibratedTimestampInfoEXT)(s)
-	return rval
-}
+type _vkCalibratedTimestampInfoEXT = _vkCalibratedTimestampInfoKHR
 
 // CalibratedTimestampInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCalibratedTimestampInfoKHR.html
 type CalibratedTimestampInfoKHR struct {
@@ -5286,22 +4974,9 @@ func (s *CommandBufferInheritanceRenderingInfo) Vulkanize() *_vkCommandBufferInh
 }
 
 // CommandBufferInheritanceRenderingInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCommandBufferInheritanceRenderingInfoKHR.html
-type CommandBufferInheritanceRenderingInfoKHR struct {
-}
+type CommandBufferInheritanceRenderingInfoKHR = CommandBufferInheritanceRenderingInfo
 
-type _vkCommandBufferInheritanceRenderingInfoKHR = CommandBufferInheritanceRenderingInfoKHR
-
-func (s *_vkCommandBufferInheritanceRenderingInfoKHR) Goify() *CommandBufferInheritanceRenderingInfoKHR {
-	rval := (*CommandBufferInheritanceRenderingInfoKHR)(s)
-	return rval
-}
-func (s *CommandBufferInheritanceRenderingInfoKHR) Vulkanize() *_vkCommandBufferInheritanceRenderingInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCommandBufferInheritanceRenderingInfoKHR)(s)
-	return rval
-}
+type _vkCommandBufferInheritanceRenderingInfoKHR = _vkCommandBufferInheritanceRenderingInfo
 
 // CommandBufferInheritanceViewportScissorInfoNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCommandBufferInheritanceViewportScissorInfoNV.html
 type CommandBufferInheritanceViewportScissorInfoNV struct {
@@ -5380,22 +5055,9 @@ func (s *CommandBufferSubmitInfo) Vulkanize() *_vkCommandBufferSubmitInfo {
 }
 
 // CommandBufferSubmitInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCommandBufferSubmitInfoKHR.html
-type CommandBufferSubmitInfoKHR struct {
-}
+type CommandBufferSubmitInfoKHR = CommandBufferSubmitInfo
 
-type _vkCommandBufferSubmitInfoKHR = CommandBufferSubmitInfoKHR
-
-func (s *_vkCommandBufferSubmitInfoKHR) Goify() *CommandBufferSubmitInfoKHR {
-	rval := (*CommandBufferSubmitInfoKHR)(s)
-	return rval
-}
-func (s *CommandBufferSubmitInfoKHR) Vulkanize() *_vkCommandBufferSubmitInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCommandBufferSubmitInfoKHR)(s)
-	return rval
-}
+type _vkCommandBufferSubmitInfoKHR = _vkCommandBufferSubmitInfo
 
 // CommandPoolCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCommandPoolCreateInfo.html
 type CommandPoolCreateInfo struct {
@@ -5687,22 +5349,9 @@ func (s *ConformanceVersion) Vulkanize() *_vkConformanceVersion {
 }
 
 // ConformanceVersionKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkConformanceVersionKHR.html
-type ConformanceVersionKHR struct {
-}
+type ConformanceVersionKHR = ConformanceVersion
 
-type _vkConformanceVersionKHR = ConformanceVersionKHR
-
-func (s *_vkConformanceVersionKHR) Goify() *ConformanceVersionKHR {
-	rval := (*ConformanceVersionKHR)(s)
-	return rval
-}
-func (s *ConformanceVersionKHR) Vulkanize() *_vkConformanceVersionKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkConformanceVersionKHR)(s)
-	return rval
-}
+type _vkConformanceVersionKHR = _vkConformanceVersion
 
 // ConvertCooperativeVectorMatrixInfoNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkConvertCooperativeVectorMatrixInfoNV.html
 type ConvertCooperativeVectorMatrixInfoNV struct {
@@ -6218,22 +5867,9 @@ func (s *CopyBufferInfo2) Vulkanize() *_vkCopyBufferInfo2 {
 }
 
 // CopyBufferInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyBufferInfo2KHR.html
-type CopyBufferInfo2KHR struct {
-}
+type CopyBufferInfo2KHR = CopyBufferInfo2
 
-type _vkCopyBufferInfo2KHR = CopyBufferInfo2KHR
-
-func (s *_vkCopyBufferInfo2KHR) Goify() *CopyBufferInfo2KHR {
-	rval := (*CopyBufferInfo2KHR)(s)
-	return rval
-}
-func (s *CopyBufferInfo2KHR) Vulkanize() *_vkCopyBufferInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyBufferInfo2KHR)(s)
-	return rval
-}
+type _vkCopyBufferInfo2KHR = _vkCopyBufferInfo2
 
 // CopyBufferToImageInfo2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyBufferToImageInfo2.html
 type CopyBufferToImageInfo2 struct {
@@ -6293,22 +5929,9 @@ func (s *CopyBufferToImageInfo2) Vulkanize() *_vkCopyBufferToImageInfo2 {
 }
 
 // CopyBufferToImageInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyBufferToImageInfo2KHR.html
-type CopyBufferToImageInfo2KHR struct {
-}
+type CopyBufferToImageInfo2KHR = CopyBufferToImageInfo2
 
-type _vkCopyBufferToImageInfo2KHR = CopyBufferToImageInfo2KHR
-
-func (s *_vkCopyBufferToImageInfo2KHR) Goify() *CopyBufferToImageInfo2KHR {
-	rval := (*CopyBufferToImageInfo2KHR)(s)
-	return rval
-}
-func (s *CopyBufferToImageInfo2KHR) Vulkanize() *_vkCopyBufferToImageInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyBufferToImageInfo2KHR)(s)
-	return rval
-}
+type _vkCopyBufferToImageInfo2KHR = _vkCopyBufferToImageInfo2
 
 // CopyCommandTransformInfoQCOM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyCommandTransformInfoQCOM.html
 type CopyCommandTransformInfoQCOM struct {
@@ -6561,22 +6184,9 @@ func (s *CopyImageInfo2) Vulkanize() *_vkCopyImageInfo2 {
 }
 
 // CopyImageInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyImageInfo2KHR.html
-type CopyImageInfo2KHR struct {
-}
+type CopyImageInfo2KHR = CopyImageInfo2
 
-type _vkCopyImageInfo2KHR = CopyImageInfo2KHR
-
-func (s *_vkCopyImageInfo2KHR) Goify() *CopyImageInfo2KHR {
-	rval := (*CopyImageInfo2KHR)(s)
-	return rval
-}
-func (s *CopyImageInfo2KHR) Vulkanize() *_vkCopyImageInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyImageInfo2KHR)(s)
-	return rval
-}
+type _vkCopyImageInfo2KHR = _vkCopyImageInfo2
 
 // CopyImageToBufferInfo2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyImageToBufferInfo2.html
 type CopyImageToBufferInfo2 struct {
@@ -6636,22 +6246,9 @@ func (s *CopyImageToBufferInfo2) Vulkanize() *_vkCopyImageToBufferInfo2 {
 }
 
 // CopyImageToBufferInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyImageToBufferInfo2KHR.html
-type CopyImageToBufferInfo2KHR struct {
-}
+type CopyImageToBufferInfo2KHR = CopyImageToBufferInfo2
 
-type _vkCopyImageToBufferInfo2KHR = CopyImageToBufferInfo2KHR
-
-func (s *_vkCopyImageToBufferInfo2KHR) Goify() *CopyImageToBufferInfo2KHR {
-	rval := (*CopyImageToBufferInfo2KHR)(s)
-	return rval
-}
-func (s *CopyImageToBufferInfo2KHR) Vulkanize() *_vkCopyImageToBufferInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyImageToBufferInfo2KHR)(s)
-	return rval
-}
+type _vkCopyImageToBufferInfo2KHR = _vkCopyImageToBufferInfo2
 
 // CopyImageToImageInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyImageToImageInfo.html
 type CopyImageToImageInfo struct {
@@ -6719,22 +6316,9 @@ func (s *CopyImageToImageInfo) Vulkanize() *_vkCopyImageToImageInfo {
 }
 
 // CopyImageToImageInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyImageToImageInfoEXT.html
-type CopyImageToImageInfoEXT struct {
-}
+type CopyImageToImageInfoEXT = CopyImageToImageInfo
 
-type _vkCopyImageToImageInfoEXT = CopyImageToImageInfoEXT
-
-func (s *_vkCopyImageToImageInfoEXT) Goify() *CopyImageToImageInfoEXT {
-	rval := (*CopyImageToImageInfoEXT)(s)
-	return rval
-}
-func (s *CopyImageToImageInfoEXT) Vulkanize() *_vkCopyImageToImageInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyImageToImageInfoEXT)(s)
-	return rval
-}
+type _vkCopyImageToImageInfoEXT = _vkCopyImageToImageInfo
 
 // CopyImageToMemoryInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyImageToMemoryInfo.html
 type CopyImageToMemoryInfo struct {
@@ -6794,22 +6378,9 @@ func (s *CopyImageToMemoryInfo) Vulkanize() *_vkCopyImageToMemoryInfo {
 }
 
 // CopyImageToMemoryInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyImageToMemoryInfoEXT.html
-type CopyImageToMemoryInfoEXT struct {
-}
+type CopyImageToMemoryInfoEXT = CopyImageToMemoryInfo
 
-type _vkCopyImageToMemoryInfoEXT = CopyImageToMemoryInfoEXT
-
-func (s *_vkCopyImageToMemoryInfoEXT) Goify() *CopyImageToMemoryInfoEXT {
-	rval := (*CopyImageToMemoryInfoEXT)(s)
-	return rval
-}
-func (s *CopyImageToMemoryInfoEXT) Vulkanize() *_vkCopyImageToMemoryInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyImageToMemoryInfoEXT)(s)
-	return rval
-}
+type _vkCopyImageToMemoryInfoEXT = _vkCopyImageToMemoryInfo
 
 // CopyMemoryIndirectCommandKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyMemoryIndirectCommandKHR.html
 type CopyMemoryIndirectCommandKHR struct {
@@ -6833,22 +6404,9 @@ func (s *CopyMemoryIndirectCommandKHR) Vulkanize() *_vkCopyMemoryIndirectCommand
 }
 
 // CopyMemoryIndirectCommandNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyMemoryIndirectCommandNV.html
-type CopyMemoryIndirectCommandNV struct {
-}
+type CopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandKHR
 
-type _vkCopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandNV
-
-func (s *_vkCopyMemoryIndirectCommandNV) Goify() *CopyMemoryIndirectCommandNV {
-	rval := (*CopyMemoryIndirectCommandNV)(s)
-	return rval
-}
-func (s *CopyMemoryIndirectCommandNV) Vulkanize() *_vkCopyMemoryIndirectCommandNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyMemoryIndirectCommandNV)(s)
-	return rval
-}
+type _vkCopyMemoryIndirectCommandNV = _vkCopyMemoryIndirectCommandKHR
 
 // CopyMemoryIndirectInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyMemoryIndirectInfoKHR.html
 type CopyMemoryIndirectInfoKHR struct {
@@ -6980,22 +6538,9 @@ func (s *CopyMemoryToImageIndirectCommandKHR) Vulkanize() *_vkCopyMemoryToImageI
 }
 
 // CopyMemoryToImageIndirectCommandNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyMemoryToImageIndirectCommandNV.html
-type CopyMemoryToImageIndirectCommandNV struct {
-}
+type CopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandKHR
 
-type _vkCopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandNV
-
-func (s *_vkCopyMemoryToImageIndirectCommandNV) Goify() *CopyMemoryToImageIndirectCommandNV {
-	rval := (*CopyMemoryToImageIndirectCommandNV)(s)
-	return rval
-}
-func (s *CopyMemoryToImageIndirectCommandNV) Vulkanize() *_vkCopyMemoryToImageIndirectCommandNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyMemoryToImageIndirectCommandNV)(s)
-	return rval
-}
+type _vkCopyMemoryToImageIndirectCommandNV = _vkCopyMemoryToImageIndirectCommandKHR
 
 // CopyMemoryToImageIndirectInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyMemoryToImageIndirectInfoKHR.html
 type CopyMemoryToImageIndirectInfoKHR struct {
@@ -7112,22 +6657,9 @@ func (s *CopyMemoryToImageInfo) Vulkanize() *_vkCopyMemoryToImageInfo {
 }
 
 // CopyMemoryToImageInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyMemoryToImageInfoEXT.html
-type CopyMemoryToImageInfoEXT struct {
-}
+type CopyMemoryToImageInfoEXT = CopyMemoryToImageInfo
 
-type _vkCopyMemoryToImageInfoEXT = CopyMemoryToImageInfoEXT
-
-func (s *_vkCopyMemoryToImageInfoEXT) Goify() *CopyMemoryToImageInfoEXT {
-	rval := (*CopyMemoryToImageInfoEXT)(s)
-	return rval
-}
-func (s *CopyMemoryToImageInfoEXT) Vulkanize() *_vkCopyMemoryToImageInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkCopyMemoryToImageInfoEXT)(s)
-	return rval
-}
+type _vkCopyMemoryToImageInfoEXT = _vkCopyMemoryToImageInfo
 
 // CopyMemoryToMicromapInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCopyMemoryToMicromapInfoEXT.html
 type CopyMemoryToMicromapInfoEXT struct {
@@ -9284,22 +8816,9 @@ func (s *DependencyInfo) Vulkanize() *_vkDependencyInfo {
 }
 
 // DependencyInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDependencyInfoKHR.html
-type DependencyInfoKHR struct {
-}
+type DependencyInfoKHR = DependencyInfo
 
-type _vkDependencyInfoKHR = DependencyInfoKHR
-
-func (s *_vkDependencyInfoKHR) Goify() *DependencyInfoKHR {
-	rval := (*DependencyInfoKHR)(s)
-	return rval
-}
-func (s *DependencyInfoKHR) Vulkanize() *_vkDependencyInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDependencyInfoKHR)(s)
-	return rval
-}
+type _vkDependencyInfoKHR = _vkDependencyInfo
 
 // DepthBiasInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDepthBiasInfoEXT.html
 type DepthBiasInfoEXT struct {
@@ -10036,22 +9555,9 @@ func (s *DescriptorPoolInlineUniformBlockCreateInfo) Vulkanize() *_vkDescriptorP
 }
 
 // DescriptorPoolInlineUniformBlockCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorPoolInlineUniformBlockCreateInfoEXT.html
-type DescriptorPoolInlineUniformBlockCreateInfoEXT struct {
-}
+type DescriptorPoolInlineUniformBlockCreateInfoEXT = DescriptorPoolInlineUniformBlockCreateInfo
 
-type _vkDescriptorPoolInlineUniformBlockCreateInfoEXT = DescriptorPoolInlineUniformBlockCreateInfoEXT
-
-func (s *_vkDescriptorPoolInlineUniformBlockCreateInfoEXT) Goify() *DescriptorPoolInlineUniformBlockCreateInfoEXT {
-	rval := (*DescriptorPoolInlineUniformBlockCreateInfoEXT)(s)
-	return rval
-}
-func (s *DescriptorPoolInlineUniformBlockCreateInfoEXT) Vulkanize() *_vkDescriptorPoolInlineUniformBlockCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDescriptorPoolInlineUniformBlockCreateInfoEXT)(s)
-	return rval
-}
+type _vkDescriptorPoolInlineUniformBlockCreateInfoEXT = _vkDescriptorPoolInlineUniformBlockCreateInfo
 
 // DescriptorPoolSize: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorPoolSize.html
 type DescriptorPoolSize struct {
@@ -10299,22 +9805,9 @@ func (s *DescriptorSetLayoutBindingFlagsCreateInfo) Vulkanize() *_vkDescriptorSe
 }
 
 // DescriptorSetLayoutBindingFlagsCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutBindingFlagsCreateInfoEXT.html
-type DescriptorSetLayoutBindingFlagsCreateInfoEXT struct {
-}
+type DescriptorSetLayoutBindingFlagsCreateInfoEXT = DescriptorSetLayoutBindingFlagsCreateInfo
 
-type _vkDescriptorSetLayoutBindingFlagsCreateInfoEXT = DescriptorSetLayoutBindingFlagsCreateInfoEXT
-
-func (s *_vkDescriptorSetLayoutBindingFlagsCreateInfoEXT) Goify() *DescriptorSetLayoutBindingFlagsCreateInfoEXT {
-	rval := (*DescriptorSetLayoutBindingFlagsCreateInfoEXT)(s)
-	return rval
-}
-func (s *DescriptorSetLayoutBindingFlagsCreateInfoEXT) Vulkanize() *_vkDescriptorSetLayoutBindingFlagsCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDescriptorSetLayoutBindingFlagsCreateInfoEXT)(s)
-	return rval
-}
+type _vkDescriptorSetLayoutBindingFlagsCreateInfoEXT = _vkDescriptorSetLayoutBindingFlagsCreateInfo
 
 // DescriptorSetLayoutCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutCreateInfo.html
 type DescriptorSetLayoutCreateInfo struct {
@@ -10437,22 +9930,9 @@ func (s *DescriptorSetLayoutSupport) Vulkanize() *_vkDescriptorSetLayoutSupport 
 }
 
 // DescriptorSetLayoutSupportKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutSupportKHR.html
-type DescriptorSetLayoutSupportKHR struct {
-}
+type DescriptorSetLayoutSupportKHR = DescriptorSetLayoutSupport
 
-type _vkDescriptorSetLayoutSupportKHR = DescriptorSetLayoutSupportKHR
-
-func (s *_vkDescriptorSetLayoutSupportKHR) Goify() *DescriptorSetLayoutSupportKHR {
-	rval := (*DescriptorSetLayoutSupportKHR)(s)
-	return rval
-}
-func (s *DescriptorSetLayoutSupportKHR) Vulkanize() *_vkDescriptorSetLayoutSupportKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDescriptorSetLayoutSupportKHR)(s)
-	return rval
-}
+type _vkDescriptorSetLayoutSupportKHR = _vkDescriptorSetLayoutSupport
 
 // DescriptorSetVariableDescriptorCountAllocateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetVariableDescriptorCountAllocateInfo.html
 type DescriptorSetVariableDescriptorCountAllocateInfo struct {
@@ -10496,22 +9976,9 @@ func (s *DescriptorSetVariableDescriptorCountAllocateInfo) Vulkanize() *_vkDescr
 }
 
 // DescriptorSetVariableDescriptorCountAllocateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetVariableDescriptorCountAllocateInfoEXT.html
-type DescriptorSetVariableDescriptorCountAllocateInfoEXT struct {
-}
+type DescriptorSetVariableDescriptorCountAllocateInfoEXT = DescriptorSetVariableDescriptorCountAllocateInfo
 
-type _vkDescriptorSetVariableDescriptorCountAllocateInfoEXT = DescriptorSetVariableDescriptorCountAllocateInfoEXT
-
-func (s *_vkDescriptorSetVariableDescriptorCountAllocateInfoEXT) Goify() *DescriptorSetVariableDescriptorCountAllocateInfoEXT {
-	rval := (*DescriptorSetVariableDescriptorCountAllocateInfoEXT)(s)
-	return rval
-}
-func (s *DescriptorSetVariableDescriptorCountAllocateInfoEXT) Vulkanize() *_vkDescriptorSetVariableDescriptorCountAllocateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDescriptorSetVariableDescriptorCountAllocateInfoEXT)(s)
-	return rval
-}
+type _vkDescriptorSetVariableDescriptorCountAllocateInfoEXT = _vkDescriptorSetVariableDescriptorCountAllocateInfo
 
 // DescriptorSetVariableDescriptorCountLayoutSupport: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html
 type DescriptorSetVariableDescriptorCountLayoutSupport struct {
@@ -10547,22 +10014,9 @@ func (s *DescriptorSetVariableDescriptorCountLayoutSupport) Vulkanize() *_vkDesc
 }
 
 // DescriptorSetVariableDescriptorCountLayoutSupportEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupportEXT.html
-type DescriptorSetVariableDescriptorCountLayoutSupportEXT struct {
-}
+type DescriptorSetVariableDescriptorCountLayoutSupportEXT = DescriptorSetVariableDescriptorCountLayoutSupport
 
-type _vkDescriptorSetVariableDescriptorCountLayoutSupportEXT = DescriptorSetVariableDescriptorCountLayoutSupportEXT
-
-func (s *_vkDescriptorSetVariableDescriptorCountLayoutSupportEXT) Goify() *DescriptorSetVariableDescriptorCountLayoutSupportEXT {
-	rval := (*DescriptorSetVariableDescriptorCountLayoutSupportEXT)(s)
-	return rval
-}
-func (s *DescriptorSetVariableDescriptorCountLayoutSupportEXT) Vulkanize() *_vkDescriptorSetVariableDescriptorCountLayoutSupportEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDescriptorSetVariableDescriptorCountLayoutSupportEXT)(s)
-	return rval
-}
+type _vkDescriptorSetVariableDescriptorCountLayoutSupportEXT = _vkDescriptorSetVariableDescriptorCountLayoutSupport
 
 // DescriptorUpdateTemplateCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorUpdateTemplateCreateInfo.html
 type DescriptorUpdateTemplateCreateInfo struct {
@@ -10633,22 +10087,9 @@ func (s *DescriptorUpdateTemplateCreateInfo) Vulkanize() *_vkDescriptorUpdateTem
 }
 
 // DescriptorUpdateTemplateCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorUpdateTemplateCreateInfoKHR.html
-type DescriptorUpdateTemplateCreateInfoKHR struct {
-}
+type DescriptorUpdateTemplateCreateInfoKHR = DescriptorUpdateTemplateCreateInfo
 
-type _vkDescriptorUpdateTemplateCreateInfoKHR = DescriptorUpdateTemplateCreateInfoKHR
-
-func (s *_vkDescriptorUpdateTemplateCreateInfoKHR) Goify() *DescriptorUpdateTemplateCreateInfoKHR {
-	rval := (*DescriptorUpdateTemplateCreateInfoKHR)(s)
-	return rval
-}
-func (s *DescriptorUpdateTemplateCreateInfoKHR) Vulkanize() *_vkDescriptorUpdateTemplateCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDescriptorUpdateTemplateCreateInfoKHR)(s)
-	return rval
-}
+type _vkDescriptorUpdateTemplateCreateInfoKHR = _vkDescriptorUpdateTemplateCreateInfo
 
 // DescriptorUpdateTemplateEntry: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorUpdateTemplateEntry.html
 type DescriptorUpdateTemplateEntry struct {
@@ -10681,22 +10122,9 @@ func (s *DescriptorUpdateTemplateEntry) Vulkanize() *_vkDescriptorUpdateTemplate
 }
 
 // DescriptorUpdateTemplateEntryKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorUpdateTemplateEntryKHR.html
-type DescriptorUpdateTemplateEntryKHR struct {
-}
+type DescriptorUpdateTemplateEntryKHR = DescriptorUpdateTemplateEntry
 
-type _vkDescriptorUpdateTemplateEntryKHR = DescriptorUpdateTemplateEntryKHR
-
-func (s *_vkDescriptorUpdateTemplateEntryKHR) Goify() *DescriptorUpdateTemplateEntryKHR {
-	rval := (*DescriptorUpdateTemplateEntryKHR)(s)
-	return rval
-}
-func (s *DescriptorUpdateTemplateEntryKHR) Vulkanize() *_vkDescriptorUpdateTemplateEntryKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDescriptorUpdateTemplateEntryKHR)(s)
-	return rval
-}
+type _vkDescriptorUpdateTemplateEntryKHR = _vkDescriptorUpdateTemplateEntry
 
 // DeviceAddressBindingCallbackDataEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceAddressBindingCallbackDataEXT.html
 type DeviceAddressBindingCallbackDataEXT struct {
@@ -10743,22 +10171,9 @@ func (s *DeviceAddressBindingCallbackDataEXT) Vulkanize() *_vkDeviceAddressBindi
 }
 
 // DeviceAddressRangeEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceAddressRangeEXT.html
-type DeviceAddressRangeEXT struct {
-}
+type DeviceAddressRangeEXT = DeviceAddressRangeKHR
 
-type _vkDeviceAddressRangeEXT = DeviceAddressRangeEXT
-
-func (s *_vkDeviceAddressRangeEXT) Goify() *DeviceAddressRangeEXT {
-	rval := (*DeviceAddressRangeEXT)(s)
-	return rval
-}
-func (s *DeviceAddressRangeEXT) Vulkanize() *_vkDeviceAddressRangeEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceAddressRangeEXT)(s)
-	return rval
-}
+type _vkDeviceAddressRangeEXT = _vkDeviceAddressRangeKHR
 
 // DeviceAddressRangeKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceAddressRangeKHR.html
 type DeviceAddressRangeKHR struct {
@@ -10813,22 +10228,9 @@ func (s *DeviceBufferMemoryRequirements) Vulkanize() *_vkDeviceBufferMemoryRequi
 }
 
 // DeviceBufferMemoryRequirementsKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceBufferMemoryRequirementsKHR.html
-type DeviceBufferMemoryRequirementsKHR struct {
-}
+type DeviceBufferMemoryRequirementsKHR = DeviceBufferMemoryRequirements
 
-type _vkDeviceBufferMemoryRequirementsKHR = DeviceBufferMemoryRequirementsKHR
-
-func (s *_vkDeviceBufferMemoryRequirementsKHR) Goify() *DeviceBufferMemoryRequirementsKHR {
-	rval := (*DeviceBufferMemoryRequirementsKHR)(s)
-	return rval
-}
-func (s *DeviceBufferMemoryRequirementsKHR) Vulkanize() *_vkDeviceBufferMemoryRequirementsKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceBufferMemoryRequirementsKHR)(s)
-	return rval
-}
+type _vkDeviceBufferMemoryRequirementsKHR = _vkDeviceBufferMemoryRequirements
 
 // DeviceCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceCreateInfo.html
 type DeviceCreateInfo struct {
@@ -11023,22 +10425,9 @@ func (s *DeviceEventInfoEXT) Vulkanize() *_vkDeviceEventInfoEXT {
 }
 
 // DeviceFaultAddressInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceFaultAddressInfoEXT.html
-type DeviceFaultAddressInfoEXT struct {
-}
+type DeviceFaultAddressInfoEXT = DeviceFaultAddressInfoKHR
 
-type _vkDeviceFaultAddressInfoEXT = DeviceFaultAddressInfoEXT
-
-func (s *_vkDeviceFaultAddressInfoEXT) Goify() *DeviceFaultAddressInfoEXT {
-	rval := (*DeviceFaultAddressInfoEXT)(s)
-	return rval
-}
-func (s *DeviceFaultAddressInfoEXT) Vulkanize() *_vkDeviceFaultAddressInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceFaultAddressInfoEXT)(s)
-	return rval
-}
+type _vkDeviceFaultAddressInfoEXT = _vkDeviceFaultAddressInfoKHR
 
 // DeviceFaultAddressInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceFaultAddressInfoKHR.html
 type DeviceFaultAddressInfoKHR struct {
@@ -11277,22 +10666,9 @@ func (s *DeviceFaultShaderAbortMessageInfoKHR) Vulkanize() *_vkDeviceFaultShader
 }
 
 // DeviceFaultVendorBinaryHeaderVersionOneEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html
-type DeviceFaultVendorBinaryHeaderVersionOneEXT struct {
-}
+type DeviceFaultVendorBinaryHeaderVersionOneEXT = DeviceFaultVendorBinaryHeaderVersionOneKHR
 
-type _vkDeviceFaultVendorBinaryHeaderVersionOneEXT = DeviceFaultVendorBinaryHeaderVersionOneEXT
-
-func (s *_vkDeviceFaultVendorBinaryHeaderVersionOneEXT) Goify() *DeviceFaultVendorBinaryHeaderVersionOneEXT {
-	rval := (*DeviceFaultVendorBinaryHeaderVersionOneEXT)(s)
-	return rval
-}
-func (s *DeviceFaultVendorBinaryHeaderVersionOneEXT) Vulkanize() *_vkDeviceFaultVendorBinaryHeaderVersionOneEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceFaultVendorBinaryHeaderVersionOneEXT)(s)
-	return rval
-}
+type _vkDeviceFaultVendorBinaryHeaderVersionOneEXT = _vkDeviceFaultVendorBinaryHeaderVersionOneKHR
 
 // DeviceFaultVendorBinaryHeaderVersionOneKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceFaultVendorBinaryHeaderVersionOneKHR.html
 type DeviceFaultVendorBinaryHeaderVersionOneKHR struct {
@@ -11324,22 +10700,9 @@ func (s *DeviceFaultVendorBinaryHeaderVersionOneKHR) Vulkanize() *_vkDeviceFault
 }
 
 // DeviceFaultVendorInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceFaultVendorInfoEXT.html
-type DeviceFaultVendorInfoEXT struct {
-}
+type DeviceFaultVendorInfoEXT = DeviceFaultVendorInfoKHR
 
-type _vkDeviceFaultVendorInfoEXT = DeviceFaultVendorInfoEXT
-
-func (s *_vkDeviceFaultVendorInfoEXT) Goify() *DeviceFaultVendorInfoEXT {
-	rval := (*DeviceFaultVendorInfoEXT)(s)
-	return rval
-}
-func (s *DeviceFaultVendorInfoEXT) Vulkanize() *_vkDeviceFaultVendorInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceFaultVendorInfoEXT)(s)
-	return rval
-}
+type _vkDeviceFaultVendorInfoEXT = _vkDeviceFaultVendorInfoKHR
 
 // DeviceFaultVendorInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceFaultVendorInfoKHR.html
 type DeviceFaultVendorInfoKHR struct {
@@ -11413,22 +10776,9 @@ func (s *DeviceGroupBindSparseInfo) Vulkanize() *_vkDeviceGroupBindSparseInfo {
 }
 
 // DeviceGroupBindSparseInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupBindSparseInfoKHR.html
-type DeviceGroupBindSparseInfoKHR struct {
-}
+type DeviceGroupBindSparseInfoKHR = DeviceGroupBindSparseInfo
 
-type _vkDeviceGroupBindSparseInfoKHR = DeviceGroupBindSparseInfoKHR
-
-func (s *_vkDeviceGroupBindSparseInfoKHR) Goify() *DeviceGroupBindSparseInfoKHR {
-	rval := (*DeviceGroupBindSparseInfoKHR)(s)
-	return rval
-}
-func (s *DeviceGroupBindSparseInfoKHR) Vulkanize() *_vkDeviceGroupBindSparseInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceGroupBindSparseInfoKHR)(s)
-	return rval
-}
+type _vkDeviceGroupBindSparseInfoKHR = _vkDeviceGroupBindSparseInfo
 
 // DeviceGroupCommandBufferBeginInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupCommandBufferBeginInfo.html
 type DeviceGroupCommandBufferBeginInfo struct {
@@ -11463,22 +10813,9 @@ func (s *DeviceGroupCommandBufferBeginInfo) Vulkanize() *_vkDeviceGroupCommandBu
 }
 
 // DeviceGroupCommandBufferBeginInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupCommandBufferBeginInfoKHR.html
-type DeviceGroupCommandBufferBeginInfoKHR struct {
-}
+type DeviceGroupCommandBufferBeginInfoKHR = DeviceGroupCommandBufferBeginInfo
 
-type _vkDeviceGroupCommandBufferBeginInfoKHR = DeviceGroupCommandBufferBeginInfoKHR
-
-func (s *_vkDeviceGroupCommandBufferBeginInfoKHR) Goify() *DeviceGroupCommandBufferBeginInfoKHR {
-	rval := (*DeviceGroupCommandBufferBeginInfoKHR)(s)
-	return rval
-}
-func (s *DeviceGroupCommandBufferBeginInfoKHR) Vulkanize() *_vkDeviceGroupCommandBufferBeginInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceGroupCommandBufferBeginInfoKHR)(s)
-	return rval
-}
+type _vkDeviceGroupCommandBufferBeginInfoKHR = _vkDeviceGroupCommandBufferBeginInfo
 
 // DeviceGroupDeviceCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupDeviceCreateInfo.html
 type DeviceGroupDeviceCreateInfo struct {
@@ -11522,22 +10859,9 @@ func (s *DeviceGroupDeviceCreateInfo) Vulkanize() *_vkDeviceGroupDeviceCreateInf
 }
 
 // DeviceGroupDeviceCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupDeviceCreateInfoKHR.html
-type DeviceGroupDeviceCreateInfoKHR struct {
-}
+type DeviceGroupDeviceCreateInfoKHR = DeviceGroupDeviceCreateInfo
 
-type _vkDeviceGroupDeviceCreateInfoKHR = DeviceGroupDeviceCreateInfoKHR
-
-func (s *_vkDeviceGroupDeviceCreateInfoKHR) Goify() *DeviceGroupDeviceCreateInfoKHR {
-	rval := (*DeviceGroupDeviceCreateInfoKHR)(s)
-	return rval
-}
-func (s *DeviceGroupDeviceCreateInfoKHR) Vulkanize() *_vkDeviceGroupDeviceCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceGroupDeviceCreateInfoKHR)(s)
-	return rval
-}
+type _vkDeviceGroupDeviceCreateInfoKHR = _vkDeviceGroupDeviceCreateInfo
 
 // DeviceGroupPresentCapabilitiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupPresentCapabilitiesKHR.html
 type DeviceGroupPresentCapabilitiesKHR struct {
@@ -11671,22 +10995,9 @@ func (s *DeviceGroupRenderPassBeginInfo) Vulkanize() *_vkDeviceGroupRenderPassBe
 }
 
 // DeviceGroupRenderPassBeginInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupRenderPassBeginInfoKHR.html
-type DeviceGroupRenderPassBeginInfoKHR struct {
-}
+type DeviceGroupRenderPassBeginInfoKHR = DeviceGroupRenderPassBeginInfo
 
-type _vkDeviceGroupRenderPassBeginInfoKHR = DeviceGroupRenderPassBeginInfoKHR
-
-func (s *_vkDeviceGroupRenderPassBeginInfoKHR) Goify() *DeviceGroupRenderPassBeginInfoKHR {
-	rval := (*DeviceGroupRenderPassBeginInfoKHR)(s)
-	return rval
-}
-func (s *DeviceGroupRenderPassBeginInfoKHR) Vulkanize() *_vkDeviceGroupRenderPassBeginInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceGroupRenderPassBeginInfoKHR)(s)
-	return rval
-}
+type _vkDeviceGroupRenderPassBeginInfoKHR = _vkDeviceGroupRenderPassBeginInfo
 
 // DeviceGroupSubmitInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupSubmitInfo.html
 type DeviceGroupSubmitInfo struct {
@@ -11756,22 +11067,9 @@ func (s *DeviceGroupSubmitInfo) Vulkanize() *_vkDeviceGroupSubmitInfo {
 }
 
 // DeviceGroupSubmitInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupSubmitInfoKHR.html
-type DeviceGroupSubmitInfoKHR struct {
-}
+type DeviceGroupSubmitInfoKHR = DeviceGroupSubmitInfo
 
-type _vkDeviceGroupSubmitInfoKHR = DeviceGroupSubmitInfoKHR
-
-func (s *_vkDeviceGroupSubmitInfoKHR) Goify() *DeviceGroupSubmitInfoKHR {
-	rval := (*DeviceGroupSubmitInfoKHR)(s)
-	return rval
-}
-func (s *DeviceGroupSubmitInfoKHR) Vulkanize() *_vkDeviceGroupSubmitInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceGroupSubmitInfoKHR)(s)
-	return rval
-}
+type _vkDeviceGroupSubmitInfoKHR = _vkDeviceGroupSubmitInfo
 
 // DeviceGroupSwapchainCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceGroupSwapchainCreateInfoKHR.html
 type DeviceGroupSwapchainCreateInfoKHR struct {
@@ -11842,22 +11140,9 @@ func (s *DeviceImageMemoryRequirements) Vulkanize() *_vkDeviceImageMemoryRequire
 }
 
 // DeviceImageMemoryRequirementsKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceImageMemoryRequirementsKHR.html
-type DeviceImageMemoryRequirementsKHR struct {
-}
+type DeviceImageMemoryRequirementsKHR = DeviceImageMemoryRequirements
 
-type _vkDeviceImageMemoryRequirementsKHR = DeviceImageMemoryRequirementsKHR
-
-func (s *_vkDeviceImageMemoryRequirementsKHR) Goify() *DeviceImageMemoryRequirementsKHR {
-	rval := (*DeviceImageMemoryRequirementsKHR)(s)
-	return rval
-}
-func (s *DeviceImageMemoryRequirementsKHR) Vulkanize() *_vkDeviceImageMemoryRequirementsKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceImageMemoryRequirementsKHR)(s)
-	return rval
-}
+type _vkDeviceImageMemoryRequirementsKHR = _vkDeviceImageMemoryRequirements
 
 // DeviceImageSubresourceInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceImageSubresourceInfo.html
 type DeviceImageSubresourceInfo struct {
@@ -11896,22 +11181,9 @@ func (s *DeviceImageSubresourceInfo) Vulkanize() *_vkDeviceImageSubresourceInfo 
 }
 
 // DeviceImageSubresourceInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceImageSubresourceInfoKHR.html
-type DeviceImageSubresourceInfoKHR struct {
-}
+type DeviceImageSubresourceInfoKHR = DeviceImageSubresourceInfo
 
-type _vkDeviceImageSubresourceInfoKHR = DeviceImageSubresourceInfoKHR
-
-func (s *_vkDeviceImageSubresourceInfoKHR) Goify() *DeviceImageSubresourceInfoKHR {
-	rval := (*DeviceImageSubresourceInfoKHR)(s)
-	return rval
-}
-func (s *DeviceImageSubresourceInfoKHR) Vulkanize() *_vkDeviceImageSubresourceInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceImageSubresourceInfoKHR)(s)
-	return rval
-}
+type _vkDeviceImageSubresourceInfoKHR = _vkDeviceImageSubresourceInfo
 
 // DeviceMemoryCopyKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceMemoryCopyKHR.html
 type DeviceMemoryCopyKHR struct {
@@ -12050,22 +11322,9 @@ func (s *DeviceMemoryOpaqueCaptureAddressInfo) Vulkanize() *_vkDeviceMemoryOpaqu
 }
 
 // DeviceMemoryOpaqueCaptureAddressInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceMemoryOpaqueCaptureAddressInfoKHR.html
-type DeviceMemoryOpaqueCaptureAddressInfoKHR struct {
-}
+type DeviceMemoryOpaqueCaptureAddressInfoKHR = DeviceMemoryOpaqueCaptureAddressInfo
 
-type _vkDeviceMemoryOpaqueCaptureAddressInfoKHR = DeviceMemoryOpaqueCaptureAddressInfoKHR
-
-func (s *_vkDeviceMemoryOpaqueCaptureAddressInfoKHR) Goify() *DeviceMemoryOpaqueCaptureAddressInfoKHR {
-	rval := (*DeviceMemoryOpaqueCaptureAddressInfoKHR)(s)
-	return rval
-}
-func (s *DeviceMemoryOpaqueCaptureAddressInfoKHR) Vulkanize() *_vkDeviceMemoryOpaqueCaptureAddressInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceMemoryOpaqueCaptureAddressInfoKHR)(s)
-	return rval
-}
+type _vkDeviceMemoryOpaqueCaptureAddressInfoKHR = _vkDeviceMemoryOpaqueCaptureAddressInfo
 
 // DeviceMemoryOverallocationCreateInfoAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceMemoryOverallocationCreateInfoAMD.html
 type DeviceMemoryOverallocationCreateInfoAMD struct {
@@ -12221,22 +11480,9 @@ func (s *DevicePrivateDataCreateInfo) Vulkanize() *_vkDevicePrivateDataCreateInf
 }
 
 // DevicePrivateDataCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDevicePrivateDataCreateInfoEXT.html
-type DevicePrivateDataCreateInfoEXT struct {
-}
+type DevicePrivateDataCreateInfoEXT = DevicePrivateDataCreateInfo
 
-type _vkDevicePrivateDataCreateInfoEXT = DevicePrivateDataCreateInfoEXT
-
-func (s *_vkDevicePrivateDataCreateInfoEXT) Goify() *DevicePrivateDataCreateInfoEXT {
-	rval := (*DevicePrivateDataCreateInfoEXT)(s)
-	return rval
-}
-func (s *DevicePrivateDataCreateInfoEXT) Vulkanize() *_vkDevicePrivateDataCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDevicePrivateDataCreateInfoEXT)(s)
-	return rval
-}
+type _vkDevicePrivateDataCreateInfoEXT = _vkDevicePrivateDataCreateInfo
 
 // DeviceQueueCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceQueueCreateInfo.html
 type DeviceQueueCreateInfo struct {
@@ -12320,40 +11566,14 @@ func (s *DeviceQueueGlobalPriorityCreateInfo) Vulkanize() *_vkDeviceQueueGlobalP
 }
 
 // DeviceQueueGlobalPriorityCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceQueueGlobalPriorityCreateInfoEXT.html
-type DeviceQueueGlobalPriorityCreateInfoEXT struct {
-}
+type DeviceQueueGlobalPriorityCreateInfoEXT = DeviceQueueGlobalPriorityCreateInfo
 
-type _vkDeviceQueueGlobalPriorityCreateInfoEXT = DeviceQueueGlobalPriorityCreateInfoEXT
-
-func (s *_vkDeviceQueueGlobalPriorityCreateInfoEXT) Goify() *DeviceQueueGlobalPriorityCreateInfoEXT {
-	rval := (*DeviceQueueGlobalPriorityCreateInfoEXT)(s)
-	return rval
-}
-func (s *DeviceQueueGlobalPriorityCreateInfoEXT) Vulkanize() *_vkDeviceQueueGlobalPriorityCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceQueueGlobalPriorityCreateInfoEXT)(s)
-	return rval
-}
+type _vkDeviceQueueGlobalPriorityCreateInfoEXT = _vkDeviceQueueGlobalPriorityCreateInfo
 
 // DeviceQueueGlobalPriorityCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceQueueGlobalPriorityCreateInfoKHR.html
-type DeviceQueueGlobalPriorityCreateInfoKHR struct {
-}
+type DeviceQueueGlobalPriorityCreateInfoKHR = DeviceQueueGlobalPriorityCreateInfo
 
-type _vkDeviceQueueGlobalPriorityCreateInfoKHR = DeviceQueueGlobalPriorityCreateInfoKHR
-
-func (s *_vkDeviceQueueGlobalPriorityCreateInfoKHR) Goify() *DeviceQueueGlobalPriorityCreateInfoKHR {
-	rval := (*DeviceQueueGlobalPriorityCreateInfoKHR)(s)
-	return rval
-}
-func (s *DeviceQueueGlobalPriorityCreateInfoKHR) Vulkanize() *_vkDeviceQueueGlobalPriorityCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkDeviceQueueGlobalPriorityCreateInfoKHR)(s)
-	return rval
-}
+type _vkDeviceQueueGlobalPriorityCreateInfoKHR = _vkDeviceQueueGlobalPriorityCreateInfo
 
 // DeviceQueueInfo2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceQueueInfo2.html
 type DeviceQueueInfo2 struct {
@@ -13737,22 +12957,9 @@ func (s *ExportFenceCreateInfo) Vulkanize() *_vkExportFenceCreateInfo {
 }
 
 // ExportFenceCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExportFenceCreateInfoKHR.html
-type ExportFenceCreateInfoKHR struct {
-}
+type ExportFenceCreateInfoKHR = ExportFenceCreateInfo
 
-type _vkExportFenceCreateInfoKHR = ExportFenceCreateInfoKHR
-
-func (s *_vkExportFenceCreateInfoKHR) Goify() *ExportFenceCreateInfoKHR {
-	rval := (*ExportFenceCreateInfoKHR)(s)
-	return rval
-}
-func (s *ExportFenceCreateInfoKHR) Vulkanize() *_vkExportFenceCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExportFenceCreateInfoKHR)(s)
-	return rval
-}
+type _vkExportFenceCreateInfoKHR = _vkExportFenceCreateInfo
 
 // ExportMemoryAllocateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExportMemoryAllocateInfo.html
 type ExportMemoryAllocateInfo struct {
@@ -13787,22 +12994,9 @@ func (s *ExportMemoryAllocateInfo) Vulkanize() *_vkExportMemoryAllocateInfo {
 }
 
 // ExportMemoryAllocateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExportMemoryAllocateInfoKHR.html
-type ExportMemoryAllocateInfoKHR struct {
-}
+type ExportMemoryAllocateInfoKHR = ExportMemoryAllocateInfo
 
-type _vkExportMemoryAllocateInfoKHR = ExportMemoryAllocateInfoKHR
-
-func (s *_vkExportMemoryAllocateInfoKHR) Goify() *ExportMemoryAllocateInfoKHR {
-	rval := (*ExportMemoryAllocateInfoKHR)(s)
-	return rval
-}
-func (s *ExportMemoryAllocateInfoKHR) Vulkanize() *_vkExportMemoryAllocateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExportMemoryAllocateInfoKHR)(s)
-	return rval
-}
+type _vkExportMemoryAllocateInfoKHR = _vkExportMemoryAllocateInfo
 
 // ExportMemoryAllocateInfoNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExportMemoryAllocateInfoNV.html
 type ExportMemoryAllocateInfoNV struct {
@@ -13869,22 +13063,9 @@ func (s *ExportSemaphoreCreateInfo) Vulkanize() *_vkExportSemaphoreCreateInfo {
 }
 
 // ExportSemaphoreCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExportSemaphoreCreateInfoKHR.html
-type ExportSemaphoreCreateInfoKHR struct {
-}
+type ExportSemaphoreCreateInfoKHR = ExportSemaphoreCreateInfo
 
-type _vkExportSemaphoreCreateInfoKHR = ExportSemaphoreCreateInfoKHR
-
-func (s *_vkExportSemaphoreCreateInfoKHR) Goify() *ExportSemaphoreCreateInfoKHR {
-	rval := (*ExportSemaphoreCreateInfoKHR)(s)
-	return rval
-}
-func (s *ExportSemaphoreCreateInfoKHR) Vulkanize() *_vkExportSemaphoreCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExportSemaphoreCreateInfoKHR)(s)
-	return rval
-}
+type _vkExportSemaphoreCreateInfoKHR = _vkExportSemaphoreCreateInfo
 
 // ExtensionProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExtensionProperties.html
 type ExtensionProperties struct {
@@ -13993,22 +13174,9 @@ func (s *ExternalBufferProperties) Vulkanize() *_vkExternalBufferProperties {
 }
 
 // ExternalBufferPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalBufferPropertiesKHR.html
-type ExternalBufferPropertiesKHR struct {
-}
+type ExternalBufferPropertiesKHR = ExternalBufferProperties
 
-type _vkExternalBufferPropertiesKHR = ExternalBufferPropertiesKHR
-
-func (s *_vkExternalBufferPropertiesKHR) Goify() *ExternalBufferPropertiesKHR {
-	rval := (*ExternalBufferPropertiesKHR)(s)
-	return rval
-}
-func (s *ExternalBufferPropertiesKHR) Vulkanize() *_vkExternalBufferPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExternalBufferPropertiesKHR)(s)
-	return rval
-}
+type _vkExternalBufferPropertiesKHR = _vkExternalBufferProperties
 
 // ExternalComputeQueueCreateInfoNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalComputeQueueCreateInfoNV.html
 type ExternalComputeQueueCreateInfoNV struct {
@@ -14148,22 +13316,9 @@ func (s *ExternalFenceProperties) Vulkanize() *_vkExternalFenceProperties {
 }
 
 // ExternalFencePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalFencePropertiesKHR.html
-type ExternalFencePropertiesKHR struct {
-}
+type ExternalFencePropertiesKHR = ExternalFenceProperties
 
-type _vkExternalFencePropertiesKHR = ExternalFencePropertiesKHR
-
-func (s *_vkExternalFencePropertiesKHR) Goify() *ExternalFencePropertiesKHR {
-	rval := (*ExternalFencePropertiesKHR)(s)
-	return rval
-}
-func (s *ExternalFencePropertiesKHR) Vulkanize() *_vkExternalFencePropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExternalFencePropertiesKHR)(s)
-	return rval
-}
+type _vkExternalFencePropertiesKHR = _vkExternalFenceProperties
 
 // ExternalImageFormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalImageFormatProperties.html
 type ExternalImageFormatProperties struct {
@@ -14199,22 +13354,9 @@ func (s *ExternalImageFormatProperties) Vulkanize() *_vkExternalImageFormatPrope
 }
 
 // ExternalImageFormatPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalImageFormatPropertiesKHR.html
-type ExternalImageFormatPropertiesKHR struct {
-}
+type ExternalImageFormatPropertiesKHR = ExternalImageFormatProperties
 
-type _vkExternalImageFormatPropertiesKHR = ExternalImageFormatPropertiesKHR
-
-func (s *_vkExternalImageFormatPropertiesKHR) Goify() *ExternalImageFormatPropertiesKHR {
-	rval := (*ExternalImageFormatPropertiesKHR)(s)
-	return rval
-}
-func (s *ExternalImageFormatPropertiesKHR) Vulkanize() *_vkExternalImageFormatPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExternalImageFormatPropertiesKHR)(s)
-	return rval
-}
+type _vkExternalImageFormatPropertiesKHR = _vkExternalImageFormatProperties
 
 // ExternalImageFormatPropertiesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalImageFormatPropertiesNV.html
 type ExternalImageFormatPropertiesNV struct {
@@ -14319,22 +13461,9 @@ func (s *ExternalMemoryBufferCreateInfo) Vulkanize() *_vkExternalMemoryBufferCre
 }
 
 // ExternalMemoryBufferCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalMemoryBufferCreateInfoKHR.html
-type ExternalMemoryBufferCreateInfoKHR struct {
-}
+type ExternalMemoryBufferCreateInfoKHR = ExternalMemoryBufferCreateInfo
 
-type _vkExternalMemoryBufferCreateInfoKHR = ExternalMemoryBufferCreateInfoKHR
-
-func (s *_vkExternalMemoryBufferCreateInfoKHR) Goify() *ExternalMemoryBufferCreateInfoKHR {
-	rval := (*ExternalMemoryBufferCreateInfoKHR)(s)
-	return rval
-}
-func (s *ExternalMemoryBufferCreateInfoKHR) Vulkanize() *_vkExternalMemoryBufferCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExternalMemoryBufferCreateInfoKHR)(s)
-	return rval
-}
+type _vkExternalMemoryBufferCreateInfoKHR = _vkExternalMemoryBufferCreateInfo
 
 // ExternalMemoryImageCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalMemoryImageCreateInfo.html
 type ExternalMemoryImageCreateInfo struct {
@@ -14369,22 +13498,9 @@ func (s *ExternalMemoryImageCreateInfo) Vulkanize() *_vkExternalMemoryImageCreat
 }
 
 // ExternalMemoryImageCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalMemoryImageCreateInfoKHR.html
-type ExternalMemoryImageCreateInfoKHR struct {
-}
+type ExternalMemoryImageCreateInfoKHR = ExternalMemoryImageCreateInfo
 
-type _vkExternalMemoryImageCreateInfoKHR = ExternalMemoryImageCreateInfoKHR
-
-func (s *_vkExternalMemoryImageCreateInfoKHR) Goify() *ExternalMemoryImageCreateInfoKHR {
-	rval := (*ExternalMemoryImageCreateInfoKHR)(s)
-	return rval
-}
-func (s *ExternalMemoryImageCreateInfoKHR) Vulkanize() *_vkExternalMemoryImageCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExternalMemoryImageCreateInfoKHR)(s)
-	return rval
-}
+type _vkExternalMemoryImageCreateInfoKHR = _vkExternalMemoryImageCreateInfo
 
 // ExternalMemoryImageCreateInfoNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalMemoryImageCreateInfoNV.html
 type ExternalMemoryImageCreateInfoNV struct {
@@ -14440,22 +13556,9 @@ func (s *ExternalMemoryProperties) Vulkanize() *_vkExternalMemoryProperties {
 }
 
 // ExternalMemoryPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalMemoryPropertiesKHR.html
-type ExternalMemoryPropertiesKHR struct {
-}
+type ExternalMemoryPropertiesKHR = ExternalMemoryProperties
 
-type _vkExternalMemoryPropertiesKHR = ExternalMemoryPropertiesKHR
-
-func (s *_vkExternalMemoryPropertiesKHR) Goify() *ExternalMemoryPropertiesKHR {
-	rval := (*ExternalMemoryPropertiesKHR)(s)
-	return rval
-}
-func (s *ExternalMemoryPropertiesKHR) Vulkanize() *_vkExternalMemoryPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExternalMemoryPropertiesKHR)(s)
-	return rval
-}
+type _vkExternalMemoryPropertiesKHR = _vkExternalMemoryProperties
 
 // ExternalMemoryTensorCreateInfoARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalMemoryTensorCreateInfoARM.html
 type ExternalMemoryTensorCreateInfoARM struct {
@@ -14531,22 +13634,9 @@ func (s *ExternalSemaphoreProperties) Vulkanize() *_vkExternalSemaphorePropertie
 }
 
 // ExternalSemaphorePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalSemaphorePropertiesKHR.html
-type ExternalSemaphorePropertiesKHR struct {
-}
+type ExternalSemaphorePropertiesKHR = ExternalSemaphoreProperties
 
-type _vkExternalSemaphorePropertiesKHR = ExternalSemaphorePropertiesKHR
-
-func (s *_vkExternalSemaphorePropertiesKHR) Goify() *ExternalSemaphorePropertiesKHR {
-	rval := (*ExternalSemaphorePropertiesKHR)(s)
-	return rval
-}
-func (s *ExternalSemaphorePropertiesKHR) Vulkanize() *_vkExternalSemaphorePropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkExternalSemaphorePropertiesKHR)(s)
-	return rval
-}
+type _vkExternalSemaphorePropertiesKHR = _vkExternalSemaphoreProperties
 
 // ExternalTensorPropertiesARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExternalTensorPropertiesARM.html
 type ExternalTensorPropertiesARM struct {
@@ -14746,22 +13836,9 @@ func (s *FormatProperties2) Vulkanize() *_vkFormatProperties2 {
 }
 
 // FormatProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormatProperties2KHR.html
-type FormatProperties2KHR struct {
-}
+type FormatProperties2KHR = FormatProperties2
 
-type _vkFormatProperties2KHR = FormatProperties2KHR
-
-func (s *_vkFormatProperties2KHR) Goify() *FormatProperties2KHR {
-	rval := (*FormatProperties2KHR)(s)
-	return rval
-}
-func (s *FormatProperties2KHR) Vulkanize() *_vkFormatProperties2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkFormatProperties2KHR)(s)
-	return rval
-}
+type _vkFormatProperties2KHR = _vkFormatProperties2
 
 // FormatProperties3: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormatProperties3.html
 type FormatProperties3 struct {
@@ -14805,22 +13882,9 @@ func (s *FormatProperties3) Vulkanize() *_vkFormatProperties3 {
 }
 
 // FormatProperties3KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormatProperties3KHR.html
-type FormatProperties3KHR struct {
-}
+type FormatProperties3KHR = FormatProperties3
 
-type _vkFormatProperties3KHR = FormatProperties3KHR
-
-func (s *_vkFormatProperties3KHR) Goify() *FormatProperties3KHR {
-	rval := (*FormatProperties3KHR)(s)
-	return rval
-}
-func (s *FormatProperties3KHR) Vulkanize() *_vkFormatProperties3KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkFormatProperties3KHR)(s)
-	return rval
-}
+type _vkFormatProperties3KHR = _vkFormatProperties3
 
 // FormatProperties4KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormatProperties4KHR.html
 type FormatProperties4KHR struct {
@@ -15078,22 +14142,9 @@ func (s *FramebufferAttachmentImageInfo) Vulkanize() *_vkFramebufferAttachmentIm
 }
 
 // FramebufferAttachmentImageInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFramebufferAttachmentImageInfoKHR.html
-type FramebufferAttachmentImageInfoKHR struct {
-}
+type FramebufferAttachmentImageInfoKHR = FramebufferAttachmentImageInfo
 
-type _vkFramebufferAttachmentImageInfoKHR = FramebufferAttachmentImageInfoKHR
-
-func (s *_vkFramebufferAttachmentImageInfoKHR) Goify() *FramebufferAttachmentImageInfoKHR {
-	rval := (*FramebufferAttachmentImageInfoKHR)(s)
-	return rval
-}
-func (s *FramebufferAttachmentImageInfoKHR) Vulkanize() *_vkFramebufferAttachmentImageInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkFramebufferAttachmentImageInfoKHR)(s)
-	return rval
-}
+type _vkFramebufferAttachmentImageInfoKHR = _vkFramebufferAttachmentImageInfo
 
 // FramebufferAttachmentsCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFramebufferAttachmentsCreateInfo.html
 type FramebufferAttachmentsCreateInfo struct {
@@ -15141,22 +14192,9 @@ func (s *FramebufferAttachmentsCreateInfo) Vulkanize() *_vkFramebufferAttachment
 }
 
 // FramebufferAttachmentsCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFramebufferAttachmentsCreateInfoKHR.html
-type FramebufferAttachmentsCreateInfoKHR struct {
-}
+type FramebufferAttachmentsCreateInfoKHR = FramebufferAttachmentsCreateInfo
 
-type _vkFramebufferAttachmentsCreateInfoKHR = FramebufferAttachmentsCreateInfoKHR
-
-func (s *_vkFramebufferAttachmentsCreateInfoKHR) Goify() *FramebufferAttachmentsCreateInfoKHR {
-	rval := (*FramebufferAttachmentsCreateInfoKHR)(s)
-	return rval
-}
-func (s *FramebufferAttachmentsCreateInfoKHR) Vulkanize() *_vkFramebufferAttachmentsCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkFramebufferAttachmentsCreateInfoKHR)(s)
-	return rval
-}
+type _vkFramebufferAttachmentsCreateInfoKHR = _vkFramebufferAttachmentsCreateInfo
 
 // FramebufferCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFramebufferCreateInfo.html
 type FramebufferCreateInfo struct {
@@ -16573,22 +15611,9 @@ func (s *HostImageCopyDevicePerformanceQuery) Vulkanize() *_vkHostImageCopyDevic
 }
 
 // HostImageCopyDevicePerformanceQueryEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkHostImageCopyDevicePerformanceQueryEXT.html
-type HostImageCopyDevicePerformanceQueryEXT struct {
-}
+type HostImageCopyDevicePerformanceQueryEXT = HostImageCopyDevicePerformanceQuery
 
-type _vkHostImageCopyDevicePerformanceQueryEXT = HostImageCopyDevicePerformanceQueryEXT
-
-func (s *_vkHostImageCopyDevicePerformanceQueryEXT) Goify() *HostImageCopyDevicePerformanceQueryEXT {
-	rval := (*HostImageCopyDevicePerformanceQueryEXT)(s)
-	return rval
-}
-func (s *HostImageCopyDevicePerformanceQueryEXT) Vulkanize() *_vkHostImageCopyDevicePerformanceQueryEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkHostImageCopyDevicePerformanceQueryEXT)(s)
-	return rval
-}
+type _vkHostImageCopyDevicePerformanceQueryEXT = _vkHostImageCopyDevicePerformanceQuery
 
 // HostImageLayoutTransitionInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkHostImageLayoutTransitionInfo.html
 type HostImageLayoutTransitionInfo struct {
@@ -16635,22 +15660,9 @@ func (s *HostImageLayoutTransitionInfo) Vulkanize() *_vkHostImageLayoutTransitio
 }
 
 // HostImageLayoutTransitionInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkHostImageLayoutTransitionInfoEXT.html
-type HostImageLayoutTransitionInfoEXT struct {
-}
+type HostImageLayoutTransitionInfoEXT = HostImageLayoutTransitionInfo
 
-type _vkHostImageLayoutTransitionInfoEXT = HostImageLayoutTransitionInfoEXT
-
-func (s *_vkHostImageLayoutTransitionInfoEXT) Goify() *HostImageLayoutTransitionInfoEXT {
-	rval := (*HostImageLayoutTransitionInfoEXT)(s)
-	return rval
-}
-func (s *HostImageLayoutTransitionInfoEXT) Vulkanize() *_vkHostImageLayoutTransitionInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkHostImageLayoutTransitionInfoEXT)(s)
-	return rval
-}
+type _vkHostImageLayoutTransitionInfoEXT = _vkHostImageLayoutTransitionInfo
 
 // ImageAlignmentControlCreateInfoMESA: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageAlignmentControlCreateInfoMESA.html
 type ImageAlignmentControlCreateInfoMESA struct {
@@ -16770,22 +15782,9 @@ func (s *ImageBlit2) Vulkanize() *_vkImageBlit2 {
 }
 
 // ImageBlit2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageBlit2KHR.html
-type ImageBlit2KHR struct {
-}
+type ImageBlit2KHR = ImageBlit2
 
-type _vkImageBlit2KHR = ImageBlit2KHR
-
-func (s *_vkImageBlit2KHR) Goify() *ImageBlit2KHR {
-	rval := (*ImageBlit2KHR)(s)
-	return rval
-}
-func (s *ImageBlit2KHR) Vulkanize() *_vkImageBlit2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageBlit2KHR)(s)
-	return rval
-}
+type _vkImageBlit2KHR = _vkImageBlit2
 
 // ImageCaptureDescriptorDataInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageCaptureDescriptorDataInfoEXT.html
 type ImageCaptureDescriptorDataInfoEXT struct {
@@ -16997,22 +15996,9 @@ func (s *ImageCopy2) Vulkanize() *_vkImageCopy2 {
 }
 
 // ImageCopy2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageCopy2KHR.html
-type ImageCopy2KHR struct {
-}
+type ImageCopy2KHR = ImageCopy2
 
-type _vkImageCopy2KHR = ImageCopy2KHR
-
-func (s *_vkImageCopy2KHR) Goify() *ImageCopy2KHR {
-	rval := (*ImageCopy2KHR)(s)
-	return rval
-}
-func (s *ImageCopy2KHR) Vulkanize() *_vkImageCopy2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageCopy2KHR)(s)
-	return rval
-}
+type _vkImageCopy2KHR = _vkImageCopy2
 
 // ImageCreateFlags2CreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageCreateFlags2CreateInfoKHR.html
 type ImageCreateFlags2CreateInfoKHR struct {
@@ -17334,22 +16320,9 @@ func (s *ImageFormatListCreateInfo) Vulkanize() *_vkImageFormatListCreateInfo {
 }
 
 // ImageFormatListCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageFormatListCreateInfoKHR.html
-type ImageFormatListCreateInfoKHR struct {
-}
+type ImageFormatListCreateInfoKHR = ImageFormatListCreateInfo
 
-type _vkImageFormatListCreateInfoKHR = ImageFormatListCreateInfoKHR
-
-func (s *_vkImageFormatListCreateInfoKHR) Goify() *ImageFormatListCreateInfoKHR {
-	rval := (*ImageFormatListCreateInfoKHR)(s)
-	return rval
-}
-func (s *ImageFormatListCreateInfoKHR) Vulkanize() *_vkImageFormatListCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageFormatListCreateInfoKHR)(s)
-	return rval
-}
+type _vkImageFormatListCreateInfoKHR = _vkImageFormatListCreateInfo
 
 // ImageFormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageFormatProperties.html
 type ImageFormatProperties struct {
@@ -17432,22 +16405,9 @@ func (s *ImageFormatProperties2) Vulkanize() *_vkImageFormatProperties2 {
 }
 
 // ImageFormatProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageFormatProperties2KHR.html
-type ImageFormatProperties2KHR struct {
-}
+type ImageFormatProperties2KHR = ImageFormatProperties2
 
-type _vkImageFormatProperties2KHR = ImageFormatProperties2KHR
-
-func (s *_vkImageFormatProperties2KHR) Goify() *ImageFormatProperties2KHR {
-	rval := (*ImageFormatProperties2KHR)(s)
-	return rval
-}
-func (s *ImageFormatProperties2KHR) Vulkanize() *_vkImageFormatProperties2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageFormatProperties2KHR)(s)
-	return rval
-}
+type _vkImageFormatProperties2KHR = _vkImageFormatProperties2
 
 // ImageMemoryBarrier: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier.html
 type ImageMemoryBarrier struct {
@@ -17586,22 +16546,9 @@ func (s *ImageMemoryBarrier2) Vulkanize() *_vkImageMemoryBarrier2 {
 }
 
 // ImageMemoryBarrier2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier2KHR.html
-type ImageMemoryBarrier2KHR struct {
-}
+type ImageMemoryBarrier2KHR = ImageMemoryBarrier2
 
-type _vkImageMemoryBarrier2KHR = ImageMemoryBarrier2KHR
-
-func (s *_vkImageMemoryBarrier2KHR) Goify() *ImageMemoryBarrier2KHR {
-	rval := (*ImageMemoryBarrier2KHR)(s)
-	return rval
-}
-func (s *ImageMemoryBarrier2KHR) Vulkanize() *_vkImageMemoryBarrier2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageMemoryBarrier2KHR)(s)
-	return rval
-}
+type _vkImageMemoryBarrier2KHR = _vkImageMemoryBarrier2
 
 // ImageMemoryRequirementsInfo2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryRequirementsInfo2.html
 type ImageMemoryRequirementsInfo2 struct {
@@ -17636,22 +16583,9 @@ func (s *ImageMemoryRequirementsInfo2) Vulkanize() *_vkImageMemoryRequirementsIn
 }
 
 // ImageMemoryRequirementsInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryRequirementsInfo2KHR.html
-type ImageMemoryRequirementsInfo2KHR struct {
-}
+type ImageMemoryRequirementsInfo2KHR = ImageMemoryRequirementsInfo2
 
-type _vkImageMemoryRequirementsInfo2KHR = ImageMemoryRequirementsInfo2KHR
-
-func (s *_vkImageMemoryRequirementsInfo2KHR) Goify() *ImageMemoryRequirementsInfo2KHR {
-	rval := (*ImageMemoryRequirementsInfo2KHR)(s)
-	return rval
-}
-func (s *ImageMemoryRequirementsInfo2KHR) Vulkanize() *_vkImageMemoryRequirementsInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageMemoryRequirementsInfo2KHR)(s)
-	return rval
-}
+type _vkImageMemoryRequirementsInfo2KHR = _vkImageMemoryRequirementsInfo2
 
 // ImagePlaneMemoryRequirementsInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImagePlaneMemoryRequirementsInfo.html
 type ImagePlaneMemoryRequirementsInfo struct {
@@ -17686,22 +16620,9 @@ func (s *ImagePlaneMemoryRequirementsInfo) Vulkanize() *_vkImagePlaneMemoryRequi
 }
 
 // ImagePlaneMemoryRequirementsInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImagePlaneMemoryRequirementsInfoKHR.html
-type ImagePlaneMemoryRequirementsInfoKHR struct {
-}
+type ImagePlaneMemoryRequirementsInfoKHR = ImagePlaneMemoryRequirementsInfo
 
-type _vkImagePlaneMemoryRequirementsInfoKHR = ImagePlaneMemoryRequirementsInfoKHR
-
-func (s *_vkImagePlaneMemoryRequirementsInfoKHR) Goify() *ImagePlaneMemoryRequirementsInfoKHR {
-	rval := (*ImagePlaneMemoryRequirementsInfoKHR)(s)
-	return rval
-}
-func (s *ImagePlaneMemoryRequirementsInfoKHR) Vulkanize() *_vkImagePlaneMemoryRequirementsInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImagePlaneMemoryRequirementsInfoKHR)(s)
-	return rval
-}
+type _vkImagePlaneMemoryRequirementsInfoKHR = _vkImagePlaneMemoryRequirementsInfo
 
 // ImageResolve: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageResolve.html
 type ImageResolve struct {
@@ -17793,22 +16714,9 @@ func (s *ImageResolve2) Vulkanize() *_vkImageResolve2 {
 }
 
 // ImageResolve2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageResolve2KHR.html
-type ImageResolve2KHR struct {
-}
+type ImageResolve2KHR = ImageResolve2
 
-type _vkImageResolve2KHR = ImageResolve2KHR
-
-func (s *_vkImageResolve2KHR) Goify() *ImageResolve2KHR {
-	rval := (*ImageResolve2KHR)(s)
-	return rval
-}
-func (s *ImageResolve2KHR) Vulkanize() *_vkImageResolve2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageResolve2KHR)(s)
-	return rval
-}
+type _vkImageResolve2KHR = _vkImageResolve2
 
 // ImageSparseMemoryRequirementsInfo2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageSparseMemoryRequirementsInfo2.html
 type ImageSparseMemoryRequirementsInfo2 struct {
@@ -17843,22 +16751,9 @@ func (s *ImageSparseMemoryRequirementsInfo2) Vulkanize() *_vkImageSparseMemoryRe
 }
 
 // ImageSparseMemoryRequirementsInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageSparseMemoryRequirementsInfo2KHR.html
-type ImageSparseMemoryRequirementsInfo2KHR struct {
-}
+type ImageSparseMemoryRequirementsInfo2KHR = ImageSparseMemoryRequirementsInfo2
 
-type _vkImageSparseMemoryRequirementsInfo2KHR = ImageSparseMemoryRequirementsInfo2KHR
-
-func (s *_vkImageSparseMemoryRequirementsInfo2KHR) Goify() *ImageSparseMemoryRequirementsInfo2KHR {
-	rval := (*ImageSparseMemoryRequirementsInfo2KHR)(s)
-	return rval
-}
-func (s *ImageSparseMemoryRequirementsInfo2KHR) Vulkanize() *_vkImageSparseMemoryRequirementsInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageSparseMemoryRequirementsInfo2KHR)(s)
-	return rval
-}
+type _vkImageSparseMemoryRequirementsInfo2KHR = _vkImageSparseMemoryRequirementsInfo2
 
 // ImageStencilUsage2CreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageStencilUsage2CreateInfoKHR.html
 type ImageStencilUsage2CreateInfoKHR struct {
@@ -17925,22 +16820,9 @@ func (s *ImageStencilUsageCreateInfo) Vulkanize() *_vkImageStencilUsageCreateInf
 }
 
 // ImageStencilUsageCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageStencilUsageCreateInfoEXT.html
-type ImageStencilUsageCreateInfoEXT struct {
-}
+type ImageStencilUsageCreateInfoEXT = ImageStencilUsageCreateInfo
 
-type _vkImageStencilUsageCreateInfoEXT = ImageStencilUsageCreateInfoEXT
-
-func (s *_vkImageStencilUsageCreateInfoEXT) Goify() *ImageStencilUsageCreateInfoEXT {
-	rval := (*ImageStencilUsageCreateInfoEXT)(s)
-	return rval
-}
-func (s *ImageStencilUsageCreateInfoEXT) Vulkanize() *_vkImageStencilUsageCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageStencilUsageCreateInfoEXT)(s)
-	return rval
-}
+type _vkImageStencilUsageCreateInfoEXT = _vkImageStencilUsageCreateInfo
 
 // ImageSubresource: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageSubresource.html
 type ImageSubresource struct {
@@ -17996,40 +16878,14 @@ func (s *ImageSubresource2) Vulkanize() *_vkImageSubresource2 {
 }
 
 // ImageSubresource2EXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageSubresource2EXT.html
-type ImageSubresource2EXT struct {
-}
+type ImageSubresource2EXT = ImageSubresource2
 
-type _vkImageSubresource2EXT = ImageSubresource2EXT
-
-func (s *_vkImageSubresource2EXT) Goify() *ImageSubresource2EXT {
-	rval := (*ImageSubresource2EXT)(s)
-	return rval
-}
-func (s *ImageSubresource2EXT) Vulkanize() *_vkImageSubresource2EXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageSubresource2EXT)(s)
-	return rval
-}
+type _vkImageSubresource2EXT = _vkImageSubresource2
 
 // ImageSubresource2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageSubresource2KHR.html
-type ImageSubresource2KHR struct {
-}
+type ImageSubresource2KHR = ImageSubresource2
 
-type _vkImageSubresource2KHR = ImageSubresource2KHR
-
-func (s *_vkImageSubresource2KHR) Goify() *ImageSubresource2KHR {
-	rval := (*ImageSubresource2KHR)(s)
-	return rval
-}
-func (s *ImageSubresource2KHR) Vulkanize() *_vkImageSubresource2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageSubresource2KHR)(s)
-	return rval
-}
+type _vkImageSubresource2KHR = _vkImageSubresource2
 
 // ImageSubresourceLayers: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageSubresourceLayers.html
 type ImageSubresourceLayers struct {
@@ -18194,22 +17050,9 @@ func (s *ImageToMemoryCopy) Vulkanize() *_vkImageToMemoryCopy {
 }
 
 // ImageToMemoryCopyEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageToMemoryCopyEXT.html
-type ImageToMemoryCopyEXT struct {
-}
+type ImageToMemoryCopyEXT = ImageToMemoryCopy
 
-type _vkImageToMemoryCopyEXT = ImageToMemoryCopyEXT
-
-func (s *_vkImageToMemoryCopyEXT) Goify() *ImageToMemoryCopyEXT {
-	rval := (*ImageToMemoryCopyEXT)(s)
-	return rval
-}
-func (s *ImageToMemoryCopyEXT) Vulkanize() *_vkImageToMemoryCopyEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageToMemoryCopyEXT)(s)
-	return rval
-}
+type _vkImageToMemoryCopyEXT = _vkImageToMemoryCopy
 
 // ImageUsageFlags2CreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageUsageFlags2CreateInfoKHR.html
 type ImageUsageFlags2CreateInfoKHR struct {
@@ -18609,22 +17452,9 @@ func (s *ImageViewUsageCreateInfo) Vulkanize() *_vkImageViewUsageCreateInfo {
 }
 
 // ImageViewUsageCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageViewUsageCreateInfoKHR.html
-type ImageViewUsageCreateInfoKHR struct {
-}
+type ImageViewUsageCreateInfoKHR = ImageViewUsageCreateInfo
 
-type _vkImageViewUsageCreateInfoKHR = ImageViewUsageCreateInfoKHR
-
-func (s *_vkImageViewUsageCreateInfoKHR) Goify() *ImageViewUsageCreateInfoKHR {
-	rval := (*ImageViewUsageCreateInfoKHR)(s)
-	return rval
-}
-func (s *ImageViewUsageCreateInfoKHR) Vulkanize() *_vkImageViewUsageCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkImageViewUsageCreateInfoKHR)(s)
-	return rval
-}
+type _vkImageViewUsageCreateInfoKHR = _vkImageViewUsageCreateInfo
 
 // ImportFenceFdInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImportFenceFdInfoKHR.html
 type ImportFenceFdInfoKHR struct {
@@ -19432,22 +18262,9 @@ func (s *InputAttachmentAspectReference) Vulkanize() *_vkInputAttachmentAspectRe
 }
 
 // InputAttachmentAspectReferenceKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkInputAttachmentAspectReferenceKHR.html
-type InputAttachmentAspectReferenceKHR struct {
-}
+type InputAttachmentAspectReferenceKHR = InputAttachmentAspectReference
 
-type _vkInputAttachmentAspectReferenceKHR = InputAttachmentAspectReferenceKHR
-
-func (s *_vkInputAttachmentAspectReferenceKHR) Goify() *InputAttachmentAspectReferenceKHR {
-	rval := (*InputAttachmentAspectReferenceKHR)(s)
-	return rval
-}
-func (s *InputAttachmentAspectReferenceKHR) Vulkanize() *_vkInputAttachmentAspectReferenceKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkInputAttachmentAspectReferenceKHR)(s)
-	return rval
-}
+type _vkInputAttachmentAspectReferenceKHR = _vkInputAttachmentAspectReference
 
 // InstanceCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkInstanceCreateInfo.html
 type InstanceCreateInfo struct {
@@ -19969,22 +18786,9 @@ func (s *MemoryAllocateFlagsInfo) Vulkanize() *_vkMemoryAllocateFlagsInfo {
 }
 
 // MemoryAllocateFlagsInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryAllocateFlagsInfoKHR.html
-type MemoryAllocateFlagsInfoKHR struct {
-}
+type MemoryAllocateFlagsInfoKHR = MemoryAllocateFlagsInfo
 
-type _vkMemoryAllocateFlagsInfoKHR = MemoryAllocateFlagsInfoKHR
-
-func (s *_vkMemoryAllocateFlagsInfoKHR) Goify() *MemoryAllocateFlagsInfoKHR {
-	rval := (*MemoryAllocateFlagsInfoKHR)(s)
-	return rval
-}
-func (s *MemoryAllocateFlagsInfoKHR) Vulkanize() *_vkMemoryAllocateFlagsInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryAllocateFlagsInfoKHR)(s)
-	return rval
-}
+type _vkMemoryAllocateFlagsInfoKHR = _vkMemoryAllocateFlagsInfo
 
 // MemoryAllocateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryAllocateInfo.html
 type MemoryAllocateInfo struct {
@@ -20107,22 +18911,9 @@ func (s *MemoryBarrier2) Vulkanize() *_vkMemoryBarrier2 {
 }
 
 // MemoryBarrier2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryBarrier2KHR.html
-type MemoryBarrier2KHR struct {
-}
+type MemoryBarrier2KHR = MemoryBarrier2
 
-type _vkMemoryBarrier2KHR = MemoryBarrier2KHR
-
-func (s *_vkMemoryBarrier2KHR) Goify() *MemoryBarrier2KHR {
-	rval := (*MemoryBarrier2KHR)(s)
-	return rval
-}
-func (s *MemoryBarrier2KHR) Vulkanize() *_vkMemoryBarrier2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryBarrier2KHR)(s)
-	return rval
-}
+type _vkMemoryBarrier2KHR = _vkMemoryBarrier2
 
 // MemoryBarrierAccessFlags3KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryBarrierAccessFlags3KHR.html
 type MemoryBarrierAccessFlags3KHR struct {
@@ -20199,22 +18990,9 @@ func (s *MemoryDedicatedAllocateInfo) Vulkanize() *_vkMemoryDedicatedAllocateInf
 }
 
 // MemoryDedicatedAllocateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryDedicatedAllocateInfoKHR.html
-type MemoryDedicatedAllocateInfoKHR struct {
-}
+type MemoryDedicatedAllocateInfoKHR = MemoryDedicatedAllocateInfo
 
-type _vkMemoryDedicatedAllocateInfoKHR = MemoryDedicatedAllocateInfoKHR
-
-func (s *_vkMemoryDedicatedAllocateInfoKHR) Goify() *MemoryDedicatedAllocateInfoKHR {
-	rval := (*MemoryDedicatedAllocateInfoKHR)(s)
-	return rval
-}
-func (s *MemoryDedicatedAllocateInfoKHR) Vulkanize() *_vkMemoryDedicatedAllocateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryDedicatedAllocateInfoKHR)(s)
-	return rval
-}
+type _vkMemoryDedicatedAllocateInfoKHR = _vkMemoryDedicatedAllocateInfo
 
 // MemoryDedicatedAllocateInfoTensorARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryDedicatedAllocateInfoTensorARM.html
 type MemoryDedicatedAllocateInfoTensorARM struct {
@@ -20287,22 +19065,9 @@ func (s *MemoryDedicatedRequirements) Vulkanize() *_vkMemoryDedicatedRequirement
 }
 
 // MemoryDedicatedRequirementsKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryDedicatedRequirementsKHR.html
-type MemoryDedicatedRequirementsKHR struct {
-}
+type MemoryDedicatedRequirementsKHR = MemoryDedicatedRequirements
 
-type _vkMemoryDedicatedRequirementsKHR = MemoryDedicatedRequirementsKHR
-
-func (s *_vkMemoryDedicatedRequirementsKHR) Goify() *MemoryDedicatedRequirementsKHR {
-	rval := (*MemoryDedicatedRequirementsKHR)(s)
-	return rval
-}
-func (s *MemoryDedicatedRequirementsKHR) Vulkanize() *_vkMemoryDedicatedRequirementsKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryDedicatedRequirementsKHR)(s)
-	return rval
-}
+type _vkMemoryDedicatedRequirementsKHR = _vkMemoryDedicatedRequirements
 
 // MemoryFdPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryFdPropertiesKHR.html
 type MemoryFdPropertiesKHR struct {
@@ -20509,22 +19274,9 @@ func (s *MemoryMapInfo) Vulkanize() *_vkMemoryMapInfo {
 }
 
 // MemoryMapInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryMapInfoKHR.html
-type MemoryMapInfoKHR struct {
-}
+type MemoryMapInfoKHR = MemoryMapInfo
 
-type _vkMemoryMapInfoKHR = MemoryMapInfoKHR
-
-func (s *_vkMemoryMapInfoKHR) Goify() *MemoryMapInfoKHR {
-	rval := (*MemoryMapInfoKHR)(s)
-	return rval
-}
-func (s *MemoryMapInfoKHR) Vulkanize() *_vkMemoryMapInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryMapInfoKHR)(s)
-	return rval
-}
+type _vkMemoryMapInfoKHR = _vkMemoryMapInfo
 
 // MemoryMapPlacedInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryMapPlacedInfoEXT.html
 type MemoryMapPlacedInfoEXT struct {
@@ -20635,22 +19387,9 @@ func (s *MemoryOpaqueCaptureAddressAllocateInfo) Vulkanize() *_vkMemoryOpaqueCap
 }
 
 // MemoryOpaqueCaptureAddressAllocateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryOpaqueCaptureAddressAllocateInfoKHR.html
-type MemoryOpaqueCaptureAddressAllocateInfoKHR struct {
-}
+type MemoryOpaqueCaptureAddressAllocateInfoKHR = MemoryOpaqueCaptureAddressAllocateInfo
 
-type _vkMemoryOpaqueCaptureAddressAllocateInfoKHR = MemoryOpaqueCaptureAddressAllocateInfoKHR
-
-func (s *_vkMemoryOpaqueCaptureAddressAllocateInfoKHR) Goify() *MemoryOpaqueCaptureAddressAllocateInfoKHR {
-	rval := (*MemoryOpaqueCaptureAddressAllocateInfoKHR)(s)
-	return rval
-}
-func (s *MemoryOpaqueCaptureAddressAllocateInfoKHR) Vulkanize() *_vkMemoryOpaqueCaptureAddressAllocateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryOpaqueCaptureAddressAllocateInfoKHR)(s)
-	return rval
-}
+type _vkMemoryOpaqueCaptureAddressAllocateInfoKHR = _vkMemoryOpaqueCaptureAddressAllocateInfo
 
 // MemoryPriorityAllocateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryPriorityAllocateInfoEXT.html
 type MemoryPriorityAllocateInfoEXT struct {
@@ -20847,22 +19586,9 @@ func (s *MemoryRequirements2) Vulkanize() *_vkMemoryRequirements2 {
 }
 
 // MemoryRequirements2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryRequirements2KHR.html
-type MemoryRequirements2KHR struct {
-}
+type MemoryRequirements2KHR = MemoryRequirements2
 
-type _vkMemoryRequirements2KHR = MemoryRequirements2KHR
-
-func (s *_vkMemoryRequirements2KHR) Goify() *MemoryRequirements2KHR {
-	rval := (*MemoryRequirements2KHR)(s)
-	return rval
-}
-func (s *MemoryRequirements2KHR) Vulkanize() *_vkMemoryRequirements2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryRequirements2KHR)(s)
-	return rval
-}
+type _vkMemoryRequirements2KHR = _vkMemoryRequirements2
 
 // MemoryToImageCopy: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryToImageCopy.html
 type MemoryToImageCopy struct {
@@ -20918,22 +19644,9 @@ func (s *MemoryToImageCopy) Vulkanize() *_vkMemoryToImageCopy {
 }
 
 // MemoryToImageCopyEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryToImageCopyEXT.html
-type MemoryToImageCopyEXT struct {
-}
+type MemoryToImageCopyEXT = MemoryToImageCopy
 
-type _vkMemoryToImageCopyEXT = MemoryToImageCopyEXT
-
-func (s *_vkMemoryToImageCopyEXT) Goify() *MemoryToImageCopyEXT {
-	rval := (*MemoryToImageCopyEXT)(s)
-	return rval
-}
-func (s *MemoryToImageCopyEXT) Vulkanize() *_vkMemoryToImageCopyEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryToImageCopyEXT)(s)
-	return rval
-}
+type _vkMemoryToImageCopyEXT = _vkMemoryToImageCopy
 
 // MemoryType: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryType.html
 type MemoryType struct {
@@ -20994,22 +19707,9 @@ func (s *MemoryUnmapInfo) Vulkanize() *_vkMemoryUnmapInfo {
 }
 
 // MemoryUnmapInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryUnmapInfoKHR.html
-type MemoryUnmapInfoKHR struct {
-}
+type MemoryUnmapInfoKHR = MemoryUnmapInfo
 
-type _vkMemoryUnmapInfoKHR = MemoryUnmapInfoKHR
-
-func (s *_vkMemoryUnmapInfoKHR) Goify() *MemoryUnmapInfoKHR {
-	rval := (*MemoryUnmapInfoKHR)(s)
-	return rval
-}
-func (s *MemoryUnmapInfoKHR) Vulkanize() *_vkMemoryUnmapInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMemoryUnmapInfoKHR)(s)
-	return rval
-}
+type _vkMemoryUnmapInfoKHR = _vkMemoryUnmapInfo
 
 // MicromapBuildInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMicromapBuildInfoEXT.html
 type MicromapBuildInfoEXT struct {
@@ -21193,22 +19893,9 @@ func (s *MicromapCreateInfoEXT) Vulkanize() *_vkMicromapCreateInfoEXT {
 }
 
 // MicromapTriangleEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMicromapTriangleEXT.html
-type MicromapTriangleEXT struct {
-}
+type MicromapTriangleEXT = MicromapTriangleKHR
 
-type _vkMicromapTriangleEXT = MicromapTriangleEXT
-
-func (s *_vkMicromapTriangleEXT) Goify() *MicromapTriangleEXT {
-	rval := (*MicromapTriangleEXT)(s)
-	return rval
-}
-func (s *MicromapTriangleEXT) Vulkanize() *_vkMicromapTriangleEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMicromapTriangleEXT)(s)
-	return rval
-}
+type _vkMicromapTriangleEXT = _vkMicromapTriangleKHR
 
 // MicromapTriangleKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMicromapTriangleKHR.html
 type MicromapTriangleKHR struct {
@@ -21544,22 +20231,9 @@ func (s *MutableDescriptorTypeCreateInfoEXT) Vulkanize() *_vkMutableDescriptorTy
 }
 
 // MutableDescriptorTypeCreateInfoVALVE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMutableDescriptorTypeCreateInfoVALVE.html
-type MutableDescriptorTypeCreateInfoVALVE struct {
-}
+type MutableDescriptorTypeCreateInfoVALVE = MutableDescriptorTypeCreateInfoEXT
 
-type _vkMutableDescriptorTypeCreateInfoVALVE = MutableDescriptorTypeCreateInfoVALVE
-
-func (s *_vkMutableDescriptorTypeCreateInfoVALVE) Goify() *MutableDescriptorTypeCreateInfoVALVE {
-	rval := (*MutableDescriptorTypeCreateInfoVALVE)(s)
-	return rval
-}
-func (s *MutableDescriptorTypeCreateInfoVALVE) Vulkanize() *_vkMutableDescriptorTypeCreateInfoVALVE {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMutableDescriptorTypeCreateInfoVALVE)(s)
-	return rval
-}
+type _vkMutableDescriptorTypeCreateInfoVALVE = _vkMutableDescriptorTypeCreateInfoEXT
 
 // MutableDescriptorTypeListEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMutableDescriptorTypeListEXT.html
 type MutableDescriptorTypeListEXT struct {
@@ -21596,22 +20270,9 @@ func (s *MutableDescriptorTypeListEXT) Vulkanize() *_vkMutableDescriptorTypeList
 }
 
 // MutableDescriptorTypeListVALVE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMutableDescriptorTypeListVALVE.html
-type MutableDescriptorTypeListVALVE struct {
-}
+type MutableDescriptorTypeListVALVE = MutableDescriptorTypeListEXT
 
-type _vkMutableDescriptorTypeListVALVE = MutableDescriptorTypeListVALVE
-
-func (s *_vkMutableDescriptorTypeListVALVE) Goify() *MutableDescriptorTypeListVALVE {
-	rval := (*MutableDescriptorTypeListVALVE)(s)
-	return rval
-}
-func (s *MutableDescriptorTypeListVALVE) Vulkanize() *_vkMutableDescriptorTypeListVALVE {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkMutableDescriptorTypeListVALVE)(s)
-	return rval
-}
+type _vkMutableDescriptorTypeListVALVE = _vkMutableDescriptorTypeListEXT
 
 // Offset2D: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkOffset2D.html
 type Offset2D struct {
@@ -22867,22 +21528,9 @@ func (s *PhysicalDevice16BitStorageFeatures) Vulkanize() *_vkPhysicalDevice16Bit
 }
 
 // PhysicalDevice16BitStorageFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice16BitStorageFeaturesKHR.html
-type PhysicalDevice16BitStorageFeaturesKHR struct {
-}
+type PhysicalDevice16BitStorageFeaturesKHR = PhysicalDevice16BitStorageFeatures
 
-type _vkPhysicalDevice16BitStorageFeaturesKHR = PhysicalDevice16BitStorageFeaturesKHR
-
-func (s *_vkPhysicalDevice16BitStorageFeaturesKHR) Goify() *PhysicalDevice16BitStorageFeaturesKHR {
-	rval := (*PhysicalDevice16BitStorageFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDevice16BitStorageFeaturesKHR) Vulkanize() *_vkPhysicalDevice16BitStorageFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevice16BitStorageFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDevice16BitStorageFeaturesKHR = _vkPhysicalDevice16BitStorageFeatures
 
 // PhysicalDevice4444FormatsFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice4444FormatsFeaturesEXT.html
 type PhysicalDevice4444FormatsFeaturesEXT struct {
@@ -22964,22 +21612,9 @@ func (s *PhysicalDevice8BitStorageFeatures) Vulkanize() *_vkPhysicalDevice8BitSt
 }
 
 // PhysicalDevice8BitStorageFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice8BitStorageFeaturesKHR.html
-type PhysicalDevice8BitStorageFeaturesKHR struct {
-}
+type PhysicalDevice8BitStorageFeaturesKHR = PhysicalDevice8BitStorageFeatures
 
-type _vkPhysicalDevice8BitStorageFeaturesKHR = PhysicalDevice8BitStorageFeaturesKHR
-
-func (s *_vkPhysicalDevice8BitStorageFeaturesKHR) Goify() *PhysicalDevice8BitStorageFeaturesKHR {
-	rval := (*PhysicalDevice8BitStorageFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDevice8BitStorageFeaturesKHR) Vulkanize() *_vkPhysicalDevice8BitStorageFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevice8BitStorageFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDevice8BitStorageFeaturesKHR = _vkPhysicalDevice8BitStorageFeatures
 
 // PhysicalDeviceASTCDecodeFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceASTCDecodeFeaturesEXT.html
 type PhysicalDeviceASTCDecodeFeaturesEXT struct {
@@ -23404,22 +22039,9 @@ func (s *PhysicalDeviceBorderColorSwizzleFeaturesEXT) Vulkanize() *_vkPhysicalDe
 }
 
 // PhysicalDeviceBufferAddressFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceBufferAddressFeaturesEXT.html
-type PhysicalDeviceBufferAddressFeaturesEXT struct {
-}
+type PhysicalDeviceBufferAddressFeaturesEXT = PhysicalDeviceBufferDeviceAddressFeaturesEXT
 
-type _vkPhysicalDeviceBufferAddressFeaturesEXT = PhysicalDeviceBufferAddressFeaturesEXT
-
-func (s *_vkPhysicalDeviceBufferAddressFeaturesEXT) Goify() *PhysicalDeviceBufferAddressFeaturesEXT {
-	rval := (*PhysicalDeviceBufferAddressFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceBufferAddressFeaturesEXT) Vulkanize() *_vkPhysicalDeviceBufferAddressFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceBufferAddressFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceBufferAddressFeaturesEXT = _vkPhysicalDeviceBufferDeviceAddressFeaturesEXT
 
 // PhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE.html
 type PhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE struct {
@@ -23566,22 +22188,9 @@ func (s *PhysicalDeviceBufferDeviceAddressFeaturesEXT) Vulkanize() *_vkPhysicalD
 }
 
 // PhysicalDeviceBufferDeviceAddressFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesKHR.html
-type PhysicalDeviceBufferDeviceAddressFeaturesKHR struct {
-}
+type PhysicalDeviceBufferDeviceAddressFeaturesKHR = PhysicalDeviceBufferDeviceAddressFeatures
 
-type _vkPhysicalDeviceBufferDeviceAddressFeaturesKHR = PhysicalDeviceBufferDeviceAddressFeaturesKHR
-
-func (s *_vkPhysicalDeviceBufferDeviceAddressFeaturesKHR) Goify() *PhysicalDeviceBufferDeviceAddressFeaturesKHR {
-	rval := (*PhysicalDeviceBufferDeviceAddressFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceBufferDeviceAddressFeaturesKHR) Vulkanize() *_vkPhysicalDeviceBufferDeviceAddressFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceBufferDeviceAddressFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceBufferDeviceAddressFeaturesKHR = _vkPhysicalDeviceBufferDeviceAddressFeatures
 
 // PhysicalDeviceClusterAccelerationStructureFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceClusterAccelerationStructureFeaturesNV.html
 type PhysicalDeviceClusterAccelerationStructureFeaturesNV struct {
@@ -23954,22 +22563,9 @@ func (s *PhysicalDeviceComputeShaderDerivativesFeaturesKHR) Vulkanize() *_vkPhys
 }
 
 // PhysicalDeviceComputeShaderDerivativesFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceComputeShaderDerivativesFeaturesNV.html
-type PhysicalDeviceComputeShaderDerivativesFeaturesNV struct {
-}
+type PhysicalDeviceComputeShaderDerivativesFeaturesNV = PhysicalDeviceComputeShaderDerivativesFeaturesKHR
 
-type _vkPhysicalDeviceComputeShaderDerivativesFeaturesNV = PhysicalDeviceComputeShaderDerivativesFeaturesNV
-
-func (s *_vkPhysicalDeviceComputeShaderDerivativesFeaturesNV) Goify() *PhysicalDeviceComputeShaderDerivativesFeaturesNV {
-	rval := (*PhysicalDeviceComputeShaderDerivativesFeaturesNV)(s)
-	return rval
-}
-func (s *PhysicalDeviceComputeShaderDerivativesFeaturesNV) Vulkanize() *_vkPhysicalDeviceComputeShaderDerivativesFeaturesNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceComputeShaderDerivativesFeaturesNV)(s)
-	return rval
-}
+type _vkPhysicalDeviceComputeShaderDerivativesFeaturesNV = _vkPhysicalDeviceComputeShaderDerivativesFeaturesKHR
 
 // PhysicalDeviceComputeShaderDerivativesPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.html
 type PhysicalDeviceComputeShaderDerivativesPropertiesKHR struct {
@@ -24721,22 +23317,9 @@ func (s *PhysicalDeviceCopyMemoryIndirectPropertiesKHR) Vulkanize() *_vkPhysical
 }
 
 // PhysicalDeviceCopyMemoryIndirectPropertiesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.html
-type PhysicalDeviceCopyMemoryIndirectPropertiesNV struct {
-}
+type PhysicalDeviceCopyMemoryIndirectPropertiesNV = PhysicalDeviceCopyMemoryIndirectPropertiesKHR
 
-type _vkPhysicalDeviceCopyMemoryIndirectPropertiesNV = PhysicalDeviceCopyMemoryIndirectPropertiesNV
-
-func (s *_vkPhysicalDeviceCopyMemoryIndirectPropertiesNV) Goify() *PhysicalDeviceCopyMemoryIndirectPropertiesNV {
-	rval := (*PhysicalDeviceCopyMemoryIndirectPropertiesNV)(s)
-	return rval
-}
-func (s *PhysicalDeviceCopyMemoryIndirectPropertiesNV) Vulkanize() *_vkPhysicalDeviceCopyMemoryIndirectPropertiesNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceCopyMemoryIndirectPropertiesNV)(s)
-	return rval
-}
+type _vkPhysicalDeviceCopyMemoryIndirectPropertiesNV = _vkPhysicalDeviceCopyMemoryIndirectPropertiesKHR
 
 // PhysicalDeviceCornerSampledImageFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceCornerSampledImageFeaturesNV.html
 type PhysicalDeviceCornerSampledImageFeaturesNV struct {
@@ -25282,22 +23865,9 @@ func (s *PhysicalDeviceDepthClampControlFeaturesEXT) Vulkanize() *_vkPhysicalDev
 }
 
 // PhysicalDeviceDepthClampZeroOneFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.html
-type PhysicalDeviceDepthClampZeroOneFeaturesEXT struct {
-}
+type PhysicalDeviceDepthClampZeroOneFeaturesEXT = PhysicalDeviceDepthClampZeroOneFeaturesKHR
 
-type _vkPhysicalDeviceDepthClampZeroOneFeaturesEXT = PhysicalDeviceDepthClampZeroOneFeaturesEXT
-
-func (s *_vkPhysicalDeviceDepthClampZeroOneFeaturesEXT) Goify() *PhysicalDeviceDepthClampZeroOneFeaturesEXT {
-	rval := (*PhysicalDeviceDepthClampZeroOneFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceDepthClampZeroOneFeaturesEXT) Vulkanize() *_vkPhysicalDeviceDepthClampZeroOneFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceDepthClampZeroOneFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceDepthClampZeroOneFeaturesEXT = _vkPhysicalDeviceDepthClampZeroOneFeaturesKHR
 
 // PhysicalDeviceDepthClampZeroOneFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDepthClampZeroOneFeaturesKHR.html
 type PhysicalDeviceDepthClampZeroOneFeaturesKHR struct {
@@ -25445,22 +24015,9 @@ func (s *PhysicalDeviceDepthStencilResolveProperties) Vulkanize() *_vkPhysicalDe
 }
 
 // PhysicalDeviceDepthStencilResolvePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDepthStencilResolvePropertiesKHR.html
-type PhysicalDeviceDepthStencilResolvePropertiesKHR struct {
-}
+type PhysicalDeviceDepthStencilResolvePropertiesKHR = PhysicalDeviceDepthStencilResolveProperties
 
-type _vkPhysicalDeviceDepthStencilResolvePropertiesKHR = PhysicalDeviceDepthStencilResolvePropertiesKHR
-
-func (s *_vkPhysicalDeviceDepthStencilResolvePropertiesKHR) Goify() *PhysicalDeviceDepthStencilResolvePropertiesKHR {
-	rval := (*PhysicalDeviceDepthStencilResolvePropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceDepthStencilResolvePropertiesKHR) Vulkanize() *_vkPhysicalDeviceDepthStencilResolvePropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceDepthStencilResolvePropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceDepthStencilResolvePropertiesKHR = _vkPhysicalDeviceDepthStencilResolveProperties
 
 // PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.html
 type PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT struct {
@@ -26063,22 +24620,9 @@ func (s *PhysicalDeviceDescriptorIndexingFeatures) Vulkanize() *_vkPhysicalDevic
 }
 
 // PhysicalDeviceDescriptorIndexingFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDescriptorIndexingFeaturesEXT.html
-type PhysicalDeviceDescriptorIndexingFeaturesEXT struct {
-}
+type PhysicalDeviceDescriptorIndexingFeaturesEXT = PhysicalDeviceDescriptorIndexingFeatures
 
-type _vkPhysicalDeviceDescriptorIndexingFeaturesEXT = PhysicalDeviceDescriptorIndexingFeaturesEXT
-
-func (s *_vkPhysicalDeviceDescriptorIndexingFeaturesEXT) Goify() *PhysicalDeviceDescriptorIndexingFeaturesEXT {
-	rval := (*PhysicalDeviceDescriptorIndexingFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceDescriptorIndexingFeaturesEXT) Vulkanize() *_vkPhysicalDeviceDescriptorIndexingFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceDescriptorIndexingFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceDescriptorIndexingFeaturesEXT = _vkPhysicalDeviceDescriptorIndexingFeatures
 
 // PhysicalDeviceDescriptorIndexingProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDescriptorIndexingProperties.html
 type PhysicalDeviceDescriptorIndexingProperties struct {
@@ -26202,22 +24746,9 @@ func (s *PhysicalDeviceDescriptorIndexingProperties) Vulkanize() *_vkPhysicalDev
 }
 
 // PhysicalDeviceDescriptorIndexingPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDescriptorIndexingPropertiesEXT.html
-type PhysicalDeviceDescriptorIndexingPropertiesEXT struct {
-}
+type PhysicalDeviceDescriptorIndexingPropertiesEXT = PhysicalDeviceDescriptorIndexingProperties
 
-type _vkPhysicalDeviceDescriptorIndexingPropertiesEXT = PhysicalDeviceDescriptorIndexingPropertiesEXT
-
-func (s *_vkPhysicalDeviceDescriptorIndexingPropertiesEXT) Goify() *PhysicalDeviceDescriptorIndexingPropertiesEXT {
-	rval := (*PhysicalDeviceDescriptorIndexingPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceDescriptorIndexingPropertiesEXT) Vulkanize() *_vkPhysicalDeviceDescriptorIndexingPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceDescriptorIndexingPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceDescriptorIndexingPropertiesEXT = _vkPhysicalDeviceDescriptorIndexingProperties
 
 // PhysicalDeviceDescriptorPoolOverallocationFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.html
 type PhysicalDeviceDescriptorPoolOverallocationFeaturesNV struct {
@@ -26709,22 +25240,9 @@ func (s *PhysicalDeviceDriverProperties) Vulkanize() *_vkPhysicalDeviceDriverPro
 }
 
 // PhysicalDeviceDriverPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDriverPropertiesKHR.html
-type PhysicalDeviceDriverPropertiesKHR struct {
-}
+type PhysicalDeviceDriverPropertiesKHR = PhysicalDeviceDriverProperties
 
-type _vkPhysicalDeviceDriverPropertiesKHR = PhysicalDeviceDriverPropertiesKHR
-
-func (s *_vkPhysicalDeviceDriverPropertiesKHR) Goify() *PhysicalDeviceDriverPropertiesKHR {
-	rval := (*PhysicalDeviceDriverPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceDriverPropertiesKHR) Vulkanize() *_vkPhysicalDeviceDriverPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceDriverPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceDriverPropertiesKHR = _vkPhysicalDeviceDriverProperties
 
 // PhysicalDeviceDrmPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDrmPropertiesEXT.html
 type PhysicalDeviceDrmPropertiesEXT struct {
@@ -26812,22 +25330,9 @@ func (s *PhysicalDeviceDynamicRenderingFeatures) Vulkanize() *_vkPhysicalDeviceD
 }
 
 // PhysicalDeviceDynamicRenderingFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDynamicRenderingFeaturesKHR.html
-type PhysicalDeviceDynamicRenderingFeaturesKHR struct {
-}
+type PhysicalDeviceDynamicRenderingFeaturesKHR = PhysicalDeviceDynamicRenderingFeatures
 
-type _vkPhysicalDeviceDynamicRenderingFeaturesKHR = PhysicalDeviceDynamicRenderingFeaturesKHR
-
-func (s *_vkPhysicalDeviceDynamicRenderingFeaturesKHR) Goify() *PhysicalDeviceDynamicRenderingFeaturesKHR {
-	rval := (*PhysicalDeviceDynamicRenderingFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceDynamicRenderingFeaturesKHR) Vulkanize() *_vkPhysicalDeviceDynamicRenderingFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceDynamicRenderingFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceDynamicRenderingFeaturesKHR = _vkPhysicalDeviceDynamicRenderingFeatures
 
 // PhysicalDeviceDynamicRenderingLocalReadFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDynamicRenderingLocalReadFeatures.html
 type PhysicalDeviceDynamicRenderingLocalReadFeatures struct {
@@ -26862,22 +25367,9 @@ func (s *PhysicalDeviceDynamicRenderingLocalReadFeatures) Vulkanize() *_vkPhysic
 }
 
 // PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR.html
-type PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR struct {
-}
+type PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR = PhysicalDeviceDynamicRenderingLocalReadFeatures
 
-type _vkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR = PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR
-
-func (s *_vkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR) Goify() *PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR {
-	rval := (*PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR) Vulkanize() *_vkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR = _vkPhysicalDeviceDynamicRenderingLocalReadFeatures
 
 // PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.html
 type PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT struct {
@@ -27381,22 +25873,9 @@ func (s *PhysicalDeviceExternalBufferInfo) Vulkanize() *_vkPhysicalDeviceExterna
 }
 
 // PhysicalDeviceExternalBufferInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalBufferInfoKHR.html
-type PhysicalDeviceExternalBufferInfoKHR struct {
-}
+type PhysicalDeviceExternalBufferInfoKHR = PhysicalDeviceExternalBufferInfo
 
-type _vkPhysicalDeviceExternalBufferInfoKHR = PhysicalDeviceExternalBufferInfoKHR
-
-func (s *_vkPhysicalDeviceExternalBufferInfoKHR) Goify() *PhysicalDeviceExternalBufferInfoKHR {
-	rval := (*PhysicalDeviceExternalBufferInfoKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceExternalBufferInfoKHR) Vulkanize() *_vkPhysicalDeviceExternalBufferInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceExternalBufferInfoKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceExternalBufferInfoKHR = _vkPhysicalDeviceExternalBufferInfo
 
 // PhysicalDeviceExternalComputeQueuePropertiesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalComputeQueuePropertiesNV.html
 type PhysicalDeviceExternalComputeQueuePropertiesNV struct {
@@ -27468,22 +25947,9 @@ func (s *PhysicalDeviceExternalFenceInfo) Vulkanize() *_vkPhysicalDeviceExternal
 }
 
 // PhysicalDeviceExternalFenceInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalFenceInfoKHR.html
-type PhysicalDeviceExternalFenceInfoKHR struct {
-}
+type PhysicalDeviceExternalFenceInfoKHR = PhysicalDeviceExternalFenceInfo
 
-type _vkPhysicalDeviceExternalFenceInfoKHR = PhysicalDeviceExternalFenceInfoKHR
-
-func (s *_vkPhysicalDeviceExternalFenceInfoKHR) Goify() *PhysicalDeviceExternalFenceInfoKHR {
-	rval := (*PhysicalDeviceExternalFenceInfoKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceExternalFenceInfoKHR) Vulkanize() *_vkPhysicalDeviceExternalFenceInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceExternalFenceInfoKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceExternalFenceInfoKHR = _vkPhysicalDeviceExternalFenceInfo
 
 // PhysicalDeviceExternalImageFormatInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalImageFormatInfo.html
 type PhysicalDeviceExternalImageFormatInfo struct {
@@ -27518,22 +25984,9 @@ func (s *PhysicalDeviceExternalImageFormatInfo) Vulkanize() *_vkPhysicalDeviceEx
 }
 
 // PhysicalDeviceExternalImageFormatInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalImageFormatInfoKHR.html
-type PhysicalDeviceExternalImageFormatInfoKHR struct {
-}
+type PhysicalDeviceExternalImageFormatInfoKHR = PhysicalDeviceExternalImageFormatInfo
 
-type _vkPhysicalDeviceExternalImageFormatInfoKHR = PhysicalDeviceExternalImageFormatInfoKHR
-
-func (s *_vkPhysicalDeviceExternalImageFormatInfoKHR) Goify() *PhysicalDeviceExternalImageFormatInfoKHR {
-	rval := (*PhysicalDeviceExternalImageFormatInfoKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceExternalImageFormatInfoKHR) Vulkanize() *_vkPhysicalDeviceExternalImageFormatInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceExternalImageFormatInfoKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceExternalImageFormatInfoKHR = _vkPhysicalDeviceExternalImageFormatInfo
 
 // PhysicalDeviceExternalMemoryHostPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalMemoryHostPropertiesEXT.html
 type PhysicalDeviceExternalMemoryHostPropertiesEXT struct {
@@ -27633,22 +26086,9 @@ func (s *PhysicalDeviceExternalSemaphoreInfo) Vulkanize() *_vkPhysicalDeviceExte
 }
 
 // PhysicalDeviceExternalSemaphoreInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalSemaphoreInfoKHR.html
-type PhysicalDeviceExternalSemaphoreInfoKHR struct {
-}
+type PhysicalDeviceExternalSemaphoreInfoKHR = PhysicalDeviceExternalSemaphoreInfo
 
-type _vkPhysicalDeviceExternalSemaphoreInfoKHR = PhysicalDeviceExternalSemaphoreInfoKHR
-
-func (s *_vkPhysicalDeviceExternalSemaphoreInfoKHR) Goify() *PhysicalDeviceExternalSemaphoreInfoKHR {
-	rval := (*PhysicalDeviceExternalSemaphoreInfoKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceExternalSemaphoreInfoKHR) Vulkanize() *_vkPhysicalDeviceExternalSemaphoreInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceExternalSemaphoreInfoKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceExternalSemaphoreInfoKHR = _vkPhysicalDeviceExternalSemaphoreInfo
 
 // PhysicalDeviceExternalTensorInfoARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalTensorInfoARM.html
 type PhysicalDeviceExternalTensorInfoARM struct {
@@ -28132,40 +26572,14 @@ func (s *PhysicalDeviceFeatures2) Vulkanize() *_vkPhysicalDeviceFeatures2 {
 }
 
 // PhysicalDeviceFeatures2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFeatures2KHR.html
-type PhysicalDeviceFeatures2KHR struct {
-}
+type PhysicalDeviceFeatures2KHR = PhysicalDeviceFeatures2
 
-type _vkPhysicalDeviceFeatures2KHR = PhysicalDeviceFeatures2KHR
-
-func (s *_vkPhysicalDeviceFeatures2KHR) Goify() *PhysicalDeviceFeatures2KHR {
-	rval := (*PhysicalDeviceFeatures2KHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceFeatures2KHR) Vulkanize() *_vkPhysicalDeviceFeatures2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceFeatures2KHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceFeatures2KHR = _vkPhysicalDeviceFeatures2
 
 // PhysicalDeviceFloat16Int8FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFloat16Int8FeaturesKHR.html
-type PhysicalDeviceFloat16Int8FeaturesKHR struct {
-}
+type PhysicalDeviceFloat16Int8FeaturesKHR = PhysicalDeviceShaderFloat16Int8Features
 
-type _vkPhysicalDeviceFloat16Int8FeaturesKHR = PhysicalDeviceFloat16Int8FeaturesKHR
-
-func (s *_vkPhysicalDeviceFloat16Int8FeaturesKHR) Goify() *PhysicalDeviceFloat16Int8FeaturesKHR {
-	rval := (*PhysicalDeviceFloat16Int8FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceFloat16Int8FeaturesKHR) Vulkanize() *_vkPhysicalDeviceFloat16Int8FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceFloat16Int8FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceFloat16Int8FeaturesKHR = _vkPhysicalDeviceShaderFloat16Int8Features
 
 // PhysicalDeviceFloatControlsProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFloatControlsProperties.html
 type PhysicalDeviceFloatControlsProperties struct {
@@ -28280,22 +26694,9 @@ func (s *PhysicalDeviceFloatControlsProperties) Vulkanize() *_vkPhysicalDeviceFl
 }
 
 // PhysicalDeviceFloatControlsPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFloatControlsPropertiesKHR.html
-type PhysicalDeviceFloatControlsPropertiesKHR struct {
-}
+type PhysicalDeviceFloatControlsPropertiesKHR = PhysicalDeviceFloatControlsProperties
 
-type _vkPhysicalDeviceFloatControlsPropertiesKHR = PhysicalDeviceFloatControlsPropertiesKHR
-
-func (s *_vkPhysicalDeviceFloatControlsPropertiesKHR) Goify() *PhysicalDeviceFloatControlsPropertiesKHR {
-	rval := (*PhysicalDeviceFloatControlsPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceFloatControlsPropertiesKHR) Vulkanize() *_vkPhysicalDeviceFloatControlsPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceFloatControlsPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceFloatControlsPropertiesKHR = _vkPhysicalDeviceFloatControlsProperties
 
 // PhysicalDeviceFormatPackFeaturesARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFormatPackFeaturesARM.html
 type PhysicalDeviceFormatPackFeaturesARM struct {
@@ -28544,22 +26945,9 @@ func (s *PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT) Vulkanize() *_vkPhys
 }
 
 // PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM.html
-type PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM struct {
-}
+type PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM = PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT
 
-type _vkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM = PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM
-
-func (s *_vkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM) Goify() *PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM {
-	rval := (*PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM)(s)
-	return rval
-}
-func (s *PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM) Vulkanize() *_vkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM)(s)
-	return rval
-}
+type _vkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM = _vkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT
 
 // PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT.html
 type PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT struct {
@@ -28595,22 +26983,9 @@ func (s *PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT) Vulkanize() *_vkPh
 }
 
 // PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.html
-type PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM struct {
-}
+type PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM = PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT
 
-type _vkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM = PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM
-
-func (s *_vkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM) Goify() *PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM {
-	rval := (*PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM)(s)
-	return rval
-}
-func (s *PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM) Vulkanize() *_vkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM)(s)
-	return rval
-}
+type _vkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM = _vkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT
 
 // PhysicalDeviceFragmentDensityMapPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentDensityMapPropertiesEXT.html
 type PhysicalDeviceFragmentDensityMapPropertiesEXT struct {
@@ -28686,22 +27061,9 @@ func (s *PhysicalDeviceFragmentShaderBarycentricFeaturesKHR) Vulkanize() *_vkPhy
 }
 
 // PhysicalDeviceFragmentShaderBarycentricFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.html
-type PhysicalDeviceFragmentShaderBarycentricFeaturesNV struct {
-}
+type PhysicalDeviceFragmentShaderBarycentricFeaturesNV = PhysicalDeviceFragmentShaderBarycentricFeaturesKHR
 
-type _vkPhysicalDeviceFragmentShaderBarycentricFeaturesNV = PhysicalDeviceFragmentShaderBarycentricFeaturesNV
-
-func (s *_vkPhysicalDeviceFragmentShaderBarycentricFeaturesNV) Goify() *PhysicalDeviceFragmentShaderBarycentricFeaturesNV {
-	rval := (*PhysicalDeviceFragmentShaderBarycentricFeaturesNV)(s)
-	return rval
-}
-func (s *PhysicalDeviceFragmentShaderBarycentricFeaturesNV) Vulkanize() *_vkPhysicalDeviceFragmentShaderBarycentricFeaturesNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceFragmentShaderBarycentricFeaturesNV)(s)
-	return rval
-}
+type _vkPhysicalDeviceFragmentShaderBarycentricFeaturesNV = _vkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR
 
 // PhysicalDeviceFragmentShaderBarycentricPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.html
 type PhysicalDeviceFragmentShaderBarycentricPropertiesKHR struct {
@@ -29089,40 +27451,14 @@ func (s *PhysicalDeviceGlobalPriorityQueryFeatures) Vulkanize() *_vkPhysicalDevi
 }
 
 // PhysicalDeviceGlobalPriorityQueryFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT.html
-type PhysicalDeviceGlobalPriorityQueryFeaturesEXT struct {
-}
+type PhysicalDeviceGlobalPriorityQueryFeaturesEXT = PhysicalDeviceGlobalPriorityQueryFeatures
 
-type _vkPhysicalDeviceGlobalPriorityQueryFeaturesEXT = PhysicalDeviceGlobalPriorityQueryFeaturesEXT
-
-func (s *_vkPhysicalDeviceGlobalPriorityQueryFeaturesEXT) Goify() *PhysicalDeviceGlobalPriorityQueryFeaturesEXT {
-	rval := (*PhysicalDeviceGlobalPriorityQueryFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceGlobalPriorityQueryFeaturesEXT) Vulkanize() *_vkPhysicalDeviceGlobalPriorityQueryFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceGlobalPriorityQueryFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceGlobalPriorityQueryFeaturesEXT = _vkPhysicalDeviceGlobalPriorityQueryFeatures
 
 // PhysicalDeviceGlobalPriorityQueryFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.html
-type PhysicalDeviceGlobalPriorityQueryFeaturesKHR struct {
-}
+type PhysicalDeviceGlobalPriorityQueryFeaturesKHR = PhysicalDeviceGlobalPriorityQueryFeatures
 
-type _vkPhysicalDeviceGlobalPriorityQueryFeaturesKHR = PhysicalDeviceGlobalPriorityQueryFeaturesKHR
-
-func (s *_vkPhysicalDeviceGlobalPriorityQueryFeaturesKHR) Goify() *PhysicalDeviceGlobalPriorityQueryFeaturesKHR {
-	rval := (*PhysicalDeviceGlobalPriorityQueryFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceGlobalPriorityQueryFeaturesKHR) Vulkanize() *_vkPhysicalDeviceGlobalPriorityQueryFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceGlobalPriorityQueryFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceGlobalPriorityQueryFeaturesKHR = _vkPhysicalDeviceGlobalPriorityQueryFeatures
 
 // PhysicalDeviceGpaFeaturesAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceGpaFeaturesAMD.html
 type PhysicalDeviceGpaFeaturesAMD struct {
@@ -29366,22 +27702,9 @@ func (s *PhysicalDeviceGroupProperties) Vulkanize() *_vkPhysicalDeviceGroupPrope
 }
 
 // PhysicalDeviceGroupPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceGroupPropertiesKHR.html
-type PhysicalDeviceGroupPropertiesKHR struct {
-}
+type PhysicalDeviceGroupPropertiesKHR = PhysicalDeviceGroupProperties
 
-type _vkPhysicalDeviceGroupPropertiesKHR = PhysicalDeviceGroupPropertiesKHR
-
-func (s *_vkPhysicalDeviceGroupPropertiesKHR) Goify() *PhysicalDeviceGroupPropertiesKHR {
-	rval := (*PhysicalDeviceGroupPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceGroupPropertiesKHR) Vulkanize() *_vkPhysicalDeviceGroupPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceGroupPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceGroupPropertiesKHR = _vkPhysicalDeviceGroupProperties
 
 // PhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE.html
 type PhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE struct {
@@ -29480,22 +27803,9 @@ func (s *PhysicalDeviceHostImageCopyFeatures) Vulkanize() *_vkPhysicalDeviceHost
 }
 
 // PhysicalDeviceHostImageCopyFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceHostImageCopyFeaturesEXT.html
-type PhysicalDeviceHostImageCopyFeaturesEXT struct {
-}
+type PhysicalDeviceHostImageCopyFeaturesEXT = PhysicalDeviceHostImageCopyFeatures
 
-type _vkPhysicalDeviceHostImageCopyFeaturesEXT = PhysicalDeviceHostImageCopyFeaturesEXT
-
-func (s *_vkPhysicalDeviceHostImageCopyFeaturesEXT) Goify() *PhysicalDeviceHostImageCopyFeaturesEXT {
-	rval := (*PhysicalDeviceHostImageCopyFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceHostImageCopyFeaturesEXT) Vulkanize() *_vkPhysicalDeviceHostImageCopyFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceHostImageCopyFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceHostImageCopyFeaturesEXT = _vkPhysicalDeviceHostImageCopyFeatures
 
 // PhysicalDeviceHostImageCopyProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceHostImageCopyProperties.html
 type PhysicalDeviceHostImageCopyProperties struct {
@@ -29560,22 +27870,9 @@ func (s *PhysicalDeviceHostImageCopyProperties) Vulkanize() *_vkPhysicalDeviceHo
 }
 
 // PhysicalDeviceHostImageCopyPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceHostImageCopyPropertiesEXT.html
-type PhysicalDeviceHostImageCopyPropertiesEXT struct {
-}
+type PhysicalDeviceHostImageCopyPropertiesEXT = PhysicalDeviceHostImageCopyProperties
 
-type _vkPhysicalDeviceHostImageCopyPropertiesEXT = PhysicalDeviceHostImageCopyPropertiesEXT
-
-func (s *_vkPhysicalDeviceHostImageCopyPropertiesEXT) Goify() *PhysicalDeviceHostImageCopyPropertiesEXT {
-	rval := (*PhysicalDeviceHostImageCopyPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceHostImageCopyPropertiesEXT) Vulkanize() *_vkPhysicalDeviceHostImageCopyPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceHostImageCopyPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceHostImageCopyPropertiesEXT = _vkPhysicalDeviceHostImageCopyProperties
 
 // PhysicalDeviceHostQueryResetFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceHostQueryResetFeatures.html
 type PhysicalDeviceHostQueryResetFeatures struct {
@@ -29610,22 +27907,9 @@ func (s *PhysicalDeviceHostQueryResetFeatures) Vulkanize() *_vkPhysicalDeviceHos
 }
 
 // PhysicalDeviceHostQueryResetFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceHostQueryResetFeaturesEXT.html
-type PhysicalDeviceHostQueryResetFeaturesEXT struct {
-}
+type PhysicalDeviceHostQueryResetFeaturesEXT = PhysicalDeviceHostQueryResetFeatures
 
-type _vkPhysicalDeviceHostQueryResetFeaturesEXT = PhysicalDeviceHostQueryResetFeaturesEXT
-
-func (s *_vkPhysicalDeviceHostQueryResetFeaturesEXT) Goify() *PhysicalDeviceHostQueryResetFeaturesEXT {
-	rval := (*PhysicalDeviceHostQueryResetFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceHostQueryResetFeaturesEXT) Vulkanize() *_vkPhysicalDeviceHostQueryResetFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceHostQueryResetFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceHostQueryResetFeaturesEXT = _vkPhysicalDeviceHostQueryResetFeatures
 
 // PhysicalDeviceIDProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceIDProperties.html
 type PhysicalDeviceIDProperties struct {
@@ -29677,22 +27961,9 @@ func (s *PhysicalDeviceIDProperties) Vulkanize() *_vkPhysicalDeviceIDProperties 
 }
 
 // PhysicalDeviceIDPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceIDPropertiesKHR.html
-type PhysicalDeviceIDPropertiesKHR struct {
-}
+type PhysicalDeviceIDPropertiesKHR = PhysicalDeviceIDProperties
 
-type _vkPhysicalDeviceIDPropertiesKHR = PhysicalDeviceIDPropertiesKHR
-
-func (s *_vkPhysicalDeviceIDPropertiesKHR) Goify() *PhysicalDeviceIDPropertiesKHR {
-	rval := (*PhysicalDeviceIDPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceIDPropertiesKHR) Vulkanize() *_vkPhysicalDeviceIDPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceIDPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceIDPropertiesKHR = _vkPhysicalDeviceIDProperties
 
 // PhysicalDeviceImage2DViewOf3DFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImage2DViewOf3DFeaturesEXT.html
 type PhysicalDeviceImage2DViewOf3DFeaturesEXT struct {
@@ -29957,22 +28228,9 @@ func (s *PhysicalDeviceImageFormatInfo2) Vulkanize() *_vkPhysicalDeviceImageForm
 }
 
 // PhysicalDeviceImageFormatInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImageFormatInfo2KHR.html
-type PhysicalDeviceImageFormatInfo2KHR struct {
-}
+type PhysicalDeviceImageFormatInfo2KHR = PhysicalDeviceImageFormatInfo2
 
-type _vkPhysicalDeviceImageFormatInfo2KHR = PhysicalDeviceImageFormatInfo2KHR
-
-func (s *_vkPhysicalDeviceImageFormatInfo2KHR) Goify() *PhysicalDeviceImageFormatInfo2KHR {
-	rval := (*PhysicalDeviceImageFormatInfo2KHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceImageFormatInfo2KHR) Vulkanize() *_vkPhysicalDeviceImageFormatInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceImageFormatInfo2KHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceImageFormatInfo2KHR = _vkPhysicalDeviceImageFormatInfo2
 
 // PhysicalDeviceImageProcessing2FeaturesQCOM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImageProcessing2FeaturesQCOM.html
 type PhysicalDeviceImageProcessing2FeaturesQCOM struct {
@@ -30197,22 +28455,9 @@ func (s *PhysicalDeviceImageRobustnessFeatures) Vulkanize() *_vkPhysicalDeviceIm
 }
 
 // PhysicalDeviceImageRobustnessFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImageRobustnessFeaturesEXT.html
-type PhysicalDeviceImageRobustnessFeaturesEXT struct {
-}
+type PhysicalDeviceImageRobustnessFeaturesEXT = PhysicalDeviceImageRobustnessFeatures
 
-type _vkPhysicalDeviceImageRobustnessFeaturesEXT = PhysicalDeviceImageRobustnessFeaturesEXT
-
-func (s *_vkPhysicalDeviceImageRobustnessFeaturesEXT) Goify() *PhysicalDeviceImageRobustnessFeaturesEXT {
-	rval := (*PhysicalDeviceImageRobustnessFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceImageRobustnessFeaturesEXT) Vulkanize() *_vkPhysicalDeviceImageRobustnessFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceImageRobustnessFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceImageRobustnessFeaturesEXT = _vkPhysicalDeviceImageRobustnessFeatures
 
 // PhysicalDeviceImageSlicedViewOf3DFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.html
 type PhysicalDeviceImageSlicedViewOf3DFeaturesEXT struct {
@@ -30375,22 +28620,9 @@ func (s *PhysicalDeviceImagelessFramebufferFeatures) Vulkanize() *_vkPhysicalDev
 }
 
 // PhysicalDeviceImagelessFramebufferFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImagelessFramebufferFeaturesKHR.html
-type PhysicalDeviceImagelessFramebufferFeaturesKHR struct {
-}
+type PhysicalDeviceImagelessFramebufferFeaturesKHR = PhysicalDeviceImagelessFramebufferFeatures
 
-type _vkPhysicalDeviceImagelessFramebufferFeaturesKHR = PhysicalDeviceImagelessFramebufferFeaturesKHR
-
-func (s *_vkPhysicalDeviceImagelessFramebufferFeaturesKHR) Goify() *PhysicalDeviceImagelessFramebufferFeaturesKHR {
-	rval := (*PhysicalDeviceImagelessFramebufferFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceImagelessFramebufferFeaturesKHR) Vulkanize() *_vkPhysicalDeviceImagelessFramebufferFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceImagelessFramebufferFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceImagelessFramebufferFeaturesKHR = _vkPhysicalDeviceImagelessFramebufferFeatures
 
 // PhysicalDeviceIndexTypeUint8Features: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceIndexTypeUint8Features.html
 type PhysicalDeviceIndexTypeUint8Features struct {
@@ -30425,40 +28657,14 @@ func (s *PhysicalDeviceIndexTypeUint8Features) Vulkanize() *_vkPhysicalDeviceInd
 }
 
 // PhysicalDeviceIndexTypeUint8FeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceIndexTypeUint8FeaturesEXT.html
-type PhysicalDeviceIndexTypeUint8FeaturesEXT struct {
-}
+type PhysicalDeviceIndexTypeUint8FeaturesEXT = PhysicalDeviceIndexTypeUint8Features
 
-type _vkPhysicalDeviceIndexTypeUint8FeaturesEXT = PhysicalDeviceIndexTypeUint8FeaturesEXT
-
-func (s *_vkPhysicalDeviceIndexTypeUint8FeaturesEXT) Goify() *PhysicalDeviceIndexTypeUint8FeaturesEXT {
-	rval := (*PhysicalDeviceIndexTypeUint8FeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceIndexTypeUint8FeaturesEXT) Vulkanize() *_vkPhysicalDeviceIndexTypeUint8FeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceIndexTypeUint8FeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceIndexTypeUint8FeaturesEXT = _vkPhysicalDeviceIndexTypeUint8Features
 
 // PhysicalDeviceIndexTypeUint8FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceIndexTypeUint8FeaturesKHR.html
-type PhysicalDeviceIndexTypeUint8FeaturesKHR struct {
-}
+type PhysicalDeviceIndexTypeUint8FeaturesKHR = PhysicalDeviceIndexTypeUint8Features
 
-type _vkPhysicalDeviceIndexTypeUint8FeaturesKHR = PhysicalDeviceIndexTypeUint8FeaturesKHR
-
-func (s *_vkPhysicalDeviceIndexTypeUint8FeaturesKHR) Goify() *PhysicalDeviceIndexTypeUint8FeaturesKHR {
-	rval := (*PhysicalDeviceIndexTypeUint8FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceIndexTypeUint8FeaturesKHR) Vulkanize() *_vkPhysicalDeviceIndexTypeUint8FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceIndexTypeUint8FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceIndexTypeUint8FeaturesKHR = _vkPhysicalDeviceIndexTypeUint8Features
 
 // PhysicalDeviceInfoPropertiesINTEL: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceInfoPropertiesINTEL.html
 type PhysicalDeviceInfoPropertiesINTEL struct {
@@ -30570,22 +28776,9 @@ func (s *PhysicalDeviceInlineUniformBlockFeatures) Vulkanize() *_vkPhysicalDevic
 }
 
 // PhysicalDeviceInlineUniformBlockFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceInlineUniformBlockFeaturesEXT.html
-type PhysicalDeviceInlineUniformBlockFeaturesEXT struct {
-}
+type PhysicalDeviceInlineUniformBlockFeaturesEXT = PhysicalDeviceInlineUniformBlockFeatures
 
-type _vkPhysicalDeviceInlineUniformBlockFeaturesEXT = PhysicalDeviceInlineUniformBlockFeaturesEXT
-
-func (s *_vkPhysicalDeviceInlineUniformBlockFeaturesEXT) Goify() *PhysicalDeviceInlineUniformBlockFeaturesEXT {
-	rval := (*PhysicalDeviceInlineUniformBlockFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceInlineUniformBlockFeaturesEXT) Vulkanize() *_vkPhysicalDeviceInlineUniformBlockFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceInlineUniformBlockFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceInlineUniformBlockFeaturesEXT = _vkPhysicalDeviceInlineUniformBlockFeatures
 
 // PhysicalDeviceInlineUniformBlockProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceInlineUniformBlockProperties.html
 type PhysicalDeviceInlineUniformBlockProperties struct {
@@ -30637,22 +28830,9 @@ func (s *PhysicalDeviceInlineUniformBlockProperties) Vulkanize() *_vkPhysicalDev
 }
 
 // PhysicalDeviceInlineUniformBlockPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceInlineUniformBlockPropertiesEXT.html
-type PhysicalDeviceInlineUniformBlockPropertiesEXT struct {
-}
+type PhysicalDeviceInlineUniformBlockPropertiesEXT = PhysicalDeviceInlineUniformBlockProperties
 
-type _vkPhysicalDeviceInlineUniformBlockPropertiesEXT = PhysicalDeviceInlineUniformBlockPropertiesEXT
-
-func (s *_vkPhysicalDeviceInlineUniformBlockPropertiesEXT) Goify() *PhysicalDeviceInlineUniformBlockPropertiesEXT {
-	rval := (*PhysicalDeviceInlineUniformBlockPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceInlineUniformBlockPropertiesEXT) Vulkanize() *_vkPhysicalDeviceInlineUniformBlockPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceInlineUniformBlockPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceInlineUniformBlockPropertiesEXT = _vkPhysicalDeviceInlineUniformBlockProperties
 
 // PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR.html
 type PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR struct {
@@ -31577,40 +29757,14 @@ func (s *PhysicalDeviceLineRasterizationFeatures) Vulkanize() *_vkPhysicalDevice
 }
 
 // PhysicalDeviceLineRasterizationFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLineRasterizationFeaturesEXT.html
-type PhysicalDeviceLineRasterizationFeaturesEXT struct {
-}
+type PhysicalDeviceLineRasterizationFeaturesEXT = PhysicalDeviceLineRasterizationFeatures
 
-type _vkPhysicalDeviceLineRasterizationFeaturesEXT = PhysicalDeviceLineRasterizationFeaturesEXT
-
-func (s *_vkPhysicalDeviceLineRasterizationFeaturesEXT) Goify() *PhysicalDeviceLineRasterizationFeaturesEXT {
-	rval := (*PhysicalDeviceLineRasterizationFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceLineRasterizationFeaturesEXT) Vulkanize() *_vkPhysicalDeviceLineRasterizationFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceLineRasterizationFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceLineRasterizationFeaturesEXT = _vkPhysicalDeviceLineRasterizationFeatures
 
 // PhysicalDeviceLineRasterizationFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLineRasterizationFeaturesKHR.html
-type PhysicalDeviceLineRasterizationFeaturesKHR struct {
-}
+type PhysicalDeviceLineRasterizationFeaturesKHR = PhysicalDeviceLineRasterizationFeatures
 
-type _vkPhysicalDeviceLineRasterizationFeaturesKHR = PhysicalDeviceLineRasterizationFeaturesKHR
-
-func (s *_vkPhysicalDeviceLineRasterizationFeaturesKHR) Goify() *PhysicalDeviceLineRasterizationFeaturesKHR {
-	rval := (*PhysicalDeviceLineRasterizationFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceLineRasterizationFeaturesKHR) Vulkanize() *_vkPhysicalDeviceLineRasterizationFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceLineRasterizationFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceLineRasterizationFeaturesKHR = _vkPhysicalDeviceLineRasterizationFeatures
 
 // PhysicalDeviceLineRasterizationProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLineRasterizationProperties.html
 type PhysicalDeviceLineRasterizationProperties struct {
@@ -31646,40 +29800,14 @@ func (s *PhysicalDeviceLineRasterizationProperties) Vulkanize() *_vkPhysicalDevi
 }
 
 // PhysicalDeviceLineRasterizationPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLineRasterizationPropertiesEXT.html
-type PhysicalDeviceLineRasterizationPropertiesEXT struct {
-}
+type PhysicalDeviceLineRasterizationPropertiesEXT = PhysicalDeviceLineRasterizationProperties
 
-type _vkPhysicalDeviceLineRasterizationPropertiesEXT = PhysicalDeviceLineRasterizationPropertiesEXT
-
-func (s *_vkPhysicalDeviceLineRasterizationPropertiesEXT) Goify() *PhysicalDeviceLineRasterizationPropertiesEXT {
-	rval := (*PhysicalDeviceLineRasterizationPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceLineRasterizationPropertiesEXT) Vulkanize() *_vkPhysicalDeviceLineRasterizationPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceLineRasterizationPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceLineRasterizationPropertiesEXT = _vkPhysicalDeviceLineRasterizationProperties
 
 // PhysicalDeviceLineRasterizationPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLineRasterizationPropertiesKHR.html
-type PhysicalDeviceLineRasterizationPropertiesKHR struct {
-}
+type PhysicalDeviceLineRasterizationPropertiesKHR = PhysicalDeviceLineRasterizationProperties
 
-type _vkPhysicalDeviceLineRasterizationPropertiesKHR = PhysicalDeviceLineRasterizationPropertiesKHR
-
-func (s *_vkPhysicalDeviceLineRasterizationPropertiesKHR) Goify() *PhysicalDeviceLineRasterizationPropertiesKHR {
-	rval := (*PhysicalDeviceLineRasterizationPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceLineRasterizationPropertiesKHR) Vulkanize() *_vkPhysicalDeviceLineRasterizationPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceLineRasterizationPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceLineRasterizationPropertiesKHR = _vkPhysicalDeviceLineRasterizationProperties
 
 // PhysicalDeviceLinearColorAttachmentFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLinearColorAttachmentFeaturesNV.html
 type PhysicalDeviceLinearColorAttachmentFeaturesNV struct {
@@ -31856,22 +29984,9 @@ func (s *PhysicalDeviceMaintenance3Properties) Vulkanize() *_vkPhysicalDeviceMai
 }
 
 // PhysicalDeviceMaintenance3PropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance3PropertiesKHR.html
-type PhysicalDeviceMaintenance3PropertiesKHR struct {
-}
+type PhysicalDeviceMaintenance3PropertiesKHR = PhysicalDeviceMaintenance3Properties
 
-type _vkPhysicalDeviceMaintenance3PropertiesKHR = PhysicalDeviceMaintenance3PropertiesKHR
-
-func (s *_vkPhysicalDeviceMaintenance3PropertiesKHR) Goify() *PhysicalDeviceMaintenance3PropertiesKHR {
-	rval := (*PhysicalDeviceMaintenance3PropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMaintenance3PropertiesKHR) Vulkanize() *_vkPhysicalDeviceMaintenance3PropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMaintenance3PropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMaintenance3PropertiesKHR = _vkPhysicalDeviceMaintenance3Properties
 
 // PhysicalDeviceMaintenance4Features: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance4Features.html
 type PhysicalDeviceMaintenance4Features struct {
@@ -31906,22 +30021,9 @@ func (s *PhysicalDeviceMaintenance4Features) Vulkanize() *_vkPhysicalDeviceMaint
 }
 
 // PhysicalDeviceMaintenance4FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance4FeaturesKHR.html
-type PhysicalDeviceMaintenance4FeaturesKHR struct {
-}
+type PhysicalDeviceMaintenance4FeaturesKHR = PhysicalDeviceMaintenance4Features
 
-type _vkPhysicalDeviceMaintenance4FeaturesKHR = PhysicalDeviceMaintenance4FeaturesKHR
-
-func (s *_vkPhysicalDeviceMaintenance4FeaturesKHR) Goify() *PhysicalDeviceMaintenance4FeaturesKHR {
-	rval := (*PhysicalDeviceMaintenance4FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMaintenance4FeaturesKHR) Vulkanize() *_vkPhysicalDeviceMaintenance4FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMaintenance4FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMaintenance4FeaturesKHR = _vkPhysicalDeviceMaintenance4Features
 
 // PhysicalDeviceMaintenance4Properties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance4Properties.html
 type PhysicalDeviceMaintenance4Properties struct {
@@ -31957,22 +30059,9 @@ func (s *PhysicalDeviceMaintenance4Properties) Vulkanize() *_vkPhysicalDeviceMai
 }
 
 // PhysicalDeviceMaintenance4PropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance4PropertiesKHR.html
-type PhysicalDeviceMaintenance4PropertiesKHR struct {
-}
+type PhysicalDeviceMaintenance4PropertiesKHR = PhysicalDeviceMaintenance4Properties
 
-type _vkPhysicalDeviceMaintenance4PropertiesKHR = PhysicalDeviceMaintenance4PropertiesKHR
-
-func (s *_vkPhysicalDeviceMaintenance4PropertiesKHR) Goify() *PhysicalDeviceMaintenance4PropertiesKHR {
-	rval := (*PhysicalDeviceMaintenance4PropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMaintenance4PropertiesKHR) Vulkanize() *_vkPhysicalDeviceMaintenance4PropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMaintenance4PropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMaintenance4PropertiesKHR = _vkPhysicalDeviceMaintenance4Properties
 
 // PhysicalDeviceMaintenance5Features: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance5Features.html
 type PhysicalDeviceMaintenance5Features struct {
@@ -32007,22 +30096,9 @@ func (s *PhysicalDeviceMaintenance5Features) Vulkanize() *_vkPhysicalDeviceMaint
 }
 
 // PhysicalDeviceMaintenance5FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance5FeaturesKHR.html
-type PhysicalDeviceMaintenance5FeaturesKHR struct {
-}
+type PhysicalDeviceMaintenance5FeaturesKHR = PhysicalDeviceMaintenance5Features
 
-type _vkPhysicalDeviceMaintenance5FeaturesKHR = PhysicalDeviceMaintenance5FeaturesKHR
-
-func (s *_vkPhysicalDeviceMaintenance5FeaturesKHR) Goify() *PhysicalDeviceMaintenance5FeaturesKHR {
-	rval := (*PhysicalDeviceMaintenance5FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMaintenance5FeaturesKHR) Vulkanize() *_vkPhysicalDeviceMaintenance5FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMaintenance5FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMaintenance5FeaturesKHR = _vkPhysicalDeviceMaintenance5Features
 
 // PhysicalDeviceMaintenance5Properties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance5Properties.html
 type PhysicalDeviceMaintenance5Properties struct {
@@ -32078,22 +30154,9 @@ func (s *PhysicalDeviceMaintenance5Properties) Vulkanize() *_vkPhysicalDeviceMai
 }
 
 // PhysicalDeviceMaintenance5PropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance5PropertiesKHR.html
-type PhysicalDeviceMaintenance5PropertiesKHR struct {
-}
+type PhysicalDeviceMaintenance5PropertiesKHR = PhysicalDeviceMaintenance5Properties
 
-type _vkPhysicalDeviceMaintenance5PropertiesKHR = PhysicalDeviceMaintenance5PropertiesKHR
-
-func (s *_vkPhysicalDeviceMaintenance5PropertiesKHR) Goify() *PhysicalDeviceMaintenance5PropertiesKHR {
-	rval := (*PhysicalDeviceMaintenance5PropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMaintenance5PropertiesKHR) Vulkanize() *_vkPhysicalDeviceMaintenance5PropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMaintenance5PropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMaintenance5PropertiesKHR = _vkPhysicalDeviceMaintenance5Properties
 
 // PhysicalDeviceMaintenance6Features: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance6Features.html
 type PhysicalDeviceMaintenance6Features struct {
@@ -32128,22 +30191,9 @@ func (s *PhysicalDeviceMaintenance6Features) Vulkanize() *_vkPhysicalDeviceMaint
 }
 
 // PhysicalDeviceMaintenance6FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance6FeaturesKHR.html
-type PhysicalDeviceMaintenance6FeaturesKHR struct {
-}
+type PhysicalDeviceMaintenance6FeaturesKHR = PhysicalDeviceMaintenance6Features
 
-type _vkPhysicalDeviceMaintenance6FeaturesKHR = PhysicalDeviceMaintenance6FeaturesKHR
-
-func (s *_vkPhysicalDeviceMaintenance6FeaturesKHR) Goify() *PhysicalDeviceMaintenance6FeaturesKHR {
-	rval := (*PhysicalDeviceMaintenance6FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMaintenance6FeaturesKHR) Vulkanize() *_vkPhysicalDeviceMaintenance6FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMaintenance6FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMaintenance6FeaturesKHR = _vkPhysicalDeviceMaintenance6Features
 
 // PhysicalDeviceMaintenance6Properties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance6Properties.html
 type PhysicalDeviceMaintenance6Properties struct {
@@ -32187,22 +30237,9 @@ func (s *PhysicalDeviceMaintenance6Properties) Vulkanize() *_vkPhysicalDeviceMai
 }
 
 // PhysicalDeviceMaintenance6PropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance6PropertiesKHR.html
-type PhysicalDeviceMaintenance6PropertiesKHR struct {
-}
+type PhysicalDeviceMaintenance6PropertiesKHR = PhysicalDeviceMaintenance6Properties
 
-type _vkPhysicalDeviceMaintenance6PropertiesKHR = PhysicalDeviceMaintenance6PropertiesKHR
-
-func (s *_vkPhysicalDeviceMaintenance6PropertiesKHR) Goify() *PhysicalDeviceMaintenance6PropertiesKHR {
-	rval := (*PhysicalDeviceMaintenance6PropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMaintenance6PropertiesKHR) Vulkanize() *_vkPhysicalDeviceMaintenance6PropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMaintenance6PropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMaintenance6PropertiesKHR = _vkPhysicalDeviceMaintenance6Properties
 
 // PhysicalDeviceMaintenance7FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance7FeaturesKHR.html
 type PhysicalDeviceMaintenance7FeaturesKHR struct {
@@ -32541,22 +30578,9 @@ func (s *PhysicalDeviceMemoryDecompressionFeaturesEXT) Vulkanize() *_vkPhysicalD
 }
 
 // PhysicalDeviceMemoryDecompressionFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMemoryDecompressionFeaturesNV.html
-type PhysicalDeviceMemoryDecompressionFeaturesNV struct {
-}
+type PhysicalDeviceMemoryDecompressionFeaturesNV = PhysicalDeviceMemoryDecompressionFeaturesEXT
 
-type _vkPhysicalDeviceMemoryDecompressionFeaturesNV = PhysicalDeviceMemoryDecompressionFeaturesNV
-
-func (s *_vkPhysicalDeviceMemoryDecompressionFeaturesNV) Goify() *PhysicalDeviceMemoryDecompressionFeaturesNV {
-	rval := (*PhysicalDeviceMemoryDecompressionFeaturesNV)(s)
-	return rval
-}
-func (s *PhysicalDeviceMemoryDecompressionFeaturesNV) Vulkanize() *_vkPhysicalDeviceMemoryDecompressionFeaturesNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMemoryDecompressionFeaturesNV)(s)
-	return rval
-}
+type _vkPhysicalDeviceMemoryDecompressionFeaturesNV = _vkPhysicalDeviceMemoryDecompressionFeaturesEXT
 
 // PhysicalDeviceMemoryDecompressionPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMemoryDecompressionPropertiesEXT.html
 type PhysicalDeviceMemoryDecompressionPropertiesEXT struct {
@@ -32596,22 +30620,9 @@ func (s *PhysicalDeviceMemoryDecompressionPropertiesEXT) Vulkanize() *_vkPhysica
 }
 
 // PhysicalDeviceMemoryDecompressionPropertiesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMemoryDecompressionPropertiesNV.html
-type PhysicalDeviceMemoryDecompressionPropertiesNV struct {
-}
+type PhysicalDeviceMemoryDecompressionPropertiesNV = PhysicalDeviceMemoryDecompressionPropertiesEXT
 
-type _vkPhysicalDeviceMemoryDecompressionPropertiesNV = PhysicalDeviceMemoryDecompressionPropertiesNV
-
-func (s *_vkPhysicalDeviceMemoryDecompressionPropertiesNV) Goify() *PhysicalDeviceMemoryDecompressionPropertiesNV {
-	rval := (*PhysicalDeviceMemoryDecompressionPropertiesNV)(s)
-	return rval
-}
-func (s *PhysicalDeviceMemoryDecompressionPropertiesNV) Vulkanize() *_vkPhysicalDeviceMemoryDecompressionPropertiesNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMemoryDecompressionPropertiesNV)(s)
-	return rval
-}
+type _vkPhysicalDeviceMemoryDecompressionPropertiesNV = _vkPhysicalDeviceMemoryDecompressionPropertiesEXT
 
 // PhysicalDeviceMemoryPriorityFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMemoryPriorityFeaturesEXT.html
 type PhysicalDeviceMemoryPriorityFeaturesEXT struct {
@@ -32701,22 +30712,9 @@ func (s *PhysicalDeviceMemoryProperties2) Vulkanize() *_vkPhysicalDeviceMemoryPr
 }
 
 // PhysicalDeviceMemoryProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMemoryProperties2KHR.html
-type PhysicalDeviceMemoryProperties2KHR struct {
-}
+type PhysicalDeviceMemoryProperties2KHR = PhysicalDeviceMemoryProperties2
 
-type _vkPhysicalDeviceMemoryProperties2KHR = PhysicalDeviceMemoryProperties2KHR
-
-func (s *_vkPhysicalDeviceMemoryProperties2KHR) Goify() *PhysicalDeviceMemoryProperties2KHR {
-	rval := (*PhysicalDeviceMemoryProperties2KHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMemoryProperties2KHR) Vulkanize() *_vkPhysicalDeviceMemoryProperties2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMemoryProperties2KHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMemoryProperties2KHR = _vkPhysicalDeviceMemoryProperties2
 
 // PhysicalDeviceMeshShaderFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMeshShaderFeaturesEXT.html
 type PhysicalDeviceMeshShaderFeaturesEXT struct {
@@ -33197,22 +31195,9 @@ func (s *PhysicalDeviceMultiviewFeatures) Vulkanize() *_vkPhysicalDeviceMultivie
 }
 
 // PhysicalDeviceMultiviewFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMultiviewFeaturesKHR.html
-type PhysicalDeviceMultiviewFeaturesKHR struct {
-}
+type PhysicalDeviceMultiviewFeaturesKHR = PhysicalDeviceMultiviewFeatures
 
-type _vkPhysicalDeviceMultiviewFeaturesKHR = PhysicalDeviceMultiviewFeaturesKHR
-
-func (s *_vkPhysicalDeviceMultiviewFeaturesKHR) Goify() *PhysicalDeviceMultiviewFeaturesKHR {
-	rval := (*PhysicalDeviceMultiviewFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMultiviewFeaturesKHR) Vulkanize() *_vkPhysicalDeviceMultiviewFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMultiviewFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMultiviewFeaturesKHR = _vkPhysicalDeviceMultiviewFeatures
 
 // PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX.html
 type PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX struct {
@@ -33351,22 +31336,9 @@ func (s *PhysicalDeviceMultiviewProperties) Vulkanize() *_vkPhysicalDeviceMultiv
 }
 
 // PhysicalDeviceMultiviewPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMultiviewPropertiesKHR.html
-type PhysicalDeviceMultiviewPropertiesKHR struct {
-}
+type PhysicalDeviceMultiviewPropertiesKHR = PhysicalDeviceMultiviewProperties
 
-type _vkPhysicalDeviceMultiviewPropertiesKHR = PhysicalDeviceMultiviewPropertiesKHR
-
-func (s *_vkPhysicalDeviceMultiviewPropertiesKHR) Goify() *PhysicalDeviceMultiviewPropertiesKHR {
-	rval := (*PhysicalDeviceMultiviewPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceMultiviewPropertiesKHR) Vulkanize() *_vkPhysicalDeviceMultiviewPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMultiviewPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceMultiviewPropertiesKHR = _vkPhysicalDeviceMultiviewProperties
 
 // PhysicalDeviceMutableDescriptorTypeFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.html
 type PhysicalDeviceMutableDescriptorTypeFeaturesEXT struct {
@@ -33401,22 +31373,9 @@ func (s *PhysicalDeviceMutableDescriptorTypeFeaturesEXT) Vulkanize() *_vkPhysica
 }
 
 // PhysicalDeviceMutableDescriptorTypeFeaturesVALVE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE.html
-type PhysicalDeviceMutableDescriptorTypeFeaturesVALVE struct {
-}
+type PhysicalDeviceMutableDescriptorTypeFeaturesVALVE = PhysicalDeviceMutableDescriptorTypeFeaturesEXT
 
-type _vkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE = PhysicalDeviceMutableDescriptorTypeFeaturesVALVE
-
-func (s *_vkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE) Goify() *PhysicalDeviceMutableDescriptorTypeFeaturesVALVE {
-	rval := (*PhysicalDeviceMutableDescriptorTypeFeaturesVALVE)(s)
-	return rval
-}
-func (s *PhysicalDeviceMutableDescriptorTypeFeaturesVALVE) Vulkanize() *_vkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE)(s)
-	return rval
-}
+type _vkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE = _vkPhysicalDeviceMutableDescriptorTypeFeaturesEXT
 
 // PhysicalDeviceNestedCommandBufferFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceNestedCommandBufferFeaturesEXT.html
 type PhysicalDeviceNestedCommandBufferFeaturesEXT struct {
@@ -34259,22 +32218,9 @@ func (s *PhysicalDevicePipelineCreationCacheControlFeatures) Vulkanize() *_vkPhy
 }
 
 // PhysicalDevicePipelineCreationCacheControlFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT.html
-type PhysicalDevicePipelineCreationCacheControlFeaturesEXT struct {
-}
+type PhysicalDevicePipelineCreationCacheControlFeaturesEXT = PhysicalDevicePipelineCreationCacheControlFeatures
 
-type _vkPhysicalDevicePipelineCreationCacheControlFeaturesEXT = PhysicalDevicePipelineCreationCacheControlFeaturesEXT
-
-func (s *_vkPhysicalDevicePipelineCreationCacheControlFeaturesEXT) Goify() *PhysicalDevicePipelineCreationCacheControlFeaturesEXT {
-	rval := (*PhysicalDevicePipelineCreationCacheControlFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDevicePipelineCreationCacheControlFeaturesEXT) Vulkanize() *_vkPhysicalDevicePipelineCreationCacheControlFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePipelineCreationCacheControlFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDevicePipelineCreationCacheControlFeaturesEXT = _vkPhysicalDevicePipelineCreationCacheControlFeatures
 
 // PhysicalDevicePipelineExecutablePropertiesFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.html
 type PhysicalDevicePipelineExecutablePropertiesFeaturesKHR struct {
@@ -34309,22 +32255,9 @@ func (s *PhysicalDevicePipelineExecutablePropertiesFeaturesKHR) Vulkanize() *_vk
 }
 
 // PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.html
-type PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT struct {
-}
+type PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT = PhysicalDevicePipelineLibraryGroupHandlesFeaturesKHR
 
-type _vkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT = PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT
-
-func (s *_vkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT) Goify() *PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT {
-	rval := (*PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT) Vulkanize() *_vkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT = _vkPhysicalDevicePipelineLibraryGroupHandlesFeaturesKHR
 
 // PhysicalDevicePipelineLibraryGroupHandlesFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesKHR.html
 type PhysicalDevicePipelineLibraryGroupHandlesFeaturesKHR struct {
@@ -34455,22 +32388,9 @@ func (s *PhysicalDevicePipelineProtectedAccessFeatures) Vulkanize() *_vkPhysical
 }
 
 // PhysicalDevicePipelineProtectedAccessFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.html
-type PhysicalDevicePipelineProtectedAccessFeaturesEXT struct {
-}
+type PhysicalDevicePipelineProtectedAccessFeaturesEXT = PhysicalDevicePipelineProtectedAccessFeatures
 
-type _vkPhysicalDevicePipelineProtectedAccessFeaturesEXT = PhysicalDevicePipelineProtectedAccessFeaturesEXT
-
-func (s *_vkPhysicalDevicePipelineProtectedAccessFeaturesEXT) Goify() *PhysicalDevicePipelineProtectedAccessFeaturesEXT {
-	rval := (*PhysicalDevicePipelineProtectedAccessFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDevicePipelineProtectedAccessFeaturesEXT) Vulkanize() *_vkPhysicalDevicePipelineProtectedAccessFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePipelineProtectedAccessFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDevicePipelineProtectedAccessFeaturesEXT = _vkPhysicalDevicePipelineProtectedAccessFeatures
 
 // PhysicalDevicePipelineRobustnessFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineRobustnessFeatures.html
 type PhysicalDevicePipelineRobustnessFeatures struct {
@@ -34505,22 +32425,9 @@ func (s *PhysicalDevicePipelineRobustnessFeatures) Vulkanize() *_vkPhysicalDevic
 }
 
 // PhysicalDevicePipelineRobustnessFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineRobustnessFeaturesEXT.html
-type PhysicalDevicePipelineRobustnessFeaturesEXT struct {
-}
+type PhysicalDevicePipelineRobustnessFeaturesEXT = PhysicalDevicePipelineRobustnessFeatures
 
-type _vkPhysicalDevicePipelineRobustnessFeaturesEXT = PhysicalDevicePipelineRobustnessFeaturesEXT
-
-func (s *_vkPhysicalDevicePipelineRobustnessFeaturesEXT) Goify() *PhysicalDevicePipelineRobustnessFeaturesEXT {
-	rval := (*PhysicalDevicePipelineRobustnessFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDevicePipelineRobustnessFeaturesEXT) Vulkanize() *_vkPhysicalDevicePipelineRobustnessFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePipelineRobustnessFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDevicePipelineRobustnessFeaturesEXT = _vkPhysicalDevicePipelineRobustnessFeatures
 
 // PhysicalDevicePipelineRobustnessProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineRobustnessProperties.html
 type PhysicalDevicePipelineRobustnessProperties struct {
@@ -34568,22 +32475,9 @@ func (s *PhysicalDevicePipelineRobustnessProperties) Vulkanize() *_vkPhysicalDev
 }
 
 // PhysicalDevicePipelineRobustnessPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineRobustnessPropertiesEXT.html
-type PhysicalDevicePipelineRobustnessPropertiesEXT struct {
-}
+type PhysicalDevicePipelineRobustnessPropertiesEXT = PhysicalDevicePipelineRobustnessProperties
 
-type _vkPhysicalDevicePipelineRobustnessPropertiesEXT = PhysicalDevicePipelineRobustnessPropertiesEXT
-
-func (s *_vkPhysicalDevicePipelineRobustnessPropertiesEXT) Goify() *PhysicalDevicePipelineRobustnessPropertiesEXT {
-	rval := (*PhysicalDevicePipelineRobustnessPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDevicePipelineRobustnessPropertiesEXT) Vulkanize() *_vkPhysicalDevicePipelineRobustnessPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePipelineRobustnessPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDevicePipelineRobustnessPropertiesEXT = _vkPhysicalDevicePipelineRobustnessProperties
 
 // PhysicalDevicePointClippingProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePointClippingProperties.html
 type PhysicalDevicePointClippingProperties struct {
@@ -34619,22 +32513,9 @@ func (s *PhysicalDevicePointClippingProperties) Vulkanize() *_vkPhysicalDevicePo
 }
 
 // PhysicalDevicePointClippingPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePointClippingPropertiesKHR.html
-type PhysicalDevicePointClippingPropertiesKHR struct {
-}
+type PhysicalDevicePointClippingPropertiesKHR = PhysicalDevicePointClippingProperties
 
-type _vkPhysicalDevicePointClippingPropertiesKHR = PhysicalDevicePointClippingPropertiesKHR
-
-func (s *_vkPhysicalDevicePointClippingPropertiesKHR) Goify() *PhysicalDevicePointClippingPropertiesKHR {
-	rval := (*PhysicalDevicePointClippingPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDevicePointClippingPropertiesKHR) Vulkanize() *_vkPhysicalDevicePointClippingPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePointClippingPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDevicePointClippingPropertiesKHR = _vkPhysicalDevicePointClippingProperties
 
 // PhysicalDevicePresentBarrierFeaturesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePresentBarrierFeaturesNV.html
 type PhysicalDevicePresentBarrierFeaturesNV struct {
@@ -34767,22 +32648,9 @@ func (s *PhysicalDevicePresentMeteringFeaturesNV) Vulkanize() *_vkPhysicalDevice
 }
 
 // PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT.html
-type PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT struct {
-}
+type PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT = PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR
 
-type _vkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT = PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT
-
-func (s *_vkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT) Goify() *PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT {
-	rval := (*PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT) Vulkanize() *_vkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT = _vkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR
 
 // PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR.html
 type PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR struct {
@@ -35098,22 +32966,9 @@ func (s *PhysicalDevicePrivateDataFeatures) Vulkanize() *_vkPhysicalDevicePrivat
 }
 
 // PhysicalDevicePrivateDataFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePrivateDataFeaturesEXT.html
-type PhysicalDevicePrivateDataFeaturesEXT struct {
-}
+type PhysicalDevicePrivateDataFeaturesEXT = PhysicalDevicePrivateDataFeatures
 
-type _vkPhysicalDevicePrivateDataFeaturesEXT = PhysicalDevicePrivateDataFeaturesEXT
-
-func (s *_vkPhysicalDevicePrivateDataFeaturesEXT) Goify() *PhysicalDevicePrivateDataFeaturesEXT {
-	rval := (*PhysicalDevicePrivateDataFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDevicePrivateDataFeaturesEXT) Vulkanize() *_vkPhysicalDevicePrivateDataFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePrivateDataFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDevicePrivateDataFeaturesEXT = _vkPhysicalDevicePrivateDataFeatures
 
 // PhysicalDeviceProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceProperties.html
 type PhysicalDeviceProperties struct {
@@ -35207,22 +33062,9 @@ func (s *PhysicalDeviceProperties2) Vulkanize() *_vkPhysicalDeviceProperties2 {
 }
 
 // PhysicalDeviceProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceProperties2KHR.html
-type PhysicalDeviceProperties2KHR struct {
-}
+type PhysicalDeviceProperties2KHR = PhysicalDeviceProperties2
 
-type _vkPhysicalDeviceProperties2KHR = PhysicalDeviceProperties2KHR
-
-func (s *_vkPhysicalDeviceProperties2KHR) Goify() *PhysicalDeviceProperties2KHR {
-	rval := (*PhysicalDeviceProperties2KHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceProperties2KHR) Vulkanize() *_vkPhysicalDeviceProperties2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceProperties2KHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceProperties2KHR = _vkPhysicalDeviceProperties2
 
 // PhysicalDeviceProtectedMemoryFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceProtectedMemoryFeatures.html
 type PhysicalDeviceProtectedMemoryFeatures struct {
@@ -35473,22 +33315,9 @@ func (s *PhysicalDevicePushDescriptorProperties) Vulkanize() *_vkPhysicalDeviceP
 }
 
 // PhysicalDevicePushDescriptorPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePushDescriptorPropertiesKHR.html
-type PhysicalDevicePushDescriptorPropertiesKHR struct {
-}
+type PhysicalDevicePushDescriptorPropertiesKHR = PhysicalDevicePushDescriptorProperties
 
-type _vkPhysicalDevicePushDescriptorPropertiesKHR = PhysicalDevicePushDescriptorPropertiesKHR
-
-func (s *_vkPhysicalDevicePushDescriptorPropertiesKHR) Goify() *PhysicalDevicePushDescriptorPropertiesKHR {
-	rval := (*PhysicalDevicePushDescriptorPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDevicePushDescriptorPropertiesKHR) Vulkanize() *_vkPhysicalDevicePushDescriptorPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDevicePushDescriptorPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDevicePushDescriptorPropertiesKHR = _vkPhysicalDevicePushDescriptorProperties
 
 // PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM.html
 type PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM struct {
@@ -35624,22 +33453,9 @@ func (s *PhysicalDeviceRGBA10X6FormatsFeaturesEXT) Vulkanize() *_vkPhysicalDevic
 }
 
 // PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM.html
-type PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM struct {
-}
+type PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM = PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT
 
-type _vkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM = PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM
-
-func (s *_vkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM) Goify() *PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM {
-	rval := (*PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM)(s)
-	return rval
-}
-func (s *PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM) Vulkanize() *_vkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM)(s)
-	return rval
-}
+type _vkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM = _vkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT
 
 // PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.html
 type PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT struct {
@@ -36355,22 +34171,9 @@ func (s *PhysicalDeviceRepresentativeFragmentTestFeaturesNV) Vulkanize() *_vkPhy
 }
 
 // PhysicalDeviceRobustness2FeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRobustness2FeaturesEXT.html
-type PhysicalDeviceRobustness2FeaturesEXT struct {
-}
+type PhysicalDeviceRobustness2FeaturesEXT = PhysicalDeviceRobustness2FeaturesKHR
 
-type _vkPhysicalDeviceRobustness2FeaturesEXT = PhysicalDeviceRobustness2FeaturesEXT
-
-func (s *_vkPhysicalDeviceRobustness2FeaturesEXT) Goify() *PhysicalDeviceRobustness2FeaturesEXT {
-	rval := (*PhysicalDeviceRobustness2FeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceRobustness2FeaturesEXT) Vulkanize() *_vkPhysicalDeviceRobustness2FeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceRobustness2FeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceRobustness2FeaturesEXT = _vkPhysicalDeviceRobustness2FeaturesKHR
 
 // PhysicalDeviceRobustness2FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRobustness2FeaturesKHR.html
 type PhysicalDeviceRobustness2FeaturesKHR struct {
@@ -36413,22 +34216,9 @@ func (s *PhysicalDeviceRobustness2FeaturesKHR) Vulkanize() *_vkPhysicalDeviceRob
 }
 
 // PhysicalDeviceRobustness2PropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRobustness2PropertiesEXT.html
-type PhysicalDeviceRobustness2PropertiesEXT struct {
-}
+type PhysicalDeviceRobustness2PropertiesEXT = PhysicalDeviceRobustness2PropertiesKHR
 
-type _vkPhysicalDeviceRobustness2PropertiesEXT = PhysicalDeviceRobustness2PropertiesEXT
-
-func (s *_vkPhysicalDeviceRobustness2PropertiesEXT) Goify() *PhysicalDeviceRobustness2PropertiesEXT {
-	rval := (*PhysicalDeviceRobustness2PropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceRobustness2PropertiesEXT) Vulkanize() *_vkPhysicalDeviceRobustness2PropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceRobustness2PropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceRobustness2PropertiesEXT = _vkPhysicalDeviceRobustness2PropertiesKHR
 
 // PhysicalDeviceRobustness2PropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRobustness2PropertiesKHR.html
 type PhysicalDeviceRobustness2PropertiesKHR struct {
@@ -36554,22 +34344,9 @@ func (s *PhysicalDeviceSamplerFilterMinmaxProperties) Vulkanize() *_vkPhysicalDe
 }
 
 // PhysicalDeviceSamplerFilterMinmaxPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT.html
-type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT struct {
-}
+type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT = PhysicalDeviceSamplerFilterMinmaxProperties
 
-type _vkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT = PhysicalDeviceSamplerFilterMinmaxPropertiesEXT
-
-func (s *_vkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT) Goify() *PhysicalDeviceSamplerFilterMinmaxPropertiesEXT {
-	rval := (*PhysicalDeviceSamplerFilterMinmaxPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceSamplerFilterMinmaxPropertiesEXT) Vulkanize() *_vkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT = _vkPhysicalDeviceSamplerFilterMinmaxProperties
 
 // PhysicalDeviceSamplerYcbcrConversionFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSamplerYcbcrConversionFeatures.html
 type PhysicalDeviceSamplerYcbcrConversionFeatures struct {
@@ -36605,22 +34382,9 @@ func (s *PhysicalDeviceSamplerYcbcrConversionFeatures) Vulkanize() *_vkPhysicalD
 }
 
 // PhysicalDeviceSamplerYcbcrConversionFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR.html
-type PhysicalDeviceSamplerYcbcrConversionFeaturesKHR struct {
-}
+type PhysicalDeviceSamplerYcbcrConversionFeaturesKHR = PhysicalDeviceSamplerYcbcrConversionFeatures
 
-type _vkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR = PhysicalDeviceSamplerYcbcrConversionFeaturesKHR
-
-func (s *_vkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR) Goify() *PhysicalDeviceSamplerYcbcrConversionFeaturesKHR {
-	rval := (*PhysicalDeviceSamplerYcbcrConversionFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceSamplerYcbcrConversionFeaturesKHR) Vulkanize() *_vkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR = _vkPhysicalDeviceSamplerYcbcrConversionFeatures
 
 // PhysicalDeviceScalarBlockLayoutFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceScalarBlockLayoutFeatures.html
 type PhysicalDeviceScalarBlockLayoutFeatures struct {
@@ -36655,22 +34419,9 @@ func (s *PhysicalDeviceScalarBlockLayoutFeatures) Vulkanize() *_vkPhysicalDevice
 }
 
 // PhysicalDeviceScalarBlockLayoutFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.html
-type PhysicalDeviceScalarBlockLayoutFeaturesEXT struct {
-}
+type PhysicalDeviceScalarBlockLayoutFeaturesEXT = PhysicalDeviceScalarBlockLayoutFeatures
 
-type _vkPhysicalDeviceScalarBlockLayoutFeaturesEXT = PhysicalDeviceScalarBlockLayoutFeaturesEXT
-
-func (s *_vkPhysicalDeviceScalarBlockLayoutFeaturesEXT) Goify() *PhysicalDeviceScalarBlockLayoutFeaturesEXT {
-	rval := (*PhysicalDeviceScalarBlockLayoutFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceScalarBlockLayoutFeaturesEXT) Vulkanize() *_vkPhysicalDeviceScalarBlockLayoutFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceScalarBlockLayoutFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceScalarBlockLayoutFeaturesEXT = _vkPhysicalDeviceScalarBlockLayoutFeatures
 
 // PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM.html
 type PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM struct {
@@ -36811,22 +34562,9 @@ func (s *PhysicalDeviceSeparateDepthStencilLayoutsFeatures) Vulkanize() *_vkPhys
 }
 
 // PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.html
-type PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR struct {
-}
+type PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR = PhysicalDeviceSeparateDepthStencilLayoutsFeatures
 
-type _vkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR = PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR
-
-func (s *_vkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR) Goify() *PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR {
-	rval := (*PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR) Vulkanize() *_vkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR = _vkPhysicalDeviceSeparateDepthStencilLayoutsFeatures
 
 // PhysicalDeviceShader64BitIndexingFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShader64BitIndexingFeaturesEXT.html
 type PhysicalDeviceShader64BitIndexingFeaturesEXT struct {
@@ -37145,22 +34883,9 @@ func (s *PhysicalDeviceShaderAtomicInt64Features) Vulkanize() *_vkPhysicalDevice
 }
 
 // PhysicalDeviceShaderAtomicInt64FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.html
-type PhysicalDeviceShaderAtomicInt64FeaturesKHR struct {
-}
+type PhysicalDeviceShaderAtomicInt64FeaturesKHR = PhysicalDeviceShaderAtomicInt64Features
 
-type _vkPhysicalDeviceShaderAtomicInt64FeaturesKHR = PhysicalDeviceShaderAtomicInt64FeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderAtomicInt64FeaturesKHR) Goify() *PhysicalDeviceShaderAtomicInt64FeaturesKHR {
-	rval := (*PhysicalDeviceShaderAtomicInt64FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderAtomicInt64FeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderAtomicInt64FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderAtomicInt64FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderAtomicInt64FeaturesKHR = _vkPhysicalDeviceShaderAtomicInt64Features
 
 // PhysicalDeviceShaderBfloat16FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderBfloat16FeaturesKHR.html
 type PhysicalDeviceShaderBfloat16FeaturesKHR struct {
@@ -37556,40 +35281,14 @@ func (s *PhysicalDeviceShaderDemoteToHelperInvocationFeatures) Vulkanize() *_vkP
 }
 
 // PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT.html
-type PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT struct {
-}
+type PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT = PhysicalDeviceShaderDemoteToHelperInvocationFeatures
 
-type _vkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT = PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
-
-func (s *_vkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT) Goify() *PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT {
-	rval := (*PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT) Vulkanize() *_vkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT = _vkPhysicalDeviceShaderDemoteToHelperInvocationFeatures
 
 // PhysicalDeviceShaderDrawParameterFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderDrawParameterFeatures.html
-type PhysicalDeviceShaderDrawParameterFeatures struct {
-}
+type PhysicalDeviceShaderDrawParameterFeatures = PhysicalDeviceShaderDrawParametersFeatures
 
-type _vkPhysicalDeviceShaderDrawParameterFeatures = PhysicalDeviceShaderDrawParameterFeatures
-
-func (s *_vkPhysicalDeviceShaderDrawParameterFeatures) Goify() *PhysicalDeviceShaderDrawParameterFeatures {
-	rval := (*PhysicalDeviceShaderDrawParameterFeatures)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderDrawParameterFeatures) Vulkanize() *_vkPhysicalDeviceShaderDrawParameterFeatures {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderDrawParameterFeatures)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderDrawParameterFeatures = _vkPhysicalDeviceShaderDrawParametersFeatures
 
 // PhysicalDeviceShaderDrawParametersFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderDrawParametersFeatures.html
 type PhysicalDeviceShaderDrawParametersFeatures struct {
@@ -37688,22 +35387,9 @@ func (s *PhysicalDeviceShaderExpectAssumeFeatures) Vulkanize() *_vkPhysicalDevic
 }
 
 // PhysicalDeviceShaderExpectAssumeFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.html
-type PhysicalDeviceShaderExpectAssumeFeaturesKHR struct {
-}
+type PhysicalDeviceShaderExpectAssumeFeaturesKHR = PhysicalDeviceShaderExpectAssumeFeatures
 
-type _vkPhysicalDeviceShaderExpectAssumeFeaturesKHR = PhysicalDeviceShaderExpectAssumeFeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderExpectAssumeFeaturesKHR) Goify() *PhysicalDeviceShaderExpectAssumeFeaturesKHR {
-	rval := (*PhysicalDeviceShaderExpectAssumeFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderExpectAssumeFeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderExpectAssumeFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderExpectAssumeFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderExpectAssumeFeaturesKHR = _vkPhysicalDeviceShaderExpectAssumeFeatures
 
 // PhysicalDeviceShaderFloat16Int8Features: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderFloat16Int8Features.html
 type PhysicalDeviceShaderFloat16Int8Features struct {
@@ -37744,22 +35430,9 @@ func (s *PhysicalDeviceShaderFloat16Int8Features) Vulkanize() *_vkPhysicalDevice
 }
 
 // PhysicalDeviceShaderFloat16Int8FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderFloat16Int8FeaturesKHR.html
-type PhysicalDeviceShaderFloat16Int8FeaturesKHR struct {
-}
+type PhysicalDeviceShaderFloat16Int8FeaturesKHR = PhysicalDeviceShaderFloat16Int8Features
 
-type _vkPhysicalDeviceShaderFloat16Int8FeaturesKHR = PhysicalDeviceShaderFloat16Int8FeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderFloat16Int8FeaturesKHR) Goify() *PhysicalDeviceShaderFloat16Int8FeaturesKHR {
-	rval := (*PhysicalDeviceShaderFloat16Int8FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderFloat16Int8FeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderFloat16Int8FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderFloat16Int8FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderFloat16Int8FeaturesKHR = _vkPhysicalDeviceShaderFloat16Int8Features
 
 // PhysicalDeviceShaderFloat8FeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderFloat8FeaturesEXT.html
 type PhysicalDeviceShaderFloat8FeaturesEXT struct {
@@ -37830,22 +35503,9 @@ func (s *PhysicalDeviceShaderFloatControls2Features) Vulkanize() *_vkPhysicalDev
 }
 
 // PhysicalDeviceShaderFloatControls2FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderFloatControls2FeaturesKHR.html
-type PhysicalDeviceShaderFloatControls2FeaturesKHR struct {
-}
+type PhysicalDeviceShaderFloatControls2FeaturesKHR = PhysicalDeviceShaderFloatControls2Features
 
-type _vkPhysicalDeviceShaderFloatControls2FeaturesKHR = PhysicalDeviceShaderFloatControls2FeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderFloatControls2FeaturesKHR) Goify() *PhysicalDeviceShaderFloatControls2FeaturesKHR {
-	rval := (*PhysicalDeviceShaderFloatControls2FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderFloatControls2FeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderFloatControls2FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderFloatControls2FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderFloatControls2FeaturesKHR = _vkPhysicalDeviceShaderFloatControls2Features
 
 // PhysicalDeviceShaderFmaFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderFmaFeaturesKHR.html
 type PhysicalDeviceShaderFmaFeaturesKHR struct {
@@ -38057,22 +35717,9 @@ func (s *PhysicalDeviceShaderIntegerDotProductFeatures) Vulkanize() *_vkPhysical
 }
 
 // PhysicalDeviceShaderIntegerDotProductFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR.html
-type PhysicalDeviceShaderIntegerDotProductFeaturesKHR struct {
-}
+type PhysicalDeviceShaderIntegerDotProductFeaturesKHR = PhysicalDeviceShaderIntegerDotProductFeatures
 
-type _vkPhysicalDeviceShaderIntegerDotProductFeaturesKHR = PhysicalDeviceShaderIntegerDotProductFeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderIntegerDotProductFeaturesKHR) Goify() *PhysicalDeviceShaderIntegerDotProductFeaturesKHR {
-	rval := (*PhysicalDeviceShaderIntegerDotProductFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderIntegerDotProductFeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderIntegerDotProductFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderIntegerDotProductFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderIntegerDotProductFeaturesKHR = _vkPhysicalDeviceShaderIntegerDotProductFeatures
 
 // PhysicalDeviceShaderIntegerDotProductProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderIntegerDotProductProperties.html
 type PhysicalDeviceShaderIntegerDotProductProperties struct {
@@ -38224,22 +35871,9 @@ func (s *PhysicalDeviceShaderIntegerDotProductProperties) Vulkanize() *_vkPhysic
 }
 
 // PhysicalDeviceShaderIntegerDotProductPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR.html
-type PhysicalDeviceShaderIntegerDotProductPropertiesKHR struct {
-}
+type PhysicalDeviceShaderIntegerDotProductPropertiesKHR = PhysicalDeviceShaderIntegerDotProductProperties
 
-type _vkPhysicalDeviceShaderIntegerDotProductPropertiesKHR = PhysicalDeviceShaderIntegerDotProductPropertiesKHR
-
-func (s *_vkPhysicalDeviceShaderIntegerDotProductPropertiesKHR) Goify() *PhysicalDeviceShaderIntegerDotProductPropertiesKHR {
-	rval := (*PhysicalDeviceShaderIntegerDotProductPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderIntegerDotProductPropertiesKHR) Vulkanize() *_vkPhysicalDeviceShaderIntegerDotProductPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderIntegerDotProductPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderIntegerDotProductPropertiesKHR = _vkPhysicalDeviceShaderIntegerDotProductProperties
 
 // PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.html
 type PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL struct {
@@ -38921,22 +36555,9 @@ func (s *PhysicalDeviceShaderSubgroupExtendedTypesFeatures) Vulkanize() *_vkPhys
 }
 
 // PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR.html
-type PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR struct {
-}
+type PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = PhysicalDeviceShaderSubgroupExtendedTypesFeatures
 
-type _vkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR) Goify() *PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR {
-	rval := (*PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = _vkPhysicalDeviceShaderSubgroupExtendedTypesFeatures
 
 // PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT.html
 type PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT struct {
@@ -39007,22 +36628,9 @@ func (s *PhysicalDeviceShaderSubgroupRotateFeatures) Vulkanize() *_vkPhysicalDev
 }
 
 // PhysicalDeviceShaderSubgroupRotateFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.html
-type PhysicalDeviceShaderSubgroupRotateFeaturesKHR struct {
-}
+type PhysicalDeviceShaderSubgroupRotateFeaturesKHR = PhysicalDeviceShaderSubgroupRotateFeatures
 
-type _vkPhysicalDeviceShaderSubgroupRotateFeaturesKHR = PhysicalDeviceShaderSubgroupRotateFeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderSubgroupRotateFeaturesKHR) Goify() *PhysicalDeviceShaderSubgroupRotateFeaturesKHR {
-	rval := (*PhysicalDeviceShaderSubgroupRotateFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderSubgroupRotateFeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderSubgroupRotateFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderSubgroupRotateFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderSubgroupRotateFeaturesKHR = _vkPhysicalDeviceShaderSubgroupRotateFeatures
 
 // PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.html
 type PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR struct {
@@ -39089,22 +36697,9 @@ func (s *PhysicalDeviceShaderTerminateInvocationFeatures) Vulkanize() *_vkPhysic
 }
 
 // PhysicalDeviceShaderTerminateInvocationFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR.html
-type PhysicalDeviceShaderTerminateInvocationFeaturesKHR struct {
-}
+type PhysicalDeviceShaderTerminateInvocationFeaturesKHR = PhysicalDeviceShaderTerminateInvocationFeatures
 
-type _vkPhysicalDeviceShaderTerminateInvocationFeaturesKHR = PhysicalDeviceShaderTerminateInvocationFeaturesKHR
-
-func (s *_vkPhysicalDeviceShaderTerminateInvocationFeaturesKHR) Goify() *PhysicalDeviceShaderTerminateInvocationFeaturesKHR {
-	rval := (*PhysicalDeviceShaderTerminateInvocationFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceShaderTerminateInvocationFeaturesKHR) Vulkanize() *_vkPhysicalDeviceShaderTerminateInvocationFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceShaderTerminateInvocationFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceShaderTerminateInvocationFeaturesKHR = _vkPhysicalDeviceShaderTerminateInvocationFeatures
 
 // PhysicalDeviceShaderTileImageFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderTileImageFeaturesEXT.html
 type PhysicalDeviceShaderTileImageFeaturesEXT struct {
@@ -39377,22 +36972,9 @@ func (s *PhysicalDeviceSparseImageFormatInfo2) Vulkanize() *_vkPhysicalDeviceSpa
 }
 
 // PhysicalDeviceSparseImageFormatInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSparseImageFormatInfo2KHR.html
-type PhysicalDeviceSparseImageFormatInfo2KHR struct {
-}
+type PhysicalDeviceSparseImageFormatInfo2KHR = PhysicalDeviceSparseImageFormatInfo2
 
-type _vkPhysicalDeviceSparseImageFormatInfo2KHR = PhysicalDeviceSparseImageFormatInfo2KHR
-
-func (s *_vkPhysicalDeviceSparseImageFormatInfo2KHR) Goify() *PhysicalDeviceSparseImageFormatInfo2KHR {
-	rval := (*PhysicalDeviceSparseImageFormatInfo2KHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceSparseImageFormatInfo2KHR) Vulkanize() *_vkPhysicalDeviceSparseImageFormatInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSparseImageFormatInfo2KHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceSparseImageFormatInfo2KHR = _vkPhysicalDeviceSparseImageFormatInfo2
 
 // PhysicalDeviceSparseProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSparseProperties.html
 type PhysicalDeviceSparseProperties struct {
@@ -39527,22 +37109,9 @@ func (s *PhysicalDeviceSubgroupSizeControlFeatures) Vulkanize() *_vkPhysicalDevi
 }
 
 // PhysicalDeviceSubgroupSizeControlFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSubgroupSizeControlFeaturesEXT.html
-type PhysicalDeviceSubgroupSizeControlFeaturesEXT struct {
-}
+type PhysicalDeviceSubgroupSizeControlFeaturesEXT = PhysicalDeviceSubgroupSizeControlFeatures
 
-type _vkPhysicalDeviceSubgroupSizeControlFeaturesEXT = PhysicalDeviceSubgroupSizeControlFeaturesEXT
-
-func (s *_vkPhysicalDeviceSubgroupSizeControlFeaturesEXT) Goify() *PhysicalDeviceSubgroupSizeControlFeaturesEXT {
-	rval := (*PhysicalDeviceSubgroupSizeControlFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceSubgroupSizeControlFeaturesEXT) Vulkanize() *_vkPhysicalDeviceSubgroupSizeControlFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSubgroupSizeControlFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceSubgroupSizeControlFeaturesEXT = _vkPhysicalDeviceSubgroupSizeControlFeatures
 
 // PhysicalDeviceSubgroupSizeControlProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSubgroupSizeControlProperties.html
 type PhysicalDeviceSubgroupSizeControlProperties struct {
@@ -39594,22 +37163,9 @@ func (s *PhysicalDeviceSubgroupSizeControlProperties) Vulkanize() *_vkPhysicalDe
 }
 
 // PhysicalDeviceSubgroupSizeControlPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSubgroupSizeControlPropertiesEXT.html
-type PhysicalDeviceSubgroupSizeControlPropertiesEXT struct {
-}
+type PhysicalDeviceSubgroupSizeControlPropertiesEXT = PhysicalDeviceSubgroupSizeControlProperties
 
-type _vkPhysicalDeviceSubgroupSizeControlPropertiesEXT = PhysicalDeviceSubgroupSizeControlPropertiesEXT
-
-func (s *_vkPhysicalDeviceSubgroupSizeControlPropertiesEXT) Goify() *PhysicalDeviceSubgroupSizeControlPropertiesEXT {
-	rval := (*PhysicalDeviceSubgroupSizeControlPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceSubgroupSizeControlPropertiesEXT) Vulkanize() *_vkPhysicalDeviceSubgroupSizeControlPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSubgroupSizeControlPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceSubgroupSizeControlPropertiesEXT = _vkPhysicalDeviceSubgroupSizeControlProperties
 
 // PhysicalDeviceSubpassMergeFeedbackFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT.html
 type PhysicalDeviceSubpassMergeFeedbackFeaturesEXT struct {
@@ -39741,22 +37297,9 @@ func (s *PhysicalDeviceSurfaceInfo2KHR) Vulkanize() *_vkPhysicalDeviceSurfaceInf
 }
 
 // PhysicalDeviceSwapchainMaintenance1FeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.html
-type PhysicalDeviceSwapchainMaintenance1FeaturesEXT struct {
-}
+type PhysicalDeviceSwapchainMaintenance1FeaturesEXT = PhysicalDeviceSwapchainMaintenance1FeaturesKHR
 
-type _vkPhysicalDeviceSwapchainMaintenance1FeaturesEXT = PhysicalDeviceSwapchainMaintenance1FeaturesEXT
-
-func (s *_vkPhysicalDeviceSwapchainMaintenance1FeaturesEXT) Goify() *PhysicalDeviceSwapchainMaintenance1FeaturesEXT {
-	rval := (*PhysicalDeviceSwapchainMaintenance1FeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceSwapchainMaintenance1FeaturesEXT) Vulkanize() *_vkPhysicalDeviceSwapchainMaintenance1FeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSwapchainMaintenance1FeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceSwapchainMaintenance1FeaturesEXT = _vkPhysicalDeviceSwapchainMaintenance1FeaturesKHR
 
 // PhysicalDeviceSwapchainMaintenance1FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR.html
 type PhysicalDeviceSwapchainMaintenance1FeaturesKHR struct {
@@ -39823,22 +37366,9 @@ func (s *PhysicalDeviceSynchronization2Features) Vulkanize() *_vkPhysicalDeviceS
 }
 
 // PhysicalDeviceSynchronization2FeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSynchronization2FeaturesKHR.html
-type PhysicalDeviceSynchronization2FeaturesKHR struct {
-}
+type PhysicalDeviceSynchronization2FeaturesKHR = PhysicalDeviceSynchronization2Features
 
-type _vkPhysicalDeviceSynchronization2FeaturesKHR = PhysicalDeviceSynchronization2FeaturesKHR
-
-func (s *_vkPhysicalDeviceSynchronization2FeaturesKHR) Goify() *PhysicalDeviceSynchronization2FeaturesKHR {
-	rval := (*PhysicalDeviceSynchronization2FeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceSynchronization2FeaturesKHR) Vulkanize() *_vkPhysicalDeviceSynchronization2FeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceSynchronization2FeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceSynchronization2FeaturesKHR = _vkPhysicalDeviceSynchronization2Features
 
 // PhysicalDeviceTensorFeaturesARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTensorFeaturesARM.html
 type PhysicalDeviceTensorFeaturesARM struct {
@@ -40051,22 +37581,9 @@ func (s *PhysicalDeviceTexelBufferAlignmentProperties) Vulkanize() *_vkPhysicalD
 }
 
 // PhysicalDeviceTexelBufferAlignmentPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT.html
-type PhysicalDeviceTexelBufferAlignmentPropertiesEXT struct {
-}
+type PhysicalDeviceTexelBufferAlignmentPropertiesEXT = PhysicalDeviceTexelBufferAlignmentProperties
 
-type _vkPhysicalDeviceTexelBufferAlignmentPropertiesEXT = PhysicalDeviceTexelBufferAlignmentPropertiesEXT
-
-func (s *_vkPhysicalDeviceTexelBufferAlignmentPropertiesEXT) Goify() *PhysicalDeviceTexelBufferAlignmentPropertiesEXT {
-	rval := (*PhysicalDeviceTexelBufferAlignmentPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceTexelBufferAlignmentPropertiesEXT) Vulkanize() *_vkPhysicalDeviceTexelBufferAlignmentPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceTexelBufferAlignmentPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceTexelBufferAlignmentPropertiesEXT = _vkPhysicalDeviceTexelBufferAlignmentProperties
 
 // PhysicalDeviceTextureCompressionASTC3DFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT.html
 type PhysicalDeviceTextureCompressionASTC3DFeaturesEXT struct {
@@ -40133,22 +37650,9 @@ func (s *PhysicalDeviceTextureCompressionASTCHDRFeatures) Vulkanize() *_vkPhysic
 }
 
 // PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT.html
-type PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT struct {
-}
+type PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = PhysicalDeviceTextureCompressionASTCHDRFeatures
 
-type _vkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
-
-func (s *_vkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT) Goify() *PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT {
-	rval := (*PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT) Vulkanize() *_vkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = _vkPhysicalDeviceTextureCompressionASTCHDRFeatures
 
 // PhysicalDeviceThrottleHintFeaturesSEC: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceThrottleHintFeaturesSEC.html
 type PhysicalDeviceThrottleHintFeaturesSEC struct {
@@ -40444,22 +37948,9 @@ func (s *PhysicalDeviceTimelineSemaphoreFeatures) Vulkanize() *_vkPhysicalDevice
 }
 
 // PhysicalDeviceTimelineSemaphoreFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTimelineSemaphoreFeaturesKHR.html
-type PhysicalDeviceTimelineSemaphoreFeaturesKHR struct {
-}
+type PhysicalDeviceTimelineSemaphoreFeaturesKHR = PhysicalDeviceTimelineSemaphoreFeatures
 
-type _vkPhysicalDeviceTimelineSemaphoreFeaturesKHR = PhysicalDeviceTimelineSemaphoreFeaturesKHR
-
-func (s *_vkPhysicalDeviceTimelineSemaphoreFeaturesKHR) Goify() *PhysicalDeviceTimelineSemaphoreFeaturesKHR {
-	rval := (*PhysicalDeviceTimelineSemaphoreFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceTimelineSemaphoreFeaturesKHR) Vulkanize() *_vkPhysicalDeviceTimelineSemaphoreFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceTimelineSemaphoreFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceTimelineSemaphoreFeaturesKHR = _vkPhysicalDeviceTimelineSemaphoreFeatures
 
 // PhysicalDeviceTimelineSemaphoreProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTimelineSemaphoreProperties.html
 type PhysicalDeviceTimelineSemaphoreProperties struct {
@@ -40495,22 +37986,9 @@ func (s *PhysicalDeviceTimelineSemaphoreProperties) Vulkanize() *_vkPhysicalDevi
 }
 
 // PhysicalDeviceTimelineSemaphorePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTimelineSemaphorePropertiesKHR.html
-type PhysicalDeviceTimelineSemaphorePropertiesKHR struct {
-}
+type PhysicalDeviceTimelineSemaphorePropertiesKHR = PhysicalDeviceTimelineSemaphoreProperties
 
-type _vkPhysicalDeviceTimelineSemaphorePropertiesKHR = PhysicalDeviceTimelineSemaphorePropertiesKHR
-
-func (s *_vkPhysicalDeviceTimelineSemaphorePropertiesKHR) Goify() *PhysicalDeviceTimelineSemaphorePropertiesKHR {
-	rval := (*PhysicalDeviceTimelineSemaphorePropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceTimelineSemaphorePropertiesKHR) Vulkanize() *_vkPhysicalDeviceTimelineSemaphorePropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceTimelineSemaphorePropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceTimelineSemaphorePropertiesKHR = _vkPhysicalDeviceTimelineSemaphoreProperties
 
 // PhysicalDeviceToolProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceToolProperties.html
 type PhysicalDeviceToolProperties struct {
@@ -40562,22 +38040,9 @@ func (s *PhysicalDeviceToolProperties) Vulkanize() *_vkPhysicalDeviceToolPropert
 }
 
 // PhysicalDeviceToolPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceToolPropertiesEXT.html
-type PhysicalDeviceToolPropertiesEXT struct {
-}
+type PhysicalDeviceToolPropertiesEXT = PhysicalDeviceToolProperties
 
-type _vkPhysicalDeviceToolPropertiesEXT = PhysicalDeviceToolPropertiesEXT
-
-func (s *_vkPhysicalDeviceToolPropertiesEXT) Goify() *PhysicalDeviceToolPropertiesEXT {
-	rval := (*PhysicalDeviceToolPropertiesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceToolPropertiesEXT) Vulkanize() *_vkPhysicalDeviceToolPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceToolPropertiesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceToolPropertiesEXT = _vkPhysicalDeviceToolProperties
 
 // PhysicalDeviceTransformFeedbackFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTransformFeedbackFeaturesEXT.html
 type PhysicalDeviceTransformFeedbackFeaturesEXT struct {
@@ -40753,58 +38218,19 @@ func (s *PhysicalDeviceUniformBufferStandardLayoutFeatures) Vulkanize() *_vkPhys
 }
 
 // PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR.html
-type PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR struct {
-}
+type PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = PhysicalDeviceUniformBufferStandardLayoutFeatures
 
-type _vkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
-
-func (s *_vkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR) Goify() *PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR {
-	rval := (*PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR) Vulkanize() *_vkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = _vkPhysicalDeviceUniformBufferStandardLayoutFeatures
 
 // PhysicalDeviceVariablePointerFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVariablePointerFeatures.html
-type PhysicalDeviceVariablePointerFeatures struct {
-}
+type PhysicalDeviceVariablePointerFeatures = PhysicalDeviceVariablePointersFeatures
 
-type _vkPhysicalDeviceVariablePointerFeatures = PhysicalDeviceVariablePointerFeatures
-
-func (s *_vkPhysicalDeviceVariablePointerFeatures) Goify() *PhysicalDeviceVariablePointerFeatures {
-	rval := (*PhysicalDeviceVariablePointerFeatures)(s)
-	return rval
-}
-func (s *PhysicalDeviceVariablePointerFeatures) Vulkanize() *_vkPhysicalDeviceVariablePointerFeatures {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceVariablePointerFeatures)(s)
-	return rval
-}
+type _vkPhysicalDeviceVariablePointerFeatures = _vkPhysicalDeviceVariablePointersFeatures
 
 // PhysicalDeviceVariablePointerFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVariablePointerFeaturesKHR.html
-type PhysicalDeviceVariablePointerFeaturesKHR struct {
-}
+type PhysicalDeviceVariablePointerFeaturesKHR = PhysicalDeviceVariablePointersFeatures
 
-type _vkPhysicalDeviceVariablePointerFeaturesKHR = PhysicalDeviceVariablePointerFeaturesKHR
-
-func (s *_vkPhysicalDeviceVariablePointerFeaturesKHR) Goify() *PhysicalDeviceVariablePointerFeaturesKHR {
-	rval := (*PhysicalDeviceVariablePointerFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceVariablePointerFeaturesKHR) Vulkanize() *_vkPhysicalDeviceVariablePointerFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceVariablePointerFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceVariablePointerFeaturesKHR = _vkPhysicalDeviceVariablePointersFeatures
 
 // PhysicalDeviceVariablePointersFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVariablePointersFeatures.html
 type PhysicalDeviceVariablePointersFeatures struct {
@@ -40843,22 +38269,9 @@ func (s *PhysicalDeviceVariablePointersFeatures) Vulkanize() *_vkPhysicalDeviceV
 }
 
 // PhysicalDeviceVariablePointersFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVariablePointersFeaturesKHR.html
-type PhysicalDeviceVariablePointersFeaturesKHR struct {
-}
+type PhysicalDeviceVariablePointersFeaturesKHR = PhysicalDeviceVariablePointersFeatures
 
-type _vkPhysicalDeviceVariablePointersFeaturesKHR = PhysicalDeviceVariablePointersFeaturesKHR
-
-func (s *_vkPhysicalDeviceVariablePointersFeaturesKHR) Goify() *PhysicalDeviceVariablePointersFeaturesKHR {
-	rval := (*PhysicalDeviceVariablePointersFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceVariablePointersFeaturesKHR) Vulkanize() *_vkPhysicalDeviceVariablePointersFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceVariablePointersFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceVariablePointersFeaturesKHR = _vkPhysicalDeviceVariablePointersFeatures
 
 // PhysicalDeviceVertexAttributeDivisorFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorFeatures.html
 type PhysicalDeviceVertexAttributeDivisorFeatures struct {
@@ -40897,40 +38310,14 @@ func (s *PhysicalDeviceVertexAttributeDivisorFeatures) Vulkanize() *_vkPhysicalD
 }
 
 // PhysicalDeviceVertexAttributeDivisorFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT.html
-type PhysicalDeviceVertexAttributeDivisorFeaturesEXT struct {
-}
+type PhysicalDeviceVertexAttributeDivisorFeaturesEXT = PhysicalDeviceVertexAttributeDivisorFeatures
 
-type _vkPhysicalDeviceVertexAttributeDivisorFeaturesEXT = PhysicalDeviceVertexAttributeDivisorFeaturesEXT
-
-func (s *_vkPhysicalDeviceVertexAttributeDivisorFeaturesEXT) Goify() *PhysicalDeviceVertexAttributeDivisorFeaturesEXT {
-	rval := (*PhysicalDeviceVertexAttributeDivisorFeaturesEXT)(s)
-	return rval
-}
-func (s *PhysicalDeviceVertexAttributeDivisorFeaturesEXT) Vulkanize() *_vkPhysicalDeviceVertexAttributeDivisorFeaturesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceVertexAttributeDivisorFeaturesEXT)(s)
-	return rval
-}
+type _vkPhysicalDeviceVertexAttributeDivisorFeaturesEXT = _vkPhysicalDeviceVertexAttributeDivisorFeatures
 
 // PhysicalDeviceVertexAttributeDivisorFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorFeaturesKHR.html
-type PhysicalDeviceVertexAttributeDivisorFeaturesKHR struct {
-}
+type PhysicalDeviceVertexAttributeDivisorFeaturesKHR = PhysicalDeviceVertexAttributeDivisorFeatures
 
-type _vkPhysicalDeviceVertexAttributeDivisorFeaturesKHR = PhysicalDeviceVertexAttributeDivisorFeaturesKHR
-
-func (s *_vkPhysicalDeviceVertexAttributeDivisorFeaturesKHR) Goify() *PhysicalDeviceVertexAttributeDivisorFeaturesKHR {
-	rval := (*PhysicalDeviceVertexAttributeDivisorFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceVertexAttributeDivisorFeaturesKHR) Vulkanize() *_vkPhysicalDeviceVertexAttributeDivisorFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceVertexAttributeDivisorFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceVertexAttributeDivisorFeaturesKHR = _vkPhysicalDeviceVertexAttributeDivisorFeatures
 
 // PhysicalDeviceVertexAttributeDivisorProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorProperties.html
 type PhysicalDeviceVertexAttributeDivisorProperties struct {
@@ -41005,22 +38392,9 @@ func (s *PhysicalDeviceVertexAttributeDivisorPropertiesEXT) Vulkanize() *_vkPhys
 }
 
 // PhysicalDeviceVertexAttributeDivisorPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR.html
-type PhysicalDeviceVertexAttributeDivisorPropertiesKHR struct {
-}
+type PhysicalDeviceVertexAttributeDivisorPropertiesKHR = PhysicalDeviceVertexAttributeDivisorProperties
 
-type _vkPhysicalDeviceVertexAttributeDivisorPropertiesKHR = PhysicalDeviceVertexAttributeDivisorPropertiesKHR
-
-func (s *_vkPhysicalDeviceVertexAttributeDivisorPropertiesKHR) Goify() *PhysicalDeviceVertexAttributeDivisorPropertiesKHR {
-	rval := (*PhysicalDeviceVertexAttributeDivisorPropertiesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceVertexAttributeDivisorPropertiesKHR) Vulkanize() *_vkPhysicalDeviceVertexAttributeDivisorPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceVertexAttributeDivisorPropertiesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceVertexAttributeDivisorPropertiesKHR = _vkPhysicalDeviceVertexAttributeDivisorProperties
 
 // PhysicalDeviceVertexAttributeRobustnessFeaturesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT.html
 type PhysicalDeviceVertexAttributeRobustnessFeaturesEXT struct {
@@ -42660,22 +40034,9 @@ func (s *PhysicalDeviceVulkanMemoryModelFeatures) Vulkanize() *_vkPhysicalDevice
 }
 
 // PhysicalDeviceVulkanMemoryModelFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVulkanMemoryModelFeaturesKHR.html
-type PhysicalDeviceVulkanMemoryModelFeaturesKHR struct {
-}
+type PhysicalDeviceVulkanMemoryModelFeaturesKHR = PhysicalDeviceVulkanMemoryModelFeatures
 
-type _vkPhysicalDeviceVulkanMemoryModelFeaturesKHR = PhysicalDeviceVulkanMemoryModelFeaturesKHR
-
-func (s *_vkPhysicalDeviceVulkanMemoryModelFeaturesKHR) Goify() *PhysicalDeviceVulkanMemoryModelFeaturesKHR {
-	rval := (*PhysicalDeviceVulkanMemoryModelFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceVulkanMemoryModelFeaturesKHR) Vulkanize() *_vkPhysicalDeviceVulkanMemoryModelFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceVulkanMemoryModelFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceVulkanMemoryModelFeaturesKHR = _vkPhysicalDeviceVulkanMemoryModelFeatures
 
 // PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR.html
 type PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR struct {
@@ -42882,22 +40243,9 @@ func (s *PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures) Vulkanize() *_vkPh
 }
 
 // PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR.html
-type PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR struct {
-}
+type PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures
 
-type _vkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR
-
-func (s *_vkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR) Goify() *PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR {
-	rval := (*PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR)(s)
-	return rval
-}
-func (s *PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR) Vulkanize() *_vkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR)(s)
-	return rval
-}
+type _vkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = _vkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures
 
 // PipelineBinaryCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryCreateInfoKHR.html
 type PipelineBinaryCreateInfoKHR struct {
@@ -43645,22 +40993,9 @@ func (s *PipelineCreateFlags2CreateInfo) Vulkanize() *_vkPipelineCreateFlags2Cre
 }
 
 // PipelineCreateFlags2CreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineCreateFlags2CreateInfoKHR.html
-type PipelineCreateFlags2CreateInfoKHR struct {
-}
+type PipelineCreateFlags2CreateInfoKHR = PipelineCreateFlags2CreateInfo
 
-type _vkPipelineCreateFlags2CreateInfoKHR = PipelineCreateFlags2CreateInfoKHR
-
-func (s *_vkPipelineCreateFlags2CreateInfoKHR) Goify() *PipelineCreateFlags2CreateInfoKHR {
-	rval := (*PipelineCreateFlags2CreateInfoKHR)(s)
-	return rval
-}
-func (s *PipelineCreateFlags2CreateInfoKHR) Vulkanize() *_vkPipelineCreateFlags2CreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineCreateFlags2CreateInfoKHR)(s)
-	return rval
-}
+type _vkPipelineCreateFlags2CreateInfoKHR = _vkPipelineCreateFlags2CreateInfo
 
 // PipelineCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineCreateInfoKHR.html
 type PipelineCreateInfoKHR struct {
@@ -43758,40 +41093,14 @@ func (s *PipelineCreationFeedbackCreateInfo) Vulkanize() *_vkPipelineCreationFee
 }
 
 // PipelineCreationFeedbackCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineCreationFeedbackCreateInfoEXT.html
-type PipelineCreationFeedbackCreateInfoEXT struct {
-}
+type PipelineCreationFeedbackCreateInfoEXT = PipelineCreationFeedbackCreateInfo
 
-type _vkPipelineCreationFeedbackCreateInfoEXT = PipelineCreationFeedbackCreateInfoEXT
-
-func (s *_vkPipelineCreationFeedbackCreateInfoEXT) Goify() *PipelineCreationFeedbackCreateInfoEXT {
-	rval := (*PipelineCreationFeedbackCreateInfoEXT)(s)
-	return rval
-}
-func (s *PipelineCreationFeedbackCreateInfoEXT) Vulkanize() *_vkPipelineCreationFeedbackCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineCreationFeedbackCreateInfoEXT)(s)
-	return rval
-}
+type _vkPipelineCreationFeedbackCreateInfoEXT = _vkPipelineCreationFeedbackCreateInfo
 
 // PipelineCreationFeedbackEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineCreationFeedbackEXT.html
-type PipelineCreationFeedbackEXT struct {
-}
+type PipelineCreationFeedbackEXT = PipelineCreationFeedback
 
-type _vkPipelineCreationFeedbackEXT = PipelineCreationFeedbackEXT
-
-func (s *_vkPipelineCreationFeedbackEXT) Goify() *PipelineCreationFeedbackEXT {
-	rval := (*PipelineCreationFeedbackEXT)(s)
-	return rval
-}
-func (s *PipelineCreationFeedbackEXT) Vulkanize() *_vkPipelineCreationFeedbackEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineCreationFeedbackEXT)(s)
-	return rval
-}
+type _vkPipelineCreationFeedbackEXT = _vkPipelineCreationFeedback
 
 // PipelineDepthStencilStateCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineDepthStencilStateCreateInfo.html
 type PipelineDepthStencilStateCreateInfo struct {
@@ -44280,22 +41589,9 @@ func (s *PipelineIndirectDeviceAddressInfoNV) Vulkanize() *_vkPipelineIndirectDe
 }
 
 // PipelineInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineInfoEXT.html
-type PipelineInfoEXT struct {
-}
+type PipelineInfoEXT = PipelineInfoKHR
 
-type _vkPipelineInfoEXT = PipelineInfoEXT
-
-func (s *_vkPipelineInfoEXT) Goify() *PipelineInfoEXT {
-	rval := (*PipelineInfoEXT)(s)
-	return rval
-}
-func (s *PipelineInfoEXT) Vulkanize() *_vkPipelineInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineInfoEXT)(s)
-	return rval
-}
+type _vkPipelineInfoEXT = _vkPipelineInfoKHR
 
 // PipelineInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineInfoKHR.html
 type PipelineInfoKHR struct {
@@ -44690,40 +41986,14 @@ func (s *PipelineRasterizationLineStateCreateInfo) Vulkanize() *_vkPipelineRaste
 }
 
 // PipelineRasterizationLineStateCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineRasterizationLineStateCreateInfoEXT.html
-type PipelineRasterizationLineStateCreateInfoEXT struct {
-}
+type PipelineRasterizationLineStateCreateInfoEXT = PipelineRasterizationLineStateCreateInfo
 
-type _vkPipelineRasterizationLineStateCreateInfoEXT = PipelineRasterizationLineStateCreateInfoEXT
-
-func (s *_vkPipelineRasterizationLineStateCreateInfoEXT) Goify() *PipelineRasterizationLineStateCreateInfoEXT {
-	rval := (*PipelineRasterizationLineStateCreateInfoEXT)(s)
-	return rval
-}
-func (s *PipelineRasterizationLineStateCreateInfoEXT) Vulkanize() *_vkPipelineRasterizationLineStateCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineRasterizationLineStateCreateInfoEXT)(s)
-	return rval
-}
+type _vkPipelineRasterizationLineStateCreateInfoEXT = _vkPipelineRasterizationLineStateCreateInfo
 
 // PipelineRasterizationLineStateCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineRasterizationLineStateCreateInfoKHR.html
-type PipelineRasterizationLineStateCreateInfoKHR struct {
-}
+type PipelineRasterizationLineStateCreateInfoKHR = PipelineRasterizationLineStateCreateInfo
 
-type _vkPipelineRasterizationLineStateCreateInfoKHR = PipelineRasterizationLineStateCreateInfoKHR
-
-func (s *_vkPipelineRasterizationLineStateCreateInfoKHR) Goify() *PipelineRasterizationLineStateCreateInfoKHR {
-	rval := (*PipelineRasterizationLineStateCreateInfoKHR)(s)
-	return rval
-}
-func (s *PipelineRasterizationLineStateCreateInfoKHR) Vulkanize() *_vkPipelineRasterizationLineStateCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineRasterizationLineStateCreateInfoKHR)(s)
-	return rval
-}
+type _vkPipelineRasterizationLineStateCreateInfoKHR = _vkPipelineRasterizationLineStateCreateInfo
 
 // PipelineRasterizationProvokingVertexStateCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.html
 type PipelineRasterizationProvokingVertexStateCreateInfoEXT struct {
@@ -44953,22 +42223,9 @@ func (s *PipelineRenderingCreateInfo) Vulkanize() *_vkPipelineRenderingCreateInf
 }
 
 // PipelineRenderingCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineRenderingCreateInfoKHR.html
-type PipelineRenderingCreateInfoKHR struct {
-}
+type PipelineRenderingCreateInfoKHR = PipelineRenderingCreateInfo
 
-type _vkPipelineRenderingCreateInfoKHR = PipelineRenderingCreateInfoKHR
-
-func (s *_vkPipelineRenderingCreateInfoKHR) Goify() *PipelineRenderingCreateInfoKHR {
-	rval := (*PipelineRenderingCreateInfoKHR)(s)
-	return rval
-}
-func (s *PipelineRenderingCreateInfoKHR) Vulkanize() *_vkPipelineRenderingCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineRenderingCreateInfoKHR)(s)
-	return rval
-}
+type _vkPipelineRenderingCreateInfoKHR = _vkPipelineRenderingCreateInfo
 
 // PipelineRepresentativeFragmentTestStateCreateInfoNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineRepresentativeFragmentTestStateCreateInfoNV.html
 type PipelineRepresentativeFragmentTestStateCreateInfoNV struct {
@@ -45047,22 +42304,9 @@ func (s *PipelineRobustnessCreateInfo) Vulkanize() *_vkPipelineRobustnessCreateI
 }
 
 // PipelineRobustnessCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineRobustnessCreateInfoEXT.html
-type PipelineRobustnessCreateInfoEXT struct {
-}
+type PipelineRobustnessCreateInfoEXT = PipelineRobustnessCreateInfo
 
-type _vkPipelineRobustnessCreateInfoEXT = PipelineRobustnessCreateInfoEXT
-
-func (s *_vkPipelineRobustnessCreateInfoEXT) Goify() *PipelineRobustnessCreateInfoEXT {
-	rval := (*PipelineRobustnessCreateInfoEXT)(s)
-	return rval
-}
-func (s *PipelineRobustnessCreateInfoEXT) Vulkanize() *_vkPipelineRobustnessCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineRobustnessCreateInfoEXT)(s)
-	return rval
-}
+type _vkPipelineRobustnessCreateInfoEXT = _vkPipelineRobustnessCreateInfo
 
 // PipelineSampleLocationsStateCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineSampleLocationsStateCreateInfoEXT.html
 type PipelineSampleLocationsStateCreateInfoEXT struct {
@@ -45225,22 +42469,9 @@ func (s *PipelineShaderStageRequiredSubgroupSizeCreateInfo) Vulkanize() *_vkPipe
 }
 
 // PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html
-type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT struct {
-}
+type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = PipelineShaderStageRequiredSubgroupSizeCreateInfo
 
-type _vkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
-
-func (s *_vkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT) Goify() *PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT {
-	rval := (*PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT)(s)
-	return rval
-}
-func (s *PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT) Vulkanize() *_vkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT)(s)
-	return rval
-}
+type _vkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = _vkPipelineShaderStageRequiredSubgroupSizeCreateInfo
 
 // PipelineTessellationDomainOriginStateCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineTessellationDomainOriginStateCreateInfo.html
 type PipelineTessellationDomainOriginStateCreateInfo struct {
@@ -45275,22 +42506,9 @@ func (s *PipelineTessellationDomainOriginStateCreateInfo) Vulkanize() *_vkPipeli
 }
 
 // PipelineTessellationDomainOriginStateCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineTessellationDomainOriginStateCreateInfoKHR.html
-type PipelineTessellationDomainOriginStateCreateInfoKHR struct {
-}
+type PipelineTessellationDomainOriginStateCreateInfoKHR = PipelineTessellationDomainOriginStateCreateInfo
 
-type _vkPipelineTessellationDomainOriginStateCreateInfoKHR = PipelineTessellationDomainOriginStateCreateInfoKHR
-
-func (s *_vkPipelineTessellationDomainOriginStateCreateInfoKHR) Goify() *PipelineTessellationDomainOriginStateCreateInfoKHR {
-	rval := (*PipelineTessellationDomainOriginStateCreateInfoKHR)(s)
-	return rval
-}
-func (s *PipelineTessellationDomainOriginStateCreateInfoKHR) Vulkanize() *_vkPipelineTessellationDomainOriginStateCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineTessellationDomainOriginStateCreateInfoKHR)(s)
-	return rval
-}
+type _vkPipelineTessellationDomainOriginStateCreateInfoKHR = _vkPipelineTessellationDomainOriginStateCreateInfo
 
 // PipelineTessellationStateCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineTessellationStateCreateInfo.html
 type PipelineTessellationStateCreateInfo struct {
@@ -45370,40 +42588,14 @@ func (s *PipelineVertexInputDivisorStateCreateInfo) Vulkanize() *_vkPipelineVert
 }
 
 // PipelineVertexInputDivisorStateCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineVertexInputDivisorStateCreateInfoEXT.html
-type PipelineVertexInputDivisorStateCreateInfoEXT struct {
-}
+type PipelineVertexInputDivisorStateCreateInfoEXT = PipelineVertexInputDivisorStateCreateInfo
 
-type _vkPipelineVertexInputDivisorStateCreateInfoEXT = PipelineVertexInputDivisorStateCreateInfoEXT
-
-func (s *_vkPipelineVertexInputDivisorStateCreateInfoEXT) Goify() *PipelineVertexInputDivisorStateCreateInfoEXT {
-	rval := (*PipelineVertexInputDivisorStateCreateInfoEXT)(s)
-	return rval
-}
-func (s *PipelineVertexInputDivisorStateCreateInfoEXT) Vulkanize() *_vkPipelineVertexInputDivisorStateCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineVertexInputDivisorStateCreateInfoEXT)(s)
-	return rval
-}
+type _vkPipelineVertexInputDivisorStateCreateInfoEXT = _vkPipelineVertexInputDivisorStateCreateInfo
 
 // PipelineVertexInputDivisorStateCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineVertexInputDivisorStateCreateInfoKHR.html
-type PipelineVertexInputDivisorStateCreateInfoKHR struct {
-}
+type PipelineVertexInputDivisorStateCreateInfoKHR = PipelineVertexInputDivisorStateCreateInfo
 
-type _vkPipelineVertexInputDivisorStateCreateInfoKHR = PipelineVertexInputDivisorStateCreateInfoKHR
-
-func (s *_vkPipelineVertexInputDivisorStateCreateInfoKHR) Goify() *PipelineVertexInputDivisorStateCreateInfoKHR {
-	rval := (*PipelineVertexInputDivisorStateCreateInfoKHR)(s)
-	return rval
-}
-func (s *PipelineVertexInputDivisorStateCreateInfoKHR) Vulkanize() *_vkPipelineVertexInputDivisorStateCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPipelineVertexInputDivisorStateCreateInfoKHR)(s)
-	return rval
-}
+type _vkPipelineVertexInputDivisorStateCreateInfoKHR = _vkPipelineVertexInputDivisorStateCreateInfo
 
 // PipelineVertexInputStateCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineVertexInputStateCreateInfo.html
 type PipelineVertexInputStateCreateInfo struct {
@@ -46390,22 +43582,9 @@ func (s *PrivateDataSlotCreateInfo) Vulkanize() *_vkPrivateDataSlotCreateInfo {
 }
 
 // PrivateDataSlotCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPrivateDataSlotCreateInfoEXT.html
-type PrivateDataSlotCreateInfoEXT struct {
-}
+type PrivateDataSlotCreateInfoEXT = PrivateDataSlotCreateInfo
 
-type _vkPrivateDataSlotCreateInfoEXT = PrivateDataSlotCreateInfoEXT
-
-func (s *_vkPrivateDataSlotCreateInfoEXT) Goify() *PrivateDataSlotCreateInfoEXT {
-	rval := (*PrivateDataSlotCreateInfoEXT)(s)
-	return rval
-}
-func (s *PrivateDataSlotCreateInfoEXT) Vulkanize() *_vkPrivateDataSlotCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPrivateDataSlotCreateInfoEXT)(s)
-	return rval
-}
+type _vkPrivateDataSlotCreateInfoEXT = _vkPrivateDataSlotCreateInfo
 
 // ProtectedSubmitInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkProtectedSubmitInfo.html
 type ProtectedSubmitInfo struct {
@@ -46545,22 +43724,9 @@ func (s *PushConstantsInfo) Vulkanize() *_vkPushConstantsInfo {
 }
 
 // PushConstantsInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPushConstantsInfoKHR.html
-type PushConstantsInfoKHR struct {
-}
+type PushConstantsInfoKHR = PushConstantsInfo
 
-type _vkPushConstantsInfoKHR = PushConstantsInfoKHR
-
-func (s *_vkPushConstantsInfoKHR) Goify() *PushConstantsInfoKHR {
-	rval := (*PushConstantsInfoKHR)(s)
-	return rval
-}
-func (s *PushConstantsInfoKHR) Vulkanize() *_vkPushConstantsInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPushConstantsInfoKHR)(s)
-	return rval
-}
+type _vkPushConstantsInfoKHR = _vkPushConstantsInfo
 
 // PushDataInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPushDataInfoEXT.html
 type PushDataInfoEXT struct {
@@ -46656,22 +43822,9 @@ func (s *PushDescriptorSetInfo) Vulkanize() *_vkPushDescriptorSetInfo {
 }
 
 // PushDescriptorSetInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPushDescriptorSetInfoKHR.html
-type PushDescriptorSetInfoKHR struct {
-}
+type PushDescriptorSetInfoKHR = PushDescriptorSetInfo
 
-type _vkPushDescriptorSetInfoKHR = PushDescriptorSetInfoKHR
-
-func (s *_vkPushDescriptorSetInfoKHR) Goify() *PushDescriptorSetInfoKHR {
-	rval := (*PushDescriptorSetInfoKHR)(s)
-	return rval
-}
-func (s *PushDescriptorSetInfoKHR) Vulkanize() *_vkPushDescriptorSetInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPushDescriptorSetInfoKHR)(s)
-	return rval
-}
+type _vkPushDescriptorSetInfoKHR = _vkPushDescriptorSetInfo
 
 // PushDescriptorSetWithTemplateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPushDescriptorSetWithTemplateInfo.html
 type PushDescriptorSetWithTemplateInfo struct {
@@ -46718,22 +43871,9 @@ func (s *PushDescriptorSetWithTemplateInfo) Vulkanize() *_vkPushDescriptorSetWit
 }
 
 // PushDescriptorSetWithTemplateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPushDescriptorSetWithTemplateInfoKHR.html
-type PushDescriptorSetWithTemplateInfoKHR struct {
-}
+type PushDescriptorSetWithTemplateInfoKHR = PushDescriptorSetWithTemplateInfo
 
-type _vkPushDescriptorSetWithTemplateInfoKHR = PushDescriptorSetWithTemplateInfoKHR
-
-func (s *_vkPushDescriptorSetWithTemplateInfoKHR) Goify() *PushDescriptorSetWithTemplateInfoKHR {
-	rval := (*PushDescriptorSetWithTemplateInfoKHR)(s)
-	return rval
-}
-func (s *PushDescriptorSetWithTemplateInfoKHR) Vulkanize() *_vkPushDescriptorSetWithTemplateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkPushDescriptorSetWithTemplateInfoKHR)(s)
-	return rval
-}
+type _vkPushDescriptorSetWithTemplateInfoKHR = _vkPushDescriptorSetWithTemplateInfo
 
 // QueryLowLatencySupportNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueryLowLatencySupportNV.html
 type QueryLowLatencySupportNV struct {
@@ -46813,22 +43953,9 @@ func (s *QueryPoolCreateInfo) Vulkanize() *_vkQueryPoolCreateInfo {
 }
 
 // QueryPoolCreateInfoINTEL: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueryPoolCreateInfoINTEL.html
-type QueryPoolCreateInfoINTEL struct {
-}
+type QueryPoolCreateInfoINTEL = QueryPoolPerformanceQueryCreateInfoINTEL
 
-type _vkQueryPoolCreateInfoINTEL = QueryPoolCreateInfoINTEL
-
-func (s *_vkQueryPoolCreateInfoINTEL) Goify() *QueryPoolCreateInfoINTEL {
-	rval := (*QueryPoolCreateInfoINTEL)(s)
-	return rval
-}
-func (s *QueryPoolCreateInfoINTEL) Vulkanize() *_vkQueryPoolCreateInfoINTEL {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkQueryPoolCreateInfoINTEL)(s)
-	return rval
-}
+type _vkQueryPoolCreateInfoINTEL = _vkQueryPoolPerformanceQueryCreateInfoINTEL
 
 // QueryPoolPerformanceCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueryPoolPerformanceCreateInfoKHR.html
 type QueryPoolPerformanceCreateInfoKHR struct {
@@ -47280,40 +44407,14 @@ func (s *QueueFamilyGlobalPriorityProperties) Vulkanize() *_vkQueueFamilyGlobalP
 }
 
 // QueueFamilyGlobalPriorityPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyGlobalPriorityPropertiesEXT.html
-type QueueFamilyGlobalPriorityPropertiesEXT struct {
-}
+type QueueFamilyGlobalPriorityPropertiesEXT = QueueFamilyGlobalPriorityProperties
 
-type _vkQueueFamilyGlobalPriorityPropertiesEXT = QueueFamilyGlobalPriorityPropertiesEXT
-
-func (s *_vkQueueFamilyGlobalPriorityPropertiesEXT) Goify() *QueueFamilyGlobalPriorityPropertiesEXT {
-	rval := (*QueueFamilyGlobalPriorityPropertiesEXT)(s)
-	return rval
-}
-func (s *QueueFamilyGlobalPriorityPropertiesEXT) Vulkanize() *_vkQueueFamilyGlobalPriorityPropertiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkQueueFamilyGlobalPriorityPropertiesEXT)(s)
-	return rval
-}
+type _vkQueueFamilyGlobalPriorityPropertiesEXT = _vkQueueFamilyGlobalPriorityProperties
 
 // QueueFamilyGlobalPriorityPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyGlobalPriorityPropertiesKHR.html
-type QueueFamilyGlobalPriorityPropertiesKHR struct {
-}
+type QueueFamilyGlobalPriorityPropertiesKHR = QueueFamilyGlobalPriorityProperties
 
-type _vkQueueFamilyGlobalPriorityPropertiesKHR = QueueFamilyGlobalPriorityPropertiesKHR
-
-func (s *_vkQueueFamilyGlobalPriorityPropertiesKHR) Goify() *QueueFamilyGlobalPriorityPropertiesKHR {
-	rval := (*QueueFamilyGlobalPriorityPropertiesKHR)(s)
-	return rval
-}
-func (s *QueueFamilyGlobalPriorityPropertiesKHR) Vulkanize() *_vkQueueFamilyGlobalPriorityPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkQueueFamilyGlobalPriorityPropertiesKHR)(s)
-	return rval
-}
+type _vkQueueFamilyGlobalPriorityPropertiesKHR = _vkQueueFamilyGlobalPriorityProperties
 
 // QueueFamilyOptimalImageTransferGranularityPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR.html
 type QueueFamilyOptimalImageTransferGranularityPropertiesKHR struct {
@@ -47455,22 +44556,9 @@ func (s *QueueFamilyProperties2) Vulkanize() *_vkQueueFamilyProperties2 {
 }
 
 // QueueFamilyProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyProperties2KHR.html
-type QueueFamilyProperties2KHR struct {
-}
+type QueueFamilyProperties2KHR = QueueFamilyProperties2
 
-type _vkQueueFamilyProperties2KHR = QueueFamilyProperties2KHR
-
-func (s *_vkQueueFamilyProperties2KHR) Goify() *QueueFamilyProperties2KHR {
-	rval := (*QueueFamilyProperties2KHR)(s)
-	return rval
-}
-func (s *QueueFamilyProperties2KHR) Vulkanize() *_vkQueueFamilyProperties2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkQueueFamilyProperties2KHR)(s)
-	return rval
-}
+type _vkQueueFamilyProperties2KHR = _vkQueueFamilyProperties2
 
 // QueueFamilyQueryResultStatusPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyQueryResultStatusPropertiesKHR.html
 type QueueFamilyQueryResultStatusPropertiesKHR struct {
@@ -48010,22 +45098,9 @@ func (s *ReleaseCapturedPipelineDataInfoKHR) Vulkanize() *_vkReleaseCapturedPipe
 }
 
 // ReleaseSwapchainImagesInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkReleaseSwapchainImagesInfoEXT.html
-type ReleaseSwapchainImagesInfoEXT struct {
-}
+type ReleaseSwapchainImagesInfoEXT = ReleaseSwapchainImagesInfoKHR
 
-type _vkReleaseSwapchainImagesInfoEXT = ReleaseSwapchainImagesInfoEXT
-
-func (s *_vkReleaseSwapchainImagesInfoEXT) Goify() *ReleaseSwapchainImagesInfoEXT {
-	rval := (*ReleaseSwapchainImagesInfoEXT)(s)
-	return rval
-}
-func (s *ReleaseSwapchainImagesInfoEXT) Vulkanize() *_vkReleaseSwapchainImagesInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkReleaseSwapchainImagesInfoEXT)(s)
-	return rval
-}
+type _vkReleaseSwapchainImagesInfoEXT = _vkReleaseSwapchainImagesInfoKHR
 
 // ReleaseSwapchainImagesInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkReleaseSwapchainImagesInfoKHR.html
 type ReleaseSwapchainImagesInfoKHR struct {
@@ -48117,22 +45192,9 @@ func (s *RenderPassAttachmentBeginInfo) Vulkanize() *_vkRenderPassAttachmentBegi
 }
 
 // RenderPassAttachmentBeginInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassAttachmentBeginInfoKHR.html
-type RenderPassAttachmentBeginInfoKHR struct {
-}
+type RenderPassAttachmentBeginInfoKHR = RenderPassAttachmentBeginInfo
 
-type _vkRenderPassAttachmentBeginInfoKHR = RenderPassAttachmentBeginInfoKHR
-
-func (s *_vkRenderPassAttachmentBeginInfoKHR) Goify() *RenderPassAttachmentBeginInfoKHR {
-	rval := (*RenderPassAttachmentBeginInfoKHR)(s)
-	return rval
-}
-func (s *RenderPassAttachmentBeginInfoKHR) Vulkanize() *_vkRenderPassAttachmentBeginInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderPassAttachmentBeginInfoKHR)(s)
-	return rval
-}
+type _vkRenderPassAttachmentBeginInfoKHR = _vkRenderPassAttachmentBeginInfo
 
 // RenderPassBeginInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassBeginInfo.html
 type RenderPassBeginInfo struct {
@@ -48363,22 +45425,9 @@ func (s *RenderPassCreateInfo2) Vulkanize() *_vkRenderPassCreateInfo2 {
 }
 
 // RenderPassCreateInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassCreateInfo2KHR.html
-type RenderPassCreateInfo2KHR struct {
-}
+type RenderPassCreateInfo2KHR = RenderPassCreateInfo2
 
-type _vkRenderPassCreateInfo2KHR = RenderPassCreateInfo2KHR
-
-func (s *_vkRenderPassCreateInfo2KHR) Goify() *RenderPassCreateInfo2KHR {
-	rval := (*RenderPassCreateInfo2KHR)(s)
-	return rval
-}
-func (s *RenderPassCreateInfo2KHR) Vulkanize() *_vkRenderPassCreateInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderPassCreateInfo2KHR)(s)
-	return rval
-}
+type _vkRenderPassCreateInfo2KHR = _vkRenderPassCreateInfo2
 
 // RenderPassCreationControlEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassCreationControlEXT.html
 type RenderPassCreationControlEXT struct {
@@ -48578,22 +45627,9 @@ func (s *RenderPassInputAttachmentAspectCreateInfo) Vulkanize() *_vkRenderPassIn
 }
 
 // RenderPassInputAttachmentAspectCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassInputAttachmentAspectCreateInfoKHR.html
-type RenderPassInputAttachmentAspectCreateInfoKHR struct {
-}
+type RenderPassInputAttachmentAspectCreateInfoKHR = RenderPassInputAttachmentAspectCreateInfo
 
-type _vkRenderPassInputAttachmentAspectCreateInfoKHR = RenderPassInputAttachmentAspectCreateInfoKHR
-
-func (s *_vkRenderPassInputAttachmentAspectCreateInfoKHR) Goify() *RenderPassInputAttachmentAspectCreateInfoKHR {
-	rval := (*RenderPassInputAttachmentAspectCreateInfoKHR)(s)
-	return rval
-}
-func (s *RenderPassInputAttachmentAspectCreateInfoKHR) Vulkanize() *_vkRenderPassInputAttachmentAspectCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderPassInputAttachmentAspectCreateInfoKHR)(s)
-	return rval
-}
+type _vkRenderPassInputAttachmentAspectCreateInfoKHR = _vkRenderPassInputAttachmentAspectCreateInfo
 
 // RenderPassMultiviewCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassMultiviewCreateInfo.html
 type RenderPassMultiviewCreateInfo struct {
@@ -48663,22 +45699,9 @@ func (s *RenderPassMultiviewCreateInfo) Vulkanize() *_vkRenderPassMultiviewCreat
 }
 
 // RenderPassMultiviewCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassMultiviewCreateInfoKHR.html
-type RenderPassMultiviewCreateInfoKHR struct {
-}
+type RenderPassMultiviewCreateInfoKHR = RenderPassMultiviewCreateInfo
 
-type _vkRenderPassMultiviewCreateInfoKHR = RenderPassMultiviewCreateInfoKHR
-
-func (s *_vkRenderPassMultiviewCreateInfoKHR) Goify() *RenderPassMultiviewCreateInfoKHR {
-	rval := (*RenderPassMultiviewCreateInfoKHR)(s)
-	return rval
-}
-func (s *RenderPassMultiviewCreateInfoKHR) Vulkanize() *_vkRenderPassMultiviewCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderPassMultiviewCreateInfoKHR)(s)
-	return rval
-}
+type _vkRenderPassMultiviewCreateInfoKHR = _vkRenderPassMultiviewCreateInfo
 
 // RenderPassPerformanceCountersByRegionBeginInfoARM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderPassPerformanceCountersByRegionBeginInfoARM.html
 type RenderPassPerformanceCountersByRegionBeginInfoARM struct {
@@ -49112,22 +46135,9 @@ func (s *RenderingAreaInfo) Vulkanize() *_vkRenderingAreaInfo {
 }
 
 // RenderingAreaInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingAreaInfoKHR.html
-type RenderingAreaInfoKHR struct {
-}
+type RenderingAreaInfoKHR = RenderingAreaInfo
 
-type _vkRenderingAreaInfoKHR = RenderingAreaInfoKHR
-
-func (s *_vkRenderingAreaInfoKHR) Goify() *RenderingAreaInfoKHR {
-	rval := (*RenderingAreaInfoKHR)(s)
-	return rval
-}
-func (s *RenderingAreaInfoKHR) Vulkanize() *_vkRenderingAreaInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderingAreaInfoKHR)(s)
-	return rval
-}
+type _vkRenderingAreaInfoKHR = _vkRenderingAreaInfo
 
 // RenderingAttachmentFlagsInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingAttachmentFlagsInfoKHR.html
 type RenderingAttachmentFlagsInfoKHR struct {
@@ -49222,22 +46232,9 @@ func (s *RenderingAttachmentInfo) Vulkanize() *_vkRenderingAttachmentInfo {
 }
 
 // RenderingAttachmentInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingAttachmentInfoKHR.html
-type RenderingAttachmentInfoKHR struct {
-}
+type RenderingAttachmentInfoKHR = RenderingAttachmentInfo
 
-type _vkRenderingAttachmentInfoKHR = RenderingAttachmentInfoKHR
-
-func (s *_vkRenderingAttachmentInfoKHR) Goify() *RenderingAttachmentInfoKHR {
-	rval := (*RenderingAttachmentInfoKHR)(s)
-	return rval
-}
-func (s *RenderingAttachmentInfoKHR) Vulkanize() *_vkRenderingAttachmentInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderingAttachmentInfoKHR)(s)
-	return rval
-}
+type _vkRenderingAttachmentInfoKHR = _vkRenderingAttachmentInfo
 
 // RenderingAttachmentLocationInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingAttachmentLocationInfo.html
 type RenderingAttachmentLocationInfo struct {
@@ -49281,40 +46278,14 @@ func (s *RenderingAttachmentLocationInfo) Vulkanize() *_vkRenderingAttachmentLoc
 }
 
 // RenderingAttachmentLocationInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingAttachmentLocationInfoKHR.html
-type RenderingAttachmentLocationInfoKHR struct {
-}
+type RenderingAttachmentLocationInfoKHR = RenderingAttachmentLocationInfo
 
-type _vkRenderingAttachmentLocationInfoKHR = RenderingAttachmentLocationInfoKHR
-
-func (s *_vkRenderingAttachmentLocationInfoKHR) Goify() *RenderingAttachmentLocationInfoKHR {
-	rval := (*RenderingAttachmentLocationInfoKHR)(s)
-	return rval
-}
-func (s *RenderingAttachmentLocationInfoKHR) Vulkanize() *_vkRenderingAttachmentLocationInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderingAttachmentLocationInfoKHR)(s)
-	return rval
-}
+type _vkRenderingAttachmentLocationInfoKHR = _vkRenderingAttachmentLocationInfo
 
 // RenderingEndInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingEndInfoEXT.html
-type RenderingEndInfoEXT struct {
-}
+type RenderingEndInfoEXT = RenderingEndInfoKHR
 
-type _vkRenderingEndInfoEXT = RenderingEndInfoEXT
-
-func (s *_vkRenderingEndInfoEXT) Goify() *RenderingEndInfoEXT {
-	rval := (*RenderingEndInfoEXT)(s)
-	return rval
-}
-func (s *RenderingEndInfoEXT) Vulkanize() *_vkRenderingEndInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderingEndInfoEXT)(s)
-	return rval
-}
+type _vkRenderingEndInfoEXT = _vkRenderingEndInfoKHR
 
 // RenderingEndInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingEndInfoKHR.html
 type RenderingEndInfoKHR struct {
@@ -49490,22 +46461,9 @@ func (s *RenderingInfo) Vulkanize() *_vkRenderingInfo {
 }
 
 // RenderingInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingInfoKHR.html
-type RenderingInfoKHR struct {
-}
+type RenderingInfoKHR = RenderingInfo
 
-type _vkRenderingInfoKHR = RenderingInfoKHR
-
-func (s *_vkRenderingInfoKHR) Goify() *RenderingInfoKHR {
-	rval := (*RenderingInfoKHR)(s)
-	return rval
-}
-func (s *RenderingInfoKHR) Vulkanize() *_vkRenderingInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderingInfoKHR)(s)
-	return rval
-}
+type _vkRenderingInfoKHR = _vkRenderingInfo
 
 // RenderingInputAttachmentIndexInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingInputAttachmentIndexInfo.html
 type RenderingInputAttachmentIndexInfo struct {
@@ -49557,22 +46515,9 @@ func (s *RenderingInputAttachmentIndexInfo) Vulkanize() *_vkRenderingInputAttach
 }
 
 // RenderingInputAttachmentIndexInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingInputAttachmentIndexInfoKHR.html
-type RenderingInputAttachmentIndexInfoKHR struct {
-}
+type RenderingInputAttachmentIndexInfoKHR = RenderingInputAttachmentIndexInfo
 
-type _vkRenderingInputAttachmentIndexInfoKHR = RenderingInputAttachmentIndexInfoKHR
-
-func (s *_vkRenderingInputAttachmentIndexInfoKHR) Goify() *RenderingInputAttachmentIndexInfoKHR {
-	rval := (*RenderingInputAttachmentIndexInfoKHR)(s)
-	return rval
-}
-func (s *RenderingInputAttachmentIndexInfoKHR) Vulkanize() *_vkRenderingInputAttachmentIndexInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkRenderingInputAttachmentIndexInfoKHR)(s)
-	return rval
-}
+type _vkRenderingInputAttachmentIndexInfoKHR = _vkRenderingInputAttachmentIndexInfo
 
 // ResolveImageInfo2: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkResolveImageInfo2.html
 type ResolveImageInfo2 struct {
@@ -49636,22 +46581,9 @@ func (s *ResolveImageInfo2) Vulkanize() *_vkResolveImageInfo2 {
 }
 
 // ResolveImageInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkResolveImageInfo2KHR.html
-type ResolveImageInfo2KHR struct {
-}
+type ResolveImageInfo2KHR = ResolveImageInfo2
 
-type _vkResolveImageInfo2KHR = ResolveImageInfo2KHR
-
-func (s *_vkResolveImageInfo2KHR) Goify() *ResolveImageInfo2KHR {
-	rval := (*ResolveImageInfo2KHR)(s)
-	return rval
-}
-func (s *ResolveImageInfo2KHR) Vulkanize() *_vkResolveImageInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkResolveImageInfo2KHR)(s)
-	return rval
-}
+type _vkResolveImageInfo2KHR = _vkResolveImageInfo2
 
 // ResolveImageModeInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkResolveImageModeInfoKHR.html
 type ResolveImageModeInfoKHR struct {
@@ -50164,22 +47096,9 @@ func (s *SamplerReductionModeCreateInfo) Vulkanize() *_vkSamplerReductionModeCre
 }
 
 // SamplerReductionModeCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerReductionModeCreateInfoEXT.html
-type SamplerReductionModeCreateInfoEXT struct {
-}
+type SamplerReductionModeCreateInfoEXT = SamplerReductionModeCreateInfo
 
-type _vkSamplerReductionModeCreateInfoEXT = SamplerReductionModeCreateInfoEXT
-
-func (s *_vkSamplerReductionModeCreateInfoEXT) Goify() *SamplerReductionModeCreateInfoEXT {
-	rval := (*SamplerReductionModeCreateInfoEXT)(s)
-	return rval
-}
-func (s *SamplerReductionModeCreateInfoEXT) Vulkanize() *_vkSamplerReductionModeCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSamplerReductionModeCreateInfoEXT)(s)
-	return rval
-}
+type _vkSamplerReductionModeCreateInfoEXT = _vkSamplerReductionModeCreateInfo
 
 // SamplerYcbcrConversionCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionCreateInfo.html
 type SamplerYcbcrConversionCreateInfo struct {
@@ -50242,22 +47161,9 @@ func (s *SamplerYcbcrConversionCreateInfo) Vulkanize() *_vkSamplerYcbcrConversio
 }
 
 // SamplerYcbcrConversionCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionCreateInfoKHR.html
-type SamplerYcbcrConversionCreateInfoKHR struct {
-}
+type SamplerYcbcrConversionCreateInfoKHR = SamplerYcbcrConversionCreateInfo
 
-type _vkSamplerYcbcrConversionCreateInfoKHR = SamplerYcbcrConversionCreateInfoKHR
-
-func (s *_vkSamplerYcbcrConversionCreateInfoKHR) Goify() *SamplerYcbcrConversionCreateInfoKHR {
-	rval := (*SamplerYcbcrConversionCreateInfoKHR)(s)
-	return rval
-}
-func (s *SamplerYcbcrConversionCreateInfoKHR) Vulkanize() *_vkSamplerYcbcrConversionCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSamplerYcbcrConversionCreateInfoKHR)(s)
-	return rval
-}
+type _vkSamplerYcbcrConversionCreateInfoKHR = _vkSamplerYcbcrConversionCreateInfo
 
 // SamplerYcbcrConversionImageFormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionImageFormatProperties.html
 type SamplerYcbcrConversionImageFormatProperties struct {
@@ -50293,22 +47199,9 @@ func (s *SamplerYcbcrConversionImageFormatProperties) Vulkanize() *_vkSamplerYcb
 }
 
 // SamplerYcbcrConversionImageFormatPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionImageFormatPropertiesKHR.html
-type SamplerYcbcrConversionImageFormatPropertiesKHR struct {
-}
+type SamplerYcbcrConversionImageFormatPropertiesKHR = SamplerYcbcrConversionImageFormatProperties
 
-type _vkSamplerYcbcrConversionImageFormatPropertiesKHR = SamplerYcbcrConversionImageFormatPropertiesKHR
-
-func (s *_vkSamplerYcbcrConversionImageFormatPropertiesKHR) Goify() *SamplerYcbcrConversionImageFormatPropertiesKHR {
-	rval := (*SamplerYcbcrConversionImageFormatPropertiesKHR)(s)
-	return rval
-}
-func (s *SamplerYcbcrConversionImageFormatPropertiesKHR) Vulkanize() *_vkSamplerYcbcrConversionImageFormatPropertiesKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSamplerYcbcrConversionImageFormatPropertiesKHR)(s)
-	return rval
-}
+type _vkSamplerYcbcrConversionImageFormatPropertiesKHR = _vkSamplerYcbcrConversionImageFormatProperties
 
 // SamplerYcbcrConversionInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionInfo.html
 type SamplerYcbcrConversionInfo struct {
@@ -50343,22 +47236,9 @@ func (s *SamplerYcbcrConversionInfo) Vulkanize() *_vkSamplerYcbcrConversionInfo 
 }
 
 // SamplerYcbcrConversionInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionInfoKHR.html
-type SamplerYcbcrConversionInfoKHR struct {
-}
+type SamplerYcbcrConversionInfoKHR = SamplerYcbcrConversionInfo
 
-type _vkSamplerYcbcrConversionInfoKHR = SamplerYcbcrConversionInfoKHR
-
-func (s *_vkSamplerYcbcrConversionInfoKHR) Goify() *SamplerYcbcrConversionInfoKHR {
-	rval := (*SamplerYcbcrConversionInfoKHR)(s)
-	return rval
-}
-func (s *SamplerYcbcrConversionInfoKHR) Vulkanize() *_vkSamplerYcbcrConversionInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSamplerYcbcrConversionInfoKHR)(s)
-	return rval
-}
+type _vkSamplerYcbcrConversionInfoKHR = _vkSamplerYcbcrConversionInfo
 
 // SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.html
 type SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM struct {
@@ -50502,22 +47382,9 @@ func (s *SemaphoreSignalInfo) Vulkanize() *_vkSemaphoreSignalInfo {
 }
 
 // SemaphoreSignalInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSemaphoreSignalInfoKHR.html
-type SemaphoreSignalInfoKHR struct {
-}
+type SemaphoreSignalInfoKHR = SemaphoreSignalInfo
 
-type _vkSemaphoreSignalInfoKHR = SemaphoreSignalInfoKHR
-
-func (s *_vkSemaphoreSignalInfoKHR) Goify() *SemaphoreSignalInfoKHR {
-	rval := (*SemaphoreSignalInfoKHR)(s)
-	return rval
-}
-func (s *SemaphoreSignalInfoKHR) Vulkanize() *_vkSemaphoreSignalInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSemaphoreSignalInfoKHR)(s)
-	return rval
-}
+type _vkSemaphoreSignalInfoKHR = _vkSemaphoreSignalInfo
 
 // SemaphoreSubmitInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSemaphoreSubmitInfo.html
 type SemaphoreSubmitInfo struct {
@@ -50564,22 +47431,9 @@ func (s *SemaphoreSubmitInfo) Vulkanize() *_vkSemaphoreSubmitInfo {
 }
 
 // SemaphoreSubmitInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSemaphoreSubmitInfoKHR.html
-type SemaphoreSubmitInfoKHR struct {
-}
+type SemaphoreSubmitInfoKHR = SemaphoreSubmitInfo
 
-type _vkSemaphoreSubmitInfoKHR = SemaphoreSubmitInfoKHR
-
-func (s *_vkSemaphoreSubmitInfoKHR) Goify() *SemaphoreSubmitInfoKHR {
-	rval := (*SemaphoreSubmitInfoKHR)(s)
-	return rval
-}
-func (s *SemaphoreSubmitInfoKHR) Vulkanize() *_vkSemaphoreSubmitInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSemaphoreSubmitInfoKHR)(s)
-	return rval
-}
+type _vkSemaphoreSubmitInfoKHR = _vkSemaphoreSubmitInfo
 
 // SemaphoreTypeCreateInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSemaphoreTypeCreateInfo.html
 type SemaphoreTypeCreateInfo struct {
@@ -50618,22 +47472,9 @@ func (s *SemaphoreTypeCreateInfo) Vulkanize() *_vkSemaphoreTypeCreateInfo {
 }
 
 // SemaphoreTypeCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSemaphoreTypeCreateInfoKHR.html
-type SemaphoreTypeCreateInfoKHR struct {
-}
+type SemaphoreTypeCreateInfoKHR = SemaphoreTypeCreateInfo
 
-type _vkSemaphoreTypeCreateInfoKHR = SemaphoreTypeCreateInfoKHR
-
-func (s *_vkSemaphoreTypeCreateInfoKHR) Goify() *SemaphoreTypeCreateInfoKHR {
-	rval := (*SemaphoreTypeCreateInfoKHR)(s)
-	return rval
-}
-func (s *SemaphoreTypeCreateInfoKHR) Vulkanize() *_vkSemaphoreTypeCreateInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSemaphoreTypeCreateInfoKHR)(s)
-	return rval
-}
+type _vkSemaphoreTypeCreateInfoKHR = _vkSemaphoreTypeCreateInfo
 
 // SemaphoreWaitInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSemaphoreWaitInfo.html
 type SemaphoreWaitInfo struct {
@@ -50696,22 +47537,9 @@ func (s *SemaphoreWaitInfo) Vulkanize() *_vkSemaphoreWaitInfo {
 }
 
 // SemaphoreWaitInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSemaphoreWaitInfoKHR.html
-type SemaphoreWaitInfoKHR struct {
-}
+type SemaphoreWaitInfoKHR = SemaphoreWaitInfo
 
-type _vkSemaphoreWaitInfoKHR = SemaphoreWaitInfoKHR
-
-func (s *_vkSemaphoreWaitInfoKHR) Goify() *SemaphoreWaitInfoKHR {
-	rval := (*SemaphoreWaitInfoKHR)(s)
-	return rval
-}
-func (s *SemaphoreWaitInfoKHR) Vulkanize() *_vkSemaphoreWaitInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSemaphoreWaitInfoKHR)(s)
-	return rval
-}
+type _vkSemaphoreWaitInfoKHR = _vkSemaphoreWaitInfo
 
 // SetDescriptorBufferOffsetsInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSetDescriptorBufferOffsetsInfoEXT.html
 type SetDescriptorBufferOffsetsInfoEXT struct {
@@ -51202,22 +48030,9 @@ func (s *ShaderModuleValidationCacheCreateInfoEXT) Vulkanize() *_vkShaderModuleV
 }
 
 // ShaderRequiredSubgroupSizeCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkShaderRequiredSubgroupSizeCreateInfoEXT.html
-type ShaderRequiredSubgroupSizeCreateInfoEXT struct {
-}
+type ShaderRequiredSubgroupSizeCreateInfoEXT = PipelineShaderStageRequiredSubgroupSizeCreateInfo
 
-type _vkShaderRequiredSubgroupSizeCreateInfoEXT = ShaderRequiredSubgroupSizeCreateInfoEXT
-
-func (s *_vkShaderRequiredSubgroupSizeCreateInfoEXT) Goify() *ShaderRequiredSubgroupSizeCreateInfoEXT {
-	rval := (*ShaderRequiredSubgroupSizeCreateInfoEXT)(s)
-	return rval
-}
-func (s *ShaderRequiredSubgroupSizeCreateInfoEXT) Vulkanize() *_vkShaderRequiredSubgroupSizeCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkShaderRequiredSubgroupSizeCreateInfoEXT)(s)
-	return rval
-}
+type _vkShaderRequiredSubgroupSizeCreateInfoEXT = _vkPipelineShaderStageRequiredSubgroupSizeCreateInfo
 
 // ShaderResourceUsageAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkShaderResourceUsageAMD.html
 type ShaderResourceUsageAMD struct {
@@ -51499,22 +48314,9 @@ func (s *SparseImageFormatProperties2) Vulkanize() *_vkSparseImageFormatProperti
 }
 
 // SparseImageFormatProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSparseImageFormatProperties2KHR.html
-type SparseImageFormatProperties2KHR struct {
-}
+type SparseImageFormatProperties2KHR = SparseImageFormatProperties2
 
-type _vkSparseImageFormatProperties2KHR = SparseImageFormatProperties2KHR
-
-func (s *_vkSparseImageFormatProperties2KHR) Goify() *SparseImageFormatProperties2KHR {
-	rval := (*SparseImageFormatProperties2KHR)(s)
-	return rval
-}
-func (s *SparseImageFormatProperties2KHR) Vulkanize() *_vkSparseImageFormatProperties2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSparseImageFormatProperties2KHR)(s)
-	return rval
-}
+type _vkSparseImageFormatProperties2KHR = _vkSparseImageFormatProperties2
 
 // SparseImageMemoryBind: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSparseImageMemoryBind.html
 type SparseImageMemoryBind struct {
@@ -51683,22 +48485,9 @@ func (s *SparseImageMemoryRequirements2) Vulkanize() *_vkSparseImageMemoryRequir
 }
 
 // SparseImageMemoryRequirements2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSparseImageMemoryRequirements2KHR.html
-type SparseImageMemoryRequirements2KHR struct {
-}
+type SparseImageMemoryRequirements2KHR = SparseImageMemoryRequirements2
 
-type _vkSparseImageMemoryRequirements2KHR = SparseImageMemoryRequirements2KHR
-
-func (s *_vkSparseImageMemoryRequirements2KHR) Goify() *SparseImageMemoryRequirements2KHR {
-	rval := (*SparseImageMemoryRequirements2KHR)(s)
-	return rval
-}
-func (s *SparseImageMemoryRequirements2KHR) Vulkanize() *_vkSparseImageMemoryRequirements2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSparseImageMemoryRequirements2KHR)(s)
-	return rval
-}
+type _vkSparseImageMemoryRequirements2KHR = _vkSparseImageMemoryRequirements2
 
 // SparseImageOpaqueMemoryBindInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSparseImageOpaqueMemoryBindInfo.html
 type SparseImageOpaqueMemoryBindInfo struct {
@@ -52088,22 +48877,9 @@ func (s *SubmitInfo2) Vulkanize() *_vkSubmitInfo2 {
 }
 
 // SubmitInfo2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubmitInfo2KHR.html
-type SubmitInfo2KHR struct {
-}
+type SubmitInfo2KHR = SubmitInfo2
 
-type _vkSubmitInfo2KHR = SubmitInfo2KHR
-
-func (s *_vkSubmitInfo2KHR) Goify() *SubmitInfo2KHR {
-	rval := (*SubmitInfo2KHR)(s)
-	return rval
-}
-func (s *SubmitInfo2KHR) Vulkanize() *_vkSubmitInfo2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubmitInfo2KHR)(s)
-	return rval
-}
+type _vkSubmitInfo2KHR = _vkSubmitInfo2
 
 // SubpassBeginInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassBeginInfo.html
 type SubpassBeginInfo struct {
@@ -52138,22 +48914,9 @@ func (s *SubpassBeginInfo) Vulkanize() *_vkSubpassBeginInfo {
 }
 
 // SubpassBeginInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassBeginInfoKHR.html
-type SubpassBeginInfoKHR struct {
-}
+type SubpassBeginInfoKHR = SubpassBeginInfo
 
-type _vkSubpassBeginInfoKHR = SubpassBeginInfoKHR
-
-func (s *_vkSubpassBeginInfoKHR) Goify() *SubpassBeginInfoKHR {
-	rval := (*SubpassBeginInfoKHR)(s)
-	return rval
-}
-func (s *SubpassBeginInfoKHR) Vulkanize() *_vkSubpassBeginInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubpassBeginInfoKHR)(s)
-	return rval
-}
+type _vkSubpassBeginInfoKHR = _vkSubpassBeginInfo
 
 // SubpassDependency: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassDependency.html
 type SubpassDependency struct {
@@ -52243,22 +49006,9 @@ func (s *SubpassDependency2) Vulkanize() *_vkSubpassDependency2 {
 }
 
 // SubpassDependency2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassDependency2KHR.html
-type SubpassDependency2KHR struct {
-}
+type SubpassDependency2KHR = SubpassDependency2
 
-type _vkSubpassDependency2KHR = SubpassDependency2KHR
-
-func (s *_vkSubpassDependency2KHR) Goify() *SubpassDependency2KHR {
-	rval := (*SubpassDependency2KHR)(s)
-	return rval
-}
-func (s *SubpassDependency2KHR) Vulkanize() *_vkSubpassDependency2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubpassDependency2KHR)(s)
-	return rval
-}
+type _vkSubpassDependency2KHR = _vkSubpassDependency2
 
 // SubpassDescription: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassDescription.html
 type SubpassDescription struct {
@@ -52459,22 +49209,9 @@ func (s *SubpassDescription2) Vulkanize() *_vkSubpassDescription2 {
 }
 
 // SubpassDescription2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassDescription2KHR.html
-type SubpassDescription2KHR struct {
-}
+type SubpassDescription2KHR = SubpassDescription2
 
-type _vkSubpassDescription2KHR = SubpassDescription2KHR
-
-func (s *_vkSubpassDescription2KHR) Goify() *SubpassDescription2KHR {
-	rval := (*SubpassDescription2KHR)(s)
-	return rval
-}
-func (s *SubpassDescription2KHR) Vulkanize() *_vkSubpassDescription2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubpassDescription2KHR)(s)
-	return rval
-}
+type _vkSubpassDescription2KHR = _vkSubpassDescription2
 
 // SubpassDescriptionDepthStencilResolve: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassDescriptionDepthStencilResolve.html
 type SubpassDescriptionDepthStencilResolve struct {
@@ -52520,22 +49257,9 @@ func (s *SubpassDescriptionDepthStencilResolve) Vulkanize() *_vkSubpassDescripti
 }
 
 // SubpassDescriptionDepthStencilResolveKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassDescriptionDepthStencilResolveKHR.html
-type SubpassDescriptionDepthStencilResolveKHR struct {
-}
+type SubpassDescriptionDepthStencilResolveKHR = SubpassDescriptionDepthStencilResolve
 
-type _vkSubpassDescriptionDepthStencilResolveKHR = SubpassDescriptionDepthStencilResolveKHR
-
-func (s *_vkSubpassDescriptionDepthStencilResolveKHR) Goify() *SubpassDescriptionDepthStencilResolveKHR {
-	rval := (*SubpassDescriptionDepthStencilResolveKHR)(s)
-	return rval
-}
-func (s *SubpassDescriptionDepthStencilResolveKHR) Vulkanize() *_vkSubpassDescriptionDepthStencilResolveKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubpassDescriptionDepthStencilResolveKHR)(s)
-	return rval
-}
+type _vkSubpassDescriptionDepthStencilResolveKHR = _vkSubpassDescriptionDepthStencilResolve
 
 // SubpassEndInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassEndInfo.html
 type SubpassEndInfo struct {
@@ -52566,40 +49290,14 @@ func (s *SubpassEndInfo) Vulkanize() *_vkSubpassEndInfo {
 }
 
 // SubpassEndInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassEndInfoKHR.html
-type SubpassEndInfoKHR struct {
-}
+type SubpassEndInfoKHR = SubpassEndInfo
 
-type _vkSubpassEndInfoKHR = SubpassEndInfoKHR
-
-func (s *_vkSubpassEndInfoKHR) Goify() *SubpassEndInfoKHR {
-	rval := (*SubpassEndInfoKHR)(s)
-	return rval
-}
-func (s *SubpassEndInfoKHR) Vulkanize() *_vkSubpassEndInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubpassEndInfoKHR)(s)
-	return rval
-}
+type _vkSubpassEndInfoKHR = _vkSubpassEndInfo
 
 // SubpassFragmentDensityMapOffsetEndInfoQCOM: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassFragmentDensityMapOffsetEndInfoQCOM.html
-type SubpassFragmentDensityMapOffsetEndInfoQCOM struct {
-}
+type SubpassFragmentDensityMapOffsetEndInfoQCOM = RenderPassFragmentDensityMapOffsetEndInfoEXT
 
-type _vkSubpassFragmentDensityMapOffsetEndInfoQCOM = SubpassFragmentDensityMapOffsetEndInfoQCOM
-
-func (s *_vkSubpassFragmentDensityMapOffsetEndInfoQCOM) Goify() *SubpassFragmentDensityMapOffsetEndInfoQCOM {
-	rval := (*SubpassFragmentDensityMapOffsetEndInfoQCOM)(s)
-	return rval
-}
-func (s *SubpassFragmentDensityMapOffsetEndInfoQCOM) Vulkanize() *_vkSubpassFragmentDensityMapOffsetEndInfoQCOM {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubpassFragmentDensityMapOffsetEndInfoQCOM)(s)
-	return rval
-}
+type _vkSubpassFragmentDensityMapOffsetEndInfoQCOM = _vkRenderPassFragmentDensityMapOffsetEndInfoEXT
 
 // SubpassResolvePerformanceQueryEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassResolvePerformanceQueryEXT.html
 type SubpassResolvePerformanceQueryEXT struct {
@@ -52734,22 +49432,9 @@ func (s *SubresourceHostMemcpySize) Vulkanize() *_vkSubresourceHostMemcpySize {
 }
 
 // SubresourceHostMemcpySizeEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubresourceHostMemcpySizeEXT.html
-type SubresourceHostMemcpySizeEXT struct {
-}
+type SubresourceHostMemcpySizeEXT = SubresourceHostMemcpySize
 
-type _vkSubresourceHostMemcpySizeEXT = SubresourceHostMemcpySizeEXT
-
-func (s *_vkSubresourceHostMemcpySizeEXT) Goify() *SubresourceHostMemcpySizeEXT {
-	rval := (*SubresourceHostMemcpySizeEXT)(s)
-	return rval
-}
-func (s *SubresourceHostMemcpySizeEXT) Vulkanize() *_vkSubresourceHostMemcpySizeEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubresourceHostMemcpySizeEXT)(s)
-	return rval
-}
+type _vkSubresourceHostMemcpySizeEXT = _vkSubresourceHostMemcpySize
 
 // SubresourceLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubresourceLayout.html
 type SubresourceLayout struct {
@@ -52813,40 +49498,14 @@ func (s *SubresourceLayout2) Vulkanize() *_vkSubresourceLayout2 {
 }
 
 // SubresourceLayout2EXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubresourceLayout2EXT.html
-type SubresourceLayout2EXT struct {
-}
+type SubresourceLayout2EXT = SubresourceLayout2
 
-type _vkSubresourceLayout2EXT = SubresourceLayout2EXT
-
-func (s *_vkSubresourceLayout2EXT) Goify() *SubresourceLayout2EXT {
-	rval := (*SubresourceLayout2EXT)(s)
-	return rval
-}
-func (s *SubresourceLayout2EXT) Vulkanize() *_vkSubresourceLayout2EXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubresourceLayout2EXT)(s)
-	return rval
-}
+type _vkSubresourceLayout2EXT = _vkSubresourceLayout2
 
 // SubresourceLayout2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubresourceLayout2KHR.html
-type SubresourceLayout2KHR struct {
-}
+type SubresourceLayout2KHR = SubresourceLayout2
 
-type _vkSubresourceLayout2KHR = SubresourceLayout2KHR
-
-func (s *_vkSubresourceLayout2KHR) Goify() *SubresourceLayout2KHR {
-	rval := (*SubresourceLayout2KHR)(s)
-	return rval
-}
-func (s *SubresourceLayout2KHR) Vulkanize() *_vkSubresourceLayout2KHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSubresourceLayout2KHR)(s)
-	return rval
-}
+type _vkSubresourceLayout2KHR = _vkSubresourceLayout2
 
 // SubsampledImageFormatPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubsampledImageFormatPropertiesEXT.html
 type SubsampledImageFormatPropertiesEXT struct {
@@ -53254,22 +49913,9 @@ func (s *SurfaceFormatKHR) Vulkanize() *_vkSurfaceFormatKHR {
 }
 
 // SurfacePresentModeCompatibilityEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfacePresentModeCompatibilityEXT.html
-type SurfacePresentModeCompatibilityEXT struct {
-}
+type SurfacePresentModeCompatibilityEXT = SurfacePresentModeCompatibilityKHR
 
-type _vkSurfacePresentModeCompatibilityEXT = SurfacePresentModeCompatibilityEXT
-
-func (s *_vkSurfacePresentModeCompatibilityEXT) Goify() *SurfacePresentModeCompatibilityEXT {
-	rval := (*SurfacePresentModeCompatibilityEXT)(s)
-	return rval
-}
-func (s *SurfacePresentModeCompatibilityEXT) Vulkanize() *_vkSurfacePresentModeCompatibilityEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSurfacePresentModeCompatibilityEXT)(s)
-	return rval
-}
+type _vkSurfacePresentModeCompatibilityEXT = _vkSurfacePresentModeCompatibilityKHR
 
 // SurfacePresentModeCompatibilityKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfacePresentModeCompatibilityKHR.html
 type SurfacePresentModeCompatibilityKHR struct {
@@ -53314,22 +49960,9 @@ func (s *SurfacePresentModeCompatibilityKHR) Vulkanize() *_vkSurfacePresentModeC
 }
 
 // SurfacePresentModeEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfacePresentModeEXT.html
-type SurfacePresentModeEXT struct {
-}
+type SurfacePresentModeEXT = SurfacePresentModeKHR
 
-type _vkSurfacePresentModeEXT = SurfacePresentModeEXT
-
-func (s *_vkSurfacePresentModeEXT) Goify() *SurfacePresentModeEXT {
-	rval := (*SurfacePresentModeEXT)(s)
-	return rval
-}
-func (s *SurfacePresentModeEXT) Vulkanize() *_vkSurfacePresentModeEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSurfacePresentModeEXT)(s)
-	return rval
-}
+type _vkSurfacePresentModeEXT = _vkSurfacePresentModeKHR
 
 // SurfacePresentModeKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfacePresentModeKHR.html
 type SurfacePresentModeKHR struct {
@@ -53364,22 +49997,9 @@ func (s *SurfacePresentModeKHR) Vulkanize() *_vkSurfacePresentModeKHR {
 }
 
 // SurfacePresentScalingCapabilitiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfacePresentScalingCapabilitiesEXT.html
-type SurfacePresentScalingCapabilitiesEXT struct {
-}
+type SurfacePresentScalingCapabilitiesEXT = SurfacePresentScalingCapabilitiesKHR
 
-type _vkSurfacePresentScalingCapabilitiesEXT = SurfacePresentScalingCapabilitiesEXT
-
-func (s *_vkSurfacePresentScalingCapabilitiesEXT) Goify() *SurfacePresentScalingCapabilitiesEXT {
-	rval := (*SurfacePresentScalingCapabilitiesEXT)(s)
-	return rval
-}
-func (s *SurfacePresentScalingCapabilitiesEXT) Vulkanize() *_vkSurfacePresentScalingCapabilitiesEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSurfacePresentScalingCapabilitiesEXT)(s)
-	return rval
-}
+type _vkSurfacePresentScalingCapabilitiesEXT = _vkSurfacePresentScalingCapabilitiesKHR
 
 // SurfacePresentScalingCapabilitiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfacePresentScalingCapabilitiesKHR.html
 type SurfacePresentScalingCapabilitiesKHR struct {
@@ -53780,22 +50400,9 @@ func (s *SwapchainPresentBarrierCreateInfoNV) Vulkanize() *_vkSwapchainPresentBa
 }
 
 // SwapchainPresentFenceInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentFenceInfoEXT.html
-type SwapchainPresentFenceInfoEXT struct {
-}
+type SwapchainPresentFenceInfoEXT = SwapchainPresentFenceInfoKHR
 
-type _vkSwapchainPresentFenceInfoEXT = SwapchainPresentFenceInfoEXT
-
-func (s *_vkSwapchainPresentFenceInfoEXT) Goify() *SwapchainPresentFenceInfoEXT {
-	rval := (*SwapchainPresentFenceInfoEXT)(s)
-	return rval
-}
-func (s *SwapchainPresentFenceInfoEXT) Vulkanize() *_vkSwapchainPresentFenceInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSwapchainPresentFenceInfoEXT)(s)
-	return rval
-}
+type _vkSwapchainPresentFenceInfoEXT = _vkSwapchainPresentFenceInfoKHR
 
 // SwapchainPresentFenceInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentFenceInfoKHR.html
 type SwapchainPresentFenceInfoKHR struct {
@@ -53841,22 +50448,9 @@ func (s *SwapchainPresentFenceInfoKHR) Vulkanize() *_vkSwapchainPresentFenceInfo
 }
 
 // SwapchainPresentModeInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentModeInfoEXT.html
-type SwapchainPresentModeInfoEXT struct {
-}
+type SwapchainPresentModeInfoEXT = SwapchainPresentModeInfoKHR
 
-type _vkSwapchainPresentModeInfoEXT = SwapchainPresentModeInfoEXT
-
-func (s *_vkSwapchainPresentModeInfoEXT) Goify() *SwapchainPresentModeInfoEXT {
-	rval := (*SwapchainPresentModeInfoEXT)(s)
-	return rval
-}
-func (s *SwapchainPresentModeInfoEXT) Vulkanize() *_vkSwapchainPresentModeInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSwapchainPresentModeInfoEXT)(s)
-	return rval
-}
+type _vkSwapchainPresentModeInfoEXT = _vkSwapchainPresentModeInfoKHR
 
 // SwapchainPresentModeInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentModeInfoKHR.html
 type SwapchainPresentModeInfoKHR struct {
@@ -53902,22 +50496,9 @@ func (s *SwapchainPresentModeInfoKHR) Vulkanize() *_vkSwapchainPresentModeInfoKH
 }
 
 // SwapchainPresentModesCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentModesCreateInfoEXT.html
-type SwapchainPresentModesCreateInfoEXT struct {
-}
+type SwapchainPresentModesCreateInfoEXT = SwapchainPresentModesCreateInfoKHR
 
-type _vkSwapchainPresentModesCreateInfoEXT = SwapchainPresentModesCreateInfoEXT
-
-func (s *_vkSwapchainPresentModesCreateInfoEXT) Goify() *SwapchainPresentModesCreateInfoEXT {
-	rval := (*SwapchainPresentModesCreateInfoEXT)(s)
-	return rval
-}
-func (s *SwapchainPresentModesCreateInfoEXT) Vulkanize() *_vkSwapchainPresentModesCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSwapchainPresentModesCreateInfoEXT)(s)
-	return rval
-}
+type _vkSwapchainPresentModesCreateInfoEXT = _vkSwapchainPresentModesCreateInfoKHR
 
 // SwapchainPresentModesCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentModesCreateInfoKHR.html
 type SwapchainPresentModesCreateInfoKHR struct {
@@ -53961,22 +50542,9 @@ func (s *SwapchainPresentModesCreateInfoKHR) Vulkanize() *_vkSwapchainPresentMod
 }
 
 // SwapchainPresentScalingCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentScalingCreateInfoEXT.html
-type SwapchainPresentScalingCreateInfoEXT struct {
-}
+type SwapchainPresentScalingCreateInfoEXT = SwapchainPresentScalingCreateInfoKHR
 
-type _vkSwapchainPresentScalingCreateInfoEXT = SwapchainPresentScalingCreateInfoEXT
-
-func (s *_vkSwapchainPresentScalingCreateInfoEXT) Goify() *SwapchainPresentScalingCreateInfoEXT {
-	rval := (*SwapchainPresentScalingCreateInfoEXT)(s)
-	return rval
-}
-func (s *SwapchainPresentScalingCreateInfoEXT) Vulkanize() *_vkSwapchainPresentScalingCreateInfoEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkSwapchainPresentScalingCreateInfoEXT)(s)
-	return rval
-}
+type _vkSwapchainPresentScalingCreateInfoEXT = _vkSwapchainPresentScalingCreateInfoKHR
 
 // SwapchainPresentScalingCreateInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainPresentScalingCreateInfoKHR.html
 type SwapchainPresentScalingCreateInfoKHR struct {
@@ -54956,22 +51524,9 @@ func (s *TimelineSemaphoreSubmitInfo) Vulkanize() *_vkTimelineSemaphoreSubmitInf
 }
 
 // TimelineSemaphoreSubmitInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkTimelineSemaphoreSubmitInfoKHR.html
-type TimelineSemaphoreSubmitInfoKHR struct {
-}
+type TimelineSemaphoreSubmitInfoKHR = TimelineSemaphoreSubmitInfo
 
-type _vkTimelineSemaphoreSubmitInfoKHR = TimelineSemaphoreSubmitInfoKHR
-
-func (s *_vkTimelineSemaphoreSubmitInfoKHR) Goify() *TimelineSemaphoreSubmitInfoKHR {
-	rval := (*TimelineSemaphoreSubmitInfoKHR)(s)
-	return rval
-}
-func (s *TimelineSemaphoreSubmitInfoKHR) Vulkanize() *_vkTimelineSemaphoreSubmitInfoKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkTimelineSemaphoreSubmitInfoKHR)(s)
-	return rval
-}
+type _vkTimelineSemaphoreSubmitInfoKHR = _vkTimelineSemaphoreSubmitInfo
 
 // TraceRaysIndirectCommand2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkTraceRaysIndirectCommand2KHR.html
 type TraceRaysIndirectCommand2KHR struct {
@@ -55046,22 +51601,9 @@ func (s *TransformMatrixKHR) Vulkanize() *_vkTransformMatrixKHR {
 }
 
 // TransformMatrixNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkTransformMatrixNV.html
-type TransformMatrixNV struct {
-}
+type TransformMatrixNV = TransformMatrixKHR
 
-type _vkTransformMatrixNV = TransformMatrixNV
-
-func (s *_vkTransformMatrixNV) Goify() *TransformMatrixNV {
-	rval := (*TransformMatrixNV)(s)
-	return rval
-}
-func (s *TransformMatrixNV) Vulkanize() *_vkTransformMatrixNV {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkTransformMatrixNV)(s)
-	return rval
-}
+type _vkTransformMatrixNV = _vkTransformMatrixKHR
 
 // ValidationCacheCreateInfoEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkValidationCacheCreateInfoEXT.html
 type ValidationCacheCreateInfoEXT struct {
@@ -55369,40 +51911,14 @@ func (s *VertexInputBindingDivisorDescription) Vulkanize() *_vkVertexInputBindin
 }
 
 // VertexInputBindingDivisorDescriptionEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkVertexInputBindingDivisorDescriptionEXT.html
-type VertexInputBindingDivisorDescriptionEXT struct {
-}
+type VertexInputBindingDivisorDescriptionEXT = VertexInputBindingDivisorDescription
 
-type _vkVertexInputBindingDivisorDescriptionEXT = VertexInputBindingDivisorDescriptionEXT
-
-func (s *_vkVertexInputBindingDivisorDescriptionEXT) Goify() *VertexInputBindingDivisorDescriptionEXT {
-	rval := (*VertexInputBindingDivisorDescriptionEXT)(s)
-	return rval
-}
-func (s *VertexInputBindingDivisorDescriptionEXT) Vulkanize() *_vkVertexInputBindingDivisorDescriptionEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkVertexInputBindingDivisorDescriptionEXT)(s)
-	return rval
-}
+type _vkVertexInputBindingDivisorDescriptionEXT = _vkVertexInputBindingDivisorDescription
 
 // VertexInputBindingDivisorDescriptionKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkVertexInputBindingDivisorDescriptionKHR.html
-type VertexInputBindingDivisorDescriptionKHR struct {
-}
+type VertexInputBindingDivisorDescriptionKHR = VertexInputBindingDivisorDescription
 
-type _vkVertexInputBindingDivisorDescriptionKHR = VertexInputBindingDivisorDescriptionKHR
-
-func (s *_vkVertexInputBindingDivisorDescriptionKHR) Goify() *VertexInputBindingDivisorDescriptionKHR {
-	rval := (*VertexInputBindingDivisorDescriptionKHR)(s)
-	return rval
-}
-func (s *VertexInputBindingDivisorDescriptionKHR) Vulkanize() *_vkVertexInputBindingDivisorDescriptionKHR {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkVertexInputBindingDivisorDescriptionKHR)(s)
-	return rval
-}
+type _vkVertexInputBindingDivisorDescriptionKHR = _vkVertexInputBindingDivisorDescription
 
 // VideoBeginCodingInfoKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkVideoBeginCodingInfoKHR.html
 type VideoBeginCodingInfoKHR struct {
@@ -60417,22 +56933,9 @@ func (s *WriteDescriptorSetInlineUniformBlock) Vulkanize() *_vkWriteDescriptorSe
 }
 
 // WriteDescriptorSetInlineUniformBlockEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkWriteDescriptorSetInlineUniformBlockEXT.html
-type WriteDescriptorSetInlineUniformBlockEXT struct {
-}
+type WriteDescriptorSetInlineUniformBlockEXT = WriteDescriptorSetInlineUniformBlock
 
-type _vkWriteDescriptorSetInlineUniformBlockEXT = WriteDescriptorSetInlineUniformBlockEXT
-
-func (s *_vkWriteDescriptorSetInlineUniformBlockEXT) Goify() *WriteDescriptorSetInlineUniformBlockEXT {
-	rval := (*WriteDescriptorSetInlineUniformBlockEXT)(s)
-	return rval
-}
-func (s *WriteDescriptorSetInlineUniformBlockEXT) Vulkanize() *_vkWriteDescriptorSetInlineUniformBlockEXT {
-	if s == nil {
-		return nil
-	}
-	rval := (*_vkWriteDescriptorSetInlineUniformBlockEXT)(s)
-	return rval
-}
+type _vkWriteDescriptorSetInlineUniformBlockEXT = _vkWriteDescriptorSetInlineUniformBlock
 
 // WriteDescriptorSetPartitionedAccelerationStructureNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkWriteDescriptorSetPartitionedAccelerationStructureNV.html
 type WriteDescriptorSetPartitionedAccelerationStructureNV struct {

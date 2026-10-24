@@ -4483,11 +4483,12 @@ func GetAccelerationStructureMemoryRequirementsNV(device Device, info *Accelerat
 		pInfo = info.Vulkanize()
 	}
 
-	// memoryRequirements is a binding-allocated single return value and will be populated by Vulkan
-	pMemoryRequirements := &memoryRequirements
+	// memoryRequirements is a binding-allocated single return value and will be populated by Vulkan, but requiring translation
+	var pMemoryRequirements *_vkMemoryRequirements2KHR = memoryRequirements.Vulkanize()
 
 	vkCall_iii(vkGetAccelerationStructureMemoryRequirementsNV, uintptr(device), uintptr(unsafe.Pointer(pInfo)), uintptr(unsafe.Pointer(pMemoryRequirements)))
 
+	memoryRequirements = *(pMemoryRequirements.Goify())
 	return
 }
 
