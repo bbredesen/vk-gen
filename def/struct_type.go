@@ -209,9 +209,6 @@ func (t *structType) PrintInternalDeclaration(w io.Writer) {
 	if t.IsIdenticalPublicAndInternal() {
 		fmt.Fprintf(w, "type %s = %s\n", t.InternalName(), t.PublicName())
 	} else {
-		if t.isReturnedOnly {
-			fmt.Fprintf(w, "// WARNING - struct %s is returned only, which is not yet handled in the binding\n", t.PublicName())
-		}
 		// _vk type declaration
 		fmt.Fprintf(w, "type %s struct {\n", t.InternalName())
 		for _, m := range t.members {

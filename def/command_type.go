@@ -99,6 +99,7 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 		return
 	} else if t.IsAlias() {
 		fmt.Fprintf(w, "var %s = %s\n\n", t.PublicName(), t.resolvedAliasType.PublicName())
+		registerCommandAlias(t)
 		return
 	}
 

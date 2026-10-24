@@ -108,6 +108,8 @@ static void hiddenCmdSetStencilReference(uintptr_t cb, uint32_t mask, uint32_t r
 void *vkGetInstanceProcAddr(uintptr_t instance, const char *name) {
 	if (instance == 0) return NULL;
 	if (strcmp(name, "vkCmdSetStencilReference") == 0) return (void *)hiddenCmdSetStencilReference;
+	// The only name a device that has the extension, but not the core version, would offer for the same command
+	if (strcmp(name, "vkCmdSetStencilReferenceTestEXT") == 0) return (void *)hiddenCmdSetStencilReference;
 	return NULL;
 }
 

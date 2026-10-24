@@ -1441,7 +1441,6 @@ type CheckpointDataNV struct {
 	PCheckpointMarker unsafe.Pointer
 }
 
-// WARNING - struct CheckpointDataNV is returned only, which is not yet handled in the binding
 type _vkCheckpointDataNV struct {
 	sType             StructureType
 	pNext             unsafe.Pointer
@@ -3088,7 +3087,6 @@ type DescriptorSetLayoutSupport struct {
 	Supported bool
 }
 
-// WARNING - struct DescriptorSetLayoutSupport is returned only, which is not yet handled in the binding
 type _vkDescriptorSetLayoutSupport struct {
 	sType     StructureType
 	pNext     unsafe.Pointer
@@ -3167,7 +3165,6 @@ type DescriptorSetVariableDescriptorCountLayoutSupportEXT struct {
 	MaxVariableDescriptorCount uint32
 }
 
-// WARNING - struct DescriptorSetVariableDescriptorCountLayoutSupportEXT is returned only, which is not yet handled in the binding
 type _vkDescriptorSetVariableDescriptorCountLayoutSupportEXT struct {
 	sType                      StructureType
 	pNext                      unsafe.Pointer
@@ -3633,7 +3630,6 @@ type DeviceGroupPresentCapabilitiesKHR struct {
 	Modes       DeviceGroupPresentModeFlagsKHR
 }
 
-// WARNING - struct DeviceGroupPresentCapabilitiesKHR is returned only, which is not yet handled in the binding
 type _vkDeviceGroupPresentCapabilitiesKHR struct {
 	sType       StructureType
 	pNext       unsafe.Pointer
@@ -4178,7 +4174,6 @@ type DisplayModeProperties2KHR struct {
 	DisplayModeProperties DisplayModePropertiesKHR
 }
 
-// WARNING - struct DisplayModeProperties2KHR is returned only, which is not yet handled in the binding
 type _vkDisplayModeProperties2KHR struct {
 	sType                 StructureType
 	pNext                 unsafe.Pointer
@@ -4212,7 +4207,6 @@ type DisplayModePropertiesKHR struct {
 	Parameters DisplayModeParametersKHR
 }
 
-// WARNING - struct DisplayModePropertiesKHR is returned only, which is not yet handled in the binding
 type _vkDisplayModePropertiesKHR struct {
 	displayMode DisplayModeKHR
 	parameters  _vkDisplayModeParametersKHR
@@ -4243,7 +4237,6 @@ type DisplayNativeHdrSurfaceCapabilitiesAMD struct {
 	LocalDimmingSupport bool
 }
 
-// WARNING - struct DisplayNativeHdrSurfaceCapabilitiesAMD is returned only, which is not yet handled in the binding
 type _vkDisplayNativeHdrSurfaceCapabilitiesAMD struct {
 	sType               StructureType
 	pNext               unsafe.Pointer
@@ -4276,7 +4269,6 @@ type DisplayPlaneCapabilities2KHR struct {
 	Capabilities DisplayPlaneCapabilitiesKHR
 }
 
-// WARNING - struct DisplayPlaneCapabilities2KHR is returned only, which is not yet handled in the binding
 type _vkDisplayPlaneCapabilities2KHR struct {
 	sType        StructureType
 	pNext        unsafe.Pointer
@@ -4317,7 +4309,6 @@ type DisplayPlaneCapabilitiesKHR struct {
 	MaxDstExtent   Extent2D
 }
 
-// WARNING - struct DisplayPlaneCapabilitiesKHR is returned only, which is not yet handled in the binding
 type _vkDisplayPlaneCapabilitiesKHR struct {
 	supportedAlpha DisplayPlaneAlphaFlagsKHR
 	minSrcPosition _vkOffset2D
@@ -4405,7 +4396,6 @@ type DisplayPlaneProperties2KHR struct {
 	DisplayPlaneProperties DisplayPlanePropertiesKHR
 }
 
-// WARNING - struct DisplayPlaneProperties2KHR is returned only, which is not yet handled in the binding
 type _vkDisplayPlaneProperties2KHR struct {
 	sType                  StructureType
 	pNext                  unsafe.Pointer
@@ -4535,7 +4525,6 @@ type DisplayProperties2KHR struct {
 	DisplayProperties DisplayPropertiesKHR
 }
 
-// WARNING - struct DisplayProperties2KHR is returned only, which is not yet handled in the binding
 type _vkDisplayProperties2KHR struct {
 	sType             StructureType
 	pNext             unsafe.Pointer
@@ -4579,7 +4568,6 @@ type DisplayPropertiesKHR struct {
 	PersistentContent bool
 }
 
-// WARNING - struct DisplayPropertiesKHR is returned only, which is not yet handled in the binding
 type _vkDisplayPropertiesKHR struct {
 	display              DisplayKHR
 	displayName          *byte
@@ -4779,7 +4767,6 @@ type DrmFormatModifierPropertiesListEXT struct {
 	PDrmFormatModifierProperties []DrmFormatModifierPropertiesEXT
 }
 
-// WARNING - struct DrmFormatModifierPropertiesListEXT is returned only, which is not yet handled in the binding
 type _vkDrmFormatModifierPropertiesListEXT struct {
 	sType                        StructureType
 	pNext                        unsafe.Pointer
@@ -4997,7 +4984,6 @@ type ExtensionProperties struct {
 	SpecVersion uint32
 }
 
-// WARNING - struct ExtensionProperties is returned only, which is not yet handled in the binding
 type _vkExtensionProperties struct {
 	extensionName [MAX_EXTENSION_NAME_SIZE]byte
 	specVersion   uint32
@@ -5069,7 +5055,6 @@ type ExternalBufferProperties struct {
 	ExternalMemoryProperties ExternalMemoryProperties
 }
 
-// WARNING - struct ExternalBufferProperties is returned only, which is not yet handled in the binding
 type _vkExternalBufferProperties struct {
 	sType                    StructureType
 	pNext                    unsafe.Pointer
@@ -5109,7 +5094,6 @@ type ExternalFenceProperties struct {
 	ExternalFenceFeatures         ExternalFenceFeatureFlags
 }
 
-// WARNING - struct ExternalFenceProperties is returned only, which is not yet handled in the binding
 type _vkExternalFenceProperties struct {
 	sType                         StructureType
 	pNext                         unsafe.Pointer
@@ -5153,7 +5137,6 @@ type ExternalImageFormatProperties struct {
 	ExternalMemoryProperties ExternalMemoryProperties
 }
 
-// WARNING - struct ExternalImageFormatProperties is returned only, which is not yet handled in the binding
 type _vkExternalImageFormatProperties struct {
 	sType                    StructureType
 	pNext                    unsafe.Pointer
@@ -5192,7 +5175,6 @@ type ExternalImageFormatPropertiesNV struct {
 	CompatibleHandleTypes         ExternalMemoryHandleTypeFlagsNV
 }
 
-// WARNING - struct ExternalImageFormatPropertiesNV is returned only, which is not yet handled in the binding
 type _vkExternalImageFormatPropertiesNV struct {
 	imageFormatProperties         _vkImageFormatProperties
 	externalMemoryFeatures        ExternalMemoryFeatureFlagsNV
@@ -5363,7 +5345,6 @@ type ExternalSemaphoreProperties struct {
 	ExternalSemaphoreFeatures     ExternalSemaphoreFeatureFlags
 }
 
-// WARNING - struct ExternalSemaphoreProperties is returned only, which is not yet handled in the binding
 type _vkExternalSemaphoreProperties struct {
 	sType                         StructureType
 	pNext                         unsafe.Pointer
@@ -5477,7 +5458,6 @@ type FilterCubicImageViewImageFormatPropertiesEXT struct {
 	FilterCubicMinmax bool
 }
 
-// WARNING - struct FilterCubicImageViewImageFormatPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkFilterCubicImageViewImageFormatPropertiesEXT struct {
 	sType             StructureType
 	pNext             unsafe.Pointer
@@ -5537,7 +5517,6 @@ type FormatProperties2 struct {
 	FormatProperties FormatProperties
 }
 
-// WARNING - struct FormatProperties2 is returned only, which is not yet handled in the binding
 type _vkFormatProperties2 struct {
 	sType            StructureType
 	pNext            unsafe.Pointer
@@ -5747,7 +5726,6 @@ type FramebufferMixedSamplesCombinationNV struct {
 	ColorSamples          SampleCountFlags
 }
 
-// WARNING - struct FramebufferMixedSamplesCombinationNV is returned only, which is not yet handled in the binding
 type _vkFramebufferMixedSamplesCombinationNV struct {
 	sType                 StructureType
 	pNext                 unsafe.Pointer
@@ -6446,7 +6424,6 @@ type ImageDrmFormatModifierPropertiesEXT struct {
 	DrmFormatModifier uint64
 }
 
-// WARNING - struct ImageDrmFormatModifierPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkImageDrmFormatModifierPropertiesEXT struct {
 	sType             StructureType
 	pNext             unsafe.Pointer
@@ -6527,7 +6504,6 @@ type ImageFormatProperties struct {
 	MaxResourceSize DeviceSize
 }
 
-// WARNING - struct ImageFormatProperties is returned only, which is not yet handled in the binding
 type _vkImageFormatProperties struct {
 	maxExtent       _vkExtent3D
 	maxMipLevels    uint32
@@ -6567,7 +6543,6 @@ type ImageFormatProperties2 struct {
 	ImageFormatProperties ImageFormatProperties
 }
 
-// WARNING - struct ImageFormatProperties2 is returned only, which is not yet handled in the binding
 type _vkImageFormatProperties2 struct {
 	sType                 StructureType
 	pNext                 unsafe.Pointer
@@ -7508,7 +7483,6 @@ type LayerProperties struct {
 	Description string
 }
 
-// WARNING - struct LayerProperties is returned only, which is not yet handled in the binding
 type _vkLayerProperties struct {
 	layerName             [MAX_EXTENSION_NAME_SIZE]byte
 	specVersion           uint32
@@ -7749,7 +7723,6 @@ type MemoryDedicatedRequirements struct {
 	RequiresDedicatedAllocation bool
 }
 
-// WARNING - struct MemoryDedicatedRequirements is returned only, which is not yet handled in the binding
 type _vkMemoryDedicatedRequirements struct {
 	sType                       StructureType
 	pNext                       unsafe.Pointer
@@ -7790,7 +7763,6 @@ type MemoryFdPropertiesKHR struct {
 	MemoryTypeBits uint32
 }
 
-// WARNING - struct MemoryFdPropertiesKHR is returned only, which is not yet handled in the binding
 type _vkMemoryFdPropertiesKHR struct {
 	sType          StructureType
 	pNext          unsafe.Pointer
@@ -7881,7 +7853,6 @@ type MemoryHostPointerPropertiesEXT struct {
 	MemoryTypeBits uint32
 }
 
-// WARNING - struct MemoryHostPointerPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkMemoryHostPointerPropertiesEXT struct {
 	sType          StructureType
 	pNext          unsafe.Pointer
@@ -8002,7 +7973,6 @@ type MemoryRequirements2 struct {
 	MemoryRequirements MemoryRequirements
 }
 
-// WARNING - struct MemoryRequirements2 is returned only, which is not yet handled in the binding
 type _vkMemoryRequirements2 struct {
 	sType              StructureType
 	pNext              unsafe.Pointer
@@ -8062,7 +8032,6 @@ type MultisamplePropertiesEXT struct {
 	MaxSampleLocationGridSize Extent2D
 }
 
-// WARNING - struct MultisamplePropertiesEXT is returned only, which is not yet handled in the binding
 type _vkMultisamplePropertiesEXT struct {
 	sType                     StructureType
 	pNext                     unsafe.Pointer
@@ -8415,7 +8384,6 @@ type PerformanceCounterDescriptionKHR struct {
 	Description string
 }
 
-// WARNING - struct PerformanceCounterDescriptionKHR is returned only, which is not yet handled in the binding
 type _vkPerformanceCounterDescriptionKHR struct {
 	sType       StructureType
 	pNext       unsafe.Pointer
@@ -8460,7 +8428,6 @@ type PerformanceCounterKHR struct {
 	Uuid    [UUID_SIZE]uint8
 }
 
-// WARNING - struct PerformanceCounterKHR is returned only, which is not yet handled in the binding
 type _vkPerformanceCounterKHR struct {
 	sType   StructureType
 	pNext   unsafe.Pointer
@@ -8833,7 +8800,6 @@ type PhysicalDeviceBlendOperationAdvancedPropertiesEXT struct {
 	AdvancedBlendAllOperations            bool
 }
 
-// WARNING - struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceBlendOperationAdvancedPropertiesEXT struct {
 	sType                                 StructureType
 	pNext                                 unsafe.Pointer
@@ -9088,7 +9054,6 @@ type PhysicalDeviceConservativeRasterizationPropertiesEXT struct {
 	ConservativeRasterizationPostDepthCoverage bool
 }
 
-// WARNING - struct PhysicalDeviceConservativeRasterizationPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceConservativeRasterizationPropertiesEXT struct {
 	sType                                       StructureType
 	pNext                                       unsafe.Pointer
@@ -9181,7 +9146,6 @@ type PhysicalDeviceCooperativeMatrixPropertiesNV struct {
 	CooperativeMatrixSupportedStages ShaderStageFlags
 }
 
-// WARNING - struct PhysicalDeviceCooperativeMatrixPropertiesNV is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceCooperativeMatrixPropertiesNV struct {
 	sType                            StructureType
 	pNext                            unsafe.Pointer
@@ -9350,7 +9314,6 @@ type PhysicalDeviceDepthStencilResolvePropertiesKHR struct {
 	IndependentResolve bool
 }
 
-// WARNING - struct PhysicalDeviceDepthStencilResolvePropertiesKHR is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceDepthStencilResolvePropertiesKHR struct {
 	sType                        StructureType
 	pNext                        unsafe.Pointer
@@ -9522,7 +9485,6 @@ type PhysicalDeviceDescriptorIndexingPropertiesEXT struct {
 	MaxDescriptorSetUpdateAfterBindInputAttachments      uint32
 }
 
-// WARNING - struct PhysicalDeviceDescriptorIndexingPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceDescriptorIndexingPropertiesEXT struct {
 	sType                                                StructureType
 	pNext                                                unsafe.Pointer
@@ -9622,7 +9584,6 @@ type PhysicalDeviceDiscardRectanglePropertiesEXT struct {
 	MaxDiscardRectangles uint32
 }
 
-// WARNING - struct PhysicalDeviceDiscardRectanglePropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceDiscardRectanglePropertiesEXT struct {
 	sType                StructureType
 	pNext                unsafe.Pointer
@@ -9658,7 +9619,6 @@ type PhysicalDeviceDriverPropertiesKHR struct {
 	ConformanceVersion ConformanceVersionKHR
 }
 
-// WARNING - struct PhysicalDeviceDriverPropertiesKHR is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceDriverPropertiesKHR struct {
 	sType              StructureType
 	pNext              unsafe.Pointer
@@ -9851,7 +9811,6 @@ type PhysicalDeviceExternalMemoryHostPropertiesEXT struct {
 	MinImportedHostPointerAlignment DeviceSize
 }
 
-// WARNING - struct PhysicalDeviceExternalMemoryHostPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceExternalMemoryHostPropertiesEXT struct {
 	sType                           StructureType
 	pNext                           unsafe.Pointer
@@ -10275,7 +10234,6 @@ type PhysicalDeviceFloatControlsPropertiesKHR struct {
 	ShaderRoundingModeRTZFloat64          bool
 }
 
-// WARNING - struct PhysicalDeviceFloatControlsPropertiesKHR is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceFloatControlsPropertiesKHR struct {
 	sType                                 StructureType
 	pNext                                 unsafe.Pointer
@@ -10358,7 +10316,6 @@ type PhysicalDeviceFragmentDensityMapFeaturesEXT struct {
 	FragmentDensityMapNonSubsampledImages bool
 }
 
-// WARNING - struct PhysicalDeviceFragmentDensityMapFeaturesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceFragmentDensityMapFeaturesEXT struct {
 	sType                                 StructureType
 	pNext                                 unsafe.Pointer
@@ -10399,7 +10356,6 @@ type PhysicalDeviceFragmentDensityMapPropertiesEXT struct {
 	FragmentDensityInvocations  bool
 }
 
-// WARNING - struct PhysicalDeviceFragmentDensityMapPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceFragmentDensityMapPropertiesEXT struct {
 	sType                       StructureType
 	pNext                       unsafe.Pointer
@@ -10513,7 +10469,6 @@ type PhysicalDeviceGroupProperties struct {
 	SubsetAllocation    bool
 }
 
-// WARNING - struct PhysicalDeviceGroupProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceGroupProperties struct {
 	sType               StructureType
 	pNext               unsafe.Pointer
@@ -10593,7 +10548,6 @@ type PhysicalDeviceIDProperties struct {
 	DeviceLUIDValid bool
 }
 
-// WARNING - struct PhysicalDeviceIDProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceIDProperties struct {
 	sType           StructureType
 	pNext           unsafe.Pointer
@@ -10881,7 +10835,6 @@ type PhysicalDeviceInlineUniformBlockPropertiesEXT struct {
 	MaxDescriptorSetUpdateAfterBindInlineUniformBlocks      uint32
 }
 
-// WARNING - struct PhysicalDeviceInlineUniformBlockPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceInlineUniformBlockPropertiesEXT struct {
 	sType                                                   StructureType
 	pNext                                                   unsafe.Pointer
@@ -11135,7 +11088,6 @@ type PhysicalDeviceLimits struct {
 	NonCoherentAtomSize DeviceSize
 }
 
-// WARNING - struct PhysicalDeviceLimits is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceLimits struct {
 	maxImageDimension1D                             uint32
 	maxImageDimension2D                             uint32
@@ -11530,7 +11482,6 @@ type PhysicalDeviceLineRasterizationPropertiesEXT struct {
 	LineSubPixelPrecisionBits uint32
 }
 
-// WARNING - struct PhysicalDeviceLineRasterizationPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceLineRasterizationPropertiesEXT struct {
 	sType                     StructureType
 	pNext                     unsafe.Pointer
@@ -11564,7 +11515,6 @@ type PhysicalDeviceMaintenance3Properties struct {
 	MaxMemoryAllocationSize DeviceSize
 }
 
-// WARNING - struct PhysicalDeviceMaintenance3Properties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceMaintenance3Properties struct {
 	sType                   StructureType
 	pNext                   unsafe.Pointer
@@ -11606,7 +11556,6 @@ type PhysicalDeviceMemoryBudgetPropertiesEXT struct {
 	HeapUsage  [MAX_MEMORY_HEAPS]DeviceSize
 }
 
-// WARNING - struct PhysicalDeviceMemoryBudgetPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceMemoryBudgetPropertiesEXT struct {
 	sType      StructureType
 	pNext      unsafe.Pointer
@@ -11696,7 +11645,6 @@ type PhysicalDeviceMemoryProperties2 struct {
 	MemoryProperties PhysicalDeviceMemoryProperties
 }
 
-// WARNING - struct PhysicalDeviceMemoryProperties2 is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceMemoryProperties2 struct {
 	sType            StructureType
 	pNext            unsafe.Pointer
@@ -11782,7 +11730,6 @@ type PhysicalDeviceMeshShaderPropertiesNV struct {
 	MeshOutputPerPrimitiveGranularity uint32
 }
 
-// WARNING - struct PhysicalDeviceMeshShaderPropertiesNV is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceMeshShaderPropertiesNV struct {
 	sType                             StructureType
 	pNext                             unsafe.Pointer
@@ -11899,7 +11846,6 @@ type PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX struct {
 	PerViewPositionAllComponents bool
 }
 
-// WARNING - struct PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX struct {
 	sType                        StructureType
 	pNext                        unsafe.Pointer
@@ -11935,7 +11881,6 @@ type PhysicalDeviceMultiviewProperties struct {
 	MaxMultiviewInstanceIndex uint32
 }
 
-// WARNING - struct PhysicalDeviceMultiviewProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceMultiviewProperties struct {
 	sType                     StructureType
 	pNext                     unsafe.Pointer
@@ -11979,7 +11924,6 @@ type PhysicalDevicePCIBusInfoPropertiesEXT struct {
 	PciFunction uint32
 }
 
-// WARNING - struct PhysicalDevicePCIBusInfoPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDevicePCIBusInfoPropertiesEXT struct {
 	sType       StructureType
 	pNext       unsafe.Pointer
@@ -12060,7 +12004,6 @@ type PhysicalDevicePerformanceQueryPropertiesKHR struct {
 	AllowCommandBufferQueryCopies bool
 }
 
-// WARNING - struct PhysicalDevicePerformanceQueryPropertiesKHR is returned only, which is not yet handled in the binding
 type _vkPhysicalDevicePerformanceQueryPropertiesKHR struct {
 	sType                         StructureType
 	pNext                         unsafe.Pointer
@@ -12125,7 +12068,6 @@ type PhysicalDevicePointClippingProperties struct {
 	PointClippingBehavior PointClippingBehavior
 }
 
-// WARNING - struct PhysicalDevicePointClippingProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDevicePointClippingProperties struct {
 	sType                 StructureType
 	pNext                 unsafe.Pointer
@@ -12169,7 +12111,6 @@ type PhysicalDeviceProperties struct {
 	SparseProperties  PhysicalDeviceSparseProperties
 }
 
-// WARNING - struct PhysicalDeviceProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceProperties struct {
 	apiVersion        uint32
 	driverVersion     uint32
@@ -12221,7 +12162,6 @@ type PhysicalDeviceProperties2 struct {
 	Properties PhysicalDeviceProperties
 }
 
-// WARNING - struct PhysicalDeviceProperties2 is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceProperties2 struct {
 	sType      StructureType
 	pNext      unsafe.Pointer
@@ -12291,7 +12231,6 @@ type PhysicalDeviceProtectedMemoryProperties struct {
 	ProtectedNoFault bool
 }
 
-// WARNING - struct PhysicalDeviceProtectedMemoryProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceProtectedMemoryProperties struct {
 	sType            StructureType
 	pNext            unsafe.Pointer
@@ -12324,7 +12263,6 @@ type PhysicalDevicePushDescriptorPropertiesKHR struct {
 	MaxPushDescriptors uint32
 }
 
-// WARNING - struct PhysicalDevicePushDescriptorPropertiesKHR is returned only, which is not yet handled in the binding
 type _vkPhysicalDevicePushDescriptorPropertiesKHR struct {
 	sType              StructureType
 	pNext              unsafe.Pointer
@@ -12364,7 +12302,6 @@ type PhysicalDeviceRayTracingPropertiesNV struct {
 	MaxDescriptorSetAccelerationStructures uint32
 }
 
-// WARNING - struct PhysicalDeviceRayTracingPropertiesNV is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceRayTracingPropertiesNV struct {
 	sType                                  StructureType
 	pNext                                  unsafe.Pointer
@@ -12454,7 +12391,6 @@ type PhysicalDeviceSampleLocationsPropertiesEXT struct {
 	VariableSampleLocations       bool
 }
 
-// WARNING - struct PhysicalDeviceSampleLocationsPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceSampleLocationsPropertiesEXT struct {
 	sType                         StructureType
 	pNext                         unsafe.Pointer
@@ -12500,7 +12436,6 @@ type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT struct {
 	FilterMinmaxImageComponentMapping  bool
 }
 
-// WARNING - struct PhysicalDeviceSamplerFilterMinmaxPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT struct {
 	sType                              StructureType
 	pNext                              unsafe.Pointer
@@ -12714,7 +12649,6 @@ type PhysicalDeviceShaderCoreProperties2AMD struct {
 	ActiveComputeUnitCount uint32
 }
 
-// WARNING - struct PhysicalDeviceShaderCoreProperties2AMD is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceShaderCoreProperties2AMD struct {
 	sType                  StructureType
 	pNext                  unsafe.Pointer
@@ -12778,7 +12712,6 @@ type PhysicalDeviceShaderCorePropertiesAMD struct {
 	VgprAllocationGranularity uint32
 }
 
-// WARNING - struct PhysicalDeviceShaderCorePropertiesAMD is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceShaderCorePropertiesAMD struct {
 	sType                      StructureType
 	pNext                      unsafe.Pointer
@@ -13052,7 +12985,6 @@ type PhysicalDeviceShaderSMBuiltinsPropertiesNV struct {
 	ShaderWarpsPerSM uint32
 }
 
-// WARNING - struct PhysicalDeviceShaderSMBuiltinsPropertiesNV is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceShaderSMBuiltinsPropertiesNV struct {
 	sType            StructureType
 	pNext            unsafe.Pointer
@@ -13159,7 +13091,6 @@ type PhysicalDeviceShadingRateImagePropertiesNV struct {
 	ShadingRateMaxCoarseSamples uint32
 }
 
-// WARNING - struct PhysicalDeviceShadingRateImagePropertiesNV is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceShadingRateImagePropertiesNV struct {
 	sType                       StructureType
 	pNext                       unsafe.Pointer
@@ -13258,7 +13189,6 @@ type PhysicalDeviceSparseProperties struct {
 	ResidencyNonResidentStrict bool
 }
 
-// WARNING - struct PhysicalDeviceSparseProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceSparseProperties struct {
 	residencyStandard2DBlockShape            Bool32
 	residencyStandard2DMultisampleBlockShape Bool32
@@ -13305,7 +13235,6 @@ type PhysicalDeviceSubgroupProperties struct {
 	QuadOperationsInAllStages bool
 }
 
-// WARNING - struct PhysicalDeviceSubgroupProperties is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceSubgroupProperties struct {
 	sType                     StructureType
 	pNext                     unsafe.Pointer
@@ -13390,7 +13319,6 @@ type PhysicalDeviceSubgroupSizeControlPropertiesEXT struct {
 	RequiredSubgroupSizeStages ShaderStageFlags
 }
 
-// WARNING - struct PhysicalDeviceSubgroupSizeControlPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceSubgroupSizeControlPropertiesEXT struct {
 	sType                        StructureType
 	pNext                        unsafe.Pointer
@@ -13499,7 +13427,6 @@ type PhysicalDeviceTexelBufferAlignmentPropertiesEXT struct {
 	UniformTexelBufferOffsetSingleTexelAlignment bool
 }
 
-// WARNING - struct PhysicalDeviceTexelBufferAlignmentPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceTexelBufferAlignmentPropertiesEXT struct {
 	sType                                        StructureType
 	pNext                                        unsafe.Pointer
@@ -13605,7 +13532,6 @@ type PhysicalDeviceTimelineSemaphorePropertiesKHR struct {
 	MaxTimelineSemaphoreValueDifference uint64
 }
 
-// WARNING - struct PhysicalDeviceTimelineSemaphorePropertiesKHR is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceTimelineSemaphorePropertiesKHR struct {
 	sType                               StructureType
 	pNext                               unsafe.Pointer
@@ -13642,7 +13568,6 @@ type PhysicalDeviceToolPropertiesEXT struct {
 	Layer       string
 }
 
-// WARNING - struct PhysicalDeviceToolPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceToolPropertiesEXT struct {
 	sType       StructureType
 	pNext       unsafe.Pointer
@@ -13732,7 +13657,6 @@ type PhysicalDeviceTransformFeedbackPropertiesEXT struct {
 	TransformFeedbackDraw                      bool
 }
 
-// WARNING - struct PhysicalDeviceTransformFeedbackPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceTransformFeedbackPropertiesEXT struct {
 	sType                                      StructureType
 	pNext                                      unsafe.Pointer
@@ -13912,7 +13836,6 @@ type PhysicalDeviceVertexAttributeDivisorPropertiesEXT struct {
 	MaxVertexAttribDivisor uint32
 }
 
-// WARNING - struct PhysicalDeviceVertexAttributeDivisorPropertiesEXT is returned only, which is not yet handled in the binding
 type _vkPhysicalDeviceVertexAttributeDivisorPropertiesEXT struct {
 	sType                  StructureType
 	pNext                  unsafe.Pointer
@@ -14649,7 +14572,6 @@ type PipelineExecutableInternalRepresentationKHR struct {
 	PData       unsafe.Pointer
 }
 
-// WARNING - struct PipelineExecutableInternalRepresentationKHR is returned only, which is not yet handled in the binding
 type _vkPipelineExecutableInternalRepresentationKHR struct {
 	sType       StructureType
 	pNext       unsafe.Pointer
@@ -14697,7 +14619,6 @@ type PipelineExecutablePropertiesKHR struct {
 	SubgroupSize uint32
 }
 
-// WARNING - struct PipelineExecutablePropertiesKHR is returned only, which is not yet handled in the binding
 type _vkPipelineExecutablePropertiesKHR struct {
 	sType        StructureType
 	pNext        unsafe.Pointer
@@ -14742,7 +14663,6 @@ type PipelineExecutableStatisticKHR struct {
 	Value       PipelineExecutableStatisticValueKHR
 }
 
-// WARNING - struct PipelineExecutableStatisticKHR is returned only, which is not yet handled in the binding
 type _vkPipelineExecutableStatisticKHR struct {
 	sType       StructureType
 	pNext       unsafe.Pointer
@@ -15359,7 +15279,6 @@ type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT struct {
 	RequiredSubgroupSize uint32
 }
 
-// WARNING - struct PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT is returned only, which is not yet handled in the binding
 type _vkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT struct {
 	sType                StructureType
 	pNext                unsafe.Pointer
@@ -16279,7 +16198,6 @@ type QueueFamilyCheckpointPropertiesNV struct {
 	CheckpointExecutionStageMask PipelineStageFlags
 }
 
-// WARNING - struct QueueFamilyCheckpointPropertiesNV is returned only, which is not yet handled in the binding
 type _vkQueueFamilyCheckpointPropertiesNV struct {
 	sType                        StructureType
 	pNext                        unsafe.Pointer
@@ -16315,7 +16233,6 @@ type QueueFamilyProperties struct {
 	MinImageTransferGranularity Extent3D
 }
 
-// WARNING - struct QueueFamilyProperties is returned only, which is not yet handled in the binding
 type _vkQueueFamilyProperties struct {
 	queueFlags                  QueueFlags
 	queueCount                  uint32
@@ -16352,7 +16269,6 @@ type QueueFamilyProperties2 struct {
 	QueueFamilyProperties QueueFamilyProperties
 }
 
-// WARNING - struct QueueFamilyProperties2 is returned only, which is not yet handled in the binding
 type _vkQueueFamilyProperties2 struct {
 	sType                 StructureType
 	pNext                 unsafe.Pointer
@@ -17352,7 +17268,6 @@ type SamplerYcbcrConversionImageFormatProperties struct {
 	CombinedImageSamplerDescriptorCount uint32
 }
 
-// WARNING - struct SamplerYcbcrConversionImageFormatProperties is returned only, which is not yet handled in the binding
 type _vkSamplerYcbcrConversionImageFormatProperties struct {
 	sType                               StructureType
 	pNext                               unsafe.Pointer
@@ -17729,7 +17644,6 @@ type ShaderStatisticsInfoAMD struct {
 	ComputeWorkGroupSize [3]uint32
 }
 
-// WARNING - struct ShaderStatisticsInfoAMD is returned only, which is not yet handled in the binding
 type _vkShaderStatisticsInfoAMD struct {
 	shaderStageMask      ShaderStageFlags
 	resourceUsage        _vkShaderResourceUsageAMD
@@ -17810,7 +17724,6 @@ type SharedPresentSurfaceCapabilitiesKHR struct {
 	SharedPresentSupportedUsageFlags ImageUsageFlags
 }
 
-// WARNING - struct SharedPresentSurfaceCapabilitiesKHR is returned only, which is not yet handled in the binding
 type _vkSharedPresentSurfaceCapabilitiesKHR struct {
 	sType                            StructureType
 	pNext                            unsafe.Pointer
@@ -17881,7 +17794,6 @@ type SparseImageFormatProperties struct {
 	Flags            SparseImageFormatFlags
 }
 
-// WARNING - struct SparseImageFormatProperties is returned only, which is not yet handled in the binding
 type _vkSparseImageFormatProperties struct {
 	aspectMask       ImageAspectFlags
 	imageGranularity _vkExtent3D
@@ -17915,7 +17827,6 @@ type SparseImageFormatProperties2 struct {
 	Properties SparseImageFormatProperties
 }
 
-// WARNING - struct SparseImageFormatProperties2 is returned only, which is not yet handled in the binding
 type _vkSparseImageFormatProperties2 struct {
 	sType      StructureType
 	pNext      unsafe.Pointer
@@ -18046,7 +17957,6 @@ type SparseImageMemoryRequirements struct {
 	ImageMipTailStride DeviceSize
 }
 
-// WARNING - struct SparseImageMemoryRequirements is returned only, which is not yet handled in the binding
 type _vkSparseImageMemoryRequirements struct {
 	formatProperties     _vkSparseImageFormatProperties
 	imageMipTailFirstLod uint32
@@ -18086,7 +17996,6 @@ type SparseImageMemoryRequirements2 struct {
 	MemoryRequirements SparseImageMemoryRequirements
 }
 
-// WARNING - struct SparseImageMemoryRequirements2 is returned only, which is not yet handled in the binding
 type _vkSparseImageMemoryRequirements2 struct {
 	sType              StructureType
 	pNext              unsafe.Pointer
@@ -18830,7 +18739,6 @@ type SurfaceCapabilities2EXT struct {
 	SupportedSurfaceCounters SurfaceCounterFlagsEXT
 }
 
-// WARNING - struct SurfaceCapabilities2EXT is returned only, which is not yet handled in the binding
 type _vkSurfaceCapabilities2EXT struct {
 	sType                    StructureType
 	pNext                    unsafe.Pointer
@@ -18893,7 +18801,6 @@ type SurfaceCapabilities2KHR struct {
 	SurfaceCapabilities SurfaceCapabilitiesKHR
 }
 
-// WARNING - struct SurfaceCapabilities2KHR is returned only, which is not yet handled in the binding
 type _vkSurfaceCapabilities2KHR struct {
 	sType               StructureType
 	pNext               unsafe.Pointer
@@ -18943,7 +18850,6 @@ type SurfaceCapabilitiesKHR struct {
 	SupportedUsageFlags ImageUsageFlags
 }
 
-// WARNING - struct SurfaceCapabilitiesKHR is returned only, which is not yet handled in the binding
 type _vkSurfaceCapabilitiesKHR struct {
 	minImageCount           uint32
 	maxImageCount           uint32
@@ -18998,7 +18904,6 @@ type SurfaceFormat2KHR struct {
 	SurfaceFormat SurfaceFormatKHR
 }
 
-// WARNING - struct SurfaceFormat2KHR is returned only, which is not yet handled in the binding
 type _vkSurfaceFormat2KHR struct {
 	sType         StructureType
 	pNext         unsafe.Pointer
@@ -19262,7 +19167,6 @@ type TextureLODGatherFormatPropertiesAMD struct {
 	SupportsTextureGatherLODBiasAMD bool
 }
 
-// WARNING - struct TextureLODGatherFormatPropertiesAMD is returned only, which is not yet handled in the binding
 type _vkTextureLODGatherFormatPropertiesAMD struct {
 	sType                           StructureType
 	pNext                           unsafe.Pointer
