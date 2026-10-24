@@ -31,10 +31,14 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go/scanner"
+	"go/token"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"runtime"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -78,6 +82,9 @@ func TestMain(m *testing.M) {
 		os.Exit(2)
 	}
 	genPath = filepath.Join(dir, "vk-gen")
+	if runtime.GOOS == "windows" {
+		genPath += ".exe"
+	}
 	if out, err := exec.Command("go", "build", "-o", genPath, "..").CombinedOutput(); err != nil {
 		buildErr = fmt.Errorf("building vk-gen: %v\n%s", err, out)
 	}
@@ -321,8 +328,8 @@ func compareTrees(want, got map[string][]byte) string {
 			fmt.Fprintf(&sb, "  + %s (not in the expected output)\n", n)
 		case !inGot:
 			fmt.Fprintf(&sb, "  - %s (missing from the output)\n", n)
-		case !bytes.Equal(w, g):
-			fmt.Fprintf(&sb, "  ~ %s: %s\n", n, firstDifference(w, g))
+		case !equivalent(n, w, g):
+			fmt.Fprintf(&sb, "  ~ %s: %s\n", n, firstDifference(n, w, g))
 		default:
 			continue
 		}
@@ -334,7 +341,64 @@ func compareTrees(want, got map[string][]byte) string {
 	return sb.String()
 }
 
-func firstDifference(want, got []byte) string {
+// equivalent reports whether two versions of a file have the same content. Go files are compared as tokens, so that
+// layout does not matter: gofmt's alignment of keys and comments changes between Go versions, and a golden recorded with
+// one version would otherwise fail on another. Comments are tokens, so their text is still compared.
+func equivalent(name string, want, got []byte) bool {
+	if bytes.Equal(want, got) {
+		return true
+	}
+	if !strings.HasSuffix(name, ".go") {
+		return false
+	}
+	w, wok := goTokens(want)
+	g, gok := goTokens(got)
+	return wok && gok && slices.EqualFunc(w, g, func(a, b goToken) bool { return a.text == b.text })
+}
+
+// goTokens returns the tokens of Go source as strings, with the line each is on, and false if the source does not scan.
+func goTokens(src []byte) (tokens []goToken, ok bool) {
+	fset := token.NewFileSet()
+	file := fset.AddFile("", fset.Base(), len(src))
+	failed := false
+	var sc scanner.Scanner
+	sc.Init(file, src, func(token.Position, string) { failed = true }, scanner.ScanComments)
+	for {
+		pos, tok, lit := sc.Scan()
+		if tok == token.EOF {
+			break
+		}
+		if lit == "" {
+			lit = tok.String()
+		}
+		tokens = append(tokens, goToken{line: file.Line(pos), text: lit})
+	}
+	return tokens, !failed
+}
+
+// goToken is compared by text only; line is for reporting.
+type goToken struct {
+	line int
+	text string
+}
+
+func firstDifference(name string, want, got []byte) string {
+	if strings.HasSuffix(name, ".go") {
+		w, wok := goTokens(want)
+		g, gok := goTokens(got)
+		if wok && gok {
+			for i := 0; i < len(w) || i < len(g); i++ {
+				switch {
+				case i >= len(w):
+					return fmt.Sprintf("line %d: extra output starting at %q", g[i].line, g[i].text)
+				case i >= len(g):
+					return fmt.Sprintf("line %d: output ends early, expected %q", w[i].line, w[i].text)
+				case w[i].text != g[i].text:
+					return fmt.Sprintf("line %d (expected) / %d (got): expected %q, got %q", w[i].line, g[i].line, w[i].text, g[i].text)
+				}
+			}
+		}
+	}
 	wl, gl := bytes.Split(want, []byte("\n")), bytes.Split(got, []byte("\n"))
 	for i := 0; i < len(wl) || i < len(gl); i++ {
 		switch {
@@ -408,10 +472,11 @@ func runIn(dir string, env []string, timeout time.Duration, name string, args ..
 
 func requireTool(t *testing.T, name string) {
 	t.Helper()
-	// vk-gen and `go generate` look in GOPATH/bin too, so check there as well as PATH.
+	// vk-gen and `go generate` look in GOPATH/bin too, so check there as well as PATH. LookPath adds the .exe extension
+	// on Windows.
 	path := strings.Join(append(filepath.SplitList(os.Getenv("PATH")), gopathBins()...), string(os.PathListSeparator))
 	for _, dir := range filepath.SplitList(path) {
-		if st, err := os.Stat(filepath.Join(dir, name)); err == nil && !st.IsDir() {
+		if _, err := exec.LookPath(filepath.Join(dir, name)); err == nil {
 			return
 		}
 	}

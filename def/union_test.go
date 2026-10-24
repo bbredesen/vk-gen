@@ -10,11 +10,15 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-// loadRegistries reads the real vk.xml and exceptions.json the same way main does.
+// registryFile is a pinned registry from the matrix tests. It is committed, so these tests do not depend on a vk.xml in
+// the working directory (which .gitignore excludes, and which CI does not have).
+const registryFile = "../matrix/testdata/registry/vk-1.4.366.xml"
+
+// loadRegistries reads the pinned registry and exceptions.json the same way main does.
 func loadRegistries(t *testing.T) (TypeRegistry, ValueRegistry) {
 	t.Helper()
 
-	f, err := os.Open("../vk.xml")
+	f, err := os.Open(registryFile)
 	if err != nil {
 		t.Fatal(err)
 	}

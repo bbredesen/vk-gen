@@ -61,7 +61,10 @@ failing stage.
 4. **vet**: `go vet -unsafeptr=false ./...`. The unsafeptr check is off because the bindings pass pointers to C by design.
    This also compiles the static test files.
 5. **test**: `go test ./...` runs the static tests from `_static_include` against a fake Vulkan library.
-6. **golden**: the output, including the stringer files, is compared to `testdata/golden/<version>`. The files copied
+6. **golden**: the output, including the stringer files, is compared to `testdata/golden/<version>`. Go files are compared
+   as tokens (comments included), not as text, so layout is ignored. gofmt's alignment of struct literals changed between Go
+   1.26 and 1.27, and a golden recorded with one would otherwise fail on the other. Re-recording with a different Go version
+   can still churn whitespace in `git diff`; that is harmless. The files copied
    from `_static_include`, and the test's `go.mod` and `go.sum`, are left out of the comparison because they do not depend on
    the registry. A version with no golden directory skips this stage, so it is a smoke test only.
 

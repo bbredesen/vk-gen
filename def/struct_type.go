@@ -321,7 +321,7 @@ func (m *structMember) IsIdenticalPublicAndInternal() bool {
 func (m *structMember) PrintPublicDeclaration(w io.Writer) {
 
 	if m.comment != "" {
-		fmt.Fprintln(w, "// ", m.comment)
+		fmt.Fprintf(w, "// %s\n", m.comment)
 	}
 
 	if m.forceInclude {

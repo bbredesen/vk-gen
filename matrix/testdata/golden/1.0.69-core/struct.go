@@ -129,13 +129,13 @@ type AttachmentDescription struct {
 	Flags   AttachmentDescriptionFlags
 	Format  Format
 	Samples SampleCountFlagBits
-	//  Load operation for color or depth data
+	// Load operation for color or depth data
 	LoadOp AttachmentLoadOp
-	//  Store operation for color or depth data
+	// Store operation for color or depth data
 	StoreOp AttachmentStoreOp
-	//  Load operation for stencil data
+	// Load operation for stencil data
 	StencilLoadOp AttachmentLoadOp
-	//  Store operation for stencil data
+	// Store operation for stencil data
 	StencilStoreOp AttachmentStoreOp
 	InitialLayout  ImageLayout
 	FinalLayout    ImageLayout
@@ -558,11 +558,11 @@ func (s *BindSparseInfo) Vulkanize() *_vkBindSparseInfo {
 
 // BufferCopy: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferCopy.html
 type BufferCopy struct {
-	//  Specified in bytes
+	// Specified in bytes
 	SrcOffset DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	DstOffset DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	Size DeviceSize
 }
 
@@ -584,11 +584,11 @@ func (s *BufferCopy) Vulkanize() *_vkBufferCopy {
 type BufferCreateInfo struct {
 	// SType = STRUCTURE_TYPE_BUFFER_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Buffer creation flags
+	// Buffer creation flags
 	Flags BufferCreateFlags
-	//  Specified in bytes
+	// Specified in bytes
 	Size DeviceSize
-	//  Buffer usage flags
+	// Buffer usage flags
 	Usage       BufferUsageFlags
 	SharingMode SharingMode
 	// queueFamilyIndexCount
@@ -642,15 +642,15 @@ func (s *BufferCreateInfo) Vulkanize() *_vkBufferCreateInfo {
 
 // BufferImageCopy: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkBufferImageCopy.html
 type BufferImageCopy struct {
-	//  Specified in bytes
+	// Specified in bytes
 	BufferOffset DeviceSize
-	//  Specified in texels
+	// Specified in texels
 	BufferRowLength   uint32
 	BufferImageHeight uint32
 	ImageSubresource  ImageSubresourceLayers
-	//  Specified in pixels for both compressed and uncompressed images
+	// Specified in pixels for both compressed and uncompressed images
 	ImageOffset Offset3D
-	//  Specified in pixels for both compressed and uncompressed images
+	// Specified in pixels for both compressed and uncompressed images
 	ImageExtent Extent3D
 }
 
@@ -693,19 +693,19 @@ func (s *BufferImageCopy) Vulkanize() *_vkBufferImageCopy {
 type BufferMemoryBarrier struct {
 	// SType = STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER
 	PNext unsafe.Pointer
-	//  Memory accesses from the source of the dependency to synchronize
+	// Memory accesses from the source of the dependency to synchronize
 	SrcAccessMask AccessFlags
-	//  Memory accesses from the destination of the dependency to synchronize
+	// Memory accesses from the destination of the dependency to synchronize
 	DstAccessMask AccessFlags
-	//  Queue family to transition ownership from
+	// Queue family to transition ownership from
 	SrcQueueFamilyIndex uint32
-	//  Queue family to transition ownership to
+	// Queue family to transition ownership to
 	DstQueueFamilyIndex uint32
-	//  Buffer to sync
+	// Buffer to sync
 	Buffer Buffer
-	//  Offset within the buffer to sync
+	// Offset within the buffer to sync
 	Offset DeviceSize
-	//  Amount of bytes to sync
+	// Amount of bytes to sync
 	Size DeviceSize
 }
 
@@ -790,11 +790,11 @@ type BufferViewCreateInfo struct {
 	PNext  unsafe.Pointer
 	Flags  BufferViewCreateFlags
 	Buffer Buffer
-	//  Optionally specifies format of elements
+	// Optionally specifies format of elements
 	Format Format
-	//  Specified in bytes
+	// Specified in bytes
 	Offset DeviceSize
-	//  View size specified in bytes
+	// View size specified in bytes
 	Rang DeviceSize
 }
 
@@ -1078,9 +1078,9 @@ func (s *CommandBufferAllocateInfo) Vulkanize() *_vkCommandBufferAllocateInfo {
 type CommandBufferBeginInfo struct {
 	// SType = STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO
 	PNext unsafe.Pointer
-	//  Command buffer usage flags
+	// Command buffer usage flags
 	Flags CommandBufferUsageFlags
-	//  Pointer to inheritance info for secondary command buffers
+	// Pointer to inheritance info for secondary command buffers
 	PInheritanceInfo *CommandBufferInheritanceInfo
 }
 
@@ -1116,16 +1116,16 @@ func (s *CommandBufferBeginInfo) Vulkanize() *_vkCommandBufferBeginInfo {
 type CommandBufferInheritanceInfo struct {
 	// SType = STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO
 	PNext unsafe.Pointer
-	//  Render pass for secondary command buffers
+	// Render pass for secondary command buffers
 	RenderPass RenderPass
 	Subpass    uint32
-	//  Framebuffer for secondary command buffers
+	// Framebuffer for secondary command buffers
 	Framebuffer Framebuffer
-	//  Whether this secondary command buffer may be executed during an occlusion query
+	// Whether this secondary command buffer may be executed during an occlusion query
 	OcclusionQueryEnable bool
-	//  Query flags used by this secondary command buffer, if executed during an occlusion query
+	// Query flags used by this secondary command buffer, if executed during an occlusion query
 	QueryFlags QueryControlFlags
-	//  Pipeline statistics that may be counted for this secondary command buffer
+	// Pipeline statistics that may be counted for this secondary command buffer
 	PipelineStatistics QueryPipelineStatisticFlags
 }
 
@@ -1173,7 +1173,7 @@ func (s *CommandBufferInheritanceInfo) Vulkanize() *_vkCommandBufferInheritanceI
 type CommandPoolCreateInfo struct {
 	// SType = STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Command pool creation flags
+	// Command pool creation flags
 	Flags            CommandPoolCreateFlags
 	QueueFamilyIndex uint32
 }
@@ -1232,14 +1232,14 @@ func (s *ComponentMapping) Vulkanize() *_vkComponentMapping {
 type ComputePipelineCreateInfo struct {
 	// SType = STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Pipeline creation flags
+	// Pipeline creation flags
 	Flags PipelineCreateFlags
 	Stage PipelineShaderStageCreateInfo
-	//  Interface layout of the pipeline
+	// Interface layout of the pipeline
 	Layout PipelineLayout
-	//  If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is nonzero, it specifies the handle of the base pipeline this is a derivative of
+	// If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is nonzero, it specifies the handle of the base pipeline this is a derivative of
 	BasePipelineHandle Pipeline
-	//  If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is not -1, it specifies an index into pCreateInfos of the base pipeline this is a derivative of
+	// If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is not -1, it specifies an index into pCreateInfos of the base pipeline this is a derivative of
 	BasePipelineIndex int32
 }
 
@@ -1284,19 +1284,19 @@ func (s *ComputePipelineCreateInfo) Vulkanize() *_vkComputePipelineCreateInfo {
 type CopyDescriptorSet struct {
 	// SType = STRUCTURE_TYPE_COPY_DESCRIPTOR_SET
 	PNext unsafe.Pointer
-	//  Source descriptor set
+	// Source descriptor set
 	SrcSet DescriptorSet
-	//  Binding within the source descriptor set to copy from
+	// Binding within the source descriptor set to copy from
 	SrcBinding uint32
-	//  Array element within the source binding to copy from
+	// Array element within the source binding to copy from
 	SrcArrayElement uint32
-	//  Destination descriptor set
+	// Destination descriptor set
 	DstSet DescriptorSet
-	//  Binding within the destination descriptor set to copy to
+	// Binding within the destination descriptor set to copy to
 	DstBinding uint32
-	//  Array element within the destination binding to copy to
+	// Array element within the destination binding to copy to
 	DstArrayElement uint32
-	//  Number of descriptors to write (determines the size of the array pointed by pDescriptors)
+	// Number of descriptors to write (determines the size of the array pointed by pDescriptors)
 	DescriptorCount uint32
 }
 
@@ -1347,9 +1347,9 @@ func (s *CopyDescriptorSet) Vulkanize() *_vkCopyDescriptorSet {
 type DebugMarkerMarkerInfoEXT struct {
 	// SType = STRUCTURE_TYPE_DEBUG_MARKER_MARKER_INFO_EXT
 	PNext unsafe.Pointer
-	//  Name of the debug marker
+	// Name of the debug marker
 	PMarkerName string
-	//  Optional color for debug marker
+	// Optional color for debug marker
 	Color [4]float32
 }
 
@@ -1385,11 +1385,11 @@ func (s *DebugMarkerMarkerInfoEXT) Vulkanize() *_vkDebugMarkerMarkerInfoEXT {
 type DebugMarkerObjectNameInfoEXT struct {
 	// SType = STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_NAME_INFO_EXT
 	PNext unsafe.Pointer
-	//  The type of the object
+	// The type of the object
 	ObjectType DebugReportObjectTypeEXT
-	//  The handle of the object, cast to uint64_t
+	// The handle of the object, cast to uint64_t
 	Object uint64
-	//  Name to apply to the object
+	// Name to apply to the object
 	PObjectName string
 }
 
@@ -1428,15 +1428,15 @@ func (s *DebugMarkerObjectNameInfoEXT) Vulkanize() *_vkDebugMarkerObjectNameInfo
 type DebugMarkerObjectTagInfoEXT struct {
 	// SType = STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_TAG_INFO_EXT
 	PNext unsafe.Pointer
-	//  The type of the object
+	// The type of the object
 	ObjectType DebugReportObjectTypeEXT
-	//  The handle of the object, cast to uint64_t
+	// The handle of the object, cast to uint64_t
 	Object uint64
-	//  The name of the tag to set on the object
+	// The name of the tag to set on the object
 	TagName uint64
-	//  The length in bytes of the tag data
+	// The length in bytes of the tag data
 	TagSize uintptr
-	//  Tag data to attach to the object
+	// Tag data to attach to the object
 	PTag unsafe.Pointer
 }
 
@@ -1481,11 +1481,11 @@ func (s *DebugMarkerObjectTagInfoEXT) Vulkanize() *_vkDebugMarkerObjectTagInfoEX
 type DebugReportCallbackCreateInfoEXT struct {
 	// SType = STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT
 	PNext unsafe.Pointer
-	//  Indicates which events call this callback
+	// Indicates which events call this callback
 	Flags DebugReportFlagsEXT
-	//  Function pointer of a callback function
+	// Function pointer of a callback function
 	PfnCallback PFN_vkDebugReportCallbackEXT
-	//  User data provided to callback function
+	// User data provided to callback function
 	PUserData unsafe.Pointer
 }
 
@@ -1524,7 +1524,7 @@ func (s *DebugReportCallbackCreateInfoEXT) Vulkanize() *_vkDebugReportCallbackCr
 type DedicatedAllocationBufferCreateInfoNV struct {
 	// SType = STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV
 	PNext unsafe.Pointer
-	//  Whether this buffer uses a dedicated allocation
+	// Whether this buffer uses a dedicated allocation
 	DedicatedAllocation bool
 }
 
@@ -1557,7 +1557,7 @@ func (s *DedicatedAllocationBufferCreateInfoNV) Vulkanize() *_vkDedicatedAllocat
 type DedicatedAllocationImageCreateInfoNV struct {
 	// SType = STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV
 	PNext unsafe.Pointer
-	//  Whether this image uses a dedicated allocation
+	// Whether this image uses a dedicated allocation
 	DedicatedAllocation bool
 }
 
@@ -1590,9 +1590,9 @@ func (s *DedicatedAllocationImageCreateInfoNV) Vulkanize() *_vkDedicatedAllocati
 type DedicatedAllocationMemoryAllocateInfoNV struct {
 	// SType = STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV
 	PNext unsafe.Pointer
-	//  Image that this allocation will be bound to
+	// Image that this allocation will be bound to
 	Image Image
-	//  Buffer that this allocation will be bound to
+	// Buffer that this allocation will be bound to
 	Buffer Buffer
 }
 
@@ -1626,11 +1626,11 @@ func (s *DedicatedAllocationMemoryAllocateInfoNV) Vulkanize() *_vkDedicatedAlloc
 
 // DescriptorBufferInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorBufferInfo.html
 type DescriptorBufferInfo struct {
-	//  Buffer used for this descriptor slot when the descriptor is UNIFORM_BUFFER[_DYNAMIC] or STORAGE_BUFFER[_DYNAMIC]. VK_NULL_HANDLE otherwise.
+	// Buffer used for this descriptor slot when the descriptor is UNIFORM_BUFFER[_DYNAMIC] or STORAGE_BUFFER[_DYNAMIC]. VK_NULL_HANDLE otherwise.
 	Buffer Buffer
-	//  Base offset from buffer start in bytes to update in the descriptor set.
+	// Base offset from buffer start in bytes to update in the descriptor set.
 	Offset DeviceSize
-	//  Size in bytes of the buffer resource for this descriptor update.
+	// Size in bytes of the buffer resource for this descriptor update.
 	Rang DeviceSize
 }
 
@@ -1650,11 +1650,11 @@ func (s *DescriptorBufferInfo) Vulkanize() *_vkDescriptorBufferInfo {
 
 // DescriptorImageInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorImageInfo.html
 type DescriptorImageInfo struct {
-	//  Sampler to write to the descriptor in case it is a SAMPLER or COMBINED_IMAGE_SAMPLER descriptor. Ignored otherwise.
+	// Sampler to write to the descriptor in case it is a SAMPLER or COMBINED_IMAGE_SAMPLER descriptor. Ignored otherwise.
 	Sampler Sampler
-	//  Image view to write to the descriptor in case it is a SAMPLED_IMAGE, STORAGE_IMAGE, COMBINED_IMAGE_SAMPLER, or INPUT_ATTACHMENT descriptor. Ignored otherwise.
+	// Image view to write to the descriptor in case it is a SAMPLED_IMAGE, STORAGE_IMAGE, COMBINED_IMAGE_SAMPLER, or INPUT_ATTACHMENT descriptor. Ignored otherwise.
 	ImageView ImageView
-	//  Layout the image is expected to be in when accessed using this descriptor (only used if imageView is not VK_NULL_HANDLE).
+	// Layout the image is expected to be in when accessed using this descriptor (only used if imageView is not VK_NULL_HANDLE).
 	ImageLayout ImageLayout
 }
 
@@ -1788,15 +1788,15 @@ func (s *DescriptorSetAllocateInfo) Vulkanize() *_vkDescriptorSetAllocateInfo {
 
 // DescriptorSetLayoutBinding: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutBinding.html
 type DescriptorSetLayoutBinding struct {
-	//  Binding number for this entry
+	// Binding number for this entry
 	Binding uint32
-	//  Type of the descriptors in this binding
+	// Type of the descriptors in this binding
 	DescriptorType DescriptorType
-	//  Number of descriptors in this binding; descriptorCount references an array field in the XML, but that field might be null and then descriptor count has a different meaning. See the man pages/spec.
+	// Number of descriptors in this binding; descriptorCount references an array field in the XML, but that field might be null and then descriptor count has a different meaning. See the man pages/spec.
 	DescriptorCount uint32 // Forced include via exceptions.json
-	//  Shader stages this binding is visible to
+	// Shader stages this binding is visible to
 	StageFlags ShaderStageFlags
-	//  Immutable samplers (used if descriptor type is SAMPLER or COMBINED_IMAGE_SAMPLER, is either NULL or contains count number of elements)
+	// Immutable samplers (used if descriptor type is SAMPLER or COMBINED_IMAGE_SAMPLER, is either NULL or contains count number of elements)
 	PImmutableSamplers []Sampler
 }
 
@@ -1842,9 +1842,9 @@ type DescriptorSetLayoutCreateInfo struct {
 	// SType = STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags DescriptorSetLayoutCreateFlags
-	//  Number of bindings in the descriptor set layout
+	// Number of bindings in the descriptor set layout
 	// bindingCount
-	//  Array of descriptor set layout bindings
+	// Array of descriptor set layout bindings
 	PBindings []DescriptorSetLayoutBinding
 }
 
@@ -1893,14 +1893,14 @@ type DescriptorUpdateTemplateCreateInfoKHR struct {
 	// SType = STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR
 	PNext unsafe.Pointer
 	Flags DescriptorUpdateTemplateCreateFlagsKHR
-	//  Number of descriptor update entries to use for the update template
+	// Number of descriptor update entries to use for the update template
 	// descriptorUpdateEntryCount
-	//  Descriptor update entries for the template
+	// Descriptor update entries for the template
 	PDescriptorUpdateEntries []DescriptorUpdateTemplateEntryKHR
 	TemplateType             DescriptorUpdateTemplateTypeKHR
 	DescriptorSetLayout      DescriptorSetLayout
 	PipelineBindPoint        PipelineBindPoint
-	//  If used for push descriptors, this is the only allowed layout
+	// If used for push descriptors, this is the only allowed layout
 	PipelineLayout PipelineLayout
 	Set            uint32
 }
@@ -1958,17 +1958,17 @@ func (s *DescriptorUpdateTemplateCreateInfoKHR) Vulkanize() *_vkDescriptorUpdate
 
 // DescriptorUpdateTemplateEntryKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorUpdateTemplateEntryKHR.html
 type DescriptorUpdateTemplateEntryKHR struct {
-	//  Binding within the destination descriptor set to write
+	// Binding within the destination descriptor set to write
 	DstBinding uint32
-	//  Array element within the destination binding to write
+	// Array element within the destination binding to write
 	DstArrayElement uint32
-	//  Number of descriptors to write
+	// Number of descriptors to write
 	DescriptorCount uint32
-	//  Descriptor type to write
+	// Descriptor type to write
 	DescriptorType DescriptorType
-	//  Offset into pData where the descriptors to update are stored
+	// Offset into pData where the descriptors to update are stored
 	Offset uintptr
-	//  Stride between two descriptors in pData when writing more than one descriptor
+	// Stride between two descriptors in pData when writing more than one descriptor
 	Stride uintptr
 }
 
@@ -1994,7 +1994,7 @@ type DeviceCreateInfo struct {
 	// queueCreateInfoCount
 	PQueueCreateInfos []DeviceQueueCreateInfo
 	// enabledLayerCount
-	//  Ordered list of layer names to be enabled
+	// Ordered list of layer names to be enabled
 	PpEnabledLayerNames []string
 	// enabledExtensionCount
 	PpEnabledExtensionNames []string
@@ -2664,7 +2664,7 @@ type DisplayModeCreateInfoKHR struct {
 	// SType = STRUCTURE_TYPE_DISPLAY_MODE_CREATE_INFO_KHR
 	PNext unsafe.Pointer
 	Flags DisplayModeCreateFlagsKHR
-	//  The parameters this mode uses.
+	// The parameters this mode uses.
 	Parameters DisplayModeParametersKHR
 }
 
@@ -2698,9 +2698,9 @@ func (s *DisplayModeCreateInfoKHR) Vulkanize() *_vkDisplayModeCreateInfoKHR {
 
 // DisplayModeParametersKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDisplayModeParametersKHR.html
 type DisplayModeParametersKHR struct {
-	//  Visible scanout region.
+	// Visible scanout region.
 	VisibleRegion Extent2D
-	//  Number of times per second the display is updated.
+	// Number of times per second the display is updated.
 	RefreshRate uint32
 }
 
@@ -2729,9 +2729,9 @@ func (s *DisplayModeParametersKHR) Vulkanize() *_vkDisplayModeParametersKHR {
 
 // DisplayModePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDisplayModePropertiesKHR.html
 type DisplayModePropertiesKHR struct {
-	//  Handle of this display mode.
+	// Handle of this display mode.
 	DisplayMode DisplayModeKHR
-	//  The parameters this mode uses.
+	// The parameters this mode uses.
 	Parameters DisplayModeParametersKHR
 }
 
@@ -2761,9 +2761,9 @@ func (s *DisplayModePropertiesKHR) Vulkanize() *_vkDisplayModePropertiesKHR {
 
 // DisplayPlaneCapabilitiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDisplayPlaneCapabilitiesKHR.html
 type DisplayPlaneCapabilitiesKHR struct {
-	//  Types of alpha blending supported, if any.
+	// Types of alpha blending supported, if any.
 	SupportedAlpha DisplayPlaneAlphaFlagsKHR
-	//  Does the plane have any position and extent restrictions?
+	// Does the plane have any position and extent restrictions?
 	MinSrcPosition Offset2D
 	MaxSrcPosition Offset2D
 	MinSrcExtent   Extent2D
@@ -2821,9 +2821,9 @@ func (s *DisplayPlaneCapabilitiesKHR) Vulkanize() *_vkDisplayPlaneCapabilitiesKH
 
 // DisplayPlanePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDisplayPlanePropertiesKHR.html
 type DisplayPlanePropertiesKHR struct {
-	//  Display the plane is currently associated with.  Will be VK_NULL_HANDLE if the plane is not in use.
+	// Display the plane is currently associated with.  Will be VK_NULL_HANDLE if the plane is not in use.
 	CurrentDisplay DisplayKHR
-	//  Current z-order of the plane.
+	// Current z-order of the plane.
 	CurrentStackIndex uint32
 }
 
@@ -2877,11 +2877,11 @@ func (s *DisplayPowerInfoEXT) Vulkanize() *_vkDisplayPowerInfoEXT {
 type DisplayPresentInfoKHR struct {
 	// SType = STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR
 	PNext unsafe.Pointer
-	//  Rectangle within the presentable image to read pixel data from when presenting to the display.
+	// Rectangle within the presentable image to read pixel data from when presenting to the display.
 	SrcRect Rect2D
-	//  Rectangle within the current display mode's visible region to display srcRectangle in.
+	// Rectangle within the current display mode's visible region to display srcRectangle in.
 	DstRect Rect2D
-	//  For smart displays, use buffered mode.  If the display properties member "persistentMode" is VK_FALSE, this member must always be VK_FALSE.
+	// For smart displays, use buffered mode.  If the display properties member "persistentMode" is VK_FALSE, this member must always be VK_FALSE.
 	Persistent bool
 }
 
@@ -2918,19 +2918,19 @@ func (s *DisplayPresentInfoKHR) Vulkanize() *_vkDisplayPresentInfoKHR {
 
 // DisplayPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDisplayPropertiesKHR.html
 type DisplayPropertiesKHR struct {
-	//  Handle of the display object
+	// Handle of the display object
 	Display DisplayKHR
-	//  Name of the display
+	// Name of the display
 	DisplayName string
-	//  In millimeters?
+	// In millimeters?
 	PhysicalDimensions Extent2D
-	//  Max resolution for CRT?
+	// Max resolution for CRT?
 	PhysicalResolution Extent2D
-	//  one or more bits from VkSurfaceTransformFlagsKHR
+	// one or more bits from VkSurfaceTransformFlagsKHR
 	SupportedTransforms SurfaceTransformFlagsKHR
-	//  VK_TRUE if the overlay plane's z-order can be changed on this display.
+	// VK_TRUE if the overlay plane's z-order can be changed on this display.
 	PlaneReorderPossible bool
-	//  VK_TRUE if this is a "smart" display that supports self-refresh/internal buffering.
+	// VK_TRUE if this is a "smart" display that supports self-refresh/internal buffering.
 	PersistentContent bool
 }
 
@@ -2978,19 +2978,19 @@ type DisplaySurfaceCreateInfoKHR struct {
 	// SType = STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR
 	PNext unsafe.Pointer
 	Flags DisplaySurfaceCreateFlagsKHR
-	//  The mode to use when displaying this surface
+	// The mode to use when displaying this surface
 	DisplayMode DisplayModeKHR
-	//  The plane on which this surface appears.  Must be between 0 and the value returned by vkGetPhysicalDeviceDisplayPlanePropertiesKHR() in pPropertyCount.
+	// The plane on which this surface appears.  Must be between 0 and the value returned by vkGetPhysicalDeviceDisplayPlanePropertiesKHR() in pPropertyCount.
 	PlaneIndex uint32
-	//  The z-order of the plane.
+	// The z-order of the plane.
 	PlaneStackIndex uint32
-	//  Transform to apply to the images as part of the scanout operation
+	// Transform to apply to the images as part of the scanout operation
 	Transform SurfaceTransformFlagBitsKHR
-	//  Global alpha value.  Must be between 0 and 1, inclusive.  Ignored if alphaMode is not VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR
+	// Global alpha value.  Must be between 0 and 1, inclusive.  Ignored if alphaMode is not VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR
 	GlobalAlpha float32
-	//  What type of alpha blending to use.  Must be a bit from vkGetDisplayPlanePropertiesKHR::supportedAlpha.
+	// What type of alpha blending to use.  Must be a bit from vkGetDisplayPlanePropertiesKHR::supportedAlpha.
 	AlphaMode DisplayPlaneAlphaFlagBitsKHR
-	//  size of the images to use with this surface
+	// size of the images to use with this surface
 	ImageExtent Extent2D
 }
 
@@ -3089,7 +3089,7 @@ func (s *DrawIndirectCommand) Vulkanize() *_vkDrawIndirectCommand {
 type EventCreateInfo struct {
 	// SType = STRUCTURE_TYPE_EVENT_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Event creation flags
+	// Event creation flags
 	Flags EventCreateFlags
 }
 
@@ -3248,9 +3248,9 @@ func (s *ExportSemaphoreCreateInfoKHR) Vulkanize() *_vkExportSemaphoreCreateInfo
 
 // ExtensionProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkExtensionProperties.html
 type ExtensionProperties struct {
-	//  extension name
+	// extension name
 	ExtensionName string
-	//  version of the extension specification implemented
+	// version of the extension specification implemented
 	SpecVersion uint32
 }
 
@@ -3626,7 +3626,7 @@ func (s *ExternalSemaphorePropertiesKHR) Vulkanize() *_vkExternalSemaphoreProper
 type FenceCreateInfo struct {
 	// SType = STRUCTURE_TYPE_FENCE_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Fence creation flags
+	// Fence creation flags
 	Flags FenceCreateFlags
 }
 
@@ -3693,11 +3693,11 @@ func (s *FenceGetFdInfoKHR) Vulkanize() *_vkFenceGetFdInfoKHR {
 
 // FormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormatProperties.html
 type FormatProperties struct {
-	//  Format features in case of linear tiling
+	// Format features in case of linear tiling
 	LinearTilingFeatures FormatFeatureFlags
-	//  Format features in case of optimal tiling
+	// Format features in case of optimal tiling
 	OptimalTilingFeatures FormatFeatureFlags
-	//  Format features supported by buffers
+	// Format features supported by buffers
 	BufferFeatures FormatFeatureFlags
 }
 
@@ -3813,10 +3813,10 @@ func (s *FramebufferCreateInfo) Vulkanize() *_vkFramebufferCreateInfo {
 type GraphicsPipelineCreateInfo struct {
 	// SType = STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Pipeline creation flags
+	// Pipeline creation flags
 	Flags PipelineCreateFlags
 	// stageCount
-	//  One entry for each active shader stage
+	// One entry for each active shader stage
 	PStages             []PipelineShaderStageCreateInfo
 	PVertexInputState   *PipelineVertexInputStateCreateInfo
 	PInputAssemblyState *PipelineInputAssemblyStateCreateInfo
@@ -3827,13 +3827,13 @@ type GraphicsPipelineCreateInfo struct {
 	PDepthStencilState  *PipelineDepthStencilStateCreateInfo
 	PColorBlendState    *PipelineColorBlendStateCreateInfo
 	PDynamicState       *PipelineDynamicStateCreateInfo
-	//  Interface layout of the pipeline
+	// Interface layout of the pipeline
 	Layout     PipelineLayout
 	RenderPass RenderPass
 	Subpass    uint32
-	//  If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is nonzero, it specifies the handle of the base pipeline this is a derivative of
+	// If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is nonzero, it specifies the handle of the base pipeline this is a derivative of
 	BasePipelineHandle Pipeline
-	//  If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is not -1, it specifies an index into pCreateInfos of the base pipeline this is a derivative of
+	// If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is not -1, it specifies an index into pCreateInfos of the base pipeline this is a derivative of
 	BasePipelineIndex int32
 }
 
@@ -3923,19 +3923,19 @@ func (s *GraphicsPipelineCreateInfo) Vulkanize() *_vkGraphicsPipelineCreateInfo 
 type HdrMetadataEXT struct {
 	// SType = STRUCTURE_TYPE_HDR_METADATA_EXT
 	PNext unsafe.Pointer
-	//  Display primary's Red
+	// Display primary's Red
 	DisplayPrimaryRed XYColorEXT
-	//  Display primary's Green
+	// Display primary's Green
 	DisplayPrimaryGreen XYColorEXT
-	//  Display primary's Blue
+	// Display primary's Blue
 	DisplayPrimaryBlue XYColorEXT
-	//  Display primary's Blue
+	// Display primary's Blue
 	WhitePoint XYColorEXT
-	//  Display maximum luminance
+	// Display maximum luminance
 	MaxLuminance float32
-	//  Display minimum luminance
+	// Display minimum luminance
 	MinLuminance float32
-	//  Content maximum luminance
+	// Content maximum luminance
 	MaxContentLightLevel      float32
 	MaxFrameAverageLightLevel float32
 }
@@ -3989,10 +3989,10 @@ func (s *HdrMetadataEXT) Vulkanize() *_vkHdrMetadataEXT {
 // ImageBlit: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageBlit.html
 type ImageBlit struct {
 	SrcSubresource ImageSubresourceLayers
-	//  Specified in pixels for both compressed and uncompressed images
+	// Specified in pixels for both compressed and uncompressed images
 	SrcOffsets     [2]Offset3D
 	DstSubresource ImageSubresourceLayers
-	//  Specified in pixels for both compressed and uncompressed images
+	// Specified in pixels for both compressed and uncompressed images
 	DstOffsets [2]Offset3D
 }
 
@@ -4028,12 +4028,12 @@ func (s *ImageBlit) Vulkanize() *_vkImageBlit {
 // ImageCopy: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageCopy.html
 type ImageCopy struct {
 	SrcSubresource ImageSubresourceLayers
-	//  Specified in pixels for both compressed and uncompressed images
+	// Specified in pixels for both compressed and uncompressed images
 	SrcOffset      Offset3D
 	DstSubresource ImageSubresourceLayers
-	//  Specified in pixels for both compressed and uncompressed images
+	// Specified in pixels for both compressed and uncompressed images
 	DstOffset Offset3D
-	//  Specified in pixels for both compressed and uncompressed images
+	// Specified in pixels for both compressed and uncompressed images
 	Extent Extent3D
 }
 
@@ -4073,7 +4073,7 @@ func (s *ImageCopy) Vulkanize() *_vkImageCopy {
 type ImageCreateInfo struct {
 	// SType = STRUCTURE_TYPE_IMAGE_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Image creation flags
+	// Image creation flags
 	Flags       ImageCreateFlags
 	ImageType   ImageType
 	Format      Format
@@ -4082,15 +4082,15 @@ type ImageCreateInfo struct {
 	ArrayLayers uint32
 	Samples     SampleCountFlagBits
 	Tiling      ImageTiling
-	//  Image usage flags
+	// Image usage flags
 	Usage ImageUsageFlags
-	//  Cross-queue-family sharing mode
+	// Cross-queue-family sharing mode
 	SharingMode SharingMode
-	//  Number of queue families to share across
+	// Number of queue families to share across
 	// queueFamilyIndexCount
-	//  Array of queue family indices to share across
+	// Array of queue family indices to share across
 	PQueueFamilyIndices []uint32
-	//  Initial image layout for all subresources
+	// Initial image layout for all subresources
 	InitialLayout ImageLayout
 }
 
@@ -4203,15 +4203,15 @@ func (s *ImageFormatListCreateInfoKHR) Vulkanize() *_vkImageFormatListCreateInfo
 
 // ImageFormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageFormatProperties.html
 type ImageFormatProperties struct {
-	//  max image dimensions for this resource type
+	// max image dimensions for this resource type
 	MaxExtent Extent3D
-	//  max number of mipmap levels for this resource type
+	// max number of mipmap levels for this resource type
 	MaxMipLevels uint32
-	//  max array size for this resource type
+	// max array size for this resource type
 	MaxArrayLayers uint32
-	//  supported sample counts for this resource type
+	// supported sample counts for this resource type
 	SampleCounts SampleCountFlags
-	//  max size (in bytes) of this resource type
+	// max size (in bytes) of this resource type
 	MaxResourceSize DeviceSize
 }
 
@@ -4285,21 +4285,21 @@ func (s *ImageFormatProperties2KHR) Vulkanize() *_vkImageFormatProperties2KHR {
 type ImageMemoryBarrier struct {
 	// SType = STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER
 	PNext unsafe.Pointer
-	//  Memory accesses from the source of the dependency to synchronize
+	// Memory accesses from the source of the dependency to synchronize
 	SrcAccessMask AccessFlags
-	//  Memory accesses from the destination of the dependency to synchronize
+	// Memory accesses from the destination of the dependency to synchronize
 	DstAccessMask AccessFlags
-	//  Current layout of the image
+	// Current layout of the image
 	OldLayout ImageLayout
-	//  New layout to transition the image to
+	// New layout to transition the image to
 	NewLayout ImageLayout
-	//  Queue family to transition ownership from
+	// Queue family to transition ownership from
 	SrcQueueFamilyIndex uint32
-	//  Queue family to transition ownership to
+	// Queue family to transition ownership to
 	DstQueueFamilyIndex uint32
-	//  Image to sync
+	// Image to sync
 	Image Image
-	//  Subresource range to sync
+	// Subresource range to sync
 	SubresourceRange ImageSubresourceRange
 }
 
@@ -4880,11 +4880,11 @@ func (s *IndirectCommandsLayoutCreateInfoNVX) Vulkanize() *_vkIndirectCommandsLa
 // IndirectCommandsLayoutTokenNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsLayoutTokenNVX.html
 type IndirectCommandsLayoutTokenNVX struct {
 	TokenType IndirectCommandsTokenTypeNVX
-	//  Binding unit for vertex attribute / descriptor set, offset for pushconstants
+	// Binding unit for vertex attribute / descriptor set, offset for pushconstants
 	BindingUnit uint32
-	//  Number of variable dynamic values for descriptor set / push constants
+	// Number of variable dynamic values for descriptor set / push constants
 	DynamicCount uint32
-	//  Rate the which the array is advanced per element (must be power of 2, minimum 1)
+	// Rate the which the array is advanced per element (must be power of 2, minimum 1)
 	Divisor uint32
 }
 
@@ -4905,9 +4905,9 @@ func (s *IndirectCommandsLayoutTokenNVX) Vulkanize() *_vkIndirectCommandsLayoutT
 // IndirectCommandsTokenNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsTokenNVX.html
 type IndirectCommandsTokenNVX struct {
 	TokenType IndirectCommandsTokenTypeNVX
-	//  buffer containing tableEntries and additional data for indirectCommands
+	// buffer containing tableEntries and additional data for indirectCommands
 	Buffer Buffer
-	//  offset from the base address of the buffer
+	// offset from the base address of the buffer
 	Offset DeviceSize
 }
 
@@ -4953,10 +4953,10 @@ type InstanceCreateInfo struct {
 	Flags            InstanceCreateFlags
 	PApplicationInfo *ApplicationInfo
 	// enabledLayerCount
-	//  Ordered list of layer names to be enabled
+	// Ordered list of layer names to be enabled
 	PpEnabledLayerNames []string
 	// enabledExtensionCount
-	//  Extension names to be enabled
+	// Extension names to be enabled
 	PpEnabledExtensionNames []string
 }
 
@@ -5020,13 +5020,13 @@ func (s *InstanceCreateInfo) Vulkanize() *_vkInstanceCreateInfo {
 
 // LayerProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkLayerProperties.html
 type LayerProperties struct {
-	//  layer name
+	// layer name
 	LayerName string
-	//  version of the layer specification implemented
+	// version of the layer specification implemented
 	SpecVersion uint32
-	//  build or release version of the layer's library
+	// build or release version of the layer's library
 	ImplementationVersion uint32
-	//  Free-form description of the layer
+	// Free-form description of the layer
 	Description string
 }
 
@@ -5064,11 +5064,11 @@ func (s *LayerProperties) Vulkanize() *_vkLayerProperties {
 type MappedMemoryRange struct {
 	// SType = STRUCTURE_TYPE_MAPPED_MEMORY_RANGE
 	PNext unsafe.Pointer
-	//  Mapped memory object
+	// Mapped memory object
 	Memory DeviceMemory
-	//  Offset within the memory object where the range starts
+	// Offset within the memory object where the range starts
 	Offset DeviceSize
-	//  Size of the range within the memory object
+	// Size of the range within the memory object
 	Size DeviceSize
 }
 
@@ -5143,9 +5143,9 @@ func (s *MemoryAllocateFlagsInfoKHX) Vulkanize() *_vkMemoryAllocateFlagsInfoKHX 
 type MemoryAllocateInfo struct {
 	// SType = STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO
 	PNext unsafe.Pointer
-	//  Size of memory allocation
+	// Size of memory allocation
 	AllocationSize DeviceSize
-	//  Index of the of the memory type to allocate from
+	// Index of the of the memory type to allocate from
 	MemoryTypeIndex uint32
 }
 
@@ -5181,9 +5181,9 @@ func (s *MemoryAllocateInfo) Vulkanize() *_vkMemoryAllocateInfo {
 type MemoryBarrier struct {
 	// SType = STRUCTURE_TYPE_MEMORY_BARRIER
 	PNext unsafe.Pointer
-	//  Memory accesses from the source of the dependency to synchronize
+	// Memory accesses from the source of the dependency to synchronize
 	SrcAccessMask AccessFlags
-	//  Memory accesses from the destination of the dependency to synchronize
+	// Memory accesses from the destination of the dependency to synchronize
 	DstAccessMask AccessFlags
 }
 
@@ -5219,9 +5219,9 @@ func (s *MemoryBarrier) Vulkanize() *_vkMemoryBarrier {
 type MemoryDedicatedAllocateInfoKHR struct {
 	// SType = STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_KHR
 	PNext unsafe.Pointer
-	//  Image that this allocation will be bound to
+	// Image that this allocation will be bound to
 	Image Image
-	//  Buffer that this allocation will be bound to
+	// Buffer that this allocation will be bound to
 	Buffer Buffer
 }
 
@@ -5361,9 +5361,9 @@ func (s *MemoryGetFdInfoKHR) Vulkanize() *_vkMemoryGetFdInfoKHR {
 
 // MemoryHeap: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryHeap.html
 type MemoryHeap struct {
-	//  Available memory in the heap
+	// Available memory in the heap
 	Size DeviceSize
-	//  Flags for the heap
+	// Flags for the heap
 	Flags MemoryHeapFlags
 }
 
@@ -5415,11 +5415,11 @@ func (s *MemoryHostPointerPropertiesEXT) Vulkanize() *_vkMemoryHostPointerProper
 
 // MemoryRequirements: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryRequirements.html
 type MemoryRequirements struct {
-	//  Specified in bytes
+	// Specified in bytes
 	Size DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	Alignment DeviceSize
-	//  Bitmask of the allowed memory type indices into memoryTypes[] for this object
+	// Bitmask of the allowed memory type indices into memoryTypes[] for this object
 	MemoryTypeBits uint32
 }
 
@@ -5472,9 +5472,9 @@ func (s *MemoryRequirements2KHR) Vulkanize() *_vkMemoryRequirements2KHR {
 
 // MemoryType: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMemoryType.html
 type MemoryType struct {
-	//  Memory properties of this memory type
+	// Memory properties of this memory type
 	PropertyFlags MemoryPropertyFlags
-	//  Index of the memory heap allocations of this memory type are taken from
+	// Index of the memory heap allocations of this memory type are taken from
 	HeapIndex uint32
 }
 
@@ -5784,15 +5784,15 @@ func (s *Offset3D) Vulkanize() *_vkOffset3D {
 
 // PastPresentationTimingGOOGLE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPastPresentationTimingGOOGLE.html
 type PastPresentationTimingGOOGLE struct {
-	//  Application-provided identifier, previously given to vkQueuePresentKHR
+	// Application-provided identifier, previously given to vkQueuePresentKHR
 	PresentID uint32
-	//  Earliest time an image should have been presented, previously given to vkQueuePresentKHR
+	// Earliest time an image should have been presented, previously given to vkQueuePresentKHR
 	DesiredPresentTime uint64
-	//  Time the image was actually displayed
+	// Time the image was actually displayed
 	ActualPresentTime uint64
-	//  Earliest time the image could have been displayed
+	// Earliest time the image could have been displayed
 	EarliestPresentTime uint64
-	//  How early vkQueuePresentKHR was processed vs. how soon it needed to be and make earliestPresentTime
+	// How early vkQueuePresentKHR was processed vs. how soon it needed to be and make earliestPresentTime
 	PresentMargin uint64
 }
 
@@ -5814,13 +5814,13 @@ func (s *PastPresentationTimingGOOGLE) Vulkanize() *_vkPastPresentationTimingGOO
 type PhysicalDevice16BitStorageFeaturesKHR struct {
 	// SType = STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES_KHR
 	PNext unsafe.Pointer
-	//  16-bit integer/floating-point variables supported in BufferBlock
+	// 16-bit integer/floating-point variables supported in BufferBlock
 	StorageBuffer16BitAccess bool
-	//  16-bit integer/floating-point variables supported in BufferBlock and Block
+	// 16-bit integer/floating-point variables supported in BufferBlock and Block
 	UniformAndStorageBuffer16BitAccess bool
-	//  16-bit integer/floating-point variables supported in PushConstant
+	// 16-bit integer/floating-point variables supported in PushConstant
 	StoragePushConstant16 bool
-	//  16-bit integer/floating-point variables supported in shader inputs and outputs
+	// 16-bit integer/floating-point variables supported in shader inputs and outputs
 	StorageInputOutput16 bool
 }
 
@@ -5946,25 +5946,25 @@ func (s *PhysicalDeviceBlendOperationAdvancedPropertiesEXT) Vulkanize() *_vkPhys
 // PhysicalDeviceConservativeRasterizationPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceConservativeRasterizationPropertiesEXT.html
 type PhysicalDeviceConservativeRasterizationPropertiesEXT struct {
 	// SType = STRUCTURE_TYPE_PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT
-	//  Pointer to next structure
+	// Pointer to next structure
 	PNext unsafe.Pointer
-	//  The size in pixels the primitive is enlarged at each edge during conservative rasterization
+	// The size in pixels the primitive is enlarged at each edge during conservative rasterization
 	PrimitiveOverestimationSize float32
-	//  The maximum additional overestimation the client can specify in the pipeline state
+	// The maximum additional overestimation the client can specify in the pipeline state
 	MaxExtraPrimitiveOverestimationSize float32
-	//  The granularity of extra overestimation sizes the implementations supports between 0 and maxExtraOverestimationSize
+	// The granularity of extra overestimation sizes the implementations supports between 0 and maxExtraOverestimationSize
 	ExtraPrimitiveOverestimationSizeGranularity float32
-	//  true if the implementation supports conservative rasterization underestimation mode
+	// true if the implementation supports conservative rasterization underestimation mode
 	PrimitiveUnderestimation bool
-	//  true if conservative rasterization also applies to points and lines
+	// true if conservative rasterization also applies to points and lines
 	ConservativePointAndLineRasterization bool
-	//  true if degenerate triangles (those with zero area after snap) are rasterized
+	// true if degenerate triangles (those with zero area after snap) are rasterized
 	DegenerateTrianglesRasterized bool
-	//  true if degenerate lines (those with zero length after snap) are rasterized
+	// true if degenerate lines (those with zero length after snap) are rasterized
 	DegenerateLinesRasterized bool
-	//  true if the implementation supports the FullyCoveredEXT SPIR-V builtin fragment shader input variable
+	// true if the implementation supports the FullyCoveredEXT SPIR-V builtin fragment shader input variable
 	FullyCoveredFragmentShaderInputVariable bool
-	//  true if the implementation supports both conservative rasterization and post depth coverage sample coverage mask
+	// true if the implementation supports both conservative rasterization and post depth coverage sample coverage mask
 	ConservativeRasterizationPostDepthCoverage bool
 }
 
@@ -6021,7 +6021,7 @@ func (s *PhysicalDeviceConservativeRasterizationPropertiesEXT) Vulkanize() *_vkP
 type PhysicalDeviceDiscardRectanglePropertiesEXT struct {
 	// SType = STRUCTURE_TYPE_PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT
 	PNext unsafe.Pointer
-	//  max number of active discard rectangles
+	// max number of active discard rectangles
 	MaxDiscardRectangles uint32
 }
 
@@ -6220,115 +6220,115 @@ func (s *PhysicalDeviceExternalSemaphoreInfoKHR) Vulkanize() *_vkPhysicalDeviceE
 
 // PhysicalDeviceFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFeatures.html
 type PhysicalDeviceFeatures struct {
-	//  out of bounds buffer accesses are well defined
+	// out of bounds buffer accesses are well defined
 	RobustBufferAccess bool
-	//  full 32-bit range of indices for indexed draw calls
+	// full 32-bit range of indices for indexed draw calls
 	FullDrawIndexUint32 bool
-	//  image views which are arrays of cube maps
+	// image views which are arrays of cube maps
 	ImageCubeArray bool
-	//  blending operations are controlled per-attachment
+	// blending operations are controlled per-attachment
 	IndependentBlend bool
-	//  geometry stage
+	// geometry stage
 	GeometryShader bool
-	//  tessellation control and evaluation stage
+	// tessellation control and evaluation stage
 	TessellationShader bool
-	//  per-sample shading and interpolation
+	// per-sample shading and interpolation
 	SampleRateShading bool
-	//  blend operations which take two sources
+	// blend operations which take two sources
 	DualSrcBlend bool
-	//  logic operations
+	// logic operations
 	LogicOp bool
-	//  multi draw indirect
+	// multi draw indirect
 	MultiDrawIndirect bool
-	//  indirect draws can use non-zero firstInstance
+	// indirect draws can use non-zero firstInstance
 	DrawIndirectFirstInstance bool
-	//  depth clamping
+	// depth clamping
 	DepthClamp bool
-	//  depth bias clamping
+	// depth bias clamping
 	DepthBiasClamp bool
-	//  point and wireframe fill modes
+	// point and wireframe fill modes
 	FillModeNonSolid bool
-	//  depth bounds test
+	// depth bounds test
 	DepthBounds bool
-	//  lines with width greater than 1
+	// lines with width greater than 1
 	WideLines bool
-	//  points with size greater than 1
+	// points with size greater than 1
 	LargePoints bool
-	//  the fragment alpha component can be forced to maximum representable alpha value
+	// the fragment alpha component can be forced to maximum representable alpha value
 	AlphaToOne bool
-	//  viewport arrays
+	// viewport arrays
 	MultiViewport bool
-	//  anisotropic sampler filtering
+	// anisotropic sampler filtering
 	SamplerAnisotropy bool
-	//  ETC texture compression formats
+	// ETC texture compression formats
 	TextureCompressionETC2 bool
-	//  ASTC LDR texture compression formats
+	// ASTC LDR texture compression formats
 	TextureCompressionASTC_LDR bool
-	//  BC1-7 texture compressed formats
+	// BC1-7 texture compressed formats
 	TextureCompressionBC bool
-	//  precise occlusion queries returning actual sample counts
+	// precise occlusion queries returning actual sample counts
 	OcclusionQueryPrecise bool
-	//  pipeline statistics query
+	// pipeline statistics query
 	PipelineStatisticsQuery bool
-	//  stores and atomic ops on storage buffers and images are supported in vertex, tessellation, and geometry stages
+	// stores and atomic ops on storage buffers and images are supported in vertex, tessellation, and geometry stages
 	VertexPipelineStoresAndAtomics bool
-	//  stores and atomic ops on storage buffers and images are supported in the fragment stage
+	// stores and atomic ops on storage buffers and images are supported in the fragment stage
 	FragmentStoresAndAtomics bool
-	//  tessellation and geometry stages can export point size
+	// tessellation and geometry stages can export point size
 	ShaderTessellationAndGeometryPointSize bool
-	//  image gather with run-time values and independent offsets
+	// image gather with run-time values and independent offsets
 	ShaderImageGatherExtended bool
-	//  the extended set of formats can be used for storage images
+	// the extended set of formats can be used for storage images
 	ShaderStorageImageExtendedFormats bool
-	//  multisample images can be used for storage images
+	// multisample images can be used for storage images
 	ShaderStorageImageMultisample bool
-	//  read from storage image does not require format qualifier
+	// read from storage image does not require format qualifier
 	ShaderStorageImageReadWithoutFormat bool
-	//  write to storage image does not require format qualifier
+	// write to storage image does not require format qualifier
 	ShaderStorageImageWriteWithoutFormat bool
-	//  arrays of uniform buffers can be accessed with dynamically uniform indices
+	// arrays of uniform buffers can be accessed with dynamically uniform indices
 	ShaderUniformBufferArrayDynamicIndexing bool
-	//  arrays of sampled images can be accessed with dynamically uniform indices
+	// arrays of sampled images can be accessed with dynamically uniform indices
 	ShaderSampledImageArrayDynamicIndexing bool
-	//  arrays of storage buffers can be accessed with dynamically uniform indices
+	// arrays of storage buffers can be accessed with dynamically uniform indices
 	ShaderStorageBufferArrayDynamicIndexing bool
-	//  arrays of storage images can be accessed with dynamically uniform indices
+	// arrays of storage images can be accessed with dynamically uniform indices
 	ShaderStorageImageArrayDynamicIndexing bool
-	//  clip distance in shaders
+	// clip distance in shaders
 	ShaderClipDistance bool
-	//  cull distance in shaders
+	// cull distance in shaders
 	ShaderCullDistance bool
-	//  64-bit floats (doubles) in shaders
+	// 64-bit floats (doubles) in shaders
 	ShaderFloat64 bool
-	//  64-bit integers in shaders
+	// 64-bit integers in shaders
 	ShaderInt64 bool
-	//  16-bit integers in shaders
+	// 16-bit integers in shaders
 	ShaderInt16 bool
-	//  shader can use texture operations that return resource residency information (requires sparseNonResident support)
+	// shader can use texture operations that return resource residency information (requires sparseNonResident support)
 	ShaderResourceResidency bool
-	//  shader can use texture operations that specify minimum resource LOD
+	// shader can use texture operations that specify minimum resource LOD
 	ShaderResourceMinLod bool
-	//  Sparse resources support: Resource memory can be managed at opaque page level rather than object level
+	// Sparse resources support: Resource memory can be managed at opaque page level rather than object level
 	SparseBinding bool
-	//  Sparse resources support: GPU can access partially resident buffers
+	// Sparse resources support: GPU can access partially resident buffers
 	SparseResidencyBuffer bool
-	//  Sparse resources support: GPU can access partially resident 2D (non-MSAA non-depth/stencil) images
+	// Sparse resources support: GPU can access partially resident 2D (non-MSAA non-depth/stencil) images
 	SparseResidencyImage2D bool
-	//  Sparse resources support: GPU can access partially resident 3D images
+	// Sparse resources support: GPU can access partially resident 3D images
 	SparseResidencyImage3D bool
-	//  Sparse resources support: GPU can access partially resident MSAA 2D images with 2 samples
+	// Sparse resources support: GPU can access partially resident MSAA 2D images with 2 samples
 	SparseResidency2Samples bool
-	//  Sparse resources support: GPU can access partially resident MSAA 2D images with 4 samples
+	// Sparse resources support: GPU can access partially resident MSAA 2D images with 4 samples
 	SparseResidency4Samples bool
-	//  Sparse resources support: GPU can access partially resident MSAA 2D images with 8 samples
+	// Sparse resources support: GPU can access partially resident MSAA 2D images with 8 samples
 	SparseResidency8Samples bool
-	//  Sparse resources support: GPU can access partially resident MSAA 2D images with 16 samples
+	// Sparse resources support: GPU can access partially resident MSAA 2D images with 16 samples
 	SparseResidency16Samples bool
-	//  Sparse resources support: GPU can correctly access data aliased into multiple locations (opt-in)
+	// Sparse resources support: GPU can correctly access data aliased into multiple locations (opt-in)
 	SparseResidencyAliased bool
-	//  multisample rate must be the same for all pipelines in a subpass
+	// multisample rate must be the same for all pipelines in a subpass
 	VariableMultisampleRate bool
-	//  Queries may be inherited from primary to secondary command buffers
+	// Queries may be inherited from primary to secondary command buffers
 	InheritedQueries bool
 }
 
@@ -6686,217 +6686,217 @@ func (s *PhysicalDeviceImageFormatInfo2KHR) Vulkanize() *_vkPhysicalDeviceImageF
 
 // PhysicalDeviceLimits: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLimits.html
 type PhysicalDeviceLimits struct {
-	//  max 1D image dimension
+	// max 1D image dimension
 	MaxImageDimension1D uint32
-	//  max 2D image dimension
+	// max 2D image dimension
 	MaxImageDimension2D uint32
-	//  max 3D image dimension
+	// max 3D image dimension
 	MaxImageDimension3D uint32
-	//  max cubemap image dimension
+	// max cubemap image dimension
 	MaxImageDimensionCube uint32
-	//  max layers for image arrays
+	// max layers for image arrays
 	MaxImageArrayLayers uint32
-	//  max texel buffer size (fstexels)
+	// max texel buffer size (fstexels)
 	MaxTexelBufferElements uint32
-	//  max uniform buffer range (bytes)
+	// max uniform buffer range (bytes)
 	MaxUniformBufferRange uint32
-	//  max storage buffer range (bytes)
+	// max storage buffer range (bytes)
 	MaxStorageBufferRange uint32
-	//  max size of the push constants pool (bytes)
+	// max size of the push constants pool (bytes)
 	MaxPushConstantsSize uint32
-	//  max number of device memory allocations supported
+	// max number of device memory allocations supported
 	MaxMemoryAllocationCount uint32
-	//  max number of samplers that can be allocated on a device
+	// max number of samplers that can be allocated on a device
 	MaxSamplerAllocationCount uint32
-	//  Granularity (in bytes) at which buffers and images can be bound to adjacent memory for simultaneous usage
+	// Granularity (in bytes) at which buffers and images can be bound to adjacent memory for simultaneous usage
 	BufferImageGranularity DeviceSize
-	//  Total address space available for sparse allocations (bytes)
+	// Total address space available for sparse allocations (bytes)
 	SparseAddressSpaceSize DeviceSize
-	//  max number of descriptors sets that can be bound to a pipeline
+	// max number of descriptors sets that can be bound to a pipeline
 	MaxBoundDescriptorSets uint32
-	//  max number of samplers allowed per-stage in a descriptor set
+	// max number of samplers allowed per-stage in a descriptor set
 	MaxPerStageDescriptorSamplers uint32
-	//  max number of uniform buffers allowed per-stage in a descriptor set
+	// max number of uniform buffers allowed per-stage in a descriptor set
 	MaxPerStageDescriptorUniformBuffers uint32
-	//  max number of storage buffers allowed per-stage in a descriptor set
+	// max number of storage buffers allowed per-stage in a descriptor set
 	MaxPerStageDescriptorStorageBuffers uint32
-	//  max number of sampled images allowed per-stage in a descriptor set
+	// max number of sampled images allowed per-stage in a descriptor set
 	MaxPerStageDescriptorSampledImages uint32
-	//  max number of storage images allowed per-stage in a descriptor set
+	// max number of storage images allowed per-stage in a descriptor set
 	MaxPerStageDescriptorStorageImages uint32
-	//  max number of input attachments allowed per-stage in a descriptor set
+	// max number of input attachments allowed per-stage in a descriptor set
 	MaxPerStageDescriptorInputAttachments uint32
-	//  max number of resources allowed by a single stage
+	// max number of resources allowed by a single stage
 	MaxPerStageResources uint32
-	//  max number of samplers allowed in all stages in a descriptor set
+	// max number of samplers allowed in all stages in a descriptor set
 	MaxDescriptorSetSamplers uint32
-	//  max number of uniform buffers allowed in all stages in a descriptor set
+	// max number of uniform buffers allowed in all stages in a descriptor set
 	MaxDescriptorSetUniformBuffers uint32
-	//  max number of dynamic uniform buffers allowed in all stages in a descriptor set
+	// max number of dynamic uniform buffers allowed in all stages in a descriptor set
 	MaxDescriptorSetUniformBuffersDynamic uint32
-	//  max number of storage buffers allowed in all stages in a descriptor set
+	// max number of storage buffers allowed in all stages in a descriptor set
 	MaxDescriptorSetStorageBuffers uint32
-	//  max number of dynamic storage buffers allowed in all stages in a descriptor set
+	// max number of dynamic storage buffers allowed in all stages in a descriptor set
 	MaxDescriptorSetStorageBuffersDynamic uint32
-	//  max number of sampled images allowed in all stages in a descriptor set
+	// max number of sampled images allowed in all stages in a descriptor set
 	MaxDescriptorSetSampledImages uint32
-	//  max number of storage images allowed in all stages in a descriptor set
+	// max number of storage images allowed in all stages in a descriptor set
 	MaxDescriptorSetStorageImages uint32
-	//  max number of input attachments allowed in all stages in a descriptor set
+	// max number of input attachments allowed in all stages in a descriptor set
 	MaxDescriptorSetInputAttachments uint32
-	//  max number of vertex input attribute slots
+	// max number of vertex input attribute slots
 	MaxVertexInputAttributes uint32
-	//  max number of vertex input binding slots
+	// max number of vertex input binding slots
 	MaxVertexInputBindings uint32
-	//  max vertex input attribute offset added to vertex buffer offset
+	// max vertex input attribute offset added to vertex buffer offset
 	MaxVertexInputAttributeOffset uint32
-	//  max vertex input binding stride
+	// max vertex input binding stride
 	MaxVertexInputBindingStride uint32
-	//  max number of output components written by vertex shader
+	// max number of output components written by vertex shader
 	MaxVertexOutputComponents uint32
-	//  max level supported by tessellation primitive generator
+	// max level supported by tessellation primitive generator
 	MaxTessellationGenerationLevel uint32
-	//  max patch size (vertices)
+	// max patch size (vertices)
 	MaxTessellationPatchSize uint32
-	//  max number of input components per-vertex in TCS
+	// max number of input components per-vertex in TCS
 	MaxTessellationControlPerVertexInputComponents uint32
-	//  max number of output components per-vertex in TCS
+	// max number of output components per-vertex in TCS
 	MaxTessellationControlPerVertexOutputComponents uint32
-	//  max number of output components per-patch in TCS
+	// max number of output components per-patch in TCS
 	MaxTessellationControlPerPatchOutputComponents uint32
-	//  max total number of per-vertex and per-patch output components in TCS
+	// max total number of per-vertex and per-patch output components in TCS
 	MaxTessellationControlTotalOutputComponents uint32
-	//  max number of input components per vertex in TES
+	// max number of input components per vertex in TES
 	MaxTessellationEvaluationInputComponents uint32
-	//  max number of output components per vertex in TES
+	// max number of output components per vertex in TES
 	MaxTessellationEvaluationOutputComponents uint32
-	//  max invocation count supported in geometry shader
+	// max invocation count supported in geometry shader
 	MaxGeometryShaderInvocations uint32
-	//  max number of input components read in geometry stage
+	// max number of input components read in geometry stage
 	MaxGeometryInputComponents uint32
-	//  max number of output components written in geometry stage
+	// max number of output components written in geometry stage
 	MaxGeometryOutputComponents uint32
-	//  max number of vertices that can be emitted in geometry stage
+	// max number of vertices that can be emitted in geometry stage
 	MaxGeometryOutputVertices uint32
-	//  max total number of components (all vertices) written in geometry stage
+	// max total number of components (all vertices) written in geometry stage
 	MaxGeometryTotalOutputComponents uint32
-	//  max number of input compontents read in fragment stage
+	// max number of input compontents read in fragment stage
 	MaxFragmentInputComponents uint32
-	//  max number of output attachments written in fragment stage
+	// max number of output attachments written in fragment stage
 	MaxFragmentOutputAttachments uint32
-	//  max number of output attachments written when using dual source blending
+	// max number of output attachments written when using dual source blending
 	MaxFragmentDualSrcAttachments uint32
-	//  max total number of storage buffers, storage images and output buffers
+	// max total number of storage buffers, storage images and output buffers
 	MaxFragmentCombinedOutputResources uint32
-	//  max total storage size of work group local storage (bytes)
+	// max total storage size of work group local storage (bytes)
 	MaxComputeSharedMemorySize uint32
-	//  max num of compute work groups that may be dispatched by a single command (x,y,z)
+	// max num of compute work groups that may be dispatched by a single command (x,y,z)
 	MaxComputeWorkGroupCount [3]uint32
-	//  max total compute invocations in a single local work group
+	// max total compute invocations in a single local work group
 	MaxComputeWorkGroupInvocations uint32
-	//  max local size of a compute work group (x,y,z)
+	// max local size of a compute work group (x,y,z)
 	MaxComputeWorkGroupSize [3]uint32
-	//  number bits of subpixel precision in screen x and y
+	// number bits of subpixel precision in screen x and y
 	SubPixelPrecisionBits uint32
-	//  number bits of precision for selecting texel weights
+	// number bits of precision for selecting texel weights
 	SubTexelPrecisionBits uint32
-	//  number bits of precision for selecting mipmap weights
+	// number bits of precision for selecting mipmap weights
 	MipmapPrecisionBits uint32
-	//  max index value for indexed draw calls (for 32-bit indices)
+	// max index value for indexed draw calls (for 32-bit indices)
 	MaxDrawIndexedIndexValue uint32
-	//  max draw count for indirect draw calls
+	// max draw count for indirect draw calls
 	MaxDrawIndirectCount uint32
-	//  max absolute sampler LOD bias
+	// max absolute sampler LOD bias
 	MaxSamplerLodBias float32
-	//  max degree of sampler anisotropy
+	// max degree of sampler anisotropy
 	MaxSamplerAnisotropy float32
-	//  max number of active viewports
+	// max number of active viewports
 	MaxViewports uint32
-	//  max viewport dimensions (x,y)
+	// max viewport dimensions (x,y)
 	MaxViewportDimensions [2]uint32
-	//  viewport bounds range (min,max)
+	// viewport bounds range (min,max)
 	ViewportBoundsRange [2]float32
-	//  number bits of subpixel precision for viewport
+	// number bits of subpixel precision for viewport
 	ViewportSubPixelBits uint32
-	//  min required alignment of pointers returned by MapMemory (bytes)
+	// min required alignment of pointers returned by MapMemory (bytes)
 	MinMemoryMapAlignment uintptr
-	//  min required alignment for texel buffer offsets (bytes)
+	// min required alignment for texel buffer offsets (bytes)
 	MinTexelBufferOffsetAlignment DeviceSize
-	//  min required alignment for uniform buffer sizes and offsets (bytes)
+	// min required alignment for uniform buffer sizes and offsets (bytes)
 	MinUniformBufferOffsetAlignment DeviceSize
-	//  min required alignment for storage buffer offsets (bytes)
+	// min required alignment for storage buffer offsets (bytes)
 	MinStorageBufferOffsetAlignment DeviceSize
-	//  min texel offset for OpTextureSampleOffset
+	// min texel offset for OpTextureSampleOffset
 	MinTexelOffset int32
-	//  max texel offset for OpTextureSampleOffset
+	// max texel offset for OpTextureSampleOffset
 	MaxTexelOffset uint32
-	//  min texel offset for OpTextureGatherOffset
+	// min texel offset for OpTextureGatherOffset
 	MinTexelGatherOffset int32
-	//  max texel offset for OpTextureGatherOffset
+	// max texel offset for OpTextureGatherOffset
 	MaxTexelGatherOffset uint32
-	//  furthest negative offset for interpolateAtOffset
+	// furthest negative offset for interpolateAtOffset
 	MinInterpolationOffset float32
-	//  furthest positive offset for interpolateAtOffset
+	// furthest positive offset for interpolateAtOffset
 	MaxInterpolationOffset float32
-	//  number of subpixel bits for interpolateAtOffset
+	// number of subpixel bits for interpolateAtOffset
 	SubPixelInterpolationOffsetBits uint32
-	//  max width for a framebuffer
+	// max width for a framebuffer
 	MaxFramebufferWidth uint32
-	//  max height for a framebuffer
+	// max height for a framebuffer
 	MaxFramebufferHeight uint32
-	//  max layer count for a layered framebuffer
+	// max layer count for a layered framebuffer
 	MaxFramebufferLayers uint32
-	//  supported color sample counts for a framebuffer
+	// supported color sample counts for a framebuffer
 	FramebufferColorSampleCounts SampleCountFlags
-	//  supported depth sample counts for a framebuffer
+	// supported depth sample counts for a framebuffer
 	FramebufferDepthSampleCounts SampleCountFlags
-	//  supported stencil sample counts for a framebuffer
+	// supported stencil sample counts for a framebuffer
 	FramebufferStencilSampleCounts SampleCountFlags
-	//  supported sample counts for a framebuffer with no attachments
+	// supported sample counts for a framebuffer with no attachments
 	FramebufferNoAttachmentsSampleCounts SampleCountFlags
-	//  max number of color attachments per subpass
+	// max number of color attachments per subpass
 	MaxColorAttachments uint32
-	//  supported color sample counts for a non-integer sampled image
+	// supported color sample counts for a non-integer sampled image
 	SampledImageColorSampleCounts SampleCountFlags
-	//  supported sample counts for an integer image
+	// supported sample counts for an integer image
 	SampledImageIntegerSampleCounts SampleCountFlags
-	//  supported depth sample counts for a sampled image
+	// supported depth sample counts for a sampled image
 	SampledImageDepthSampleCounts SampleCountFlags
-	//  supported stencil sample counts for a sampled image
+	// supported stencil sample counts for a sampled image
 	SampledImageStencilSampleCounts SampleCountFlags
-	//  supported sample counts for a storage image
+	// supported sample counts for a storage image
 	StorageImageSampleCounts SampleCountFlags
-	//  max number of sample mask words
+	// max number of sample mask words
 	MaxSampleMaskWords uint32
-	//  timestamps on graphics and compute queues
+	// timestamps on graphics and compute queues
 	TimestampComputeAndGraphics bool
-	//  number of nanoseconds it takes for timestamp query value to increment by 1
+	// number of nanoseconds it takes for timestamp query value to increment by 1
 	TimestampPeriod float32
-	//  max number of clip distances
+	// max number of clip distances
 	MaxClipDistances uint32
-	//  max number of cull distances
+	// max number of cull distances
 	MaxCullDistances uint32
-	//  max combined number of user clipping
+	// max combined number of user clipping
 	MaxCombinedClipAndCullDistances uint32
-	//  distinct queue priorities available
+	// distinct queue priorities available
 	DiscreteQueuePriorities uint32
-	//  range (min,max) of supported point sizes
+	// range (min,max) of supported point sizes
 	PointSizeRange [2]float32
-	//  range (min,max) of supported line widths
+	// range (min,max) of supported line widths
 	LineWidthRange [2]float32
-	//  granularity of supported point sizes
+	// granularity of supported point sizes
 	PointSizeGranularity float32
-	//  granularity of supported line widths
+	// granularity of supported line widths
 	LineWidthGranularity float32
-	//  line rasterization follows preferred rules
+	// line rasterization follows preferred rules
 	StrictLines bool
-	//  supports standard sample locations for all supported sample counts
+	// supports standard sample locations for all supported sample counts
 	StandardSampleLocations bool
-	//  optimal offset of buffer copies
+	// optimal offset of buffer copies
 	OptimalBufferCopyOffsetAlignment DeviceSize
-	//  optimal pitch of buffer copies
+	// optimal pitch of buffer copies
 	OptimalBufferCopyRowPitchAlignment DeviceSize
-	//  minimum size and alignment for non-coherent host-mapped device memory access
+	// minimum size and alignment for non-coherent host-mapped device memory access
 	NonCoherentAtomSize DeviceSize
 }
 
@@ -7295,11 +7295,11 @@ func (s *PhysicalDeviceMemoryProperties2KHR) Vulkanize() *_vkPhysicalDeviceMemor
 type PhysicalDeviceMultiviewFeaturesKHX struct {
 	// SType = STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES_KHX
 	PNext unsafe.Pointer
-	//  Multiple views in a renderpass
+	// Multiple views in a renderpass
 	Multiview bool
-	//  Multiple views in a renderpass w/ geometry shader
+	// Multiple views in a renderpass w/ geometry shader
 	MultiviewGeometryShader bool
-	//  Multiple views in a renderpass w/ tessellation shader
+	// Multiple views in a renderpass w/ tessellation shader
 	MultiviewTessellationShader bool
 }
 
@@ -7371,9 +7371,9 @@ func (s *PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX) Vulkanize() *_vk
 type PhysicalDeviceMultiviewPropertiesKHX struct {
 	// SType = STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES_KHX
 	PNext unsafe.Pointer
-	//  max number of views in a subpass
+	// max number of views in a subpass
 	MaxMultiviewViewCount uint32
-	//  max instance index for a draw in a multiview subpass
+	// max instance index for a draw in a multiview subpass
 	MaxMultiviewInstanceIndex uint32
 }
 
@@ -7652,7 +7652,7 @@ func (s *PhysicalDeviceSamplerFilterMinmaxPropertiesEXT) Vulkanize() *_vkPhysica
 type PhysicalDeviceSamplerYcbcrConversionFeaturesKHR struct {
 	// SType = STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES_KHR
 	PNext unsafe.Pointer
-	//  Sampler color conversion supported
+	// Sampler color conversion supported
 	SamplerYcbcrConversion bool
 }
 
@@ -7731,15 +7731,15 @@ func (s *PhysicalDeviceSparseImageFormatInfo2KHR) Vulkanize() *_vkPhysicalDevice
 
 // PhysicalDeviceSparseProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSparseProperties.html
 type PhysicalDeviceSparseProperties struct {
-	//  Sparse resources support: GPU will access all 2D (single sample) sparse resources using the standard sparse image block shapes (based on pixel format)
+	// Sparse resources support: GPU will access all 2D (single sample) sparse resources using the standard sparse image block shapes (based on pixel format)
 	ResidencyStandard2DBlockShape bool
-	//  Sparse resources support: GPU will access all 2D (multisample) sparse resources using the standard sparse image block shapes (based on pixel format)
+	// Sparse resources support: GPU will access all 2D (multisample) sparse resources using the standard sparse image block shapes (based on pixel format)
 	ResidencyStandard2DMultisampleBlockShape bool
-	//  Sparse resources support: GPU will access all 3D sparse resources using the standard sparse image block shapes (based on pixel format)
+	// Sparse resources support: GPU will access all 3D sparse resources using the standard sparse image block shapes (based on pixel format)
 	ResidencyStandard3DBlockShape bool
-	//  Sparse resources support: Images with mip level dimensions that are NOT a multiple of the sparse image block dimensions will be placed in the mip tail
+	// Sparse resources support: Images with mip level dimensions that are NOT a multiple of the sparse image block dimensions will be placed in the mip tail
 	ResidencyAlignedMipSize bool
-	//  Sparse resources support: GPU can consistently access non-resident regions of a resource, all reads return as if data is 0, writes are discarded
+	// Sparse resources support: GPU can consistently access non-resident regions of a resource, all reads return as if data is 0, writes are discarded
 	ResidencyNonResidentStrict bool
 }
 
@@ -7849,9 +7849,9 @@ type PipelineCacheCreateInfo struct {
 	// SType = STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags PipelineCacheCreateFlags
-	//  Size of initial data to populate cache, in bytes
+	// Size of initial data to populate cache, in bytes
 	InitialDataSize uintptr
-	//  Initial data to populate cache
+	// Initial data to populate cache
 	PInitialData unsafe.Pointer
 }
 
@@ -7986,7 +7986,7 @@ type PipelineColorBlendStateCreateInfo struct {
 	Flags         PipelineColorBlendStateCreateFlags
 	LogicOpEnable bool
 	LogicOp       LogicOp
-	//  # of pAttachments
+	// # of pAttachments
 	// attachmentCount
 	PAttachments   []PipelineColorBlendAttachmentState
 	BlendConstants [4]float32
@@ -8142,7 +8142,7 @@ type PipelineDepthStencilStateCreateInfo struct {
 	DepthTestEnable  bool
 	DepthWriteEnable bool
 	DepthCompareOp   CompareOp
-	//  optional (depth_bounds_test)
+	// optional (depth_bounds_test)
 	DepthBoundsTestEnable bool
 	StencilTestEnable     bool
 	Front                 StencilOpState
@@ -8346,13 +8346,13 @@ type PipelineLayoutCreateInfo struct {
 	// SType = STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags PipelineLayoutCreateFlags
-	//  Number of descriptor sets interfaced by the pipeline
+	// Number of descriptor sets interfaced by the pipeline
 	// setLayoutCount
-	//  Array of setCount number of descriptor set layout objects defining the layout of the
+	// Array of setCount number of descriptor set layout objects defining the layout of the
 	PSetLayouts []DescriptorSetLayout
-	//  Number of push-constant ranges used by the pipeline
+	// Number of push-constant ranges used by the pipeline
 	// pushConstantRangeCount
-	//  Array of pushConstantRangeCount number of ranges used by various shader stages
+	// Array of pushConstantRangeCount number of ranges used by various shader stages
 	PPushConstantRanges []PushConstantRange
 }
 
@@ -8408,13 +8408,13 @@ type PipelineMultisampleStateCreateInfo struct {
 	// SType = STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags PipelineMultisampleStateCreateFlags
-	//  Number of samples used for rasterization
+	// Number of samples used for rasterization
 	RasterizationSamples SampleCountFlagBits
-	//  optional (GL45)
+	// optional (GL45)
 	SampleShadingEnable bool
-	//  optional (GL45)
+	// optional (GL45)
 	MinSampleShading float32
-	//  Array of sampleMask words
+	// Array of sampleMask words
 	PSampleMask           *SampleMask
 	AlphaToCoverageEnable bool
 	AlphaToOneEnable      bool
@@ -8510,7 +8510,7 @@ type PipelineRasterizationStateCreateInfo struct {
 	Flags                   PipelineRasterizationStateCreateFlags
 	DepthClampEnable        bool
 	RasterizerDiscardEnable bool
-	//  optional (GL45)
+	// optional (GL45)
 	PolygonMode             PolygonMode
 	CullMode                CullModeFlags
 	FrontFace               FrontFace
@@ -8580,7 +8580,7 @@ func (s *PipelineRasterizationStateCreateInfo) Vulkanize() *_vkPipelineRasteriza
 type PipelineRasterizationStateRasterizationOrderAMD struct {
 	// SType = STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD
 	PNext unsafe.Pointer
-	//  Rasterization order to use for the pipeline
+	// Rasterization order to use for the pipeline
 	RasterizationOrder RasterizationOrderAMD
 }
 
@@ -8650,11 +8650,11 @@ type PipelineShaderStageCreateInfo struct {
 	// SType = STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags PipelineShaderStageCreateFlags
-	//  Shader stage
+	// Shader stage
 	Stage ShaderStageFlagBits
-	//  Module containing entry point
+	// Module containing entry point
 	Module ShaderModule
-	//  Null-terminated entry point name
+	// Null-terminated entry point name
 	PName               string
 	PSpecializationInfo *SpecializationInfo
 }
@@ -8769,10 +8769,10 @@ type PipelineVertexInputStateCreateInfo struct {
 	// SType = STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags PipelineVertexInputStateCreateFlags
-	//  number of bindings
+	// number of bindings
 	// vertexBindingDescriptionCount
 	PVertexBindingDescriptions []VertexInputBindingDescription
-	//  number of attributes
+	// number of attributes
 	// vertexAttributeDescriptionCount
 	PVertexAttributeDescriptions []VertexInputAttributeDescription
 }
@@ -8980,17 +8980,17 @@ func (s *PipelineViewportWScalingStateCreateInfoNV) Vulkanize() *_vkPipelineView
 type PresentInfoKHR struct {
 	// SType = STRUCTURE_TYPE_PRESENT_INFO_KHR
 	PNext unsafe.Pointer
-	//  Number of semaphores to wait for before presenting
+	// Number of semaphores to wait for before presenting
 	// waitSemaphoreCount
-	//  Semaphores to wait for before presenting
+	// Semaphores to wait for before presenting
 	PWaitSemaphores []Semaphore
-	//  Number of swapchains to present in this call
+	// Number of swapchains to present in this call
 	// swapchainCount
-	//  Swapchains to present an image from
+	// Swapchains to present an image from
 	PSwapchains []SwapchainKHR
-	//  Indices of which presentable images to present
+	// Indices of which presentable images to present
 	PImageIndices []uint32
-	//  Optional (i.e. if non-NULL) VkResult for each swapchain
+	// Optional (i.e. if non-NULL) VkResult for each swapchain
 	PResults []Result
 }
 
@@ -9065,9 +9065,9 @@ func (s *PresentInfoKHR) Vulkanize() *_vkPresentInfoKHR {
 
 // PresentRegionKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPresentRegionKHR.html
 type PresentRegionKHR struct {
-	//  Number of rectangles in pRectangles
+	// Number of rectangles in pRectangles
 	// rectangleCount
-	//  Array of rectangles that have changed in a swapchain's image(s)
+	// Array of rectangles that have changed in a swapchain's image(s)
 	PRectangles []RectLayerKHR
 }
 
@@ -9107,9 +9107,9 @@ func (s *PresentRegionKHR) Vulkanize() *_vkPresentRegionKHR {
 type PresentRegionsKHR struct {
 	// SType = STRUCTURE_TYPE_PRESENT_REGIONS_KHR
 	PNext unsafe.Pointer
-	//  Copy of VkPresentInfoKHR::swapchainCount
+	// Copy of VkPresentInfoKHR::swapchainCount
 	// swapchainCount
-	//  The regions that have changed
+	// The regions that have changed
 	PRegions []PresentRegionKHR
 }
 
@@ -9152,9 +9152,9 @@ func (s *PresentRegionsKHR) Vulkanize() *_vkPresentRegionsKHR {
 
 // PresentTimeGOOGLE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPresentTimeGOOGLE.html
 type PresentTimeGOOGLE struct {
-	//  Application-provided identifier
+	// Application-provided identifier
 	PresentID uint32
-	//  Earliest time an image should be presented
+	// Earliest time an image should be presented
 	DesiredPresentTime uint64
 }
 
@@ -9176,9 +9176,9 @@ func (s *PresentTimeGOOGLE) Vulkanize() *_vkPresentTimeGOOGLE {
 type PresentTimesInfoGOOGLE struct {
 	// SType = STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE
 	PNext unsafe.Pointer
-	//  Copy of VkPresentInfoKHR::swapchainCount
+	// Copy of VkPresentInfoKHR::swapchainCount
 	// swapchainCount
-	//  The earliest times to present images
+	// The earliest times to present images
 	PTimes []PresentTimeGOOGLE
 }
 
@@ -9217,11 +9217,11 @@ func (s *PresentTimesInfoGOOGLE) Vulkanize() *_vkPresentTimesInfoGOOGLE {
 
 // PushConstantRange: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPushConstantRange.html
 type PushConstantRange struct {
-	//  Which stages use the range
+	// Which stages use the range
 	StageFlags ShaderStageFlags
-	//  Start of the range, in bytes
+	// Start of the range, in bytes
 	Offset uint32
-	//  Size of the range, in bytes
+	// Size of the range, in bytes
 	Size uint32
 }
 
@@ -9246,7 +9246,7 @@ type QueryPoolCreateInfo struct {
 	Flags      QueryPoolCreateFlags
 	QueryType  QueryType
 	QueryCount uint32
-	//  Optional
+	// Optional
 	PipelineStatistics QueryPipelineStatisticFlags
 }
 
@@ -9286,11 +9286,11 @@ func (s *QueryPoolCreateInfo) Vulkanize() *_vkQueryPoolCreateInfo {
 
 // QueueFamilyProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyProperties.html
 type QueueFamilyProperties struct {
-	//  Queue flags
+	// Queue flags
 	QueueFlags         QueueFlags
 	QueueCount         uint32
 	TimestampValidBits uint32
-	//  Minimum alignment requirement for image transfers
+	// Minimum alignment requirement for image transfers
 	MinImageTransferGranularity Extent3D
 }
 
@@ -9388,11 +9388,11 @@ func (s *Rect2D) Vulkanize() *_vkRect2D {
 
 // RectLayerKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRectLayerKHR.html
 type RectLayerKHR struct {
-	//  upper-left corner of a rectangle that has not changed, in pixels of a presentation images
+	// upper-left corner of a rectangle that has not changed, in pixels of a presentation images
 	Offset Offset2D
-	//  Dimensions of a rectangle that has not changed, in pixels of a presentation images
+	// Dimensions of a rectangle that has not changed, in pixels of a presentation images
 	Extent Extent2D
-	//  Layer of a swapchain's image(s), for stereoscopic-3D images
+	// Layer of a swapchain's image(s), for stereoscopic-3D images
 	Layer uint32
 }
 
@@ -9424,7 +9424,7 @@ func (s *RectLayerKHR) Vulkanize() *_vkRectLayerKHR {
 
 // RefreshCycleDurationGOOGLE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRefreshCycleDurationGOOGLE.html
 type RefreshCycleDurationGOOGLE struct {
-	//  Number of nanoseconds from the start of one refresh cycle to the next
+	// Number of nanoseconds from the start of one refresh cycle to the next
 	RefreshDuration uint64
 }
 
@@ -9818,11 +9818,11 @@ type SamplerCreateInfo struct {
 	// SType = STRUCTURE_TYPE_SAMPLER_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags SamplerCreateFlags
-	//  Filter mode for magnification
+	// Filter mode for magnification
 	MagFilter Filter
-	//  Filter mode for minifiation
+	// Filter mode for minifiation
 	MinFilter Filter
-	//  Mipmap selection mode
+	// Mipmap selection mode
 	MipmapMode              SamplerMipmapMode
 	AddressModeU            SamplerAddressMode
 	AddressModeV            SamplerAddressMode
@@ -10069,7 +10069,7 @@ func (s *SamplerYcbcrConversionInfoKHR) Vulkanize() *_vkSamplerYcbcrConversionIn
 type SemaphoreCreateInfo struct {
 	// SType = STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO
 	PNext unsafe.Pointer
-	//  Semaphore creation flags
+	// Semaphore creation flags
 	Flags SemaphoreCreateFlags
 }
 
@@ -10139,9 +10139,9 @@ type ShaderModuleCreateInfo struct {
 	// SType = STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO
 	PNext unsafe.Pointer
 	Flags ShaderModuleCreateFlags
-	//  Specified in bytes
+	// Specified in bytes
 	CodeSize uintptr
-	//  Binary code of size codeSize
+	// Binary code of size codeSize
 	PCode *uint32
 }
 
@@ -10285,7 +10285,7 @@ func (s *ShaderStatisticsInfoAMD) Vulkanize() *_vkShaderStatisticsInfoAMD {
 type SharedPresentSurfaceCapabilitiesKHR struct {
 	// SType = STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR
 	PNext unsafe.Pointer
-	//  Supported image usage flags if swapchain created using a shared present mode
+	// Supported image usage flags if swapchain created using a shared present mode
 	SharedPresentSupportedUsageFlags ImageUsageFlags
 }
 
@@ -10426,7 +10426,7 @@ type SparseImageMemoryBind struct {
 	Offset      Offset3D
 	Extent      Extent3D
 	Memory      DeviceMemory
-	//  Specified in bytes
+	// Specified in bytes
 	MemoryOffset DeviceSize
 	Flags        SparseMemoryBindFlags
 }
@@ -10512,11 +10512,11 @@ func (s *SparseImageMemoryBindInfo) Vulkanize() *_vkSparseImageMemoryBindInfo {
 type SparseImageMemoryRequirements struct {
 	FormatProperties     SparseImageFormatProperties
 	ImageMipTailFirstLod uint32
-	//  Specified in bytes, must be a multiple of sparse block size in bytes / alignment
+	// Specified in bytes, must be a multiple of sparse block size in bytes / alignment
 	ImageMipTailSize DeviceSize
-	//  Specified in bytes, must be a multiple of sparse block size in bytes / alignment
+	// Specified in bytes, must be a multiple of sparse block size in bytes / alignment
 	ImageMipTailOffset DeviceSize
-	//  Specified in bytes, must be a multiple of sparse block size in bytes / alignment
+	// Specified in bytes, must be a multiple of sparse block size in bytes / alignment
 	ImageMipTailStride DeviceSize
 }
 
@@ -10626,12 +10626,12 @@ func (s *SparseImageOpaqueMemoryBindInfo) Vulkanize() *_vkSparseImageOpaqueMemor
 
 // SparseMemoryBind: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSparseMemoryBind.html
 type SparseMemoryBind struct {
-	//  Specified in bytes
+	// Specified in bytes
 	ResourceOffset DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	Size   DeviceSize
 	Memory DeviceMemory
-	//  Specified in bytes
+	// Specified in bytes
 	MemoryOffset DeviceSize
 	Flags        SparseMemoryBindFlags
 }
@@ -10652,13 +10652,13 @@ func (s *SparseMemoryBind) Vulkanize() *_vkSparseMemoryBind {
 
 // SpecializationInfo: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSpecializationInfo.html
 type SpecializationInfo struct {
-	//  Number of entries in the map
+	// Number of entries in the map
 	// mapEntryCount
-	//  Array of map entries
+	// Array of map entries
 	PMapEntries []SpecializationMapEntry
-	//  Size in bytes of pData
+	// Size in bytes of pData
 	DataSize uintptr
-	//  Pointer to SpecConstant data
+	// Pointer to SpecConstant data
 	PData unsafe.Pointer
 }
 
@@ -10698,11 +10698,11 @@ func (s *SpecializationInfo) Vulkanize() *_vkSpecializationInfo {
 
 // SpecializationMapEntry: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSpecializationMapEntry.html
 type SpecializationMapEntry struct {
-	//  The SpecConstant ID specified in the BIL
+	// The SpecConstant ID specified in the BIL
 	ConstantID uint32
-	//  Offset of the value in the data block
+	// Offset of the value in the data block
 	Offset uint32
-	//  Size in bytes of the SpecConstant
+	// Size in bytes of the SpecConstant
 	Size uintptr
 }
 
@@ -10833,9 +10833,9 @@ type SubpassDependency struct {
 	DstSubpass   uint32
 	SrcStageMask PipelineStageFlags
 	DstStageMask PipelineStageFlags
-	//  Memory accesses from the source of the dependency to synchronize
+	// Memory accesses from the source of the dependency to synchronize
 	SrcAccessMask AccessFlags
-	//  Memory accesses from the destination of the dependency to synchronize
+	// Memory accesses from the destination of the dependency to synchronize
 	DstAccessMask   AccessFlags
 	DependencyFlags DependencyFlags
 }
@@ -10857,7 +10857,7 @@ func (s *SubpassDependency) Vulkanize() *_vkSubpassDependency {
 // SubpassDescription: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubpassDescription.html
 type SubpassDescription struct {
 	Flags SubpassDescriptionFlags
-	//  Must be VK_PIPELINE_BIND_POINT_GRAPHICS for now
+	// Must be VK_PIPELINE_BIND_POINT_GRAPHICS for now
 	PipelineBindPoint PipelineBindPoint
 	// inputAttachmentCount
 	PInputAttachments []AttachmentReference
@@ -10973,15 +10973,15 @@ func (s *SubpassSampleLocationsEXT) Vulkanize() *_vkSubpassSampleLocationsEXT {
 
 // SubresourceLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSubresourceLayout.html
 type SubresourceLayout struct {
-	//  Specified in bytes
+	// Specified in bytes
 	Offset DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	Size DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	RowPitch DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	ArrayPitch DeviceSize
-	//  Specified in bytes
+	// Specified in bytes
 	DepthPitch DeviceSize
 }
 
@@ -11003,25 +11003,25 @@ func (s *SubresourceLayout) Vulkanize() *_vkSubresourceLayout {
 type SurfaceCapabilities2EXT struct {
 	// SType = STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_EXT
 	PNext unsafe.Pointer
-	//  Supported minimum number of images for the surface
+	// Supported minimum number of images for the surface
 	MinImageCount uint32
-	//  Supported maximum number of images for the surface, 0 for unlimited
+	// Supported maximum number of images for the surface, 0 for unlimited
 	MaxImageCount uint32
-	//  Current image width and height for the surface, (0, 0) if undefined
+	// Current image width and height for the surface, (0, 0) if undefined
 	CurrentExtent Extent2D
-	//  Supported minimum image width and height for the surface
+	// Supported minimum image width and height for the surface
 	MinImageExtent Extent2D
-	//  Supported maximum image width and height for the surface
+	// Supported maximum image width and height for the surface
 	MaxImageExtent Extent2D
-	//  Supported maximum number of image layers for the surface
+	// Supported maximum number of image layers for the surface
 	MaxImageArrayLayers uint32
-	//  1 or more bits representing the transforms supported
+	// 1 or more bits representing the transforms supported
 	SupportedTransforms SurfaceTransformFlagsKHR
-	//  The surface's current transform relative to the device's natural orientation
+	// The surface's current transform relative to the device's natural orientation
 	CurrentTransform SurfaceTransformFlagBitsKHR
-	//  1 or more bits representing the alpha compositing modes supported
+	// 1 or more bits representing the alpha compositing modes supported
 	SupportedCompositeAlpha CompositeAlphaFlagsKHR
-	//  Supported image usage flags for the surface
+	// Supported image usage flags for the surface
 	SupportedUsageFlags      ImageUsageFlags
 	SupportedSurfaceCounters SurfaceCounterFlagsEXT
 }
@@ -11117,25 +11117,25 @@ func (s *SurfaceCapabilities2KHR) Vulkanize() *_vkSurfaceCapabilities2KHR {
 
 // SurfaceCapabilitiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfaceCapabilitiesKHR.html
 type SurfaceCapabilitiesKHR struct {
-	//  Supported minimum number of images for the surface
+	// Supported minimum number of images for the surface
 	MinImageCount uint32
-	//  Supported maximum number of images for the surface, 0 for unlimited
+	// Supported maximum number of images for the surface, 0 for unlimited
 	MaxImageCount uint32
-	//  Current image width and height for the surface, (0, 0) if undefined
+	// Current image width and height for the surface, (0, 0) if undefined
 	CurrentExtent Extent2D
-	//  Supported minimum image width and height for the surface
+	// Supported minimum image width and height for the surface
 	MinImageExtent Extent2D
-	//  Supported maximum image width and height for the surface
+	// Supported maximum image width and height for the surface
 	MaxImageExtent Extent2D
-	//  Supported maximum number of image layers for the surface
+	// Supported maximum number of image layers for the surface
 	MaxImageArrayLayers uint32
-	//  1 or more bits representing the transforms supported
+	// 1 or more bits representing the transforms supported
 	SupportedTransforms SurfaceTransformFlagsKHR
-	//  The surface's current transform relative to the device's natural orientation
+	// The surface's current transform relative to the device's natural orientation
 	CurrentTransform SurfaceTransformFlagBitsKHR
-	//  1 or more bits representing the alpha compositing modes supported
+	// 1 or more bits representing the alpha compositing modes supported
 	SupportedCompositeAlpha CompositeAlphaFlagsKHR
-	//  Supported image usage flags for the surface
+	// Supported image usage flags for the surface
 	SupportedUsageFlags ImageUsageFlags
 }
 
@@ -11222,9 +11222,9 @@ func (s *SurfaceFormat2KHR) Vulkanize() *_vkSurfaceFormat2KHR {
 
 // SurfaceFormatKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSurfaceFormatKHR.html
 type SurfaceFormatKHR struct {
-	//  Supported pair of rendering format
+	// Supported pair of rendering format
 	Format Format
-	//  and color space for the surface
+	// and color space for the surface
 	ColorSpace ColorSpaceKHR
 }
 
@@ -11279,35 +11279,35 @@ type SwapchainCreateInfoKHR struct {
 	// SType = STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR
 	PNext unsafe.Pointer
 	Flags SwapchainCreateFlagsKHR
-	//  The swapchain's target surface
+	// The swapchain's target surface
 	Surface SurfaceKHR
-	//  Minimum number of presentation images the application needs
+	// Minimum number of presentation images the application needs
 	MinImageCount uint32
-	//  Format of the presentation images
+	// Format of the presentation images
 	ImageFormat Format
-	//  Colorspace of the presentation images
+	// Colorspace of the presentation images
 	ImageColorSpace ColorSpaceKHR
-	//  Dimensions of the presentation images
+	// Dimensions of the presentation images
 	ImageExtent Extent2D
-	//  Determines the number of views for multiview/stereo presentation
+	// Determines the number of views for multiview/stereo presentation
 	ImageArrayLayers uint32
-	//  Bits indicating how the presentation images will be used
+	// Bits indicating how the presentation images will be used
 	ImageUsage ImageUsageFlags
-	//  Sharing mode used for the presentation images
+	// Sharing mode used for the presentation images
 	ImageSharingMode SharingMode
-	//  Number of queue families having access to the images in case of concurrent sharing mode
+	// Number of queue families having access to the images in case of concurrent sharing mode
 	// queueFamilyIndexCount
-	//  Array of queue family indices having access to the images in case of concurrent sharing mode
+	// Array of queue family indices having access to the images in case of concurrent sharing mode
 	PQueueFamilyIndices []uint32
-	//  The transform, relative to the device's natural orientation, applied to the image content prior to presentation
+	// The transform, relative to the device's natural orientation, applied to the image content prior to presentation
 	PreTransform SurfaceTransformFlagBitsKHR
-	//  The alpha blending mode used when compositing this surface with other surfaces in the window system
+	// The alpha blending mode used when compositing this surface with other surfaces in the window system
 	CompositeAlpha CompositeAlphaFlagBitsKHR
-	//  Which presentation mode to use for presents on this swap chain
+	// Which presentation mode to use for presents on this swap chain
 	PresentMode PresentModeKHR
-	//  Specifies whether presentable images may be affected by window clip regions
+	// Specifies whether presentable images may be affected by window clip regions
 	Clipped bool
-	//  Existing swap chain to replace, if any
+	// Existing swap chain to replace, if any
 	OldSwapchain SwapchainKHR
 }
 
@@ -11461,12 +11461,12 @@ func (s *ValidationCacheCreateInfoEXT) Vulkanize() *_vkValidationCacheCreateInfo
 
 // ValidationFlagsEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkValidationFlagsEXT.html
 type ValidationFlagsEXT struct {
-	//  Must be VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT
+	// Must be VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT
 	// SType = STRUCTURE_TYPE_VALIDATION_FLAGS_EXT
 	PNext unsafe.Pointer
-	//  Number of validation checks to disable
+	// Number of validation checks to disable
 	// disabledValidationCheckCount
-	//  Validation checks to disable
+	// Validation checks to disable
 	PDisabledValidationChecks []ValidationCheckEXT
 }
 
@@ -11505,13 +11505,13 @@ func (s *ValidationFlagsEXT) Vulkanize() *_vkValidationFlagsEXT {
 
 // VertexInputAttributeDescription: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkVertexInputAttributeDescription.html
 type VertexInputAttributeDescription struct {
-	//  location of the shader vertex attrib
+	// location of the shader vertex attrib
 	Location uint32
-	//  Vertex buffer binding id
+	// Vertex buffer binding id
 	Binding uint32
-	//  format of source data
+	// format of source data
 	Format Format
-	//  Offset of first element in bytes from base of vertex
+	// Offset of first element in bytes from base of vertex
 	Offset uint32
 }
 
@@ -11531,11 +11531,11 @@ func (s *VertexInputAttributeDescription) Vulkanize() *_vkVertexInputAttributeDe
 
 // VertexInputBindingDescription: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkVertexInputBindingDescription.html
 type VertexInputBindingDescription struct {
-	//  Vertex buffer binding id
+	// Vertex buffer binding id
 	Binding uint32
-	//  Distance between vertices in bytes (0 = no advancement)
+	// Distance between vertices in bytes (0 = no advancement)
 	Stride uint32
-	//  The rate at which the vertex data is consumed
+	// The rate at which the vertex data is consumed
 	InputRate VertexInputRate
 }
 
@@ -11623,21 +11623,21 @@ func (s *ViewportWScalingNV) Vulkanize() *_vkViewportWScalingNV {
 type WriteDescriptorSet struct {
 	// SType = STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET
 	PNext unsafe.Pointer
-	//  Destination descriptor set
+	// Destination descriptor set
 	DstSet DescriptorSet
-	//  Binding within the destination descriptor set to write
+	// Binding within the destination descriptor set to write
 	DstBinding uint32
-	//  Array element within the destination binding to write
+	// Array element within the destination binding to write
 	DstArrayElement uint32
-	//  Number of descriptors to write (determines the size of the array pointed by pDescriptors)
+	// Number of descriptors to write (determines the size of the array pointed by pDescriptors)
 	// descriptorCount
-	//  Descriptor type to write (determines which members of the array pointed by pDescriptors are going to be used)
+	// Descriptor type to write (determines which members of the array pointed by pDescriptors are going to be used)
 	DescriptorType DescriptorType
-	//  Sampler, image view, and layout for SAMPLER, COMBINED_IMAGE_SAMPLER, {SAMPLED,STORAGE}_IMAGE, and INPUT_ATTACHMENT descriptor types.
+	// Sampler, image view, and layout for SAMPLER, COMBINED_IMAGE_SAMPLER, {SAMPLED,STORAGE}_IMAGE, and INPUT_ATTACHMENT descriptor types.
 	PImageInfo []DescriptorImageInfo
-	//  Raw buffer, size, and offset for {UNIFORM,STORAGE}_BUFFER[_DYNAMIC] descriptor types.
+	// Raw buffer, size, and offset for {UNIFORM,STORAGE}_BUFFER[_DYNAMIC] descriptor types.
 	PBufferInfo []DescriptorBufferInfo
-	//  Buffer view to write to the descriptor for {UNIFORM,STORAGE}_TEXEL_BUFFER descriptor types.
+	// Buffer view to write to the descriptor for {UNIFORM,STORAGE}_TEXEL_BUFFER descriptor types.
 	PTexelBufferView []BufferView
 }
 

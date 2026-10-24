@@ -1,0 +1,6 @@
+# Check files out with LF on every OS. Go source is LF, and git on Windows would otherwise convert to CRLF
+# (core.autocrlf), which breaks anything compared byte for byte.
+* text=auto eol=lf
+
+# The pinned registry files are checksummed (matrix/testdata/registry/SHA256SUMS): never convert them.
+matrix/testdata/registry/*.xml -text
