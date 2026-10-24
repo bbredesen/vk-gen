@@ -23,7 +23,7 @@ func AcquireNextImage2KHX(device Device, acquireInfo *AcquireNextImageInfoKHX) (
 	return
 }
 
-var vkAcquireNextImage2KHX = &vkCommand{"vkAcquireNextImage2KHX", 3, true, nil}
+var vkAcquireNextImage2KHX = &vkCommand{"vkAcquireNextImage2KHX", 3, true, nil, nil}
 
 // AcquireNextImageKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImageKHR.html
 func AcquireNextImageKHR(device Device, swapchain SwapchainKHR, timeout uint64, semaphore Semaphore, fence Fence) (imageIndex uint32, r error) {
@@ -38,7 +38,7 @@ func AcquireNextImageKHR(device Device, swapchain SwapchainKHR, timeout uint64, 
 	return
 }
 
-var vkAcquireNextImageKHR = &vkCommand{"vkAcquireNextImageKHR", 6, true, nil}
+var vkAcquireNextImageKHR = &vkCommand{"vkAcquireNextImageKHR", 6, true, nil, nil}
 
 // AllocateCommandBuffers: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAllocateCommandBuffers.html
 func AllocateCommandBuffers(device Device, allocateInfo *CommandBufferAllocateInfo) (commandBuffers []CommandBuffer, r error) {
@@ -60,7 +60,7 @@ func AllocateCommandBuffers(device Device, allocateInfo *CommandBufferAllocateIn
 	return
 }
 
-var vkAllocateCommandBuffers = &vkCommand{"vkAllocateCommandBuffers", 3, true, nil}
+var vkAllocateCommandBuffers = &vkCommand{"vkAllocateCommandBuffers", 3, true, nil, nil}
 
 // AllocateDescriptorSets: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAllocateDescriptorSets.html
 func AllocateDescriptorSets(device Device, allocateInfo *DescriptorSetAllocateInfo) (descriptorSets []DescriptorSet, r error) {
@@ -82,7 +82,7 @@ func AllocateDescriptorSets(device Device, allocateInfo *DescriptorSetAllocateIn
 	return
 }
 
-var vkAllocateDescriptorSets = &vkCommand{"vkAllocateDescriptorSets", 3, true, nil}
+var vkAllocateDescriptorSets = &vkCommand{"vkAllocateDescriptorSets", 3, true, nil, nil}
 
 // AllocateMemory: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAllocateMemory.html
 func AllocateMemory(device Device, allocateInfo *MemoryAllocateInfo, allocator *AllocationCallbacks) (memory DeviceMemory, r error) {
@@ -109,7 +109,7 @@ func AllocateMemory(device Device, allocateInfo *MemoryAllocateInfo, allocator *
 	return
 }
 
-var vkAllocateMemory = &vkCommand{"vkAllocateMemory", 4, true, nil}
+var vkAllocateMemory = &vkCommand{"vkAllocateMemory", 4, true, nil, nil}
 
 // BeginCommandBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBeginCommandBuffer.html
 func BeginCommandBuffer(commandBuffer CommandBuffer, beginInfo *CommandBufferBeginInfo) (r error) {
@@ -127,7 +127,7 @@ func BeginCommandBuffer(commandBuffer CommandBuffer, beginInfo *CommandBufferBeg
 	return
 }
 
-var vkBeginCommandBuffer = &vkCommand{"vkBeginCommandBuffer", 2, true, nil}
+var vkBeginCommandBuffer = &vkCommand{"vkBeginCommandBuffer", 2, true, nil, nil}
 
 // BindBufferMemory: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory.html
 func BindBufferMemory(device Device, buffer Buffer, memory DeviceMemory, memoryOffset DeviceSize) (r error) {
@@ -140,7 +140,7 @@ func BindBufferMemory(device Device, buffer Buffer, memory DeviceMemory, memoryO
 	return
 }
 
-var vkBindBufferMemory = &vkCommand{"vkBindBufferMemory", 4, true, nil}
+var vkBindBufferMemory = &vkCommand{"vkBindBufferMemory", 4, true, nil, nil}
 
 // BindBufferMemory2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory2KHR.html
 func BindBufferMemory2KHR(device Device, bindInfos []BindBufferMemoryInfoKHR) (r error) {
@@ -163,7 +163,7 @@ func BindBufferMemory2KHR(device Device, bindInfos []BindBufferMemoryInfoKHR) (r
 	return
 }
 
-var vkBindBufferMemory2KHR = &vkCommand{"vkBindBufferMemory2KHR", 3, true, nil}
+var vkBindBufferMemory2KHR = &vkCommand{"vkBindBufferMemory2KHR", 3, true, nil, nil}
 
 // BindImageMemory: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory.html
 func BindImageMemory(device Device, image Image, memory DeviceMemory, memoryOffset DeviceSize) (r error) {
@@ -176,7 +176,7 @@ func BindImageMemory(device Device, image Image, memory DeviceMemory, memoryOffs
 	return
 }
 
-var vkBindImageMemory = &vkCommand{"vkBindImageMemory", 4, true, nil}
+var vkBindImageMemory = &vkCommand{"vkBindImageMemory", 4, true, nil, nil}
 
 // BindImageMemory2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory2KHR.html
 func BindImageMemory2KHR(device Device, bindInfos []BindImageMemoryInfoKHR) (r error) {
@@ -199,7 +199,7 @@ func BindImageMemory2KHR(device Device, bindInfos []BindImageMemoryInfoKHR) (r e
 	return
 }
 
-var vkBindImageMemory2KHR = &vkCommand{"vkBindImageMemory2KHR", 3, true, nil}
+var vkBindImageMemory2KHR = &vkCommand{"vkBindImageMemory2KHR", 3, true, nil, nil}
 
 // CmdBeginQuery: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQuery.html
 func CmdBeginQuery(commandBuffer CommandBuffer, queryPool QueryPool, query uint32, flags QueryControlFlags) {
@@ -208,7 +208,7 @@ func CmdBeginQuery(commandBuffer CommandBuffer, queryPool QueryPool, query uint3
 
 }
 
-var vkCmdBeginQuery = &vkCommand{"vkCmdBeginQuery", 4, true, nil}
+var vkCmdBeginQuery = &vkCommand{"vkCmdBeginQuery", 4, true, nil, nil}
 
 // CmdBeginRenderPass: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass.html
 func CmdBeginRenderPass(commandBuffer CommandBuffer, renderPassBegin *RenderPassBeginInfo, contents SubpassContents) {
@@ -222,7 +222,7 @@ func CmdBeginRenderPass(commandBuffer CommandBuffer, renderPassBegin *RenderPass
 
 }
 
-var vkCmdBeginRenderPass = &vkCommand{"vkCmdBeginRenderPass", 3, true, nil}
+var vkCmdBeginRenderPass = &vkCommand{"vkCmdBeginRenderPass", 3, true, nil, nil}
 
 // CmdBindDescriptorSets: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets.html
 func CmdBindDescriptorSets(commandBuffer CommandBuffer, pipelineBindPoint PipelineBindPoint, layout PipelineLayout, firstSet uint32, descriptorSets []DescriptorSet, dynamicOffsets []uint32) {
@@ -244,7 +244,7 @@ func CmdBindDescriptorSets(commandBuffer CommandBuffer, pipelineBindPoint Pipeli
 
 }
 
-var vkCmdBindDescriptorSets = &vkCommand{"vkCmdBindDescriptorSets", 8, true, nil}
+var vkCmdBindDescriptorSets = &vkCommand{"vkCmdBindDescriptorSets", 8, true, nil, nil}
 
 // CmdBindIndexBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer.html
 func CmdBindIndexBuffer(commandBuffer CommandBuffer, buffer Buffer, offset DeviceSize, indexType IndexType) {
@@ -253,7 +253,7 @@ func CmdBindIndexBuffer(commandBuffer CommandBuffer, buffer Buffer, offset Devic
 
 }
 
-var vkCmdBindIndexBuffer = &vkCommand{"vkCmdBindIndexBuffer", 4, true, nil}
+var vkCmdBindIndexBuffer = &vkCommand{"vkCmdBindIndexBuffer", 4, true, nil, nil}
 
 // CmdBindPipeline: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipeline.html
 func CmdBindPipeline(commandBuffer CommandBuffer, pipelineBindPoint PipelineBindPoint, pipeline Pipeline) {
@@ -262,7 +262,7 @@ func CmdBindPipeline(commandBuffer CommandBuffer, pipelineBindPoint PipelineBind
 
 }
 
-var vkCmdBindPipeline = &vkCommand{"vkCmdBindPipeline", 3, true, nil}
+var vkCmdBindPipeline = &vkCommand{"vkCmdBindPipeline", 3, true, nil, nil}
 
 // CmdBindVertexBuffers: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers.html
 func CmdBindVertexBuffers(commandBuffer CommandBuffer, firstBinding uint32, buffers []Buffer, offsets []DeviceSize) {
@@ -283,7 +283,7 @@ func CmdBindVertexBuffers(commandBuffer CommandBuffer, firstBinding uint32, buff
 
 }
 
-var vkCmdBindVertexBuffers = &vkCommand{"vkCmdBindVertexBuffers", 5, true, nil}
+var vkCmdBindVertexBuffers = &vkCommand{"vkCmdBindVertexBuffers", 5, true, nil, nil}
 
 // CmdBlitImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage.html
 func CmdBlitImage(commandBuffer CommandBuffer, srcImage Image, srcImageLayout ImageLayout, dstImage Image, dstImageLayout ImageLayout, regions []ImageBlit, filter Filter) {
@@ -302,7 +302,7 @@ func CmdBlitImage(commandBuffer CommandBuffer, srcImage Image, srcImageLayout Im
 
 }
 
-var vkCmdBlitImage = &vkCommand{"vkCmdBlitImage", 8, true, nil}
+var vkCmdBlitImage = &vkCommand{"vkCmdBlitImage", 8, true, nil, nil}
 
 // CmdClearAttachments: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdClearAttachments.html
 func CmdClearAttachments(commandBuffer CommandBuffer, attachments []ClearAttachment, rects []ClearRect) {
@@ -332,7 +332,7 @@ func CmdClearAttachments(commandBuffer CommandBuffer, attachments []ClearAttachm
 
 }
 
-var vkCmdClearAttachments = &vkCommand{"vkCmdClearAttachments", 5, true, nil}
+var vkCmdClearAttachments = &vkCommand{"vkCmdClearAttachments", 5, true, nil, nil}
 
 // CmdClearColorImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdClearColorImage.html
 func CmdClearColorImage(commandBuffer CommandBuffer, image Image, imageLayout ImageLayout, color *ClearColorValue, ranges []ImageSubresourceRange) {
@@ -353,7 +353,7 @@ func CmdClearColorImage(commandBuffer CommandBuffer, image Image, imageLayout Im
 
 }
 
-var vkCmdClearColorImage = &vkCommand{"vkCmdClearColorImage", 6, true, nil}
+var vkCmdClearColorImage = &vkCommand{"vkCmdClearColorImage", 6, true, nil, nil}
 
 // CmdClearDepthStencilImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdClearDepthStencilImage.html
 func CmdClearDepthStencilImage(commandBuffer CommandBuffer, image Image, imageLayout ImageLayout, depthStencil *ClearDepthStencilValue, ranges []ImageSubresourceRange) {
@@ -374,7 +374,7 @@ func CmdClearDepthStencilImage(commandBuffer CommandBuffer, image Image, imageLa
 
 }
 
-var vkCmdClearDepthStencilImage = &vkCommand{"vkCmdClearDepthStencilImage", 6, true, nil}
+var vkCmdClearDepthStencilImage = &vkCommand{"vkCmdClearDepthStencilImage", 6, true, nil, nil}
 
 // CmdCopyBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer.html
 func CmdCopyBuffer(commandBuffer CommandBuffer, srcBuffer Buffer, dstBuffer Buffer, regions []BufferCopy) {
@@ -389,7 +389,7 @@ func CmdCopyBuffer(commandBuffer CommandBuffer, srcBuffer Buffer, dstBuffer Buff
 
 }
 
-var vkCmdCopyBuffer = &vkCommand{"vkCmdCopyBuffer", 5, true, nil}
+var vkCmdCopyBuffer = &vkCommand{"vkCmdCopyBuffer", 5, true, nil, nil}
 
 // CmdCopyBufferToImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage.html
 func CmdCopyBufferToImage(commandBuffer CommandBuffer, srcBuffer Buffer, dstImage Image, dstImageLayout ImageLayout, regions []BufferImageCopy) {
@@ -408,7 +408,7 @@ func CmdCopyBufferToImage(commandBuffer CommandBuffer, srcBuffer Buffer, dstImag
 
 }
 
-var vkCmdCopyBufferToImage = &vkCommand{"vkCmdCopyBufferToImage", 6, true, nil}
+var vkCmdCopyBufferToImage = &vkCommand{"vkCmdCopyBufferToImage", 6, true, nil, nil}
 
 // CmdCopyImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html
 func CmdCopyImage(commandBuffer CommandBuffer, srcImage Image, srcImageLayout ImageLayout, dstImage Image, dstImageLayout ImageLayout, regions []ImageCopy) {
@@ -427,7 +427,7 @@ func CmdCopyImage(commandBuffer CommandBuffer, srcImage Image, srcImageLayout Im
 
 }
 
-var vkCmdCopyImage = &vkCommand{"vkCmdCopyImage", 7, true, nil}
+var vkCmdCopyImage = &vkCommand{"vkCmdCopyImage", 7, true, nil, nil}
 
 // CmdCopyImageToBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer.html
 func CmdCopyImageToBuffer(commandBuffer CommandBuffer, srcImage Image, srcImageLayout ImageLayout, dstBuffer Buffer, regions []BufferImageCopy) {
@@ -446,7 +446,7 @@ func CmdCopyImageToBuffer(commandBuffer CommandBuffer, srcImage Image, srcImageL
 
 }
 
-var vkCmdCopyImageToBuffer = &vkCommand{"vkCmdCopyImageToBuffer", 6, true, nil}
+var vkCmdCopyImageToBuffer = &vkCommand{"vkCmdCopyImageToBuffer", 6, true, nil, nil}
 
 // CmdCopyQueryPoolResults: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyQueryPoolResults.html
 func CmdCopyQueryPoolResults(commandBuffer CommandBuffer, queryPool QueryPool, firstQuery uint32, queryCount uint32, dstBuffer Buffer, dstOffset DeviceSize, stride DeviceSize, flags QueryResultFlags) {
@@ -455,7 +455,7 @@ func CmdCopyQueryPoolResults(commandBuffer CommandBuffer, queryPool QueryPool, f
 
 }
 
-var vkCmdCopyQueryPoolResults = &vkCommand{"vkCmdCopyQueryPoolResults", 8, true, nil}
+var vkCmdCopyQueryPoolResults = &vkCommand{"vkCmdCopyQueryPoolResults", 8, true, nil, nil}
 
 // CmdDebugMarkerBeginEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerBeginEXT.html
 func CmdDebugMarkerBeginEXT(commandBuffer CommandBuffer, markerInfo *DebugMarkerMarkerInfoEXT) {
@@ -469,7 +469,7 @@ func CmdDebugMarkerBeginEXT(commandBuffer CommandBuffer, markerInfo *DebugMarker
 
 }
 
-var vkCmdDebugMarkerBeginEXT = &vkCommand{"vkCmdDebugMarkerBeginEXT", 2, true, nil}
+var vkCmdDebugMarkerBeginEXT = &vkCommand{"vkCmdDebugMarkerBeginEXT", 2, true, nil, nil}
 
 // CmdDebugMarkerEndEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html
 func CmdDebugMarkerEndEXT(commandBuffer CommandBuffer) {
@@ -478,7 +478,7 @@ func CmdDebugMarkerEndEXT(commandBuffer CommandBuffer) {
 
 }
 
-var vkCmdDebugMarkerEndEXT = &vkCommand{"vkCmdDebugMarkerEndEXT", 1, true, nil}
+var vkCmdDebugMarkerEndEXT = &vkCommand{"vkCmdDebugMarkerEndEXT", 1, true, nil, nil}
 
 // CmdDebugMarkerInsertEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerInsertEXT.html
 func CmdDebugMarkerInsertEXT(commandBuffer CommandBuffer, markerInfo *DebugMarkerMarkerInfoEXT) {
@@ -492,7 +492,7 @@ func CmdDebugMarkerInsertEXT(commandBuffer CommandBuffer, markerInfo *DebugMarke
 
 }
 
-var vkCmdDebugMarkerInsertEXT = &vkCommand{"vkCmdDebugMarkerInsertEXT", 2, true, nil}
+var vkCmdDebugMarkerInsertEXT = &vkCommand{"vkCmdDebugMarkerInsertEXT", 2, true, nil, nil}
 
 // CmdDispatch: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDispatch.html
 func CmdDispatch(commandBuffer CommandBuffer, groupCountX uint32, groupCountY uint32, groupCountZ uint32) {
@@ -501,7 +501,7 @@ func CmdDispatch(commandBuffer CommandBuffer, groupCountX uint32, groupCountY ui
 
 }
 
-var vkCmdDispatch = &vkCommand{"vkCmdDispatch", 4, true, nil}
+var vkCmdDispatch = &vkCommand{"vkCmdDispatch", 4, true, nil, nil}
 
 // CmdDispatchBaseKHX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchBaseKHX.html
 func CmdDispatchBaseKHX(commandBuffer CommandBuffer, baseGroupX uint32, baseGroupY uint32, baseGroupZ uint32, groupCountX uint32, groupCountY uint32, groupCountZ uint32) {
@@ -510,7 +510,7 @@ func CmdDispatchBaseKHX(commandBuffer CommandBuffer, baseGroupX uint32, baseGrou
 
 }
 
-var vkCmdDispatchBaseKHX = &vkCommand{"vkCmdDispatchBaseKHX", 7, true, nil}
+var vkCmdDispatchBaseKHX = &vkCommand{"vkCmdDispatchBaseKHX", 7, true, nil, nil}
 
 // CmdDispatchIndirect: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchIndirect.html
 func CmdDispatchIndirect(commandBuffer CommandBuffer, buffer Buffer, offset DeviceSize) {
@@ -519,7 +519,7 @@ func CmdDispatchIndirect(commandBuffer CommandBuffer, buffer Buffer, offset Devi
 
 }
 
-var vkCmdDispatchIndirect = &vkCommand{"vkCmdDispatchIndirect", 3, true, nil}
+var vkCmdDispatchIndirect = &vkCommand{"vkCmdDispatchIndirect", 3, true, nil, nil}
 
 // CmdDraw: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDraw.html
 func CmdDraw(commandBuffer CommandBuffer, vertexCount uint32, instanceCount uint32, firstVertex uint32, firstInstance uint32) {
@@ -528,7 +528,7 @@ func CmdDraw(commandBuffer CommandBuffer, vertexCount uint32, instanceCount uint
 
 }
 
-var vkCmdDraw = &vkCommand{"vkCmdDraw", 5, true, nil}
+var vkCmdDraw = &vkCommand{"vkCmdDraw", 5, true, nil, nil}
 
 // CmdDrawIndexed: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexed.html
 func CmdDrawIndexed(commandBuffer CommandBuffer, indexCount uint32, instanceCount uint32, firstIndex uint32, vertexOffset int32, firstInstance uint32) {
@@ -537,7 +537,7 @@ func CmdDrawIndexed(commandBuffer CommandBuffer, indexCount uint32, instanceCoun
 
 }
 
-var vkCmdDrawIndexed = &vkCommand{"vkCmdDrawIndexed", 6, true, nil}
+var vkCmdDrawIndexed = &vkCommand{"vkCmdDrawIndexed", 6, true, nil, nil}
 
 // CmdDrawIndexedIndirect: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirect.html
 func CmdDrawIndexedIndirect(commandBuffer CommandBuffer, buffer Buffer, offset DeviceSize, drawCount uint32, stride uint32) {
@@ -546,7 +546,7 @@ func CmdDrawIndexedIndirect(commandBuffer CommandBuffer, buffer Buffer, offset D
 
 }
 
-var vkCmdDrawIndexedIndirect = &vkCommand{"vkCmdDrawIndexedIndirect", 5, true, nil}
+var vkCmdDrawIndexedIndirect = &vkCommand{"vkCmdDrawIndexedIndirect", 5, true, nil, nil}
 
 // CmdDrawIndexedIndirectCountAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirectCountAMD.html
 func CmdDrawIndexedIndirectCountAMD(commandBuffer CommandBuffer, buffer Buffer, offset DeviceSize, countBuffer Buffer, countBufferOffset DeviceSize, maxDrawCount uint32, stride uint32) {
@@ -555,7 +555,7 @@ func CmdDrawIndexedIndirectCountAMD(commandBuffer CommandBuffer, buffer Buffer, 
 
 }
 
-var vkCmdDrawIndexedIndirectCountAMD = &vkCommand{"vkCmdDrawIndexedIndirectCountAMD", 7, true, nil}
+var vkCmdDrawIndexedIndirectCountAMD = &vkCommand{"vkCmdDrawIndexedIndirectCountAMD", 7, true, nil, nil}
 
 // CmdDrawIndirect: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirect.html
 func CmdDrawIndirect(commandBuffer CommandBuffer, buffer Buffer, offset DeviceSize, drawCount uint32, stride uint32) {
@@ -564,7 +564,7 @@ func CmdDrawIndirect(commandBuffer CommandBuffer, buffer Buffer, offset DeviceSi
 
 }
 
-var vkCmdDrawIndirect = &vkCommand{"vkCmdDrawIndirect", 5, true, nil}
+var vkCmdDrawIndirect = &vkCommand{"vkCmdDrawIndirect", 5, true, nil, nil}
 
 // CmdDrawIndirectCountAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectCountAMD.html
 func CmdDrawIndirectCountAMD(commandBuffer CommandBuffer, buffer Buffer, offset DeviceSize, countBuffer Buffer, countBufferOffset DeviceSize, maxDrawCount uint32, stride uint32) {
@@ -573,7 +573,7 @@ func CmdDrawIndirectCountAMD(commandBuffer CommandBuffer, buffer Buffer, offset 
 
 }
 
-var vkCmdDrawIndirectCountAMD = &vkCommand{"vkCmdDrawIndirectCountAMD", 7, true, nil}
+var vkCmdDrawIndirectCountAMD = &vkCommand{"vkCmdDrawIndirectCountAMD", 7, true, nil, nil}
 
 // CmdEndQuery: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdEndQuery.html
 func CmdEndQuery(commandBuffer CommandBuffer, queryPool QueryPool, query uint32) {
@@ -582,7 +582,7 @@ func CmdEndQuery(commandBuffer CommandBuffer, queryPool QueryPool, query uint32)
 
 }
 
-var vkCmdEndQuery = &vkCommand{"vkCmdEndQuery", 3, true, nil}
+var vkCmdEndQuery = &vkCommand{"vkCmdEndQuery", 3, true, nil, nil}
 
 // CmdEndRenderPass: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html
 func CmdEndRenderPass(commandBuffer CommandBuffer) {
@@ -591,7 +591,7 @@ func CmdEndRenderPass(commandBuffer CommandBuffer) {
 
 }
 
-var vkCmdEndRenderPass = &vkCommand{"vkCmdEndRenderPass", 1, true, nil}
+var vkCmdEndRenderPass = &vkCommand{"vkCmdEndRenderPass", 1, true, nil, nil}
 
 // CmdExecuteCommands: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteCommands.html
 func CmdExecuteCommands(commandBuffer CommandBuffer, commandBuffers []CommandBuffer) {
@@ -606,7 +606,7 @@ func CmdExecuteCommands(commandBuffer CommandBuffer, commandBuffers []CommandBuf
 
 }
 
-var vkCmdExecuteCommands = &vkCommand{"vkCmdExecuteCommands", 3, true, nil}
+var vkCmdExecuteCommands = &vkCommand{"vkCmdExecuteCommands", 3, true, nil, nil}
 
 // CmdFillBuffer: transfer support is only available when VK_KHR_maintenance1 is enabled, as documented in valid usage language in the specification
 // See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdFillBuffer.html
@@ -616,7 +616,7 @@ func CmdFillBuffer(commandBuffer CommandBuffer, dstBuffer Buffer, dstOffset Devi
 
 }
 
-var vkCmdFillBuffer = &vkCommand{"vkCmdFillBuffer", 5, true, nil}
+var vkCmdFillBuffer = &vkCommand{"vkCmdFillBuffer", 5, true, nil, nil}
 
 // CmdNextSubpass: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass.html
 func CmdNextSubpass(commandBuffer CommandBuffer, contents SubpassContents) {
@@ -625,7 +625,7 @@ func CmdNextSubpass(commandBuffer CommandBuffer, contents SubpassContents) {
 
 }
 
-var vkCmdNextSubpass = &vkCommand{"vkCmdNextSubpass", 2, true, nil}
+var vkCmdNextSubpass = &vkCommand{"vkCmdNextSubpass", 2, true, nil, nil}
 
 // CmdPipelineBarrier: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier.html
 func CmdPipelineBarrier(commandBuffer CommandBuffer, srcStageMask PipelineStageFlags, dstStageMask PipelineStageFlags, dependencyFlags DependencyFlags, memoryBarriers []MemoryBarrier, bufferMemoryBarriers []BufferMemoryBarrier, imageMemoryBarriers []ImageMemoryBarrier) {
@@ -666,7 +666,7 @@ func CmdPipelineBarrier(commandBuffer CommandBuffer, srcStageMask PipelineStageF
 
 }
 
-var vkCmdPipelineBarrier = &vkCommand{"vkCmdPipelineBarrier", 10, true, nil}
+var vkCmdPipelineBarrier = &vkCommand{"vkCmdPipelineBarrier", 10, true, nil, nil}
 
 // CmdProcessCommandsNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdProcessCommandsNVX.html
 func CmdProcessCommandsNVX(commandBuffer CommandBuffer, processCommandsInfo *CmdProcessCommandsInfoNVX) {
@@ -680,7 +680,7 @@ func CmdProcessCommandsNVX(commandBuffer CommandBuffer, processCommandsInfo *Cmd
 
 }
 
-var vkCmdProcessCommandsNVX = &vkCommand{"vkCmdProcessCommandsNVX", 2, true, nil}
+var vkCmdProcessCommandsNVX = &vkCommand{"vkCmdProcessCommandsNVX", 2, true, nil, nil}
 
 // CmdPushConstants: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants.html
 func CmdPushConstants(commandBuffer CommandBuffer, layout PipelineLayout, stageFlags ShaderStageFlags, offset uint32, values []byte) {
@@ -695,7 +695,7 @@ func CmdPushConstants(commandBuffer CommandBuffer, layout PipelineLayout, stageF
 
 }
 
-var vkCmdPushConstants = &vkCommand{"vkCmdPushConstants", 6, true, nil}
+var vkCmdPushConstants = &vkCommand{"vkCmdPushConstants", 6, true, nil, nil}
 
 // CmdPushDescriptorSetKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetKHR.html
 func CmdPushDescriptorSetKHR(commandBuffer CommandBuffer, pipelineBindPoint PipelineBindPoint, layout PipelineLayout, set uint32, descriptorWrites []WriteDescriptorSet) {
@@ -714,7 +714,7 @@ func CmdPushDescriptorSetKHR(commandBuffer CommandBuffer, pipelineBindPoint Pipe
 
 }
 
-var vkCmdPushDescriptorSetKHR = &vkCommand{"vkCmdPushDescriptorSetKHR", 6, true, nil}
+var vkCmdPushDescriptorSetKHR = &vkCommand{"vkCmdPushDescriptorSetKHR", 6, true, nil, nil}
 
 // CmdPushDescriptorSetWithTemplateKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html
 func CmdPushDescriptorSetWithTemplateKHR(commandBuffer CommandBuffer, descriptorUpdateTemplate DescriptorUpdateTemplateKHR, layout PipelineLayout, set uint32, data *byte) {
@@ -728,7 +728,7 @@ func CmdPushDescriptorSetWithTemplateKHR(commandBuffer CommandBuffer, descriptor
 
 }
 
-var vkCmdPushDescriptorSetWithTemplateKHR = &vkCommand{"vkCmdPushDescriptorSetWithTemplateKHR", 5, true, nil}
+var vkCmdPushDescriptorSetWithTemplateKHR = &vkCommand{"vkCmdPushDescriptorSetWithTemplateKHR", 5, true, nil, nil}
 
 // CmdReserveSpaceForCommandsNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdReserveSpaceForCommandsNVX.html
 func CmdReserveSpaceForCommandsNVX(commandBuffer CommandBuffer, reserveSpaceInfo *CmdReserveSpaceForCommandsInfoNVX) {
@@ -742,7 +742,7 @@ func CmdReserveSpaceForCommandsNVX(commandBuffer CommandBuffer, reserveSpaceInfo
 
 }
 
-var vkCmdReserveSpaceForCommandsNVX = &vkCommand{"vkCmdReserveSpaceForCommandsNVX", 2, true, nil}
+var vkCmdReserveSpaceForCommandsNVX = &vkCommand{"vkCmdReserveSpaceForCommandsNVX", 2, true, nil, nil}
 
 // CmdResetEvent: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent.html
 func CmdResetEvent(commandBuffer CommandBuffer, event Event, stageMask PipelineStageFlags) {
@@ -751,7 +751,7 @@ func CmdResetEvent(commandBuffer CommandBuffer, event Event, stageMask PipelineS
 
 }
 
-var vkCmdResetEvent = &vkCommand{"vkCmdResetEvent", 3, true, nil}
+var vkCmdResetEvent = &vkCommand{"vkCmdResetEvent", 3, true, nil, nil}
 
 // CmdResetQueryPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdResetQueryPool.html
 func CmdResetQueryPool(commandBuffer CommandBuffer, queryPool QueryPool, firstQuery uint32, queryCount uint32) {
@@ -760,7 +760,7 @@ func CmdResetQueryPool(commandBuffer CommandBuffer, queryPool QueryPool, firstQu
 
 }
 
-var vkCmdResetQueryPool = &vkCommand{"vkCmdResetQueryPool", 4, true, nil}
+var vkCmdResetQueryPool = &vkCommand{"vkCmdResetQueryPool", 4, true, nil, nil}
 
 // CmdResolveImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage.html
 func CmdResolveImage(commandBuffer CommandBuffer, srcImage Image, srcImageLayout ImageLayout, dstImage Image, dstImageLayout ImageLayout, regions []ImageResolve) {
@@ -779,7 +779,7 @@ func CmdResolveImage(commandBuffer CommandBuffer, srcImage Image, srcImageLayout
 
 }
 
-var vkCmdResolveImage = &vkCommand{"vkCmdResolveImage", 7, true, nil}
+var vkCmdResolveImage = &vkCommand{"vkCmdResolveImage", 7, true, nil, nil}
 
 // CmdSetBlendConstants: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html
 func CmdSetBlendConstants(commandBuffer CommandBuffer, blendConstants *float32) {
@@ -793,7 +793,7 @@ func CmdSetBlendConstants(commandBuffer CommandBuffer, blendConstants *float32) 
 
 }
 
-var vkCmdSetBlendConstants = &vkCommand{"vkCmdSetBlendConstants", 2, true, nil}
+var vkCmdSetBlendConstants = &vkCommand{"vkCmdSetBlendConstants", 2, true, nil, nil}
 
 // CmdSetDepthBias: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias.html
 func CmdSetDepthBias(commandBuffer CommandBuffer, depthBiasConstantFactor float32, depthBiasClamp float32, depthBiasSlopeFactor float32) {
@@ -802,7 +802,7 @@ func CmdSetDepthBias(commandBuffer CommandBuffer, depthBiasConstantFactor float3
 
 }
 
-var vkCmdSetDepthBias = &vkCommand{"vkCmdSetDepthBias", 4, true, nil}
+var vkCmdSetDepthBias = &vkCommand{"vkCmdSetDepthBias", 4, true, nil, nil}
 
 // CmdSetDepthBounds: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBounds.html
 func CmdSetDepthBounds(commandBuffer CommandBuffer, minDepthBounds float32, maxDepthBounds float32) {
@@ -811,7 +811,7 @@ func CmdSetDepthBounds(commandBuffer CommandBuffer, minDepthBounds float32, maxD
 
 }
 
-var vkCmdSetDepthBounds = &vkCommand{"vkCmdSetDepthBounds", 3, true, nil}
+var vkCmdSetDepthBounds = &vkCommand{"vkCmdSetDepthBounds", 3, true, nil, nil}
 
 // CmdSetDeviceMaskKHX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMaskKHX.html
 func CmdSetDeviceMaskKHX(commandBuffer CommandBuffer, deviceMask uint32) {
@@ -820,7 +820,7 @@ func CmdSetDeviceMaskKHX(commandBuffer CommandBuffer, deviceMask uint32) {
 
 }
 
-var vkCmdSetDeviceMaskKHX = &vkCommand{"vkCmdSetDeviceMaskKHX", 2, true, nil}
+var vkCmdSetDeviceMaskKHX = &vkCommand{"vkCmdSetDeviceMaskKHX", 2, true, nil, nil}
 
 // CmdSetDiscardRectangleEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEXT.html
 func CmdSetDiscardRectangleEXT(commandBuffer CommandBuffer, firstDiscardRectangle uint32, discardRectangles []Rect2D) {
@@ -839,7 +839,7 @@ func CmdSetDiscardRectangleEXT(commandBuffer CommandBuffer, firstDiscardRectangl
 
 }
 
-var vkCmdSetDiscardRectangleEXT = &vkCommand{"vkCmdSetDiscardRectangleEXT", 4, true, nil}
+var vkCmdSetDiscardRectangleEXT = &vkCommand{"vkCmdSetDiscardRectangleEXT", 4, true, nil, nil}
 
 // CmdSetEvent: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent.html
 func CmdSetEvent(commandBuffer CommandBuffer, event Event, stageMask PipelineStageFlags) {
@@ -848,7 +848,7 @@ func CmdSetEvent(commandBuffer CommandBuffer, event Event, stageMask PipelineSta
 
 }
 
-var vkCmdSetEvent = &vkCommand{"vkCmdSetEvent", 3, true, nil}
+var vkCmdSetEvent = &vkCommand{"vkCmdSetEvent", 3, true, nil, nil}
 
 // CmdSetLineWidth: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html
 func CmdSetLineWidth(commandBuffer CommandBuffer, lineWidth float32) {
@@ -857,7 +857,7 @@ func CmdSetLineWidth(commandBuffer CommandBuffer, lineWidth float32) {
 
 }
 
-var vkCmdSetLineWidth = &vkCommand{"vkCmdSetLineWidth", 2, true, nil}
+var vkCmdSetLineWidth = &vkCommand{"vkCmdSetLineWidth", 2, true, nil, nil}
 
 // CmdSetSampleLocationsEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEXT.html
 func CmdSetSampleLocationsEXT(commandBuffer CommandBuffer, sampleLocationsInfo *SampleLocationsInfoEXT) {
@@ -871,7 +871,7 @@ func CmdSetSampleLocationsEXT(commandBuffer CommandBuffer, sampleLocationsInfo *
 
 }
 
-var vkCmdSetSampleLocationsEXT = &vkCommand{"vkCmdSetSampleLocationsEXT", 2, true, nil}
+var vkCmdSetSampleLocationsEXT = &vkCommand{"vkCmdSetSampleLocationsEXT", 2, true, nil, nil}
 
 // CmdSetScissor: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissor.html
 func CmdSetScissor(commandBuffer CommandBuffer, firstScissor uint32, scissors []Rect2D) {
@@ -890,7 +890,7 @@ func CmdSetScissor(commandBuffer CommandBuffer, firstScissor uint32, scissors []
 
 }
 
-var vkCmdSetScissor = &vkCommand{"vkCmdSetScissor", 4, true, nil}
+var vkCmdSetScissor = &vkCommand{"vkCmdSetScissor", 4, true, nil, nil}
 
 // CmdSetStencilCompareMask: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilCompareMask.html
 func CmdSetStencilCompareMask(commandBuffer CommandBuffer, faceMask StencilFaceFlags, compareMask uint32) {
@@ -899,7 +899,7 @@ func CmdSetStencilCompareMask(commandBuffer CommandBuffer, faceMask StencilFaceF
 
 }
 
-var vkCmdSetStencilCompareMask = &vkCommand{"vkCmdSetStencilCompareMask", 3, true, nil}
+var vkCmdSetStencilCompareMask = &vkCommand{"vkCmdSetStencilCompareMask", 3, true, nil, nil}
 
 // CmdSetStencilReference: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilReference.html
 func CmdSetStencilReference(commandBuffer CommandBuffer, faceMask StencilFaceFlags, reference uint32) {
@@ -908,7 +908,7 @@ func CmdSetStencilReference(commandBuffer CommandBuffer, faceMask StencilFaceFla
 
 }
 
-var vkCmdSetStencilReference = &vkCommand{"vkCmdSetStencilReference", 3, true, nil}
+var vkCmdSetStencilReference = &vkCommand{"vkCmdSetStencilReference", 3, true, nil, nil}
 
 // CmdSetStencilWriteMask: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilWriteMask.html
 func CmdSetStencilWriteMask(commandBuffer CommandBuffer, faceMask StencilFaceFlags, writeMask uint32) {
@@ -917,7 +917,7 @@ func CmdSetStencilWriteMask(commandBuffer CommandBuffer, faceMask StencilFaceFla
 
 }
 
-var vkCmdSetStencilWriteMask = &vkCommand{"vkCmdSetStencilWriteMask", 3, true, nil}
+var vkCmdSetStencilWriteMask = &vkCommand{"vkCmdSetStencilWriteMask", 3, true, nil, nil}
 
 // CmdSetViewport: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewport.html
 func CmdSetViewport(commandBuffer CommandBuffer, firstViewport uint32, viewports []Viewport) {
@@ -932,7 +932,7 @@ func CmdSetViewport(commandBuffer CommandBuffer, firstViewport uint32, viewports
 
 }
 
-var vkCmdSetViewport = &vkCommand{"vkCmdSetViewport", 4, true, nil}
+var vkCmdSetViewport = &vkCommand{"vkCmdSetViewport", 4, true, nil, nil}
 
 // CmdSetViewportWScalingNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingNV.html
 func CmdSetViewportWScalingNV(commandBuffer CommandBuffer, firstViewport uint32, viewportWScalings []ViewportWScalingNV) {
@@ -947,7 +947,7 @@ func CmdSetViewportWScalingNV(commandBuffer CommandBuffer, firstViewport uint32,
 
 }
 
-var vkCmdSetViewportWScalingNV = &vkCommand{"vkCmdSetViewportWScalingNV", 4, true, nil}
+var vkCmdSetViewportWScalingNV = &vkCommand{"vkCmdSetViewportWScalingNV", 4, true, nil, nil}
 
 // CmdUpdateBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdUpdateBuffer.html
 func CmdUpdateBuffer(commandBuffer CommandBuffer, dstBuffer Buffer, dstOffset DeviceSize, data []byte) {
@@ -962,7 +962,7 @@ func CmdUpdateBuffer(commandBuffer CommandBuffer, dstBuffer Buffer, dstOffset De
 
 }
 
-var vkCmdUpdateBuffer = &vkCommand{"vkCmdUpdateBuffer", 5, true, nil}
+var vkCmdUpdateBuffer = &vkCommand{"vkCmdUpdateBuffer", 5, true, nil, nil}
 
 // CmdWaitEvents: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents.html
 func CmdWaitEvents(commandBuffer CommandBuffer, events []Event, srcStageMask PipelineStageFlags, dstStageMask PipelineStageFlags, memoryBarriers []MemoryBarrier, bufferMemoryBarriers []BufferMemoryBarrier, imageMemoryBarriers []ImageMemoryBarrier) {
@@ -1010,7 +1010,7 @@ func CmdWaitEvents(commandBuffer CommandBuffer, events []Event, srcStageMask Pip
 
 }
 
-var vkCmdWaitEvents = &vkCommand{"vkCmdWaitEvents", 11, true, nil}
+var vkCmdWaitEvents = &vkCommand{"vkCmdWaitEvents", 11, true, nil, nil}
 
 // CmdWriteBufferMarkerAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarkerAMD.html
 func CmdWriteBufferMarkerAMD(commandBuffer CommandBuffer, pipelineStage PipelineStageFlagBits, dstBuffer Buffer, dstOffset DeviceSize, marker uint32) {
@@ -1019,7 +1019,7 @@ func CmdWriteBufferMarkerAMD(commandBuffer CommandBuffer, pipelineStage Pipeline
 
 }
 
-var vkCmdWriteBufferMarkerAMD = &vkCommand{"vkCmdWriteBufferMarkerAMD", 5, true, nil}
+var vkCmdWriteBufferMarkerAMD = &vkCommand{"vkCmdWriteBufferMarkerAMD", 5, true, nil, nil}
 
 // CmdWriteTimestamp: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp.html
 func CmdWriteTimestamp(commandBuffer CommandBuffer, pipelineStage PipelineStageFlagBits, queryPool QueryPool, query uint32) {
@@ -1028,7 +1028,7 @@ func CmdWriteTimestamp(commandBuffer CommandBuffer, pipelineStage PipelineStageF
 
 }
 
-var vkCmdWriteTimestamp = &vkCommand{"vkCmdWriteTimestamp", 4, true, nil}
+var vkCmdWriteTimestamp = &vkCommand{"vkCmdWriteTimestamp", 4, true, nil, nil}
 
 // CreateBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateBuffer.html
 func CreateBuffer(device Device, createInfo *BufferCreateInfo, allocator *AllocationCallbacks) (buffer Buffer, r error) {
@@ -1055,7 +1055,7 @@ func CreateBuffer(device Device, createInfo *BufferCreateInfo, allocator *Alloca
 	return
 }
 
-var vkCreateBuffer = &vkCommand{"vkCreateBuffer", 4, true, nil}
+var vkCreateBuffer = &vkCommand{"vkCreateBuffer", 4, true, nil, nil}
 
 // CreateBufferView: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateBufferView.html
 func CreateBufferView(device Device, createInfo *BufferViewCreateInfo, allocator *AllocationCallbacks) (view BufferView, r error) {
@@ -1082,7 +1082,7 @@ func CreateBufferView(device Device, createInfo *BufferViewCreateInfo, allocator
 	return
 }
 
-var vkCreateBufferView = &vkCommand{"vkCreateBufferView", 4, true, nil}
+var vkCreateBufferView = &vkCommand{"vkCreateBufferView", 4, true, nil, nil}
 
 // CreateCommandPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateCommandPool.html
 func CreateCommandPool(device Device, createInfo *CommandPoolCreateInfo, allocator *AllocationCallbacks) (commandPool CommandPool, r error) {
@@ -1109,7 +1109,7 @@ func CreateCommandPool(device Device, createInfo *CommandPoolCreateInfo, allocat
 	return
 }
 
-var vkCreateCommandPool = &vkCommand{"vkCreateCommandPool", 4, true, nil}
+var vkCreateCommandPool = &vkCommand{"vkCreateCommandPool", 4, true, nil, nil}
 
 // CreateComputePipelines: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateComputePipelines.html
 func CreateComputePipelines(device Device, pipelineCache PipelineCache, createInfos []ComputePipelineCreateInfo, allocator *AllocationCallbacks) (pipelines []Pipeline, r error) {
@@ -1142,7 +1142,7 @@ func CreateComputePipelines(device Device, pipelineCache PipelineCache, createIn
 	return
 }
 
-var vkCreateComputePipelines = &vkCommand{"vkCreateComputePipelines", 6, true, nil}
+var vkCreateComputePipelines = &vkCommand{"vkCreateComputePipelines", 6, true, nil, nil}
 
 // CreateDebugReportCallbackEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDebugReportCallbackEXT.html
 func CreateDebugReportCallbackEXT(instance Instance, createInfo *DebugReportCallbackCreateInfoEXT, allocator *AllocationCallbacks) (callback DebugReportCallbackEXT, r error) {
@@ -1169,7 +1169,7 @@ func CreateDebugReportCallbackEXT(instance Instance, createInfo *DebugReportCall
 	return
 }
 
-var vkCreateDebugReportCallbackEXT = &vkCommand{"vkCreateDebugReportCallbackEXT", 4, true, nil}
+var vkCreateDebugReportCallbackEXT = &vkCommand{"vkCreateDebugReportCallbackEXT", 4, true, nil, nil}
 
 // CreateDescriptorPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorPool.html
 func CreateDescriptorPool(device Device, createInfo *DescriptorPoolCreateInfo, allocator *AllocationCallbacks) (descriptorPool DescriptorPool, r error) {
@@ -1196,7 +1196,7 @@ func CreateDescriptorPool(device Device, createInfo *DescriptorPoolCreateInfo, a
 	return
 }
 
-var vkCreateDescriptorPool = &vkCommand{"vkCreateDescriptorPool", 4, true, nil}
+var vkCreateDescriptorPool = &vkCommand{"vkCreateDescriptorPool", 4, true, nil, nil}
 
 // CreateDescriptorSetLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorSetLayout.html
 func CreateDescriptorSetLayout(device Device, createInfo *DescriptorSetLayoutCreateInfo, allocator *AllocationCallbacks) (setLayout DescriptorSetLayout, r error) {
@@ -1223,7 +1223,7 @@ func CreateDescriptorSetLayout(device Device, createInfo *DescriptorSetLayoutCre
 	return
 }
 
-var vkCreateDescriptorSetLayout = &vkCommand{"vkCreateDescriptorSetLayout", 4, true, nil}
+var vkCreateDescriptorSetLayout = &vkCommand{"vkCreateDescriptorSetLayout", 4, true, nil, nil}
 
 // CreateDescriptorUpdateTemplateKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorUpdateTemplateKHR.html
 func CreateDescriptorUpdateTemplateKHR(device Device, createInfo *DescriptorUpdateTemplateCreateInfoKHR, allocator *AllocationCallbacks) (descriptorUpdateTemplate DescriptorUpdateTemplateKHR, r error) {
@@ -1250,7 +1250,7 @@ func CreateDescriptorUpdateTemplateKHR(device Device, createInfo *DescriptorUpda
 	return
 }
 
-var vkCreateDescriptorUpdateTemplateKHR = &vkCommand{"vkCreateDescriptorUpdateTemplateKHR", 4, true, nil}
+var vkCreateDescriptorUpdateTemplateKHR = &vkCommand{"vkCreateDescriptorUpdateTemplateKHR", 4, true, nil, nil}
 
 // CreateDevice: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDevice.html
 func CreateDevice(physicalDevice PhysicalDevice, createInfo *DeviceCreateInfo, allocator *AllocationCallbacks) (device Device, r error) {
@@ -1277,7 +1277,7 @@ func CreateDevice(physicalDevice PhysicalDevice, createInfo *DeviceCreateInfo, a
 	return
 }
 
-var vkCreateDevice = &vkCommand{"vkCreateDevice", 4, true, nil}
+var vkCreateDevice = &vkCommand{"vkCreateDevice", 4, true, nil, nil}
 
 // CreateDisplayModeKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayModeKHR.html
 func CreateDisplayModeKHR(physicalDevice PhysicalDevice, display DisplayKHR, createInfo *DisplayModeCreateInfoKHR, allocator *AllocationCallbacks) (mode DisplayModeKHR, r error) {
@@ -1304,7 +1304,7 @@ func CreateDisplayModeKHR(physicalDevice PhysicalDevice, display DisplayKHR, cre
 	return
 }
 
-var vkCreateDisplayModeKHR = &vkCommand{"vkCreateDisplayModeKHR", 5, true, nil}
+var vkCreateDisplayModeKHR = &vkCommand{"vkCreateDisplayModeKHR", 5, true, nil, nil}
 
 // CreateDisplayPlaneSurfaceKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html
 func CreateDisplayPlaneSurfaceKHR(instance Instance, createInfo *DisplaySurfaceCreateInfoKHR, allocator *AllocationCallbacks) (surface SurfaceKHR, r error) {
@@ -1331,7 +1331,7 @@ func CreateDisplayPlaneSurfaceKHR(instance Instance, createInfo *DisplaySurfaceC
 	return
 }
 
-var vkCreateDisplayPlaneSurfaceKHR = &vkCommand{"vkCreateDisplayPlaneSurfaceKHR", 4, true, nil}
+var vkCreateDisplayPlaneSurfaceKHR = &vkCommand{"vkCreateDisplayPlaneSurfaceKHR", 4, true, nil, nil}
 
 // CreateEvent: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateEvent.html
 func CreateEvent(device Device, createInfo *EventCreateInfo, allocator *AllocationCallbacks) (event Event, r error) {
@@ -1358,7 +1358,7 @@ func CreateEvent(device Device, createInfo *EventCreateInfo, allocator *Allocati
 	return
 }
 
-var vkCreateEvent = &vkCommand{"vkCreateEvent", 4, true, nil}
+var vkCreateEvent = &vkCommand{"vkCreateEvent", 4, true, nil, nil}
 
 // CreateFence: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateFence.html
 func CreateFence(device Device, createInfo *FenceCreateInfo, allocator *AllocationCallbacks) (fence Fence, r error) {
@@ -1385,7 +1385,7 @@ func CreateFence(device Device, createInfo *FenceCreateInfo, allocator *Allocati
 	return
 }
 
-var vkCreateFence = &vkCommand{"vkCreateFence", 4, true, nil}
+var vkCreateFence = &vkCommand{"vkCreateFence", 4, true, nil, nil}
 
 // CreateFramebuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateFramebuffer.html
 func CreateFramebuffer(device Device, createInfo *FramebufferCreateInfo, allocator *AllocationCallbacks) (framebuffer Framebuffer, r error) {
@@ -1412,7 +1412,7 @@ func CreateFramebuffer(device Device, createInfo *FramebufferCreateInfo, allocat
 	return
 }
 
-var vkCreateFramebuffer = &vkCommand{"vkCreateFramebuffer", 4, true, nil}
+var vkCreateFramebuffer = &vkCommand{"vkCreateFramebuffer", 4, true, nil, nil}
 
 // CreateGraphicsPipelines: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateGraphicsPipelines.html
 func CreateGraphicsPipelines(device Device, pipelineCache PipelineCache, createInfos []GraphicsPipelineCreateInfo, allocator *AllocationCallbacks) (pipelines []Pipeline, r error) {
@@ -1445,7 +1445,7 @@ func CreateGraphicsPipelines(device Device, pipelineCache PipelineCache, createI
 	return
 }
 
-var vkCreateGraphicsPipelines = &vkCommand{"vkCreateGraphicsPipelines", 6, true, nil}
+var vkCreateGraphicsPipelines = &vkCommand{"vkCreateGraphicsPipelines", 6, true, nil, nil}
 
 // CreateImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateImage.html
 func CreateImage(device Device, createInfo *ImageCreateInfo, allocator *AllocationCallbacks) (image Image, r error) {
@@ -1472,7 +1472,7 @@ func CreateImage(device Device, createInfo *ImageCreateInfo, allocator *Allocati
 	return
 }
 
-var vkCreateImage = &vkCommand{"vkCreateImage", 4, true, nil}
+var vkCreateImage = &vkCommand{"vkCreateImage", 4, true, nil, nil}
 
 // CreateImageView: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateImageView.html
 func CreateImageView(device Device, createInfo *ImageViewCreateInfo, allocator *AllocationCallbacks) (view ImageView, r error) {
@@ -1499,7 +1499,7 @@ func CreateImageView(device Device, createInfo *ImageViewCreateInfo, allocator *
 	return
 }
 
-var vkCreateImageView = &vkCommand{"vkCreateImageView", 4, true, nil}
+var vkCreateImageView = &vkCommand{"vkCreateImageView", 4, true, nil, nil}
 
 // CreateIndirectCommandsLayoutNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectCommandsLayoutNVX.html
 func CreateIndirectCommandsLayoutNVX(device Device, createInfo *IndirectCommandsLayoutCreateInfoNVX, allocator *AllocationCallbacks) (indirectCommandsLayout IndirectCommandsLayoutNVX, r error) {
@@ -1526,7 +1526,7 @@ func CreateIndirectCommandsLayoutNVX(device Device, createInfo *IndirectCommands
 	return
 }
 
-var vkCreateIndirectCommandsLayoutNVX = &vkCommand{"vkCreateIndirectCommandsLayoutNVX", 4, true, nil}
+var vkCreateIndirectCommandsLayoutNVX = &vkCommand{"vkCreateIndirectCommandsLayoutNVX", 4, true, nil, nil}
 
 // CreateInstance: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html
 func CreateInstance(createInfo *InstanceCreateInfo, allocator *AllocationCallbacks) (instance Instance, r error) {
@@ -1556,7 +1556,7 @@ func CreateInstance(createInfo *InstanceCreateInfo, allocator *AllocationCallbac
 	return
 }
 
-var vkCreateInstance = &vkCommand{"vkCreateInstance", 3, true, nil}
+var vkCreateInstance = &vkCommand{"vkCreateInstance", 3, true, nil, nil}
 
 // CreateObjectTableNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateObjectTableNVX.html
 func CreateObjectTableNVX(device Device, createInfo *ObjectTableCreateInfoNVX, allocator *AllocationCallbacks) (objectTable ObjectTableNVX, r error) {
@@ -1583,7 +1583,7 @@ func CreateObjectTableNVX(device Device, createInfo *ObjectTableCreateInfoNVX, a
 	return
 }
 
-var vkCreateObjectTableNVX = &vkCommand{"vkCreateObjectTableNVX", 4, true, nil}
+var vkCreateObjectTableNVX = &vkCommand{"vkCreateObjectTableNVX", 4, true, nil, nil}
 
 // CreatePipelineCache: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineCache.html
 func CreatePipelineCache(device Device, createInfo *PipelineCacheCreateInfo, allocator *AllocationCallbacks) (pipelineCache PipelineCache, r error) {
@@ -1610,7 +1610,7 @@ func CreatePipelineCache(device Device, createInfo *PipelineCacheCreateInfo, all
 	return
 }
 
-var vkCreatePipelineCache = &vkCommand{"vkCreatePipelineCache", 4, true, nil}
+var vkCreatePipelineCache = &vkCommand{"vkCreatePipelineCache", 4, true, nil, nil}
 
 // CreatePipelineLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineLayout.html
 func CreatePipelineLayout(device Device, createInfo *PipelineLayoutCreateInfo, allocator *AllocationCallbacks) (pipelineLayout PipelineLayout, r error) {
@@ -1637,7 +1637,7 @@ func CreatePipelineLayout(device Device, createInfo *PipelineLayoutCreateInfo, a
 	return
 }
 
-var vkCreatePipelineLayout = &vkCommand{"vkCreatePipelineLayout", 4, true, nil}
+var vkCreatePipelineLayout = &vkCommand{"vkCreatePipelineLayout", 4, true, nil, nil}
 
 // CreateQueryPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateQueryPool.html
 func CreateQueryPool(device Device, createInfo *QueryPoolCreateInfo, allocator *AllocationCallbacks) (queryPool QueryPool, r error) {
@@ -1664,7 +1664,7 @@ func CreateQueryPool(device Device, createInfo *QueryPoolCreateInfo, allocator *
 	return
 }
 
-var vkCreateQueryPool = &vkCommand{"vkCreateQueryPool", 4, true, nil}
+var vkCreateQueryPool = &vkCommand{"vkCreateQueryPool", 4, true, nil, nil}
 
 // CreateRenderPass: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass.html
 func CreateRenderPass(device Device, createInfo *RenderPassCreateInfo, allocator *AllocationCallbacks) (renderPass RenderPass, r error) {
@@ -1691,7 +1691,7 @@ func CreateRenderPass(device Device, createInfo *RenderPassCreateInfo, allocator
 	return
 }
 
-var vkCreateRenderPass = &vkCommand{"vkCreateRenderPass", 4, true, nil}
+var vkCreateRenderPass = &vkCommand{"vkCreateRenderPass", 4, true, nil, nil}
 
 // CreateSampler: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateSampler.html
 func CreateSampler(device Device, createInfo *SamplerCreateInfo, allocator *AllocationCallbacks) (sampler Sampler, r error) {
@@ -1718,7 +1718,7 @@ func CreateSampler(device Device, createInfo *SamplerCreateInfo, allocator *Allo
 	return
 }
 
-var vkCreateSampler = &vkCommand{"vkCreateSampler", 4, true, nil}
+var vkCreateSampler = &vkCommand{"vkCreateSampler", 4, true, nil, nil}
 
 // CreateSamplerYcbcrConversionKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateSamplerYcbcrConversionKHR.html
 func CreateSamplerYcbcrConversionKHR(device Device, createInfo *SamplerYcbcrConversionCreateInfoKHR, allocator *AllocationCallbacks) (ycbcrConversion SamplerYcbcrConversionKHR, r error) {
@@ -1745,7 +1745,7 @@ func CreateSamplerYcbcrConversionKHR(device Device, createInfo *SamplerYcbcrConv
 	return
 }
 
-var vkCreateSamplerYcbcrConversionKHR = &vkCommand{"vkCreateSamplerYcbcrConversionKHR", 4, true, nil}
+var vkCreateSamplerYcbcrConversionKHR = &vkCommand{"vkCreateSamplerYcbcrConversionKHR", 4, true, nil, nil}
 
 // CreateSemaphore: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateSemaphore.html
 func CreateSemaphore(device Device, createInfo *SemaphoreCreateInfo, allocator *AllocationCallbacks) (semaphore Semaphore, r error) {
@@ -1772,7 +1772,7 @@ func CreateSemaphore(device Device, createInfo *SemaphoreCreateInfo, allocator *
 	return
 }
 
-var vkCreateSemaphore = &vkCommand{"vkCreateSemaphore", 4, true, nil}
+var vkCreateSemaphore = &vkCommand{"vkCreateSemaphore", 4, true, nil, nil}
 
 // CreateShaderModule: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateShaderModule.html
 func CreateShaderModule(device Device, createInfo *ShaderModuleCreateInfo, allocator *AllocationCallbacks) (shaderModule ShaderModule, r error) {
@@ -1799,7 +1799,7 @@ func CreateShaderModule(device Device, createInfo *ShaderModuleCreateInfo, alloc
 	return
 }
 
-var vkCreateShaderModule = &vkCommand{"vkCreateShaderModule", 4, true, nil}
+var vkCreateShaderModule = &vkCommand{"vkCreateShaderModule", 4, true, nil, nil}
 
 // CreateSharedSwapchainsKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateSharedSwapchainsKHR.html
 func CreateSharedSwapchainsKHR(device Device, createInfos []SwapchainCreateInfoKHR, allocator *AllocationCallbacks) (swapchains []SwapchainKHR, r error) {
@@ -1832,7 +1832,7 @@ func CreateSharedSwapchainsKHR(device Device, createInfos []SwapchainCreateInfoK
 	return
 }
 
-var vkCreateSharedSwapchainsKHR = &vkCommand{"vkCreateSharedSwapchainsKHR", 5, true, nil}
+var vkCreateSharedSwapchainsKHR = &vkCommand{"vkCreateSharedSwapchainsKHR", 5, true, nil, nil}
 
 // CreateSwapchainKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html
 func CreateSwapchainKHR(device Device, createInfo *SwapchainCreateInfoKHR, allocator *AllocationCallbacks) (swapchain SwapchainKHR, r error) {
@@ -1859,7 +1859,7 @@ func CreateSwapchainKHR(device Device, createInfo *SwapchainCreateInfoKHR, alloc
 	return
 }
 
-var vkCreateSwapchainKHR = &vkCommand{"vkCreateSwapchainKHR", 4, true, nil}
+var vkCreateSwapchainKHR = &vkCommand{"vkCreateSwapchainKHR", 4, true, nil, nil}
 
 // CreateValidationCacheEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateValidationCacheEXT.html
 func CreateValidationCacheEXT(device Device, createInfo *ValidationCacheCreateInfoEXT, allocator *AllocationCallbacks) (validationCache ValidationCacheEXT, r error) {
@@ -1886,7 +1886,7 @@ func CreateValidationCacheEXT(device Device, createInfo *ValidationCacheCreateIn
 	return
 }
 
-var vkCreateValidationCacheEXT = &vkCommand{"vkCreateValidationCacheEXT", 4, true, nil}
+var vkCreateValidationCacheEXT = &vkCommand{"vkCreateValidationCacheEXT", 4, true, nil, nil}
 
 // DebugMarkerSetObjectNameEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html
 func DebugMarkerSetObjectNameEXT(device Device, nameInfo *DebugMarkerObjectNameInfoEXT) (r error) {
@@ -1904,7 +1904,7 @@ func DebugMarkerSetObjectNameEXT(device Device, nameInfo *DebugMarkerObjectNameI
 	return
 }
 
-var vkDebugMarkerSetObjectNameEXT = &vkCommand{"vkDebugMarkerSetObjectNameEXT", 2, true, nil}
+var vkDebugMarkerSetObjectNameEXT = &vkCommand{"vkDebugMarkerSetObjectNameEXT", 2, true, nil, nil}
 
 // DebugMarkerSetObjectTagEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html
 func DebugMarkerSetObjectTagEXT(device Device, tagInfo *DebugMarkerObjectTagInfoEXT) (r error) {
@@ -1922,7 +1922,7 @@ func DebugMarkerSetObjectTagEXT(device Device, tagInfo *DebugMarkerObjectTagInfo
 	return
 }
 
-var vkDebugMarkerSetObjectTagEXT = &vkCommand{"vkDebugMarkerSetObjectTagEXT", 2, true, nil}
+var vkDebugMarkerSetObjectTagEXT = &vkCommand{"vkDebugMarkerSetObjectTagEXT", 2, true, nil, nil}
 
 // DebugReportMessageEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDebugReportMessageEXT.html
 func DebugReportMessageEXT(instance Instance, flags DebugReportFlagsEXT, objectType DebugReportObjectTypeEXT, object uint64, location uintptr, messageCode int32, layerPrefix string, message string) {
@@ -1942,7 +1942,7 @@ func DebugReportMessageEXT(instance Instance, flags DebugReportFlagsEXT, objectT
 
 }
 
-var vkDebugReportMessageEXT = &vkCommand{"vkDebugReportMessageEXT", 8, true, nil}
+var vkDebugReportMessageEXT = &vkCommand{"vkDebugReportMessageEXT", 8, true, nil, nil}
 
 // DestroyBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyBuffer.html
 func DestroyBuffer(device Device, buffer Buffer, allocator *AllocationCallbacks) {
@@ -1956,7 +1956,7 @@ func DestroyBuffer(device Device, buffer Buffer, allocator *AllocationCallbacks)
 
 }
 
-var vkDestroyBuffer = &vkCommand{"vkDestroyBuffer", 3, true, nil}
+var vkDestroyBuffer = &vkCommand{"vkDestroyBuffer", 3, true, nil, nil}
 
 // DestroyBufferView: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferView.html
 func DestroyBufferView(device Device, bufferView BufferView, allocator *AllocationCallbacks) {
@@ -1970,7 +1970,7 @@ func DestroyBufferView(device Device, bufferView BufferView, allocator *Allocati
 
 }
 
-var vkDestroyBufferView = &vkCommand{"vkDestroyBufferView", 3, true, nil}
+var vkDestroyBufferView = &vkCommand{"vkDestroyBufferView", 3, true, nil, nil}
 
 // DestroyCommandPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyCommandPool.html
 func DestroyCommandPool(device Device, commandPool CommandPool, allocator *AllocationCallbacks) {
@@ -1984,7 +1984,7 @@ func DestroyCommandPool(device Device, commandPool CommandPool, allocator *Alloc
 
 }
 
-var vkDestroyCommandPool = &vkCommand{"vkDestroyCommandPool", 3, true, nil}
+var vkDestroyCommandPool = &vkCommand{"vkDestroyCommandPool", 3, true, nil, nil}
 
 // DestroyDebugReportCallbackEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugReportCallbackEXT.html
 func DestroyDebugReportCallbackEXT(instance Instance, callback DebugReportCallbackEXT, allocator *AllocationCallbacks) {
@@ -1998,7 +1998,7 @@ func DestroyDebugReportCallbackEXT(instance Instance, callback DebugReportCallba
 
 }
 
-var vkDestroyDebugReportCallbackEXT = &vkCommand{"vkDestroyDebugReportCallbackEXT", 3, true, nil}
+var vkDestroyDebugReportCallbackEXT = &vkCommand{"vkDestroyDebugReportCallbackEXT", 3, true, nil, nil}
 
 // DestroyDescriptorPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorPool.html
 func DestroyDescriptorPool(device Device, descriptorPool DescriptorPool, allocator *AllocationCallbacks) {
@@ -2012,7 +2012,7 @@ func DestroyDescriptorPool(device Device, descriptorPool DescriptorPool, allocat
 
 }
 
-var vkDestroyDescriptorPool = &vkCommand{"vkDestroyDescriptorPool", 3, true, nil}
+var vkDestroyDescriptorPool = &vkCommand{"vkDestroyDescriptorPool", 3, true, nil, nil}
 
 // DestroyDescriptorSetLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorSetLayout.html
 func DestroyDescriptorSetLayout(device Device, descriptorSetLayout DescriptorSetLayout, allocator *AllocationCallbacks) {
@@ -2026,7 +2026,7 @@ func DestroyDescriptorSetLayout(device Device, descriptorSetLayout DescriptorSet
 
 }
 
-var vkDestroyDescriptorSetLayout = &vkCommand{"vkDestroyDescriptorSetLayout", 3, true, nil}
+var vkDestroyDescriptorSetLayout = &vkCommand{"vkDestroyDescriptorSetLayout", 3, true, nil, nil}
 
 // DestroyDescriptorUpdateTemplateKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorUpdateTemplateKHR.html
 func DestroyDescriptorUpdateTemplateKHR(device Device, descriptorUpdateTemplate DescriptorUpdateTemplateKHR, allocator *AllocationCallbacks) {
@@ -2040,7 +2040,7 @@ func DestroyDescriptorUpdateTemplateKHR(device Device, descriptorUpdateTemplate 
 
 }
 
-var vkDestroyDescriptorUpdateTemplateKHR = &vkCommand{"vkDestroyDescriptorUpdateTemplateKHR", 3, true, nil}
+var vkDestroyDescriptorUpdateTemplateKHR = &vkCommand{"vkDestroyDescriptorUpdateTemplateKHR", 3, true, nil, nil}
 
 // DestroyDevice: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html
 func DestroyDevice(device Device, allocator *AllocationCallbacks) {
@@ -2054,7 +2054,7 @@ func DestroyDevice(device Device, allocator *AllocationCallbacks) {
 
 }
 
-var vkDestroyDevice = &vkCommand{"vkDestroyDevice", 2, true, nil}
+var vkDestroyDevice = &vkCommand{"vkDestroyDevice", 2, true, nil, nil}
 
 // DestroyEvent: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyEvent.html
 func DestroyEvent(device Device, event Event, allocator *AllocationCallbacks) {
@@ -2068,7 +2068,7 @@ func DestroyEvent(device Device, event Event, allocator *AllocationCallbacks) {
 
 }
 
-var vkDestroyEvent = &vkCommand{"vkDestroyEvent", 3, true, nil}
+var vkDestroyEvent = &vkCommand{"vkDestroyEvent", 3, true, nil, nil}
 
 // DestroyFence: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyFence.html
 func DestroyFence(device Device, fence Fence, allocator *AllocationCallbacks) {
@@ -2082,7 +2082,7 @@ func DestroyFence(device Device, fence Fence, allocator *AllocationCallbacks) {
 
 }
 
-var vkDestroyFence = &vkCommand{"vkDestroyFence", 3, true, nil}
+var vkDestroyFence = &vkCommand{"vkDestroyFence", 3, true, nil, nil}
 
 // DestroyFramebuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyFramebuffer.html
 func DestroyFramebuffer(device Device, framebuffer Framebuffer, allocator *AllocationCallbacks) {
@@ -2096,7 +2096,7 @@ func DestroyFramebuffer(device Device, framebuffer Framebuffer, allocator *Alloc
 
 }
 
-var vkDestroyFramebuffer = &vkCommand{"vkDestroyFramebuffer", 3, true, nil}
+var vkDestroyFramebuffer = &vkCommand{"vkDestroyFramebuffer", 3, true, nil, nil}
 
 // DestroyImage: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyImage.html
 func DestroyImage(device Device, image Image, allocator *AllocationCallbacks) {
@@ -2110,7 +2110,7 @@ func DestroyImage(device Device, image Image, allocator *AllocationCallbacks) {
 
 }
 
-var vkDestroyImage = &vkCommand{"vkDestroyImage", 3, true, nil}
+var vkDestroyImage = &vkCommand{"vkDestroyImage", 3, true, nil, nil}
 
 // DestroyImageView: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyImageView.html
 func DestroyImageView(device Device, imageView ImageView, allocator *AllocationCallbacks) {
@@ -2124,7 +2124,7 @@ func DestroyImageView(device Device, imageView ImageView, allocator *AllocationC
 
 }
 
-var vkDestroyImageView = &vkCommand{"vkDestroyImageView", 3, true, nil}
+var vkDestroyImageView = &vkCommand{"vkDestroyImageView", 3, true, nil, nil}
 
 // DestroyIndirectCommandsLayoutNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectCommandsLayoutNVX.html
 func DestroyIndirectCommandsLayoutNVX(device Device, indirectCommandsLayout IndirectCommandsLayoutNVX, allocator *AllocationCallbacks) {
@@ -2138,7 +2138,7 @@ func DestroyIndirectCommandsLayoutNVX(device Device, indirectCommandsLayout Indi
 
 }
 
-var vkDestroyIndirectCommandsLayoutNVX = &vkCommand{"vkDestroyIndirectCommandsLayoutNVX", 3, true, nil}
+var vkDestroyIndirectCommandsLayoutNVX = &vkCommand{"vkDestroyIndirectCommandsLayoutNVX", 3, true, nil, nil}
 
 // DestroyInstance: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html
 func DestroyInstance(instance Instance, allocator *AllocationCallbacks) {
@@ -2153,7 +2153,7 @@ func DestroyInstance(instance Instance, allocator *AllocationCallbacks) {
 	instanceDestroyed(instance)
 }
 
-var vkDestroyInstance = &vkCommand{"vkDestroyInstance", 2, true, nil}
+var vkDestroyInstance = &vkCommand{"vkDestroyInstance", 2, true, nil, nil}
 
 // DestroyObjectTableNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyObjectTableNVX.html
 func DestroyObjectTableNVX(device Device, objectTable ObjectTableNVX, allocator *AllocationCallbacks) {
@@ -2167,7 +2167,7 @@ func DestroyObjectTableNVX(device Device, objectTable ObjectTableNVX, allocator 
 
 }
 
-var vkDestroyObjectTableNVX = &vkCommand{"vkDestroyObjectTableNVX", 3, true, nil}
+var vkDestroyObjectTableNVX = &vkCommand{"vkDestroyObjectTableNVX", 3, true, nil, nil}
 
 // DestroyPipeline: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyPipeline.html
 func DestroyPipeline(device Device, pipeline Pipeline, allocator *AllocationCallbacks) {
@@ -2181,7 +2181,7 @@ func DestroyPipeline(device Device, pipeline Pipeline, allocator *AllocationCall
 
 }
 
-var vkDestroyPipeline = &vkCommand{"vkDestroyPipeline", 3, true, nil}
+var vkDestroyPipeline = &vkCommand{"vkDestroyPipeline", 3, true, nil, nil}
 
 // DestroyPipelineCache: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineCache.html
 func DestroyPipelineCache(device Device, pipelineCache PipelineCache, allocator *AllocationCallbacks) {
@@ -2195,7 +2195,7 @@ func DestroyPipelineCache(device Device, pipelineCache PipelineCache, allocator 
 
 }
 
-var vkDestroyPipelineCache = &vkCommand{"vkDestroyPipelineCache", 3, true, nil}
+var vkDestroyPipelineCache = &vkCommand{"vkDestroyPipelineCache", 3, true, nil, nil}
 
 // DestroyPipelineLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineLayout.html
 func DestroyPipelineLayout(device Device, pipelineLayout PipelineLayout, allocator *AllocationCallbacks) {
@@ -2209,7 +2209,7 @@ func DestroyPipelineLayout(device Device, pipelineLayout PipelineLayout, allocat
 
 }
 
-var vkDestroyPipelineLayout = &vkCommand{"vkDestroyPipelineLayout", 3, true, nil}
+var vkDestroyPipelineLayout = &vkCommand{"vkDestroyPipelineLayout", 3, true, nil, nil}
 
 // DestroyQueryPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyQueryPool.html
 func DestroyQueryPool(device Device, queryPool QueryPool, allocator *AllocationCallbacks) {
@@ -2223,7 +2223,7 @@ func DestroyQueryPool(device Device, queryPool QueryPool, allocator *AllocationC
 
 }
 
-var vkDestroyQueryPool = &vkCommand{"vkDestroyQueryPool", 3, true, nil}
+var vkDestroyQueryPool = &vkCommand{"vkDestroyQueryPool", 3, true, nil, nil}
 
 // DestroyRenderPass: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyRenderPass.html
 func DestroyRenderPass(device Device, renderPass RenderPass, allocator *AllocationCallbacks) {
@@ -2237,7 +2237,7 @@ func DestroyRenderPass(device Device, renderPass RenderPass, allocator *Allocati
 
 }
 
-var vkDestroyRenderPass = &vkCommand{"vkDestroyRenderPass", 3, true, nil}
+var vkDestroyRenderPass = &vkCommand{"vkDestroyRenderPass", 3, true, nil, nil}
 
 // DestroySampler: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroySampler.html
 func DestroySampler(device Device, sampler Sampler, allocator *AllocationCallbacks) {
@@ -2251,7 +2251,7 @@ func DestroySampler(device Device, sampler Sampler, allocator *AllocationCallbac
 
 }
 
-var vkDestroySampler = &vkCommand{"vkDestroySampler", 3, true, nil}
+var vkDestroySampler = &vkCommand{"vkDestroySampler", 3, true, nil, nil}
 
 // DestroySamplerYcbcrConversionKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroySamplerYcbcrConversionKHR.html
 func DestroySamplerYcbcrConversionKHR(device Device, ycbcrConversion SamplerYcbcrConversionKHR, allocator *AllocationCallbacks) {
@@ -2265,7 +2265,7 @@ func DestroySamplerYcbcrConversionKHR(device Device, ycbcrConversion SamplerYcbc
 
 }
 
-var vkDestroySamplerYcbcrConversionKHR = &vkCommand{"vkDestroySamplerYcbcrConversionKHR", 3, true, nil}
+var vkDestroySamplerYcbcrConversionKHR = &vkCommand{"vkDestroySamplerYcbcrConversionKHR", 3, true, nil, nil}
 
 // DestroySemaphore: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroySemaphore.html
 func DestroySemaphore(device Device, semaphore Semaphore, allocator *AllocationCallbacks) {
@@ -2279,7 +2279,7 @@ func DestroySemaphore(device Device, semaphore Semaphore, allocator *AllocationC
 
 }
 
-var vkDestroySemaphore = &vkCommand{"vkDestroySemaphore", 3, true, nil}
+var vkDestroySemaphore = &vkCommand{"vkDestroySemaphore", 3, true, nil, nil}
 
 // DestroyShaderModule: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderModule.html
 func DestroyShaderModule(device Device, shaderModule ShaderModule, allocator *AllocationCallbacks) {
@@ -2293,7 +2293,7 @@ func DestroyShaderModule(device Device, shaderModule ShaderModule, allocator *Al
 
 }
 
-var vkDestroyShaderModule = &vkCommand{"vkDestroyShaderModule", 3, true, nil}
+var vkDestroyShaderModule = &vkCommand{"vkDestroyShaderModule", 3, true, nil, nil}
 
 // DestroySurfaceKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroySurfaceKHR.html
 func DestroySurfaceKHR(instance Instance, surface SurfaceKHR, allocator *AllocationCallbacks) {
@@ -2307,7 +2307,7 @@ func DestroySurfaceKHR(instance Instance, surface SurfaceKHR, allocator *Allocat
 
 }
 
-var vkDestroySurfaceKHR = &vkCommand{"vkDestroySurfaceKHR", 3, true, nil}
+var vkDestroySurfaceKHR = &vkCommand{"vkDestroySurfaceKHR", 3, true, nil, nil}
 
 // DestroySwapchainKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroySwapchainKHR.html
 func DestroySwapchainKHR(device Device, swapchain SwapchainKHR, allocator *AllocationCallbacks) {
@@ -2321,7 +2321,7 @@ func DestroySwapchainKHR(device Device, swapchain SwapchainKHR, allocator *Alloc
 
 }
 
-var vkDestroySwapchainKHR = &vkCommand{"vkDestroySwapchainKHR", 3, true, nil}
+var vkDestroySwapchainKHR = &vkCommand{"vkDestroySwapchainKHR", 3, true, nil, nil}
 
 // DestroyValidationCacheEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyValidationCacheEXT.html
 func DestroyValidationCacheEXT(device Device, validationCache ValidationCacheEXT, allocator *AllocationCallbacks) {
@@ -2335,7 +2335,7 @@ func DestroyValidationCacheEXT(device Device, validationCache ValidationCacheEXT
 
 }
 
-var vkDestroyValidationCacheEXT = &vkCommand{"vkDestroyValidationCacheEXT", 3, true, nil}
+var vkDestroyValidationCacheEXT = &vkCommand{"vkDestroyValidationCacheEXT", 3, true, nil, nil}
 
 // DeviceWaitIdle: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html
 func DeviceWaitIdle(device Device) (r error) {
@@ -2348,7 +2348,7 @@ func DeviceWaitIdle(device Device) (r error) {
 	return
 }
 
-var vkDeviceWaitIdle = &vkCommand{"vkDeviceWaitIdle", 1, true, nil}
+var vkDeviceWaitIdle = &vkCommand{"vkDeviceWaitIdle", 1, true, nil, nil}
 
 // DisplayPowerControlEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDisplayPowerControlEXT.html
 func DisplayPowerControlEXT(device Device, display DisplayKHR, displayPowerInfo *DisplayPowerInfoEXT) (r error) {
@@ -2366,7 +2366,7 @@ func DisplayPowerControlEXT(device Device, display DisplayKHR, displayPowerInfo 
 	return
 }
 
-var vkDisplayPowerControlEXT = &vkCommand{"vkDisplayPowerControlEXT", 3, true, nil}
+var vkDisplayPowerControlEXT = &vkCommand{"vkDisplayPowerControlEXT", 3, true, nil, nil}
 
 // EndCommandBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html
 func EndCommandBuffer(commandBuffer CommandBuffer) (r error) {
@@ -2379,7 +2379,7 @@ func EndCommandBuffer(commandBuffer CommandBuffer) (r error) {
 	return
 }
 
-var vkEndCommandBuffer = &vkCommand{"vkEndCommandBuffer", 1, true, nil}
+var vkEndCommandBuffer = &vkCommand{"vkEndCommandBuffer", 1, true, nil, nil}
 
 // EnumerateDeviceExtensionProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html
 func EnumerateDeviceExtensionProperties(physicalDevice PhysicalDevice, layerName string) (properties []ExtensionProperties, r error) {
@@ -2414,7 +2414,7 @@ func EnumerateDeviceExtensionProperties(physicalDevice PhysicalDevice, layerName
 	return
 }
 
-var vkEnumerateDeviceExtensionProperties = &vkCommand{"vkEnumerateDeviceExtensionProperties", 4, true, nil}
+var vkEnumerateDeviceExtensionProperties = &vkCommand{"vkEnumerateDeviceExtensionProperties", 4, true, nil, nil}
 
 // EnumerateDeviceLayerProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html
 func EnumerateDeviceLayerProperties(physicalDevice PhysicalDevice) (properties []LayerProperties, r error) {
@@ -2443,7 +2443,7 @@ func EnumerateDeviceLayerProperties(physicalDevice PhysicalDevice) (properties [
 	return
 }
 
-var vkEnumerateDeviceLayerProperties = &vkCommand{"vkEnumerateDeviceLayerProperties", 3, true, nil}
+var vkEnumerateDeviceLayerProperties = &vkCommand{"vkEnumerateDeviceLayerProperties", 3, true, nil, nil}
 
 // EnumerateInstanceExtensionProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html
 func EnumerateInstanceExtensionProperties(layerName string) (properties []ExtensionProperties, r error) {
@@ -2478,7 +2478,7 @@ func EnumerateInstanceExtensionProperties(layerName string) (properties []Extens
 	return
 }
 
-var vkEnumerateInstanceExtensionProperties = &vkCommand{"vkEnumerateInstanceExtensionProperties", 3, true, nil}
+var vkEnumerateInstanceExtensionProperties = &vkCommand{"vkEnumerateInstanceExtensionProperties", 3, true, nil, nil}
 
 // EnumerateInstanceLayerProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceLayerProperties.html
 func EnumerateInstanceLayerProperties() (properties []LayerProperties, r error) {
@@ -2507,7 +2507,7 @@ func EnumerateInstanceLayerProperties() (properties []LayerProperties, r error) 
 	return
 }
 
-var vkEnumerateInstanceLayerProperties = &vkCommand{"vkEnumerateInstanceLayerProperties", 2, true, nil}
+var vkEnumerateInstanceLayerProperties = &vkCommand{"vkEnumerateInstanceLayerProperties", 2, true, nil, nil}
 
 // EnumeratePhysicalDeviceGroupsKHX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceGroupsKHX.html
 func EnumeratePhysicalDeviceGroupsKHX(instance Instance) (physicalDeviceGroupProperties []PhysicalDeviceGroupPropertiesKHX, r error) {
@@ -2536,7 +2536,7 @@ func EnumeratePhysicalDeviceGroupsKHX(instance Instance) (physicalDeviceGroupPro
 	return
 }
 
-var vkEnumeratePhysicalDeviceGroupsKHX = &vkCommand{"vkEnumeratePhysicalDeviceGroupsKHX", 3, true, nil}
+var vkEnumeratePhysicalDeviceGroupsKHX = &vkCommand{"vkEnumeratePhysicalDeviceGroupsKHX", 3, true, nil, nil}
 
 // EnumeratePhysicalDevices: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDevices.html
 func EnumeratePhysicalDevices(instance Instance) (physicalDevices []PhysicalDevice, r error) {
@@ -2565,7 +2565,7 @@ func EnumeratePhysicalDevices(instance Instance) (physicalDevices []PhysicalDevi
 	return
 }
 
-var vkEnumeratePhysicalDevices = &vkCommand{"vkEnumeratePhysicalDevices", 3, true, nil}
+var vkEnumeratePhysicalDevices = &vkCommand{"vkEnumeratePhysicalDevices", 3, true, nil, nil}
 
 // FlushMappedMemoryRanges: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkFlushMappedMemoryRanges.html
 func FlushMappedMemoryRanges(device Device, memoryRanges []MappedMemoryRange) (r error) {
@@ -2588,7 +2588,7 @@ func FlushMappedMemoryRanges(device Device, memoryRanges []MappedMemoryRange) (r
 	return
 }
 
-var vkFlushMappedMemoryRanges = &vkCommand{"vkFlushMappedMemoryRanges", 3, true, nil}
+var vkFlushMappedMemoryRanges = &vkCommand{"vkFlushMappedMemoryRanges", 3, true, nil, nil}
 
 // FreeCommandBuffers: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkFreeCommandBuffers.html
 func FreeCommandBuffers(device Device, commandPool CommandPool, commandBuffers []CommandBuffer) {
@@ -2603,7 +2603,7 @@ func FreeCommandBuffers(device Device, commandPool CommandPool, commandBuffers [
 
 }
 
-var vkFreeCommandBuffers = &vkCommand{"vkFreeCommandBuffers", 4, true, nil}
+var vkFreeCommandBuffers = &vkCommand{"vkFreeCommandBuffers", 4, true, nil, nil}
 
 // FreeDescriptorSets: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkFreeDescriptorSets.html
 func FreeDescriptorSets(device Device, descriptorPool DescriptorPool, descriptorSets []DescriptorSet) (r error) {
@@ -2622,7 +2622,7 @@ func FreeDescriptorSets(device Device, descriptorPool DescriptorPool, descriptor
 	return
 }
 
-var vkFreeDescriptorSets = &vkCommand{"vkFreeDescriptorSets", 4, true, nil}
+var vkFreeDescriptorSets = &vkCommand{"vkFreeDescriptorSets", 4, true, nil, nil}
 
 // FreeMemory: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkFreeMemory.html
 func FreeMemory(device Device, memory DeviceMemory, allocator *AllocationCallbacks) {
@@ -2636,7 +2636,7 @@ func FreeMemory(device Device, memory DeviceMemory, allocator *AllocationCallbac
 
 }
 
-var vkFreeMemory = &vkCommand{"vkFreeMemory", 3, true, nil}
+var vkFreeMemory = &vkCommand{"vkFreeMemory", 3, true, nil, nil}
 
 // GetBufferMemoryRequirements: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements.html
 func GetBufferMemoryRequirements(device Device, buffer Buffer) (memoryRequirements MemoryRequirements) {
@@ -2648,7 +2648,7 @@ func GetBufferMemoryRequirements(device Device, buffer Buffer) (memoryRequiremen
 	return
 }
 
-var vkGetBufferMemoryRequirements = &vkCommand{"vkGetBufferMemoryRequirements", 3, true, nil}
+var vkGetBufferMemoryRequirements = &vkCommand{"vkGetBufferMemoryRequirements", 3, true, nil, nil}
 
 // GetBufferMemoryRequirements2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements2KHR.html
 func GetBufferMemoryRequirements2KHR(device Device, info *BufferMemoryRequirementsInfo2KHR) (memoryRequirements MemoryRequirements2KHR) {
@@ -2667,7 +2667,7 @@ func GetBufferMemoryRequirements2KHR(device Device, info *BufferMemoryRequiremen
 	return
 }
 
-var vkGetBufferMemoryRequirements2KHR = &vkCommand{"vkGetBufferMemoryRequirements2KHR", 3, true, nil}
+var vkGetBufferMemoryRequirements2KHR = &vkCommand{"vkGetBufferMemoryRequirements2KHR", 3, true, nil, nil}
 
 // GetDeviceGroupPeerMemoryFeaturesKHX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHX.html
 func GetDeviceGroupPeerMemoryFeaturesKHX(device Device, heapIndex uint32, localDeviceIndex uint32, remoteDeviceIndex uint32) (peerMemoryFeatures PeerMemoryFeatureFlagsKHX) {
@@ -2679,7 +2679,7 @@ func GetDeviceGroupPeerMemoryFeaturesKHX(device Device, heapIndex uint32, localD
 	return
 }
 
-var vkGetDeviceGroupPeerMemoryFeaturesKHX = &vkCommand{"vkGetDeviceGroupPeerMemoryFeaturesKHX", 5, true, nil}
+var vkGetDeviceGroupPeerMemoryFeaturesKHX = &vkCommand{"vkGetDeviceGroupPeerMemoryFeaturesKHX", 5, true, nil, nil}
 
 // GetDeviceGroupPresentCapabilitiesKHX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHX.html
 func GetDeviceGroupPresentCapabilitiesKHX(device Device) (deviceGroupPresentCapabilities DeviceGroupPresentCapabilitiesKHX, r error) {
@@ -2695,7 +2695,7 @@ func GetDeviceGroupPresentCapabilitiesKHX(device Device) (deviceGroupPresentCapa
 	return
 }
 
-var vkGetDeviceGroupPresentCapabilitiesKHX = &vkCommand{"vkGetDeviceGroupPresentCapabilitiesKHX", 2, true, nil}
+var vkGetDeviceGroupPresentCapabilitiesKHX = &vkCommand{"vkGetDeviceGroupPresentCapabilitiesKHX", 2, true, nil, nil}
 
 // GetDeviceGroupSurfacePresentModesKHX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHX.html
 func GetDeviceGroupSurfacePresentModesKHX(device Device, surface SurfaceKHR) (modes DeviceGroupPresentModeFlagsKHX, r error) {
@@ -2710,7 +2710,7 @@ func GetDeviceGroupSurfacePresentModesKHX(device Device, surface SurfaceKHR) (mo
 	return
 }
 
-var vkGetDeviceGroupSurfacePresentModesKHX = &vkCommand{"vkGetDeviceGroupSurfacePresentModesKHX", 3, true, nil}
+var vkGetDeviceGroupSurfacePresentModesKHX = &vkCommand{"vkGetDeviceGroupSurfacePresentModesKHX", 3, true, nil, nil}
 
 // GetDeviceMemoryCommitment: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryCommitment.html
 func GetDeviceMemoryCommitment(device Device, memory DeviceMemory) (committedMemoryInBytes DeviceSize) {
@@ -2722,7 +2722,7 @@ func GetDeviceMemoryCommitment(device Device, memory DeviceMemory) (committedMem
 	return
 }
 
-var vkGetDeviceMemoryCommitment = &vkCommand{"vkGetDeviceMemoryCommitment", 3, true, nil}
+var vkGetDeviceMemoryCommitment = &vkCommand{"vkGetDeviceMemoryCommitment", 3, true, nil, nil}
 
 // GetDeviceProcAddr: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html
 func GetDeviceProcAddr(device Device, name string) (fn PFN_vkVoidFunction) {
@@ -2737,7 +2737,7 @@ func GetDeviceProcAddr(device Device, name string) (fn PFN_vkVoidFunction) {
 	return
 }
 
-var vkGetDeviceProcAddr = &vkCommand{"vkGetDeviceProcAddr", 2, true, nil}
+var vkGetDeviceProcAddr = &vkCommand{"vkGetDeviceProcAddr", 2, true, nil, nil}
 
 // GetDeviceQueue: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue.html
 func GetDeviceQueue(device Device, queueFamilyIndex uint32, queueIndex uint32) (queue Queue) {
@@ -2749,7 +2749,7 @@ func GetDeviceQueue(device Device, queueFamilyIndex uint32, queueIndex uint32) (
 	return
 }
 
-var vkGetDeviceQueue = &vkCommand{"vkGetDeviceQueue", 4, true, nil}
+var vkGetDeviceQueue = &vkCommand{"vkGetDeviceQueue", 4, true, nil, nil}
 
 // GetDisplayModePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModePropertiesKHR.html
 func GetDisplayModePropertiesKHR(physicalDevice PhysicalDevice, display DisplayKHR) (properties []DisplayModePropertiesKHR, r error) {
@@ -2778,7 +2778,7 @@ func GetDisplayModePropertiesKHR(physicalDevice PhysicalDevice, display DisplayK
 	return
 }
 
-var vkGetDisplayModePropertiesKHR = &vkCommand{"vkGetDisplayModePropertiesKHR", 4, true, nil}
+var vkGetDisplayModePropertiesKHR = &vkCommand{"vkGetDisplayModePropertiesKHR", 4, true, nil, nil}
 
 // GetDisplayPlaneCapabilitiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html
 func GetDisplayPlaneCapabilitiesKHR(physicalDevice PhysicalDevice, mode DisplayModeKHR, planeIndex uint32) (capabilities DisplayPlaneCapabilitiesKHR, r error) {
@@ -2794,7 +2794,7 @@ func GetDisplayPlaneCapabilitiesKHR(physicalDevice PhysicalDevice, mode DisplayM
 	return
 }
 
-var vkGetDisplayPlaneCapabilitiesKHR = &vkCommand{"vkGetDisplayPlaneCapabilitiesKHR", 4, true, nil}
+var vkGetDisplayPlaneCapabilitiesKHR = &vkCommand{"vkGetDisplayPlaneCapabilitiesKHR", 4, true, nil, nil}
 
 // GetDisplayPlaneSupportedDisplaysKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html
 func GetDisplayPlaneSupportedDisplaysKHR(physicalDevice PhysicalDevice, planeIndex uint32) (displays []DisplayKHR, r error) {
@@ -2823,7 +2823,7 @@ func GetDisplayPlaneSupportedDisplaysKHR(physicalDevice PhysicalDevice, planeInd
 	return
 }
 
-var vkGetDisplayPlaneSupportedDisplaysKHR = &vkCommand{"vkGetDisplayPlaneSupportedDisplaysKHR", 4, true, nil}
+var vkGetDisplayPlaneSupportedDisplaysKHR = &vkCommand{"vkGetDisplayPlaneSupportedDisplaysKHR", 4, true, nil, nil}
 
 // GetEventStatus: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html
 func GetEventStatus(device Device, event Event) (r error) {
@@ -2836,7 +2836,7 @@ func GetEventStatus(device Device, event Event) (r error) {
 	return
 }
 
-var vkGetEventStatus = &vkCommand{"vkGetEventStatus", 2, true, nil}
+var vkGetEventStatus = &vkCommand{"vkGetEventStatus", 2, true, nil, nil}
 
 // GetFenceFdKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetFenceFdKHR.html
 func GetFenceFdKHR(device Device, getFdInfo *FenceGetFdInfoKHR) (fd int32, r error) {
@@ -2857,7 +2857,7 @@ func GetFenceFdKHR(device Device, getFdInfo *FenceGetFdInfoKHR) (fd int32, r err
 	return
 }
 
-var vkGetFenceFdKHR = &vkCommand{"vkGetFenceFdKHR", 3, true, nil}
+var vkGetFenceFdKHR = &vkCommand{"vkGetFenceFdKHR", 3, true, nil, nil}
 
 // GetFenceStatus: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html
 func GetFenceStatus(device Device, fence Fence) (r error) {
@@ -2870,7 +2870,7 @@ func GetFenceStatus(device Device, fence Fence) (r error) {
 	return
 }
 
-var vkGetFenceStatus = &vkCommand{"vkGetFenceStatus", 2, true, nil}
+var vkGetFenceStatus = &vkCommand{"vkGetFenceStatus", 2, true, nil, nil}
 
 // GetImageMemoryRequirements: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements.html
 func GetImageMemoryRequirements(device Device, image Image) (memoryRequirements MemoryRequirements) {
@@ -2882,7 +2882,7 @@ func GetImageMemoryRequirements(device Device, image Image) (memoryRequirements 
 	return
 }
 
-var vkGetImageMemoryRequirements = &vkCommand{"vkGetImageMemoryRequirements", 3, true, nil}
+var vkGetImageMemoryRequirements = &vkCommand{"vkGetImageMemoryRequirements", 3, true, nil, nil}
 
 // GetImageMemoryRequirements2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements2KHR.html
 func GetImageMemoryRequirements2KHR(device Device, info *ImageMemoryRequirementsInfo2KHR) (memoryRequirements MemoryRequirements2KHR) {
@@ -2901,7 +2901,7 @@ func GetImageMemoryRequirements2KHR(device Device, info *ImageMemoryRequirements
 	return
 }
 
-var vkGetImageMemoryRequirements2KHR = &vkCommand{"vkGetImageMemoryRequirements2KHR", 3, true, nil}
+var vkGetImageMemoryRequirements2KHR = &vkCommand{"vkGetImageMemoryRequirements2KHR", 3, true, nil, nil}
 
 // GetImageSparseMemoryRequirements: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements.html
 func GetImageSparseMemoryRequirements(device Device, image Image) (sparseMemoryRequirements []SparseImageMemoryRequirements) {
@@ -2927,7 +2927,7 @@ func GetImageSparseMemoryRequirements(device Device, image Image) (sparseMemoryR
 	return
 }
 
-var vkGetImageSparseMemoryRequirements = &vkCommand{"vkGetImageSparseMemoryRequirements", 4, true, nil}
+var vkGetImageSparseMemoryRequirements = &vkCommand{"vkGetImageSparseMemoryRequirements", 4, true, nil, nil}
 
 // GetImageSparseMemoryRequirements2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements2KHR.html
 func GetImageSparseMemoryRequirements2KHR(device Device, info *ImageSparseMemoryRequirementsInfo2KHR) (sparseMemoryRequirements []SparseImageMemoryRequirements2KHR) {
@@ -2959,7 +2959,7 @@ func GetImageSparseMemoryRequirements2KHR(device Device, info *ImageSparseMemory
 	return
 }
 
-var vkGetImageSparseMemoryRequirements2KHR = &vkCommand{"vkGetImageSparseMemoryRequirements2KHR", 4, true, nil}
+var vkGetImageSparseMemoryRequirements2KHR = &vkCommand{"vkGetImageSparseMemoryRequirements2KHR", 4, true, nil, nil}
 
 // GetImageSubresourceLayout: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout.html
 func GetImageSubresourceLayout(device Device, image Image, subresource *ImageSubresource) (layout SubresourceLayout) {
@@ -2977,7 +2977,7 @@ func GetImageSubresourceLayout(device Device, image Image, subresource *ImageSub
 	return
 }
 
-var vkGetImageSubresourceLayout = &vkCommand{"vkGetImageSubresourceLayout", 4, true, nil}
+var vkGetImageSubresourceLayout = &vkCommand{"vkGetImageSubresourceLayout", 4, true, nil, nil}
 
 // GetInstanceProcAddr: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html
 func GetInstanceProcAddr(instance Instance, name string) (fn PFN_vkVoidFunction) {
@@ -2992,7 +2992,7 @@ func GetInstanceProcAddr(instance Instance, name string) (fn PFN_vkVoidFunction)
 	return
 }
 
-var vkGetInstanceProcAddr = &vkCommand{"vkGetInstanceProcAddr", 2, true, nil}
+var vkGetInstanceProcAddr = &vkCommand{"vkGetInstanceProcAddr", 2, true, nil, nil}
 
 // GetMemoryFdKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdKHR.html
 func GetMemoryFdKHR(device Device, getFdInfo *MemoryGetFdInfoKHR) (fd int32, r error) {
@@ -3013,7 +3013,7 @@ func GetMemoryFdKHR(device Device, getFdInfo *MemoryGetFdInfoKHR) (fd int32, r e
 	return
 }
 
-var vkGetMemoryFdKHR = &vkCommand{"vkGetMemoryFdKHR", 3, true, nil}
+var vkGetMemoryFdKHR = &vkCommand{"vkGetMemoryFdKHR", 3, true, nil, nil}
 
 // GetMemoryFdPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdPropertiesKHR.html
 func GetMemoryFdPropertiesKHR(device Device, handleType ExternalMemoryHandleTypeFlagBitsKHR, fd int32) (memoryFdProperties MemoryFdPropertiesKHR, r error) {
@@ -3029,7 +3029,7 @@ func GetMemoryFdPropertiesKHR(device Device, handleType ExternalMemoryHandleType
 	return
 }
 
-var vkGetMemoryFdPropertiesKHR = &vkCommand{"vkGetMemoryFdPropertiesKHR", 4, true, nil}
+var vkGetMemoryFdPropertiesKHR = &vkCommand{"vkGetMemoryFdPropertiesKHR", 4, true, nil, nil}
 
 // GetMemoryHostPointerPropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html
 func GetMemoryHostPointerPropertiesEXT(device Device, handleType ExternalMemoryHandleTypeFlagBitsKHR, hostPointer *byte) (memoryHostPointerProperties MemoryHostPointerPropertiesEXT, r error) {
@@ -3051,7 +3051,7 @@ func GetMemoryHostPointerPropertiesEXT(device Device, handleType ExternalMemoryH
 	return
 }
 
-var vkGetMemoryHostPointerPropertiesEXT = &vkCommand{"vkGetMemoryHostPointerPropertiesEXT", 4, true, nil}
+var vkGetMemoryHostPointerPropertiesEXT = &vkCommand{"vkGetMemoryHostPointerPropertiesEXT", 4, true, nil, nil}
 
 // GetPastPresentationTimingGOOGLE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html
 func GetPastPresentationTimingGOOGLE(device Device, swapchain SwapchainKHR) (presentationTimings []PastPresentationTimingGOOGLE, r error) {
@@ -3080,7 +3080,7 @@ func GetPastPresentationTimingGOOGLE(device Device, swapchain SwapchainKHR) (pre
 	return
 }
 
-var vkGetPastPresentationTimingGOOGLE = &vkCommand{"vkGetPastPresentationTimingGOOGLE", 4, true, nil}
+var vkGetPastPresentationTimingGOOGLE = &vkCommand{"vkGetPastPresentationTimingGOOGLE", 4, true, nil, nil}
 
 // GetPhysicalDeviceDisplayPlanePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html
 func GetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice PhysicalDevice) (properties []DisplayPlanePropertiesKHR, r error) {
@@ -3109,7 +3109,7 @@ func GetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice PhysicalDevice) (
 	return
 }
 
-var vkGetPhysicalDeviceDisplayPlanePropertiesKHR = &vkCommand{"vkGetPhysicalDeviceDisplayPlanePropertiesKHR", 3, true, nil}
+var vkGetPhysicalDeviceDisplayPlanePropertiesKHR = &vkCommand{"vkGetPhysicalDeviceDisplayPlanePropertiesKHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceDisplayPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html
 func GetPhysicalDeviceDisplayPropertiesKHR(physicalDevice PhysicalDevice) (properties []DisplayPropertiesKHR, r error) {
@@ -3138,7 +3138,7 @@ func GetPhysicalDeviceDisplayPropertiesKHR(physicalDevice PhysicalDevice) (prope
 	return
 }
 
-var vkGetPhysicalDeviceDisplayPropertiesKHR = &vkCommand{"vkGetPhysicalDeviceDisplayPropertiesKHR", 3, true, nil}
+var vkGetPhysicalDeviceDisplayPropertiesKHR = &vkCommand{"vkGetPhysicalDeviceDisplayPropertiesKHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceExternalBufferPropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html
 func GetPhysicalDeviceExternalBufferPropertiesKHR(physicalDevice PhysicalDevice, externalBufferInfo *PhysicalDeviceExternalBufferInfoKHR) (externalBufferProperties ExternalBufferPropertiesKHR) {
@@ -3157,7 +3157,7 @@ func GetPhysicalDeviceExternalBufferPropertiesKHR(physicalDevice PhysicalDevice,
 	return
 }
 
-var vkGetPhysicalDeviceExternalBufferPropertiesKHR = &vkCommand{"vkGetPhysicalDeviceExternalBufferPropertiesKHR", 3, true, nil}
+var vkGetPhysicalDeviceExternalBufferPropertiesKHR = &vkCommand{"vkGetPhysicalDeviceExternalBufferPropertiesKHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceExternalFencePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html
 func GetPhysicalDeviceExternalFencePropertiesKHR(physicalDevice PhysicalDevice, externalFenceInfo *PhysicalDeviceExternalFenceInfoKHR) (externalFenceProperties ExternalFencePropertiesKHR) {
@@ -3176,7 +3176,7 @@ func GetPhysicalDeviceExternalFencePropertiesKHR(physicalDevice PhysicalDevice, 
 	return
 }
 
-var vkGetPhysicalDeviceExternalFencePropertiesKHR = &vkCommand{"vkGetPhysicalDeviceExternalFencePropertiesKHR", 3, true, nil}
+var vkGetPhysicalDeviceExternalFencePropertiesKHR = &vkCommand{"vkGetPhysicalDeviceExternalFencePropertiesKHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceExternalImageFormatPropertiesNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html
 func GetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice PhysicalDevice, format Format, typ ImageType, tiling ImageTiling, usage ImageUsageFlags, flags ImageCreateFlags, externalHandleType ExternalMemoryHandleTypeFlagsNV) (externalImageFormatProperties ExternalImageFormatPropertiesNV, r error) {
@@ -3192,7 +3192,7 @@ func GetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice PhysicalDev
 	return
 }
 
-var vkGetPhysicalDeviceExternalImageFormatPropertiesNV = &vkCommand{"vkGetPhysicalDeviceExternalImageFormatPropertiesNV", 8, true, nil}
+var vkGetPhysicalDeviceExternalImageFormatPropertiesNV = &vkCommand{"vkGetPhysicalDeviceExternalImageFormatPropertiesNV", 8, true, nil, nil}
 
 // GetPhysicalDeviceExternalSemaphorePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html
 func GetPhysicalDeviceExternalSemaphorePropertiesKHR(physicalDevice PhysicalDevice, externalSemaphoreInfo *PhysicalDeviceExternalSemaphoreInfoKHR) (externalSemaphoreProperties ExternalSemaphorePropertiesKHR) {
@@ -3211,7 +3211,7 @@ func GetPhysicalDeviceExternalSemaphorePropertiesKHR(physicalDevice PhysicalDevi
 	return
 }
 
-var vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = &vkCommand{"vkGetPhysicalDeviceExternalSemaphorePropertiesKHR", 3, true, nil}
+var vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = &vkCommand{"vkGetPhysicalDeviceExternalSemaphorePropertiesKHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceFeatures: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html
 func GetPhysicalDeviceFeatures(physicalDevice PhysicalDevice) (features PhysicalDeviceFeatures) {
@@ -3224,7 +3224,7 @@ func GetPhysicalDeviceFeatures(physicalDevice PhysicalDevice) (features Physical
 	return
 }
 
-var vkGetPhysicalDeviceFeatures = &vkCommand{"vkGetPhysicalDeviceFeatures", 2, true, nil}
+var vkGetPhysicalDeviceFeatures = &vkCommand{"vkGetPhysicalDeviceFeatures", 2, true, nil, nil}
 
 // GetPhysicalDeviceFeatures2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures2KHR.html
 func GetPhysicalDeviceFeatures2KHR(physicalDevice PhysicalDevice) (features PhysicalDeviceFeatures2KHR) {
@@ -3237,7 +3237,7 @@ func GetPhysicalDeviceFeatures2KHR(physicalDevice PhysicalDevice) (features Phys
 	return
 }
 
-var vkGetPhysicalDeviceFeatures2KHR = &vkCommand{"vkGetPhysicalDeviceFeatures2KHR", 2, true, nil}
+var vkGetPhysicalDeviceFeatures2KHR = &vkCommand{"vkGetPhysicalDeviceFeatures2KHR", 2, true, nil, nil}
 
 // GetPhysicalDeviceFormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html
 func GetPhysicalDeviceFormatProperties(physicalDevice PhysicalDevice, format Format) (formatProperties FormatProperties) {
@@ -3249,7 +3249,7 @@ func GetPhysicalDeviceFormatProperties(physicalDevice PhysicalDevice, format For
 	return
 }
 
-var vkGetPhysicalDeviceFormatProperties = &vkCommand{"vkGetPhysicalDeviceFormatProperties", 3, true, nil}
+var vkGetPhysicalDeviceFormatProperties = &vkCommand{"vkGetPhysicalDeviceFormatProperties", 3, true, nil, nil}
 
 // GetPhysicalDeviceFormatProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html
 func GetPhysicalDeviceFormatProperties2KHR(physicalDevice PhysicalDevice, format Format) (formatProperties FormatProperties2KHR) {
@@ -3262,7 +3262,7 @@ func GetPhysicalDeviceFormatProperties2KHR(physicalDevice PhysicalDevice, format
 	return
 }
 
-var vkGetPhysicalDeviceFormatProperties2KHR = &vkCommand{"vkGetPhysicalDeviceFormatProperties2KHR", 3, true, nil}
+var vkGetPhysicalDeviceFormatProperties2KHR = &vkCommand{"vkGetPhysicalDeviceFormatProperties2KHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceGeneratedCommandsPropertiesNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX.html
 func GetPhysicalDeviceGeneratedCommandsPropertiesNVX(physicalDevice PhysicalDevice) (features DeviceGeneratedCommandsFeaturesNVX, limits DeviceGeneratedCommandsLimitsNVX) {
@@ -3279,7 +3279,7 @@ func GetPhysicalDeviceGeneratedCommandsPropertiesNVX(physicalDevice PhysicalDevi
 	return
 }
 
-var vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX = &vkCommand{"vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX", 3, true, nil}
+var vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX = &vkCommand{"vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX", 3, true, nil, nil}
 
 // GetPhysicalDeviceImageFormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html
 func GetPhysicalDeviceImageFormatProperties(physicalDevice PhysicalDevice, format Format, typ ImageType, tiling ImageTiling, usage ImageUsageFlags, flags ImageCreateFlags) (imageFormatProperties ImageFormatProperties, r error) {
@@ -3295,7 +3295,7 @@ func GetPhysicalDeviceImageFormatProperties(physicalDevice PhysicalDevice, forma
 	return
 }
 
-var vkGetPhysicalDeviceImageFormatProperties = &vkCommand{"vkGetPhysicalDeviceImageFormatProperties", 7, true, nil}
+var vkGetPhysicalDeviceImageFormatProperties = &vkCommand{"vkGetPhysicalDeviceImageFormatProperties", 7, true, nil, nil}
 
 // GetPhysicalDeviceImageFormatProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html
 func GetPhysicalDeviceImageFormatProperties2KHR(physicalDevice PhysicalDevice, imageFormatInfo *PhysicalDeviceImageFormatInfo2KHR) (imageFormatProperties ImageFormatProperties2KHR, r error) {
@@ -3317,7 +3317,7 @@ func GetPhysicalDeviceImageFormatProperties2KHR(physicalDevice PhysicalDevice, i
 	return
 }
 
-var vkGetPhysicalDeviceImageFormatProperties2KHR = &vkCommand{"vkGetPhysicalDeviceImageFormatProperties2KHR", 3, true, nil}
+var vkGetPhysicalDeviceImageFormatProperties2KHR = &vkCommand{"vkGetPhysicalDeviceImageFormatProperties2KHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceMemoryProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html
 func GetPhysicalDeviceMemoryProperties(physicalDevice PhysicalDevice) (memoryProperties PhysicalDeviceMemoryProperties) {
@@ -3329,7 +3329,7 @@ func GetPhysicalDeviceMemoryProperties(physicalDevice PhysicalDevice) (memoryPro
 	return
 }
 
-var vkGetPhysicalDeviceMemoryProperties = &vkCommand{"vkGetPhysicalDeviceMemoryProperties", 2, true, nil}
+var vkGetPhysicalDeviceMemoryProperties = &vkCommand{"vkGetPhysicalDeviceMemoryProperties", 2, true, nil, nil}
 
 // GetPhysicalDeviceMemoryProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html
 func GetPhysicalDeviceMemoryProperties2KHR(physicalDevice PhysicalDevice) (memoryProperties PhysicalDeviceMemoryProperties2KHR) {
@@ -3342,7 +3342,7 @@ func GetPhysicalDeviceMemoryProperties2KHR(physicalDevice PhysicalDevice) (memor
 	return
 }
 
-var vkGetPhysicalDeviceMemoryProperties2KHR = &vkCommand{"vkGetPhysicalDeviceMemoryProperties2KHR", 2, true, nil}
+var vkGetPhysicalDeviceMemoryProperties2KHR = &vkCommand{"vkGetPhysicalDeviceMemoryProperties2KHR", 2, true, nil, nil}
 
 // GetPhysicalDeviceMultisamplePropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html
 func GetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice PhysicalDevice, samples SampleCountFlagBits) (multisampleProperties MultisamplePropertiesEXT) {
@@ -3355,7 +3355,7 @@ func GetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice PhysicalDevice, sa
 	return
 }
 
-var vkGetPhysicalDeviceMultisamplePropertiesEXT = &vkCommand{"vkGetPhysicalDeviceMultisamplePropertiesEXT", 3, true, nil}
+var vkGetPhysicalDeviceMultisamplePropertiesEXT = &vkCommand{"vkGetPhysicalDeviceMultisamplePropertiesEXT", 3, true, nil, nil}
 
 // GetPhysicalDevicePresentRectanglesKHX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHX.html
 func GetPhysicalDevicePresentRectanglesKHX(physicalDevice PhysicalDevice, surface SurfaceKHR) (rects []Rect2D, r error) {
@@ -3384,7 +3384,7 @@ func GetPhysicalDevicePresentRectanglesKHX(physicalDevice PhysicalDevice, surfac
 	return
 }
 
-var vkGetPhysicalDevicePresentRectanglesKHX = &vkCommand{"vkGetPhysicalDevicePresentRectanglesKHX", 4, true, nil}
+var vkGetPhysicalDevicePresentRectanglesKHX = &vkCommand{"vkGetPhysicalDevicePresentRectanglesKHX", 4, true, nil, nil}
 
 // GetPhysicalDeviceProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html
 func GetPhysicalDeviceProperties(physicalDevice PhysicalDevice) (properties PhysicalDeviceProperties) {
@@ -3397,7 +3397,7 @@ func GetPhysicalDeviceProperties(physicalDevice PhysicalDevice) (properties Phys
 	return
 }
 
-var vkGetPhysicalDeviceProperties = &vkCommand{"vkGetPhysicalDeviceProperties", 2, true, nil}
+var vkGetPhysicalDeviceProperties = &vkCommand{"vkGetPhysicalDeviceProperties", 2, true, nil, nil}
 
 // GetPhysicalDeviceProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties2KHR.html
 func GetPhysicalDeviceProperties2KHR(physicalDevice PhysicalDevice) (properties PhysicalDeviceProperties2KHR) {
@@ -3410,7 +3410,7 @@ func GetPhysicalDeviceProperties2KHR(physicalDevice PhysicalDevice) (properties 
 	return
 }
 
-var vkGetPhysicalDeviceProperties2KHR = &vkCommand{"vkGetPhysicalDeviceProperties2KHR", 2, true, nil}
+var vkGetPhysicalDeviceProperties2KHR = &vkCommand{"vkGetPhysicalDeviceProperties2KHR", 2, true, nil, nil}
 
 // GetPhysicalDeviceQueueFamilyProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html
 func GetPhysicalDeviceQueueFamilyProperties(physicalDevice PhysicalDevice) (queueFamilyProperties []QueueFamilyProperties) {
@@ -3436,7 +3436,7 @@ func GetPhysicalDeviceQueueFamilyProperties(physicalDevice PhysicalDevice) (queu
 	return
 }
 
-var vkGetPhysicalDeviceQueueFamilyProperties = &vkCommand{"vkGetPhysicalDeviceQueueFamilyProperties", 3, true, nil}
+var vkGetPhysicalDeviceQueueFamilyProperties = &vkCommand{"vkGetPhysicalDeviceQueueFamilyProperties", 3, true, nil, nil}
 
 // GetPhysicalDeviceQueueFamilyProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html
 func GetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice PhysicalDevice) (queueFamilyProperties []QueueFamilyProperties2KHR) {
@@ -3462,7 +3462,7 @@ func GetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice PhysicalDevice) (
 	return
 }
 
-var vkGetPhysicalDeviceQueueFamilyProperties2KHR = &vkCommand{"vkGetPhysicalDeviceQueueFamilyProperties2KHR", 3, true, nil}
+var vkGetPhysicalDeviceQueueFamilyProperties2KHR = &vkCommand{"vkGetPhysicalDeviceQueueFamilyProperties2KHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceSparseImageFormatProperties: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html
 func GetPhysicalDeviceSparseImageFormatProperties(physicalDevice PhysicalDevice, format Format, typ ImageType, samples SampleCountFlagBits, usage ImageUsageFlags, tiling ImageTiling) (properties []SparseImageFormatProperties) {
@@ -3488,7 +3488,7 @@ func GetPhysicalDeviceSparseImageFormatProperties(physicalDevice PhysicalDevice,
 	return
 }
 
-var vkGetPhysicalDeviceSparseImageFormatProperties = &vkCommand{"vkGetPhysicalDeviceSparseImageFormatProperties", 8, true, nil}
+var vkGetPhysicalDeviceSparseImageFormatProperties = &vkCommand{"vkGetPhysicalDeviceSparseImageFormatProperties", 8, true, nil, nil}
 
 // GetPhysicalDeviceSparseImageFormatProperties2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html
 func GetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice PhysicalDevice, formatInfo *PhysicalDeviceSparseImageFormatInfo2KHR) (properties []SparseImageFormatProperties2KHR) {
@@ -3520,7 +3520,7 @@ func GetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice PhysicalDev
 	return
 }
 
-var vkGetPhysicalDeviceSparseImageFormatProperties2KHR = &vkCommand{"vkGetPhysicalDeviceSparseImageFormatProperties2KHR", 4, true, nil}
+var vkGetPhysicalDeviceSparseImageFormatProperties2KHR = &vkCommand{"vkGetPhysicalDeviceSparseImageFormatProperties2KHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceSurfaceCapabilities2EXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html
 func GetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice PhysicalDevice, surface SurfaceKHR) (surfaceCapabilities SurfaceCapabilities2EXT, r error) {
@@ -3536,7 +3536,7 @@ func GetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice PhysicalDevice, sur
 	return
 }
 
-var vkGetPhysicalDeviceSurfaceCapabilities2EXT = &vkCommand{"vkGetPhysicalDeviceSurfaceCapabilities2EXT", 3, true, nil}
+var vkGetPhysicalDeviceSurfaceCapabilities2EXT = &vkCommand{"vkGetPhysicalDeviceSurfaceCapabilities2EXT", 3, true, nil, nil}
 
 // GetPhysicalDeviceSurfaceCapabilities2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html
 func GetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice PhysicalDevice, surfaceInfo *PhysicalDeviceSurfaceInfo2KHR) (surfaceCapabilities SurfaceCapabilities2KHR, r error) {
@@ -3558,7 +3558,7 @@ func GetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice PhysicalDevice, sur
 	return
 }
 
-var vkGetPhysicalDeviceSurfaceCapabilities2KHR = &vkCommand{"vkGetPhysicalDeviceSurfaceCapabilities2KHR", 3, true, nil}
+var vkGetPhysicalDeviceSurfaceCapabilities2KHR = &vkCommand{"vkGetPhysicalDeviceSurfaceCapabilities2KHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceSurfaceCapabilitiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html
 func GetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice PhysicalDevice, surface SurfaceKHR) (surfaceCapabilities SurfaceCapabilitiesKHR, r error) {
@@ -3574,7 +3574,7 @@ func GetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice PhysicalDevice, surf
 	return
 }
 
-var vkGetPhysicalDeviceSurfaceCapabilitiesKHR = &vkCommand{"vkGetPhysicalDeviceSurfaceCapabilitiesKHR", 3, true, nil}
+var vkGetPhysicalDeviceSurfaceCapabilitiesKHR = &vkCommand{"vkGetPhysicalDeviceSurfaceCapabilitiesKHR", 3, true, nil, nil}
 
 // GetPhysicalDeviceSurfaceFormats2KHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html
 func GetPhysicalDeviceSurfaceFormats2KHR(physicalDevice PhysicalDevice, surfaceInfo *PhysicalDeviceSurfaceInfo2KHR) (surfaceFormats []SurfaceFormat2KHR, r error) {
@@ -3609,7 +3609,7 @@ func GetPhysicalDeviceSurfaceFormats2KHR(physicalDevice PhysicalDevice, surfaceI
 	return
 }
 
-var vkGetPhysicalDeviceSurfaceFormats2KHR = &vkCommand{"vkGetPhysicalDeviceSurfaceFormats2KHR", 4, true, nil}
+var vkGetPhysicalDeviceSurfaceFormats2KHR = &vkCommand{"vkGetPhysicalDeviceSurfaceFormats2KHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceSurfaceFormatsKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html
 func GetPhysicalDeviceSurfaceFormatsKHR(physicalDevice PhysicalDevice, surface SurfaceKHR) (surfaceFormats []SurfaceFormatKHR, r error) {
@@ -3638,7 +3638,7 @@ func GetPhysicalDeviceSurfaceFormatsKHR(physicalDevice PhysicalDevice, surface S
 	return
 }
 
-var vkGetPhysicalDeviceSurfaceFormatsKHR = &vkCommand{"vkGetPhysicalDeviceSurfaceFormatsKHR", 4, true, nil}
+var vkGetPhysicalDeviceSurfaceFormatsKHR = &vkCommand{"vkGetPhysicalDeviceSurfaceFormatsKHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceSurfacePresentModesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html
 func GetPhysicalDeviceSurfacePresentModesKHR(physicalDevice PhysicalDevice, surface SurfaceKHR) (presentModes []PresentModeKHR, r error) {
@@ -3667,7 +3667,7 @@ func GetPhysicalDeviceSurfacePresentModesKHR(physicalDevice PhysicalDevice, surf
 	return
 }
 
-var vkGetPhysicalDeviceSurfacePresentModesKHR = &vkCommand{"vkGetPhysicalDeviceSurfacePresentModesKHR", 4, true, nil}
+var vkGetPhysicalDeviceSurfacePresentModesKHR = &vkCommand{"vkGetPhysicalDeviceSurfacePresentModesKHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceSurfaceSupportKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html
 func GetPhysicalDeviceSurfaceSupportKHR(physicalDevice PhysicalDevice, queueFamilyIndex uint32, surface SurfaceKHR) (supported bool, r error) {
@@ -3684,7 +3684,7 @@ func GetPhysicalDeviceSurfaceSupportKHR(physicalDevice PhysicalDevice, queueFami
 	return
 }
 
-var vkGetPhysicalDeviceSurfaceSupportKHR = &vkCommand{"vkGetPhysicalDeviceSurfaceSupportKHR", 4, true, nil}
+var vkGetPhysicalDeviceSurfaceSupportKHR = &vkCommand{"vkGetPhysicalDeviceSurfaceSupportKHR", 4, true, nil, nil}
 
 // GetPipelineCacheData: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPipelineCacheData.html
 func GetPipelineCacheData(device Device, pipelineCache PipelineCache) (data []byte, r error) {
@@ -3713,7 +3713,7 @@ func GetPipelineCacheData(device Device, pipelineCache PipelineCache) (data []by
 	return
 }
 
-var vkGetPipelineCacheData = &vkCommand{"vkGetPipelineCacheData", 4, true, nil}
+var vkGetPipelineCacheData = &vkCommand{"vkGetPipelineCacheData", 4, true, nil, nil}
 
 // GetQueryPoolResults: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetQueryPoolResults.html
 func GetQueryPoolResults(device Device, queryPool QueryPool, firstQuery uint32, queryCount uint32, data []byte, stride DeviceSize, flags QueryResultFlags) (r error) {
@@ -3729,7 +3729,7 @@ func GetQueryPoolResults(device Device, queryPool QueryPool, firstQuery uint32, 
 	return
 }
 
-var vkGetQueryPoolResults = &vkCommand{"vkGetQueryPoolResults", 8, true, nil}
+var vkGetQueryPoolResults = &vkCommand{"vkGetQueryPoolResults", 8, true, nil, nil}
 
 // GetRefreshCycleDurationGOOGLE: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html
 func GetRefreshCycleDurationGOOGLE(device Device, swapchain SwapchainKHR) (displayTimingProperties RefreshCycleDurationGOOGLE, r error) {
@@ -3744,7 +3744,7 @@ func GetRefreshCycleDurationGOOGLE(device Device, swapchain SwapchainKHR) (displ
 	return
 }
 
-var vkGetRefreshCycleDurationGOOGLE = &vkCommand{"vkGetRefreshCycleDurationGOOGLE", 3, true, nil}
+var vkGetRefreshCycleDurationGOOGLE = &vkCommand{"vkGetRefreshCycleDurationGOOGLE", 3, true, nil, nil}
 
 // GetRenderAreaGranularity: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetRenderAreaGranularity.html
 func GetRenderAreaGranularity(device Device, renderPass RenderPass) (granularity Extent2D) {
@@ -3756,7 +3756,7 @@ func GetRenderAreaGranularity(device Device, renderPass RenderPass) (granularity
 	return
 }
 
-var vkGetRenderAreaGranularity = &vkCommand{"vkGetRenderAreaGranularity", 3, true, nil}
+var vkGetRenderAreaGranularity = &vkCommand{"vkGetRenderAreaGranularity", 3, true, nil, nil}
 
 // GetSemaphoreFdKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreFdKHR.html
 func GetSemaphoreFdKHR(device Device, getFdInfo *SemaphoreGetFdInfoKHR) (fd int32, r error) {
@@ -3777,7 +3777,7 @@ func GetSemaphoreFdKHR(device Device, getFdInfo *SemaphoreGetFdInfoKHR) (fd int3
 	return
 }
 
-var vkGetSemaphoreFdKHR = &vkCommand{"vkGetSemaphoreFdKHR", 3, true, nil}
+var vkGetSemaphoreFdKHR = &vkCommand{"vkGetSemaphoreFdKHR", 3, true, nil, nil}
 
 // GetShaderInfoAMD: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetShaderInfoAMD.html
 func GetShaderInfoAMD(device Device, pipeline Pipeline, shaderStage ShaderStageFlagBits, infoType ShaderInfoTypeAMD) (info []byte, r error) {
@@ -3806,7 +3806,7 @@ func GetShaderInfoAMD(device Device, pipeline Pipeline, shaderStage ShaderStageF
 	return
 }
 
-var vkGetShaderInfoAMD = &vkCommand{"vkGetShaderInfoAMD", 6, true, nil}
+var vkGetShaderInfoAMD = &vkCommand{"vkGetShaderInfoAMD", 6, true, nil, nil}
 
 // GetSwapchainCounterEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainCounterEXT.html
 func GetSwapchainCounterEXT(device Device, swapchain SwapchainKHR, counter SurfaceCounterFlagBitsEXT) (counterValue uint64, r error) {
@@ -3821,7 +3821,7 @@ func GetSwapchainCounterEXT(device Device, swapchain SwapchainKHR, counter Surfa
 	return
 }
 
-var vkGetSwapchainCounterEXT = &vkCommand{"vkGetSwapchainCounterEXT", 4, true, nil}
+var vkGetSwapchainCounterEXT = &vkCommand{"vkGetSwapchainCounterEXT", 4, true, nil, nil}
 
 // GetSwapchainImagesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainImagesKHR.html
 func GetSwapchainImagesKHR(device Device, swapchain SwapchainKHR) (swapchainImages []Image, r error) {
@@ -3850,7 +3850,7 @@ func GetSwapchainImagesKHR(device Device, swapchain SwapchainKHR) (swapchainImag
 	return
 }
 
-var vkGetSwapchainImagesKHR = &vkCommand{"vkGetSwapchainImagesKHR", 4, true, nil}
+var vkGetSwapchainImagesKHR = &vkCommand{"vkGetSwapchainImagesKHR", 4, true, nil, nil}
 
 // GetSwapchainStatusKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainStatusKHR.html
 func GetSwapchainStatusKHR(device Device, swapchain SwapchainKHR) (r error) {
@@ -3863,7 +3863,7 @@ func GetSwapchainStatusKHR(device Device, swapchain SwapchainKHR) (r error) {
 	return
 }
 
-var vkGetSwapchainStatusKHR = &vkCommand{"vkGetSwapchainStatusKHR", 2, true, nil}
+var vkGetSwapchainStatusKHR = &vkCommand{"vkGetSwapchainStatusKHR", 2, true, nil, nil}
 
 // GetValidationCacheDataEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetValidationCacheDataEXT.html
 func GetValidationCacheDataEXT(device Device, validationCache ValidationCacheEXT) (data []byte, r error) {
@@ -3892,7 +3892,7 @@ func GetValidationCacheDataEXT(device Device, validationCache ValidationCacheEXT
 	return
 }
 
-var vkGetValidationCacheDataEXT = &vkCommand{"vkGetValidationCacheDataEXT", 4, true, nil}
+var vkGetValidationCacheDataEXT = &vkCommand{"vkGetValidationCacheDataEXT", 4, true, nil, nil}
 
 // ImportFenceFdKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkImportFenceFdKHR.html
 func ImportFenceFdKHR(device Device, importFenceFdInfo *ImportFenceFdInfoKHR) (r error) {
@@ -3910,7 +3910,7 @@ func ImportFenceFdKHR(device Device, importFenceFdInfo *ImportFenceFdInfoKHR) (r
 	return
 }
 
-var vkImportFenceFdKHR = &vkCommand{"vkImportFenceFdKHR", 2, true, nil}
+var vkImportFenceFdKHR = &vkCommand{"vkImportFenceFdKHR", 2, true, nil, nil}
 
 // ImportSemaphoreFdKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreFdKHR.html
 func ImportSemaphoreFdKHR(device Device, importSemaphoreFdInfo *ImportSemaphoreFdInfoKHR) (r error) {
@@ -3928,7 +3928,7 @@ func ImportSemaphoreFdKHR(device Device, importSemaphoreFdInfo *ImportSemaphoreF
 	return
 }
 
-var vkImportSemaphoreFdKHR = &vkCommand{"vkImportSemaphoreFdKHR", 2, true, nil}
+var vkImportSemaphoreFdKHR = &vkCommand{"vkImportSemaphoreFdKHR", 2, true, nil, nil}
 
 // InvalidateMappedMemoryRanges: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html
 func InvalidateMappedMemoryRanges(device Device, memoryRanges []MappedMemoryRange) (r error) {
@@ -3951,7 +3951,7 @@ func InvalidateMappedMemoryRanges(device Device, memoryRanges []MappedMemoryRang
 	return
 }
 
-var vkInvalidateMappedMemoryRanges = &vkCommand{"vkInvalidateMappedMemoryRanges", 3, true, nil}
+var vkInvalidateMappedMemoryRanges = &vkCommand{"vkInvalidateMappedMemoryRanges", 3, true, nil, nil}
 
 // MapMemory: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkMapMemory.html
 func MapMemory(device Device, memory DeviceMemory, offset DeviceSize, size DeviceSize, flags MemoryMapFlags) (pData *byte, r error) {
@@ -3966,7 +3966,7 @@ func MapMemory(device Device, memory DeviceMemory, offset DeviceSize, size Devic
 	return
 }
 
-var vkMapMemory = &vkCommand{"vkMapMemory", 6, true, nil}
+var vkMapMemory = &vkCommand{"vkMapMemory", 6, true, nil, nil}
 
 // MergePipelineCaches: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html
 func MergePipelineCaches(device Device, dstCache PipelineCache, srcCaches []PipelineCache) (r error) {
@@ -3985,7 +3985,7 @@ func MergePipelineCaches(device Device, dstCache PipelineCache, srcCaches []Pipe
 	return
 }
 
-var vkMergePipelineCaches = &vkCommand{"vkMergePipelineCaches", 4, true, nil}
+var vkMergePipelineCaches = &vkCommand{"vkMergePipelineCaches", 4, true, nil, nil}
 
 // MergeValidationCachesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkMergeValidationCachesEXT.html
 func MergeValidationCachesEXT(device Device, dstCache ValidationCacheEXT, srcCaches []ValidationCacheEXT) (r error) {
@@ -4004,7 +4004,7 @@ func MergeValidationCachesEXT(device Device, dstCache ValidationCacheEXT, srcCac
 	return
 }
 
-var vkMergeValidationCachesEXT = &vkCommand{"vkMergeValidationCachesEXT", 4, true, nil}
+var vkMergeValidationCachesEXT = &vkCommand{"vkMergeValidationCachesEXT", 4, true, nil, nil}
 
 // QueueBindSparse: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueueBindSparse.html
 func QueueBindSparse(queue Queue, bindInfo []BindSparseInfo, fence Fence) (r error) {
@@ -4027,7 +4027,7 @@ func QueueBindSparse(queue Queue, bindInfo []BindSparseInfo, fence Fence) (r err
 	return
 }
 
-var vkQueueBindSparse = &vkCommand{"vkQueueBindSparse", 4, true, nil}
+var vkQueueBindSparse = &vkCommand{"vkQueueBindSparse", 4, true, nil, nil}
 
 // QueuePresentKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html
 func QueuePresentKHR(queue Queue, presentInfo *PresentInfoKHR) (r error) {
@@ -4045,7 +4045,7 @@ func QueuePresentKHR(queue Queue, presentInfo *PresentInfoKHR) (r error) {
 	return
 }
 
-var vkQueuePresentKHR = &vkCommand{"vkQueuePresentKHR", 2, true, nil}
+var vkQueuePresentKHR = &vkCommand{"vkQueuePresentKHR", 2, true, nil, nil}
 
 // QueueSubmit: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit.html
 func QueueSubmit(queue Queue, submits []SubmitInfo, fence Fence) (r error) {
@@ -4068,7 +4068,7 @@ func QueueSubmit(queue Queue, submits []SubmitInfo, fence Fence) (r error) {
 	return
 }
 
-var vkQueueSubmit = &vkCommand{"vkQueueSubmit", 4, true, nil}
+var vkQueueSubmit = &vkCommand{"vkQueueSubmit", 4, true, nil, nil}
 
 // QueueWaitIdle: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html
 func QueueWaitIdle(queue Queue) (r error) {
@@ -4081,7 +4081,7 @@ func QueueWaitIdle(queue Queue) (r error) {
 	return
 }
 
-var vkQueueWaitIdle = &vkCommand{"vkQueueWaitIdle", 1, true, nil}
+var vkQueueWaitIdle = &vkCommand{"vkQueueWaitIdle", 1, true, nil, nil}
 
 // RegisterDeviceEventEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkRegisterDeviceEventEXT.html
 func RegisterDeviceEventEXT(device Device, deviceEventInfo *DeviceEventInfoEXT, allocator *AllocationCallbacks) (fence Fence, r error) {
@@ -4108,7 +4108,7 @@ func RegisterDeviceEventEXT(device Device, deviceEventInfo *DeviceEventInfoEXT, 
 	return
 }
 
-var vkRegisterDeviceEventEXT = &vkCommand{"vkRegisterDeviceEventEXT", 4, true, nil}
+var vkRegisterDeviceEventEXT = &vkCommand{"vkRegisterDeviceEventEXT", 4, true, nil, nil}
 
 // RegisterDisplayEventEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkRegisterDisplayEventEXT.html
 func RegisterDisplayEventEXT(device Device, display DisplayKHR, displayEventInfo *DisplayEventInfoEXT, allocator *AllocationCallbacks) (fence Fence, r error) {
@@ -4135,7 +4135,7 @@ func RegisterDisplayEventEXT(device Device, display DisplayKHR, displayEventInfo
 	return
 }
 
-var vkRegisterDisplayEventEXT = &vkCommand{"vkRegisterDisplayEventEXT", 5, true, nil}
+var vkRegisterDisplayEventEXT = &vkCommand{"vkRegisterDisplayEventEXT", 5, true, nil, nil}
 
 // RegisterObjectsNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkRegisterObjectsNVX.html
 func RegisterObjectsNVX(device Device, objectTable ObjectTableNVX, pObjectTableEntries []*ObjectTableEntryNVX, objectIndices []uint32) (r error) {
@@ -4160,7 +4160,7 @@ func RegisterObjectsNVX(device Device, objectTable ObjectTableNVX, pObjectTableE
 	return
 }
 
-var vkRegisterObjectsNVX = &vkCommand{"vkRegisterObjectsNVX", 5, true, nil}
+var vkRegisterObjectsNVX = &vkCommand{"vkRegisterObjectsNVX", 5, true, nil, nil}
 
 // ReleaseDisplayEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkReleaseDisplayEXT.html
 func ReleaseDisplayEXT(physicalDevice PhysicalDevice, display DisplayKHR) (r error) {
@@ -4173,7 +4173,7 @@ func ReleaseDisplayEXT(physicalDevice PhysicalDevice, display DisplayKHR) (r err
 	return
 }
 
-var vkReleaseDisplayEXT = &vkCommand{"vkReleaseDisplayEXT", 2, true, nil}
+var vkReleaseDisplayEXT = &vkCommand{"vkReleaseDisplayEXT", 2, true, nil, nil}
 
 // ResetCommandBuffer: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkResetCommandBuffer.html
 func ResetCommandBuffer(commandBuffer CommandBuffer, flags CommandBufferResetFlags) (r error) {
@@ -4186,7 +4186,7 @@ func ResetCommandBuffer(commandBuffer CommandBuffer, flags CommandBufferResetFla
 	return
 }
 
-var vkResetCommandBuffer = &vkCommand{"vkResetCommandBuffer", 2, true, nil}
+var vkResetCommandBuffer = &vkCommand{"vkResetCommandBuffer", 2, true, nil, nil}
 
 // ResetCommandPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkResetCommandPool.html
 func ResetCommandPool(device Device, commandPool CommandPool, flags CommandPoolResetFlags) (r error) {
@@ -4199,7 +4199,7 @@ func ResetCommandPool(device Device, commandPool CommandPool, flags CommandPoolR
 	return
 }
 
-var vkResetCommandPool = &vkCommand{"vkResetCommandPool", 3, true, nil}
+var vkResetCommandPool = &vkCommand{"vkResetCommandPool", 3, true, nil, nil}
 
 // ResetDescriptorPool: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkResetDescriptorPool.html
 func ResetDescriptorPool(device Device, descriptorPool DescriptorPool, flags DescriptorPoolResetFlags) (r error) {
@@ -4212,7 +4212,7 @@ func ResetDescriptorPool(device Device, descriptorPool DescriptorPool, flags Des
 	return
 }
 
-var vkResetDescriptorPool = &vkCommand{"vkResetDescriptorPool", 3, true, nil}
+var vkResetDescriptorPool = &vkCommand{"vkResetDescriptorPool", 3, true, nil, nil}
 
 // ResetEvent: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html
 func ResetEvent(device Device, event Event) (r error) {
@@ -4225,7 +4225,7 @@ func ResetEvent(device Device, event Event) (r error) {
 	return
 }
 
-var vkResetEvent = &vkCommand{"vkResetEvent", 2, true, nil}
+var vkResetEvent = &vkCommand{"vkResetEvent", 2, true, nil, nil}
 
 // ResetFences: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkResetFences.html
 func ResetFences(device Device, fences []Fence) (r error) {
@@ -4244,7 +4244,7 @@ func ResetFences(device Device, fences []Fence) (r error) {
 	return
 }
 
-var vkResetFences = &vkCommand{"vkResetFences", 3, true, nil}
+var vkResetFences = &vkCommand{"vkResetFences", 3, true, nil, nil}
 
 // SetEvent: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html
 func SetEvent(device Device, event Event) (r error) {
@@ -4257,7 +4257,7 @@ func SetEvent(device Device, event Event) (r error) {
 	return
 }
 
-var vkSetEvent = &vkCommand{"vkSetEvent", 2, true, nil}
+var vkSetEvent = &vkCommand{"vkSetEvent", 2, true, nil, nil}
 
 // SetHdrMetadataEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkSetHdrMetadataEXT.html
 func SetHdrMetadataEXT(device Device, swapchains []SwapchainKHR, metadata []HdrMetadataEXT) {
@@ -4282,7 +4282,7 @@ func SetHdrMetadataEXT(device Device, swapchains []SwapchainKHR, metadata []HdrM
 
 }
 
-var vkSetHdrMetadataEXT = &vkCommand{"vkSetHdrMetadataEXT", 4, true, nil}
+var vkSetHdrMetadataEXT = &vkCommand{"vkSetHdrMetadataEXT", 4, true, nil, nil}
 
 // TrimCommandPoolKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkTrimCommandPoolKHR.html
 func TrimCommandPoolKHR(device Device, commandPool CommandPool, flags CommandPoolTrimFlagsKHR) {
@@ -4291,7 +4291,7 @@ func TrimCommandPoolKHR(device Device, commandPool CommandPool, flags CommandPoo
 
 }
 
-var vkTrimCommandPoolKHR = &vkCommand{"vkTrimCommandPoolKHR", 3, true, nil}
+var vkTrimCommandPoolKHR = &vkCommand{"vkTrimCommandPoolKHR", 3, true, nil, nil}
 
 // UnmapMemory: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html
 func UnmapMemory(device Device, memory DeviceMemory) {
@@ -4300,7 +4300,7 @@ func UnmapMemory(device Device, memory DeviceMemory) {
 
 }
 
-var vkUnmapMemory = &vkCommand{"vkUnmapMemory", 2, true, nil}
+var vkUnmapMemory = &vkCommand{"vkUnmapMemory", 2, true, nil, nil}
 
 // UnregisterObjectsNVX: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUnregisterObjectsNVX.html
 func UnregisterObjectsNVX(device Device, objectTable ObjectTableNVX, objectEntryTypes []ObjectEntryTypeNVX, objectIndices []uint32) (r error) {
@@ -4325,7 +4325,7 @@ func UnregisterObjectsNVX(device Device, objectTable ObjectTableNVX, objectEntry
 	return
 }
 
-var vkUnregisterObjectsNVX = &vkCommand{"vkUnregisterObjectsNVX", 5, true, nil}
+var vkUnregisterObjectsNVX = &vkCommand{"vkUnregisterObjectsNVX", 5, true, nil, nil}
 
 // UpdateDescriptorSetWithTemplateKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSetWithTemplateKHR.html
 func UpdateDescriptorSetWithTemplateKHR(device Device, descriptorSet DescriptorSet, descriptorUpdateTemplate DescriptorUpdateTemplateKHR, data *byte) {
@@ -4339,7 +4339,7 @@ func UpdateDescriptorSetWithTemplateKHR(device Device, descriptorSet DescriptorS
 
 }
 
-var vkUpdateDescriptorSetWithTemplateKHR = &vkCommand{"vkUpdateDescriptorSetWithTemplateKHR", 4, true, nil}
+var vkUpdateDescriptorSetWithTemplateKHR = &vkCommand{"vkUpdateDescriptorSetWithTemplateKHR", 4, true, nil, nil}
 
 // UpdateDescriptorSets: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSets.html
 func UpdateDescriptorSets(device Device, descriptorWrites []WriteDescriptorSet, descriptorCopies []CopyDescriptorSet) {
@@ -4369,7 +4369,7 @@ func UpdateDescriptorSets(device Device, descriptorWrites []WriteDescriptorSet, 
 
 }
 
-var vkUpdateDescriptorSets = &vkCommand{"vkUpdateDescriptorSets", 5, true, nil}
+var vkUpdateDescriptorSets = &vkCommand{"vkUpdateDescriptorSets", 5, true, nil, nil}
 
 // WaitForFences: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkWaitForFences.html
 func WaitForFences(device Device, fences []Fence, waitAll bool, timeout uint64) (r error) {
@@ -4390,4 +4390,4 @@ func WaitForFences(device Device, fences []Fence, waitAll bool, timeout uint64) 
 	return
 }
 
-var vkWaitForFences = &vkCommand{"vkWaitForFences", 5, true, nil}
+var vkWaitForFences = &vkCommand{"vkWaitForFences", 5, true, nil, nil}

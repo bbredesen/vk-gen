@@ -31,7 +31,7 @@ func CreateMetalSurfaceEXT(instance Instance, createInfo *MetalSurfaceCreateInfo
 	return
 }
 
-var vkCreateMetalSurfaceEXT = &vkCommand{"vkCreateMetalSurfaceEXT", 4, true, nil}
+var vkCreateMetalSurfaceEXT = &vkCommand{"vkCreateMetalSurfaceEXT", 4, true, nil, nil}
 
 // ExportMetalObjectsEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkExportMetalObjectsEXT.html
 func ExportMetalObjectsEXT(device Device) (metalObjectsInfo ExportMetalObjectsInfoEXT) {
@@ -44,4 +44,4 @@ func ExportMetalObjectsEXT(device Device) (metalObjectsInfo ExportMetalObjectsIn
 	return
 }
 
-var vkExportMetalObjectsEXT = &vkCommand{"vkExportMetalObjectsEXT", 2, true, nil}
+var vkExportMetalObjectsEXT = &vkCommand{"vkExportMetalObjectsEXT", 2, true, nil, nil}

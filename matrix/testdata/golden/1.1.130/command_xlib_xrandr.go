@@ -19,7 +19,7 @@ func AcquireXlibDisplayEXT(physicalDevice PhysicalDevice, display DisplayKHR) (d
 	return
 }
 
-var vkAcquireXlibDisplayEXT = &vkCommand{"vkAcquireXlibDisplayEXT", 3, true, nil}
+var vkAcquireXlibDisplayEXT = &vkCommand{"vkAcquireXlibDisplayEXT", 3, true, nil, nil}
 
 // GetRandROutputDisplayEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetRandROutputDisplayEXT.html
 func GetRandROutputDisplayEXT(physicalDevice PhysicalDevice, rrOutput uint32) (dpy uint32, display DisplayKHR, r error) {
@@ -37,4 +37,4 @@ func GetRandROutputDisplayEXT(physicalDevice PhysicalDevice, rrOutput uint32) (d
 	return
 }
 
-var vkGetRandROutputDisplayEXT = &vkCommand{"vkGetRandROutputDisplayEXT", 4, true, nil}
+var vkGetRandROutputDisplayEXT = &vkCommand{"vkGetRandROutputDisplayEXT", 4, true, nil, nil}

@@ -46,6 +46,7 @@ type vkCommand struct {
 	argCount  int
 	hasReturn bool
 	fnHandle  unsafe.Pointer // read and written atomically; see resolve()
+	aliases   []string       // other names Vulkan knows this command by; see resolveSlow()
 }
 
 var dlHandle unsafe.Pointer
@@ -72,7 +73,7 @@ func OverrideDefaultVulkanLibrary(nameOrPath string) {
 //  3. dlsym/GetProcAddress on the library, for libraries that export commands directly (such as MoltenVK) or that do not
 //     export vkGetInstanceProcAddr
 //
-// If the command's own name is found by none of those, the names it is aliased by (commandAliases, in command_aliases.go)
+// If the command's own name is found by none of those, the names it is aliased by (vkCommand.aliases)
 // are tried in the same way, because a device that has an extension but not the core version that absorbed it offers only
 // the extension's name for the command.
 //
@@ -136,7 +137,7 @@ func (cmd *vkCommand) resolveSlow() unsafe.Pointer {
 	if fn = lookupCommand(cmd.protoName); fn == nil {
 		// A command promoted to core, or to another extension, keeps its old name as an alias, and a device that
 		// supports the extension but not the newer version offers only that name. The signatures are identical.
-		for _, alias := range commandAliases[cmd.protoName] {
+		for _, alias := range cmd.aliases {
 			if fn = lookupCommand(alias); fn != nil {
 				break
 			}
@@ -145,8 +146,8 @@ func (cmd *vkCommand) resolveSlow() unsafe.Pointer {
 	if fn == nil {
 		msg := "vk: " + cmd.protoName + " is not available: the extension that provides it is not supported or not enabled " +
 			"(or, for an instance or device level command, no instance has been created)"
-		if aliases := commandAliases[cmd.protoName]; len(aliases) > 0 {
-			msg += "; also tried " + strings.Join(aliases, ", ")
+		if len(cmd.aliases) > 0 {
+			msg += "; also tried " + strings.Join(cmd.aliases, ", ")
 		}
 		panic(msg)
 	}

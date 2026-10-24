@@ -119,12 +119,12 @@ void testReset(void) { memset(g_f, 0, sizeof g_f); memset(g_i, 0, sizeof g_i); }
 `
 
 var (
-	cmdGetFloatBits = &vkCommand{"testGetFloatBits", 1, true, nil}
-	cmdGetInt       = &vkCommand{"testGetInt", 1, true, nil}
-	cmdSetDelay     = &vkCommand{"testSetDelay", 1, false, nil}
-	cmdSubmitOK     = &vkCommand{"testSubmitOK", 1, true, nil}
+	cmdGetFloatBits = &vkCommand{"testGetFloatBits", 1, true, nil, nil}
+	cmdGetInt       = &vkCommand{"testGetInt", 1, true, nil, nil}
+	cmdSetDelay     = &vkCommand{"testSetDelay", 1, false, nil, nil}
+	cmdSubmitOK     = &vkCommand{"testSubmitOK", 1, true, nil, nil}
 	// testReset takes no arguments, but no generated command has an empty shape; the extra argument is ignored by the callee
-	cmdReset = &vkCommand{"testReset", 1, false, nil}
+	cmdReset = &vkCommand{"testReset", 1, false, nil, nil}
 )
 
 func gotFloat(i uintptr) float32 {
@@ -257,7 +257,7 @@ func TestFloatArgs(t *testing.T) {
 func TestIntegerOnlyShapeLosesFloats(t *testing.T) {
 	requireFakeLibrary(t)
 
-	wrong := &vkCommand{"vkCmdSetLineWidth", 2, false, nil}
+	wrong := &vkCommand{"vkCmdSetLineWidth", 2, false, nil, nil}
 
 	vkCall_i(cmdReset, 0)
 	vkCall_ii(wrong, 0x1234, uintptr(math.Float32bits(2.5)))

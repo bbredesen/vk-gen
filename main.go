@@ -206,7 +206,6 @@ func main() {
 	}
 
 	def.WriteTrampolineFiles(outDirName)
-	def.WriteCommandAliasFile(outDirName, fmt.Sprintf(fileHeader, inFileName))
 	copyStaticFiles()
 
 }

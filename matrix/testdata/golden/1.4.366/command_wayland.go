@@ -31,7 +31,7 @@ func CreateWaylandSurfaceKHR(instance Instance, createInfo *WaylandSurfaceCreate
 	return
 }
 
-var vkCreateWaylandSurfaceKHR = &vkCommand{"vkCreateWaylandSurfaceKHR", 4, true, nil}
+var vkCreateWaylandSurfaceKHR = &vkCommand{"vkCreateWaylandSurfaceKHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceWaylandPresentationSupportKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html
 func GetPhysicalDeviceWaylandPresentationSupportKHR(physicalDevice PhysicalDevice, queueFamilyIndex uint32) (r bool, display uint32) {
@@ -44,4 +44,4 @@ func GetPhysicalDeviceWaylandPresentationSupportKHR(physicalDevice PhysicalDevic
 	return
 }
 
-var vkGetPhysicalDeviceWaylandPresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceWaylandPresentationSupportKHR", 3, true, nil}
+var vkGetPhysicalDeviceWaylandPresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceWaylandPresentationSupportKHR", 3, true, nil, nil}

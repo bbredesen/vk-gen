@@ -94,8 +94,7 @@ func TestConcurrentResolve(t *testing.T) {
 }
 
 // A command whose own name the library does not offer is found by an alias, as vkCmdBeginRendering is on a device that
-// has VK_KHR_dynamic_rendering but is not Vulkan 1.3. The alias must have been registered in commandAliases, and the
-// failure message names the aliases that were tried.
+// has VK_KHR_dynamic_rendering but is not Vulkan 1.3. The failure message names the aliases that were tried.
 func TestResolveFallsBackToAliases(t *testing.T) {
 	requireFakeLibrary(t)
 
@@ -103,13 +102,10 @@ func TestResolveFallsBackToAliases(t *testing.T) {
 	defer DestroyInstance(instance, nil)
 
 	const coreName = "vkCmdSetStencilReferenceTestCore" // the fake library does not offer this name
-	core := &vkCommand{coreName, 3, false, nil}
 
-	expectPanic(t, coreName, func() { vkCall_iii(core, 0x1234, 2, 7) })
+	expectPanic(t, coreName, func() { vkCall_iii(&vkCommand{coreName, 3, false, nil, nil}, 0x1234, 2, 7) })
 
-	commandAliases[coreName] = []string{"vkCmdSetStencilReferenceMissing", "vkCmdSetStencilReferenceTestEXT"}
-	defer delete(commandAliases, coreName)
-
+	core := &vkCommand{coreName, 3, false, nil, []string{"vkCmdSetStencilReferenceMissing", "vkCmdSetStencilReferenceTestEXT"}}
 	vkCall_i(cmdReset, 0)
 	vkCall_iii(core, 0x1234, 2, 7)
 	for i, want := range []uintptr{0x1234, 2, 7} {
@@ -118,9 +114,7 @@ func TestResolveFallsBackToAliases(t *testing.T) {
 		}
 	}
 
-	delete(commandAliases, coreName)
-	commandAliases[coreName] = []string{"vkCmdSetStencilReferenceMissing"}
 	expectPanic(t, "also tried vkCmdSetStencilReferenceMissing", func() {
-		vkCall_iii(&vkCommand{coreName, 3, false, nil}, 0x1234, 2, 7)
+		vkCall_iii(&vkCommand{coreName, 3, false, nil, []string{"vkCmdSetStencilReferenceMissing"}}, 0x1234, 2, 7)
 	})
 }
