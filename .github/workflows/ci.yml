@@ -51,3 +51,28 @@ jobs:
       # CI is set, so a broken tool install cannot make the matrix quietly pass.
       - name: Test
         run: go test -count=1 ./...
+
+  # go-vk declares Go 1.18 as its minimum, and the test above generates the package with "go 1.18" in its go.mod. That
+  # makes the compiler reject newer language features (builtin min and max, range over an integer, and so on) even on
+  # Go 1.26, but it does not stop code from calling a standard library function added after 1.18, such as
+  # strings.CutPrefix. Only a real 1.18 toolchain notices that, so this job compiles and tests the generated packages
+  # with one.
+  #
+  # It does not need the OS matrix: the toolchain age matters, not the OS. The generator and stringer still run on
+  # Go 1.26 (the test needs a recent Go, and stringer cannot run under 1.18); VK_MATRIX_GO_TOOLCHAIN switches only the
+  # build, vet and test stages. Go 1.26 downloads the named toolchain on demand.
+  go-floor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+      - name: Install goimports and stringer
+        run: |
+          go install golang.org/x/tools/cmd/goimports@v0.51.0
+          go install golang.org/x/tools/cmd/stringer@v0.51.0
+      - name: Build and test the generated packages with Go 1.18
+        env:
+          VK_MATRIX_GO_TOOLCHAIN: go1.18.10
+        run: go test -count=1 -run TestRegistryMatrix ./matrix

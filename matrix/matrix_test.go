@@ -162,16 +162,24 @@ func runVersion(t *testing.T, version string, excluded excludedTests, statics ma
 	out := t.TempDir()
 	env := toolEnv()
 
+	// VK_MATRIX_GO_TOOLCHAIN (for example go1.18.10) compiles and tests the generated package with that Go release. It
+	// applies to build, vet and test only: generating and running stringer use the current toolchain, because stringer
+	// cannot run under an old one.
+	compileEnv := env
+	if tc := os.Getenv("VK_MATRIX_GO_TOOLCHAIN"); tc != "" {
+		compileEnv = append(slices.Clone(env), "GOTOOLCHAIN="+tc)
+	}
+
 	stages := []struct {
 		name string
 		fn   func() error
 	}{
 		{"generate", func() error { return stageGenerate(version, out, env, excluded) }},
 		{"gogenerate", func() error { return runIn(out, env, 5*time.Minute, "go", "generate", "./...") }},
-		{"build", func() error { return runIn(out, env, 10*time.Minute, "go", "build", "./...") }},
+		{"build", func() error { return runIn(out, compileEnv, 10*time.Minute, "go", "build", "./...") }},
 		// The generated bindings pass pointers as uintptr/unsafe.Pointer by design; vet's unsafeptr check flags all of them.
-		{"vet", func() error { return runIn(out, env, 10*time.Minute, "go", "vet", "-unsafeptr=false", "./...") }},
-		{"test", func() error { return runIn(out, env, 10*time.Minute, "go", "test", "./...") }},
+		{"vet", func() error { return runIn(out, compileEnv, 10*time.Minute, "go", "vet", "-unsafeptr=false", "./...") }},
+		{"test", func() error { return runIn(out, compileEnv, 10*time.Minute, "go", "test", "./...") }},
 		{"golden", func() error { return stageGolden(version, out, statics) }},
 	}
 
@@ -227,26 +235,24 @@ func stageGenerate(version, out string, env []string, excluded excludedTests) er
 	return writeModule(out)
 }
 
-// writeModule makes the output a standalone module, as in the go-vk repository. go.sum comes from vk-gen's own module so
-// that x/sys needs no further network access once cached.
+// The generated module declares the oldest Go that go-vk supports, and the oldest golang.org/x/sys it needs (only
+// BytePtrFromString, in unix and windows). With the go directive at 1.18, the compiler rejects newer language features
+// (builtin min/max/clear, range over an integer, and so on) even when the toolchain is newer. Library additions after 1.18
+// are not checked that way; set VK_MATRIX_GO_TOOLCHAIN (see below) to compile with a real 1.18 toolchain.
+const (
+	moduleGoVersion  = "1.18"
+	moduleSysVersion = "v0.5.0"
+	moduleGoSum      = "golang.org/x/sys v0.5.0 h1:MUK/U/4lj1t1oPg0HfuXDN/Z1wv31ZJ/YcPiGccS4DU=\n" +
+		"golang.org/x/sys v0.5.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=\n"
+)
+
+// writeModule makes the output a standalone module, as in the go-vk repository.
 func writeModule(dir string) error {
-	rootMod, err := os.ReadFile("../go.mod")
-	if err != nil {
-		return err
-	}
-	sysVersion := regexp.MustCompile(`golang.org/x/sys (v\S+)`).FindSubmatch(rootMod)
-	if sysVersion == nil {
-		return fmt.Errorf("could not find the golang.org/x/sys version in vk-gen's go.mod")
-	}
-	mod := fmt.Sprintf("module github.com/bbredesen/go-vk\n\ngo 1.23.0\n\nrequire golang.org/x/sys %s\n", sysVersion[1])
+	mod := fmt.Sprintf("module github.com/bbredesen/go-vk\n\ngo %s\n\nrequire golang.org/x/sys %s\n", moduleGoVersion, moduleSysVersion)
 	if err := os.WriteFile(filepath.Join(dir, "go.mod"), []byte(mod), 0o666); err != nil {
 		return err
 	}
-	sum, err := os.ReadFile("../go.sum")
-	if err != nil {
-		return err
-	}
-	return os.WriteFile(filepath.Join(dir, "go.sum"), sum, 0o666)
+	return os.WriteFile(filepath.Join(dir, "go.sum"), []byte(moduleGoSum), 0o666)
 }
 
 func stageGolden(version, out string, statics map[string]bool) error {

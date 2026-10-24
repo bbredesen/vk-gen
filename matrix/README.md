@@ -31,6 +31,20 @@ Without the tools the test skips locally; it fails if `CI` or `VK_MATRIX_REQUIRE
 built for the host OS only, since cgo cannot be cross-compiled without a cross C compiler. The Linux platform files (xcb, xlib, wayland) are therefore compiled only by the `ubuntu-latest` job in CI. The first run may download
 `golang.org/x/sys`.
 
+## The Go 1.18 floor
+
+go-vk supports Go 1.18 and later. Nothing newer is used by the library; the static test files avoid newer builtins too.
+Two checks enforce it, because they catch different things:
+
+- The generated `go.mod` says `go 1.18`, so every run, on every OS, rejects newer **language** features.
+- A real 1.18 toolchain catches newer **standard library** functions (for example `strings.CutPrefix`, added in 1.20),
+  which the go directive does not. Set `VK_MATRIX_GO_TOOLCHAIN=go1.18.10` to compile, vet and test the generated packages
+  with it; the generator and stringer still run on your current Go. CI does this in the `go-floor` job.
+
+```sh
+VK_MATRIX_GO_TOOLCHAIN=go1.18.10 go test -count=1 -run TestRegistryMatrix ./matrix
+```
+
 ## Layout
 
 ```
@@ -56,8 +70,9 @@ failing stage.
    and carries on, so the exit status is not enough), and a second run produces byte-identical files.
    The registry file is passed by a fixed relative name because the name is written into every generated file's header.
 2. **gogenerate**: `go generate ./...` runs stringer on the output.
-3. **build**: `go build ./...`. The output is written as a standalone module (`github.com/bbredesen/go-vk`) with vk-gen's
-   `go.sum`.
+3. **build**: `go build ./...`. The output is written as a standalone module (`github.com/bbredesen/go-vk`) that declares
+   `go 1.18` and requires `golang.org/x/sys` v0.5.0, the oldest versions go-vk supports. The `go 1.18` line makes the
+   compiler reject newer language features (builtin `min`, `max`, `clear`, range over an integer) on any toolchain.
 4. **vet**: `go vet -unsafeptr=false ./...`. The unsafeptr check is off because the bindings pass pointers to C by design.
    This also compiles the static test files.
 5. **test**: `go test ./...` runs the static tests from `_static_include` against a fake Vulkan library.
