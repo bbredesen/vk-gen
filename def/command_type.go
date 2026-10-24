@@ -3,6 +3,7 @@ package def
 import (
 	"fmt"
 	"io"
+	"slices"
 	"strings"
 	"unicode"
 	"unicode/utf8"
@@ -20,6 +21,13 @@ type commandType struct {
 	resolvedReturnType TypeDefiner
 
 	staticCodeRef string
+
+	// aliasNames are the registry names of the aliases of this command that are part of the output. Vulkan treats each as
+	// a separate command, and a device may offer only an alias, so command resolution tries them (see resolveSlow in
+	// static_common.go). Collected while resolving the aliases, so an alias in a platform file registered after this
+	// command was printed would be lost; printed guards against that.
+	aliasNames []string
+	printed    bool
 
 	// afterCall is optional Go source from exceptions.json ("go:afterCall") emitted at the end of the generated function,
 	// after the Vulkan call and result handling and before the final return. It may refer to the command's parameters
@@ -88,11 +96,38 @@ func (t *commandType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 	}
 	iset.ResolvedTypes[t.registryName] = t
 
+	if t.IsAlias() {
+		t.registerAlias()
+	}
+
 	t.isResolved = true
 	return iset
 }
 
+// registerAlias records this alias on the command it ultimately refers to.
+func (t *commandType) registerAlias() {
+	target := t
+	for depth := 0; target.IsAlias() && depth < 16; depth++ {
+		next, ok := target.resolvedAliasType.(*commandType)
+		if !ok {
+			return
+		}
+		target = next
+	}
+
+	if target.printed {
+		log.WithField("alias", t.registryName).WithField("command", target.registryName).
+			Error("alias resolved after its command was printed; the alias name will not be tried when resolving the command")
+		return
+	}
+	if !slices.Contains(target.aliasNames, t.registryName) {
+		target.aliasNames = append(target.aliasNames, t.registryName)
+	}
+}
+
 func (t *commandType) PrintPublicDeclaration(w io.Writer) {
+	t.printed = true
+
 	if t.staticCodeRef != "" {
 		fmt.Fprintf(w, "// %s is static code, not generated from vk.xml; aliased to %s\n", t.PublicName(), t.staticCodeRef)
 		fmt.Fprintf(w, "var %s = %s\n\n", t.PublicName(), t.staticCodeRef)
@@ -462,8 +497,17 @@ func (t *commandType) PrintPublicDeclaration(w io.Writer) {
 
 	fmt.Fprintf(w, "}\n\n")
 
-	fmt.Fprintf(w, "var %s = &vkCommand{\"%s\", %d, %v, nil}\n",
-		t.RegistryName(), t.RegistryName(), t.bindingParamCount, t.resolvedReturnType != nil)
+	aliases := "nil"
+	if len(t.aliasNames) > 0 {
+		names := slices.Clone(t.aliasNames)
+		slices.Sort(names)
+		for i, n := range names {
+			names[i] = fmt.Sprintf("%q", n)
+		}
+		aliases = "[]string{" + strings.Join(names, ", ") + "}"
+	}
+	fmt.Fprintf(w, "var %s = &vkCommand{\"%s\", %d, %v, nil, %s}\n",
+		t.RegistryName(), t.RegistryName(), t.bindingParamCount, t.resolvedReturnType != nil, aliases)
 }
 
 func trampStringFromParams(sl []*commandParam) string {

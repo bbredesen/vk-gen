@@ -31,7 +31,7 @@ func CreateMetalSurfaceEXT(instance Instance, createInfo *MetalSurfaceCreateInfo
 	return
 }
 
-var vkCreateMetalSurfaceEXT = &vkCommand{"vkCreateMetalSurfaceEXT", 4, true, nil}
+var vkCreateMetalSurfaceEXT = &vkCommand{"vkCreateMetalSurfaceEXT", 4, true, nil, nil}
 
 // ExportMetalObjectsEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkExportMetalObjectsEXT.html
 func ExportMetalObjectsEXT(device Device) (metalObjectsInfo ExportMetalObjectsInfoEXT) {
@@ -44,7 +44,7 @@ func ExportMetalObjectsEXT(device Device) (metalObjectsInfo ExportMetalObjectsIn
 	return
 }
 
-var vkExportMetalObjectsEXT = &vkCommand{"vkExportMetalObjectsEXT", 2, true, nil}
+var vkExportMetalObjectsEXT = &vkCommand{"vkExportMetalObjectsEXT", 2, true, nil, nil}
 
 // GetMemoryMetalHandleEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryMetalHandleEXT.html
 func GetMemoryMetalHandleEXT(device Device, getMetalHandleInfo *MemoryGetMetalHandleInfoEXT) (handle *byte, r error) {
@@ -65,7 +65,7 @@ func GetMemoryMetalHandleEXT(device Device, getMetalHandleInfo *MemoryGetMetalHa
 	return
 }
 
-var vkGetMemoryMetalHandleEXT = &vkCommand{"vkGetMemoryMetalHandleEXT", 3, true, nil}
+var vkGetMemoryMetalHandleEXT = &vkCommand{"vkGetMemoryMetalHandleEXT", 3, true, nil, nil}
 
 // GetMemoryMetalHandlePropertiesEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryMetalHandlePropertiesEXT.html
 func GetMemoryMetalHandlePropertiesEXT(device Device, handleType ExternalMemoryHandleTypeFlagBits, handle *byte) (memoryMetalHandleProperties MemoryMetalHandlePropertiesEXT, r error) {
@@ -87,4 +87,4 @@ func GetMemoryMetalHandlePropertiesEXT(device Device, handleType ExternalMemoryH
 	return
 }
 
-var vkGetMemoryMetalHandlePropertiesEXT = &vkCommand{"vkGetMemoryMetalHandlePropertiesEXT", 4, true, nil}
+var vkGetMemoryMetalHandlePropertiesEXT = &vkCommand{"vkGetMemoryMetalHandlePropertiesEXT", 4, true, nil, nil}

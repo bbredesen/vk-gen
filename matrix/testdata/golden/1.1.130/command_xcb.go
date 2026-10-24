@@ -31,7 +31,7 @@ func CreateXcbSurfaceKHR(instance Instance, createInfo *XcbSurfaceCreateInfoKHR,
 	return
 }
 
-var vkCreateXcbSurfaceKHR = &vkCommand{"vkCreateXcbSurfaceKHR", 4, true, nil}
+var vkCreateXcbSurfaceKHR = &vkCommand{"vkCreateXcbSurfaceKHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceXcbPresentationSupportKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html
 func GetPhysicalDeviceXcbPresentationSupportKHR(physicalDevice PhysicalDevice, queueFamilyIndex uint32, visual_id uint32) (r bool, connection uint32) {
@@ -44,4 +44,4 @@ func GetPhysicalDeviceXcbPresentationSupportKHR(physicalDevice PhysicalDevice, q
 	return
 }
 
-var vkGetPhysicalDeviceXcbPresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceXcbPresentationSupportKHR", 4, true, nil}
+var vkGetPhysicalDeviceXcbPresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceXcbPresentationSupportKHR", 4, true, nil, nil}

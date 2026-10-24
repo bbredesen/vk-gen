@@ -31,7 +31,7 @@ func CreateXlibSurfaceKHR(instance Instance, createInfo *XlibSurfaceCreateInfoKH
 	return
 }
 
-var vkCreateXlibSurfaceKHR = &vkCommand{"vkCreateXlibSurfaceKHR", 4, true, nil}
+var vkCreateXlibSurfaceKHR = &vkCommand{"vkCreateXlibSurfaceKHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceXlibPresentationSupportKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html
 func GetPhysicalDeviceXlibPresentationSupportKHR(physicalDevice PhysicalDevice, queueFamilyIndex uint32, visualID uint32) (r bool, dpy uint32) {
@@ -44,4 +44,4 @@ func GetPhysicalDeviceXlibPresentationSupportKHR(physicalDevice PhysicalDevice, 
 	return
 }
 
-var vkGetPhysicalDeviceXlibPresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceXlibPresentationSupportKHR", 4, true, nil}
+var vkGetPhysicalDeviceXlibPresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceXlibPresentationSupportKHR", 4, true, nil, nil}
