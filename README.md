@@ -24,6 +24,11 @@ Use `-inFile` to specify a registry filename or path (defaults to `./vk.xml`)
 
 Use `-outDir` to specify the destination folder for writing go-vk files (defaults to `./vk/`)
 
+Use `-platform` to choose the platforms to generate window-system extensions for, as a comma-separated list of Vulkan
+platform names (not GOOS names). It defaults to `win32,macos,metal,xcb,xlib,xlib_xrandr,wayland`, which covers Windows,
+macOS, and Linux with X11 (Xcb or Xlib) or Wayland. Each platform's files carry a `go:build` tag for its OS, so they are
+ignored on other systems. Use `-platform ""` for core Vulkan only.
+
 The `_static_include` folder in this repository contains static template files that are copied directly into the output
 folder. These files are embeded in the binary and then written to the output, but are not evaluated or otherwise used uin this tool. Go tooling should ignore this folder because of the underscore prefix, but you can safely ignore linters or other warnings that arise.
 

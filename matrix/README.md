@@ -28,7 +28,7 @@ changed and will report a stale pass. Use `-count=1` to force a test run.
 
 Testing needs `goimports` and `stringer` (in `PATH` or `GOPATH/bin`) and a C compiler, because the generated package uses cgo.
 Without the tools the test skips locally; it fails if `CI` or `VK_MATRIX_REQUIRE_TOOLS` is set. The generated package is
-built for the host OS only, since cgo cannot be cross-compiled without a cross C compiler. The first run may download
+built for the host OS only, since cgo cannot be cross-compiled without a cross C compiler. The Linux platform files (xcb, xlib, wayland) are therefore compiled only by the `ubuntu-latest` job in CI. The first run may download
 `golang.org/x/sys`.
 
 ## Layout

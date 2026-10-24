@@ -39,7 +39,7 @@ func init() {
 	flag.StringVar(&inFileName, "inFile", "vk.xml", "Vulkan XML registry file to read")
 	flag.StringVar(&outDirName, "outDir", "vk", "Directory to write go-vk output to")
 	flag.StringVar(&apiName, "api", "vulkan", "API to generate against; possible values include 'vulkan' and 'vulkansc'")
-	flag.StringVar(&platformTargets, "platform", "win32,macos,metal", "Comma-separated list of platforms to generate for; this looks at the Vulkan name, not the GOOS name for the platform")
+	flag.StringVar(&platformTargets, "platform", "win32,macos,metal,xcb,xlib,xlib_xrandr,wayland", "Comma-separated list of platforms to generate for; this looks at the Vulkan name, not the GOOS name for the platform")
 
 	flag.Parse()
 
