@@ -161,8 +161,6 @@ func openLibrary() {
 	case "windows":
 		libName = "vulkan-1.dll"
 	case "darwin":
-		// TODO: Running on Mac/Darwin is tested only to the point of creating and
-		// destroying a Vulkan instance.
 		libName = "libMoltenVK.dylib"
 	case "linux":
 		// TODO: Running on Linux is tested only to the point of creating and
