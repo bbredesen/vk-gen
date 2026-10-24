@@ -21,7 +21,7 @@ func AcquireFullScreenExclusiveModeEXT(device Device, swapchain SwapchainKHR) (r
 	return
 }
 
-var vkAcquireFullScreenExclusiveModeEXT = &vkCommand{"vkAcquireFullScreenExclusiveModeEXT", 2, true, nil}
+var vkAcquireFullScreenExclusiveModeEXT = &vkCommand{"vkAcquireFullScreenExclusiveModeEXT", 2, true, nil, nil}
 
 // AcquireWinrtDisplayNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAcquireWinrtDisplayNV.html
 func AcquireWinrtDisplayNV(physicalDevice PhysicalDevice, display DisplayKHR) (r error) {
@@ -34,7 +34,7 @@ func AcquireWinrtDisplayNV(physicalDevice PhysicalDevice, display DisplayKHR) (r
 	return
 }
 
-var vkAcquireWinrtDisplayNV = &vkCommand{"vkAcquireWinrtDisplayNV", 2, true, nil}
+var vkAcquireWinrtDisplayNV = &vkCommand{"vkAcquireWinrtDisplayNV", 2, true, nil, nil}
 
 // CreateWin32SurfaceKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateWin32SurfaceKHR.html
 func CreateWin32SurfaceKHR(instance Instance, createInfo *Win32SurfaceCreateInfoKHR, allocator *AllocationCallbacks) (surface SurfaceKHR, r error) {
@@ -61,7 +61,7 @@ func CreateWin32SurfaceKHR(instance Instance, createInfo *Win32SurfaceCreateInfo
 	return
 }
 
-var vkCreateWin32SurfaceKHR = &vkCommand{"vkCreateWin32SurfaceKHR", 4, true, nil}
+var vkCreateWin32SurfaceKHR = &vkCommand{"vkCreateWin32SurfaceKHR", 4, true, nil, nil}
 
 // GetDeviceGroupSurfacePresentModes2EXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html
 func GetDeviceGroupSurfacePresentModes2EXT(device Device, surfaceInfo *PhysicalDeviceSurfaceInfo2KHR) (modes DeviceGroupPresentModeFlagsKHR, r error) {
@@ -82,7 +82,7 @@ func GetDeviceGroupSurfacePresentModes2EXT(device Device, surfaceInfo *PhysicalD
 	return
 }
 
-var vkGetDeviceGroupSurfacePresentModes2EXT = &vkCommand{"vkGetDeviceGroupSurfacePresentModes2EXT", 3, true, nil}
+var vkGetDeviceGroupSurfacePresentModes2EXT = &vkCommand{"vkGetDeviceGroupSurfacePresentModes2EXT", 3, true, nil, nil}
 
 // GetFenceWin32HandleKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetFenceWin32HandleKHR.html
 func GetFenceWin32HandleKHR(device Device, getWin32HandleInfo *FenceGetWin32HandleInfoKHR) (handle windows.Handle, r error) {
@@ -103,7 +103,7 @@ func GetFenceWin32HandleKHR(device Device, getWin32HandleInfo *FenceGetWin32Hand
 	return
 }
 
-var vkGetFenceWin32HandleKHR = &vkCommand{"vkGetFenceWin32HandleKHR", 3, true, nil}
+var vkGetFenceWin32HandleKHR = &vkCommand{"vkGetFenceWin32HandleKHR", 3, true, nil, nil}
 
 // GetMemoryWin32HandleKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleKHR.html
 func GetMemoryWin32HandleKHR(device Device, getWin32HandleInfo *MemoryGetWin32HandleInfoKHR) (handle windows.Handle, r error) {
@@ -124,7 +124,7 @@ func GetMemoryWin32HandleKHR(device Device, getWin32HandleInfo *MemoryGetWin32Ha
 	return
 }
 
-var vkGetMemoryWin32HandleKHR = &vkCommand{"vkGetMemoryWin32HandleKHR", 3, true, nil}
+var vkGetMemoryWin32HandleKHR = &vkCommand{"vkGetMemoryWin32HandleKHR", 3, true, nil, nil}
 
 // GetMemoryWin32HandleNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleNV.html
 func GetMemoryWin32HandleNV(device Device, memory DeviceMemory, handleType ExternalMemoryHandleTypeFlagsNV) (handle windows.Handle, r error) {
@@ -139,7 +139,7 @@ func GetMemoryWin32HandleNV(device Device, memory DeviceMemory, handleType Exter
 	return
 }
 
-var vkGetMemoryWin32HandleNV = &vkCommand{"vkGetMemoryWin32HandleNV", 4, true, nil}
+var vkGetMemoryWin32HandleNV = &vkCommand{"vkGetMemoryWin32HandleNV", 4, true, nil, nil}
 
 // GetMemoryWin32HandlePropertiesKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html
 func GetMemoryWin32HandlePropertiesKHR(device Device, handleType ExternalMemoryHandleTypeFlagBits, handle windows.Handle) (memoryWin32HandleProperties MemoryWin32HandlePropertiesKHR, r error) {
@@ -155,7 +155,7 @@ func GetMemoryWin32HandlePropertiesKHR(device Device, handleType ExternalMemoryH
 	return
 }
 
-var vkGetMemoryWin32HandlePropertiesKHR = &vkCommand{"vkGetMemoryWin32HandlePropertiesKHR", 4, true, nil}
+var vkGetMemoryWin32HandlePropertiesKHR = &vkCommand{"vkGetMemoryWin32HandlePropertiesKHR", 4, true, nil, nil}
 
 // GetPhysicalDeviceSurfacePresentModes2EXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html
 func GetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice PhysicalDevice, surfaceInfo *PhysicalDeviceSurfaceInfo2KHR) (presentModes []PresentModeKHR, r error) {
@@ -190,7 +190,7 @@ func GetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice PhysicalDevice, sur
 	return
 }
 
-var vkGetPhysicalDeviceSurfacePresentModes2EXT = &vkCommand{"vkGetPhysicalDeviceSurfacePresentModes2EXT", 4, true, nil}
+var vkGetPhysicalDeviceSurfacePresentModes2EXT = &vkCommand{"vkGetPhysicalDeviceSurfacePresentModes2EXT", 4, true, nil, nil}
 
 // GetPhysicalDeviceWin32PresentationSupportKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html
 func GetPhysicalDeviceWin32PresentationSupportKHR(physicalDevice PhysicalDevice, queueFamilyIndex uint32) (r bool) {
@@ -201,7 +201,7 @@ func GetPhysicalDeviceWin32PresentationSupportKHR(physicalDevice PhysicalDevice,
 	return
 }
 
-var vkGetPhysicalDeviceWin32PresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceWin32PresentationSupportKHR", 2, true, nil}
+var vkGetPhysicalDeviceWin32PresentationSupportKHR = &vkCommand{"vkGetPhysicalDeviceWin32PresentationSupportKHR", 2, true, nil, nil}
 
 // GetSemaphoreWin32HandleKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html
 func GetSemaphoreWin32HandleKHR(device Device, getWin32HandleInfo *SemaphoreGetWin32HandleInfoKHR) (handle windows.Handle, r error) {
@@ -222,7 +222,7 @@ func GetSemaphoreWin32HandleKHR(device Device, getWin32HandleInfo *SemaphoreGetW
 	return
 }
 
-var vkGetSemaphoreWin32HandleKHR = &vkCommand{"vkGetSemaphoreWin32HandleKHR", 3, true, nil}
+var vkGetSemaphoreWin32HandleKHR = &vkCommand{"vkGetSemaphoreWin32HandleKHR", 3, true, nil, nil}
 
 // GetWinrtDisplayNV: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetWinrtDisplayNV.html
 func GetWinrtDisplayNV(physicalDevice PhysicalDevice, deviceRelativeId uint32) (display DisplayKHR, r error) {
@@ -237,7 +237,7 @@ func GetWinrtDisplayNV(physicalDevice PhysicalDevice, deviceRelativeId uint32) (
 	return
 }
 
-var vkGetWinrtDisplayNV = &vkCommand{"vkGetWinrtDisplayNV", 3, true, nil}
+var vkGetWinrtDisplayNV = &vkCommand{"vkGetWinrtDisplayNV", 3, true, nil, nil}
 
 // ImportFenceWin32HandleKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkImportFenceWin32HandleKHR.html
 func ImportFenceWin32HandleKHR(device Device, importFenceWin32HandleInfo *ImportFenceWin32HandleInfoKHR) (r error) {
@@ -255,7 +255,7 @@ func ImportFenceWin32HandleKHR(device Device, importFenceWin32HandleInfo *Import
 	return
 }
 
-var vkImportFenceWin32HandleKHR = &vkCommand{"vkImportFenceWin32HandleKHR", 2, true, nil}
+var vkImportFenceWin32HandleKHR = &vkCommand{"vkImportFenceWin32HandleKHR", 2, true, nil, nil}
 
 // ImportSemaphoreWin32HandleKHR: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html
 func ImportSemaphoreWin32HandleKHR(device Device, importSemaphoreWin32HandleInfo *ImportSemaphoreWin32HandleInfoKHR) (r error) {
@@ -273,7 +273,7 @@ func ImportSemaphoreWin32HandleKHR(device Device, importSemaphoreWin32HandleInfo
 	return
 }
 
-var vkImportSemaphoreWin32HandleKHR = &vkCommand{"vkImportSemaphoreWin32HandleKHR", 2, true, nil}
+var vkImportSemaphoreWin32HandleKHR = &vkCommand{"vkImportSemaphoreWin32HandleKHR", 2, true, nil, nil}
 
 // ReleaseFullScreenExclusiveModeEXT: See https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html
 func ReleaseFullScreenExclusiveModeEXT(device Device, swapchain SwapchainKHR) (r error) {
@@ -286,4 +286,4 @@ func ReleaseFullScreenExclusiveModeEXT(device Device, swapchain SwapchainKHR) (r
 	return
 }
 
-var vkReleaseFullScreenExclusiveModeEXT = &vkCommand{"vkReleaseFullScreenExclusiveModeEXT", 2, true, nil}
+var vkReleaseFullScreenExclusiveModeEXT = &vkCommand{"vkReleaseFullScreenExclusiveModeEXT", 2, true, nil, nil}

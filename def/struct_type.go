@@ -78,9 +78,9 @@ func (t *structType) Resolve(tr TypeRegistry, vr ValueRegistry) *IncludeSet {
 				Error("alias not found in registry while resolving type")
 			return NewIncludeSet()
 		} else {
-			t.resolvedAliasType.Resolve(tr, vr)
-			rval := NewIncludeSet()
+			rval := t.resolvedAliasType.Resolve(tr, vr)
 			rval.IncludeTypes[t.aliasTypeName] = true
+			rval.ResolvedTypes[t.registryName] = t
 			return rval
 		}
 	}
@@ -147,6 +147,10 @@ func (t *structType) linkSelector(m *structMember) {
 }
 
 func (t *structType) IsIdenticalPublicAndInternal() bool {
+	if t.IsAlias() {
+		return t.resolvedAliasType.IsIdenticalPublicAndInternal()
+	}
+
 	for _, m := range t.members {
 		// part of fix for issue #4
 		if asPointerType, isPointer := m.resolvedType.(*pointerType); isPointer && asPointerType.resolvedPointsAtType == t {
@@ -194,15 +198,17 @@ func (t *structType) PrintPublicDeclaration(w io.Writer) {
 }
 
 func (t *structType) PrintInternalDeclaration(w io.Writer) {
+	if t.IsAlias() {
+		// The alias is the same type as its target, so it already has the target's Goify and Vulkanize methods
+		fmt.Fprintf(w, "type %s = %s\n", t.InternalName(), t.resolvedAliasType.InternalName())
+		return
+	}
 
 	var preamble, structDecl, epilogue strings.Builder
 
 	if t.IsIdenticalPublicAndInternal() {
 		fmt.Fprintf(w, "type %s = %s\n", t.InternalName(), t.PublicName())
 	} else {
-		if t.isReturnedOnly {
-			fmt.Fprintf(w, "// WARNING - struct %s is returned only, which is not yet handled in the binding\n", t.PublicName())
-		}
 		// _vk type declaration
 		fmt.Fprintf(w, "type %s struct {\n", t.InternalName())
 		for _, m := range t.members {
@@ -476,6 +482,7 @@ func newStructTypeFromXML(node *xmlquery.Node, api string) *structType {
 	rval := structType{}
 
 	rval.registryName = node.SelectAttr("name")
+	rval.aliasTypeName = node.SelectAttr("alias")
 	rval.isReturnedOnly = node.SelectAttr("returnedonly") == "true"
 
 	queryString := fmt.Sprintf("member[%s]", apiPredicate(api))

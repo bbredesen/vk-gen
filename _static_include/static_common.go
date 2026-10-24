@@ -3,6 +3,7 @@ package vk
 import (
 	"bytes"
 	"runtime"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"unsafe"
@@ -45,6 +46,7 @@ type vkCommand struct {
 	argCount  int
 	hasReturn bool
 	fnHandle  unsafe.Pointer // read and written atomically; see resolve()
+	aliases   []string       // other names Vulkan knows this command by; see resolveSlow()
 }
 
 var dlHandle unsafe.Pointer
@@ -70,6 +72,10 @@ func OverrideDefaultVulkanLibrary(nameOrPath string) {
 //     for any device of the instance, and no per-device state is needed.
 //  3. dlsym/GetProcAddress on the library, for libraries that export commands directly (such as MoltenVK) or that do not
 //     export vkGetInstanceProcAddr
+//
+// If the command's own name is found by none of those, the names it is aliased by (vkCommand.aliases)
+// are tried in the same way, because a device that has an extension but not the core version that absorbed it offers only
+// the extension's name for the command.
 //
 // A command that is found nowhere panics with its name. Callers are expected to have checked, through the Vulkan API,
 // that the extension providing a command is available and enabled before calling it.
@@ -127,7 +133,35 @@ func (cmd *vkCommand) resolveSlow() unsafe.Pointer {
 
 	openLibrary()
 
-	cname := C.CString(cmd.protoName)
+	var fn unsafe.Pointer
+	if fn = lookupCommand(cmd.protoName); fn == nil {
+		// A command promoted to core, or to another extension, keeps its old name as an alias, and a device that
+		// supports the extension but not the newer version offers only that name. The signatures are identical.
+		for _, alias := range cmd.aliases {
+			if fn = lookupCommand(alias); fn != nil {
+				break
+			}
+		}
+	}
+	if fn == nil {
+		msg := "vk: " + cmd.protoName + " is not available: the extension that provides it is not supported or not enabled " +
+			"(or, for an instance or device level command, no instance has been created)"
+		if len(cmd.aliases) > 0 {
+			msg += "; also tried " + strings.Join(cmd.aliases, ", ")
+		}
+		panic(msg)
+	}
+
+	atomic.StorePointer(&cmd.fnHandle, fn)
+	resolvedCmds = append(resolvedCmds, cmd)
+	return fn
+}
+
+// lookupCommand finds one command name: through vkGetInstanceProcAddr with no instance, then with the newest live
+// instance, then the library's own exports (the order described under "Command resolution" above). It returns nil if the
+// name is not found. The caller holds resolveMu and has opened the library.
+func lookupCommand(name string) unsafe.Pointer {
+	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
 
 	var fn unsafe.Pointer
@@ -140,13 +174,6 @@ func (cmd *vkCommand) resolveSlow() unsafe.Pointer {
 	if fn == nil {
 		fn = C.SymbolFromName(dlHandle, unsafe.Pointer(cname))
 	}
-	if fn == nil {
-		panic("vk: " + cmd.protoName + " is not available: the extension that provides it is not supported or not enabled " +
-			"(or, for an instance or device level command, no instance has been created)")
-	}
-
-	atomic.StorePointer(&cmd.fnHandle, fn)
-	resolvedCmds = append(resolvedCmds, cmd)
 	return fn
 }
 

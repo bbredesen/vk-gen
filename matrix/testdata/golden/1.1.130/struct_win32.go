@@ -471,7 +471,6 @@ type MemoryWin32HandlePropertiesKHR struct {
 	MemoryTypeBits uint32
 }
 
-// WARNING - struct MemoryWin32HandlePropertiesKHR is returned only, which is not yet handled in the binding
 type _vkMemoryWin32HandlePropertiesKHR struct {
 	sType          StructureType
 	pNext          unsafe.Pointer

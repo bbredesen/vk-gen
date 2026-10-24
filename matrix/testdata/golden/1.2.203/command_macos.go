@@ -31,4 +31,4 @@ func CreateMacOSSurfaceMVK(instance Instance, createInfo *MacOSSurfaceCreateInfo
 	return
 }
 
-var vkCreateMacOSSurfaceMVK = &vkCommand{"vkCreateMacOSSurfaceMVK", 4, true, nil}
+var vkCreateMacOSSurfaceMVK = &vkCommand{"vkCreateMacOSSurfaceMVK", 4, true, nil, nil}

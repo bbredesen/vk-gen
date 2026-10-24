@@ -505,7 +505,6 @@ type MemoryMetalHandlePropertiesEXT struct {
 	MemoryTypeBits uint32
 }
 
-// WARNING - struct MemoryMetalHandlePropertiesEXT is returned only, which is not yet handled in the binding
 type _vkMemoryMetalHandlePropertiesEXT struct {
 	sType          StructureType
 	pNext          unsafe.Pointer

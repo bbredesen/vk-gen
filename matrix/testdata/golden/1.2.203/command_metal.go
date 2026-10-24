@@ -31,4 +31,4 @@ func CreateMetalSurfaceEXT(instance Instance, createInfo *MetalSurfaceCreateInfo
 	return
 }
 
-var vkCreateMetalSurfaceEXT = &vkCommand{"vkCreateMetalSurfaceEXT", 4, true, nil}
+var vkCreateMetalSurfaceEXT = &vkCommand{"vkCreateMetalSurfaceEXT", 4, true, nil, nil}
